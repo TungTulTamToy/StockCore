@@ -1,0 +1,8 @@
+/home/tul/apps/StockCore/bin/Debug/netcoreapp1.1/StockCore.deps.json
+/home/tul/apps/StockCore/bin/Debug/netcoreapp1.1/StockCore.dll
+/home/tul/apps/StockCore/bin/Debug/netcoreapp1.1/StockCore.pdb
+/home/tul/apps/StockCore/obj/Debug/netcoreapp1.1/StockCore.AssemblyInfo.cs
+/home/tul/apps/StockCore/obj/Debug/netcoreapp1.1/StockCore.dll
+/home/tul/apps/StockCore/obj/Debug/netcoreapp1.1/StockCore.pdb
+/home/tul/apps/StockCore/bin/Debug/netcoreapp1.1/StockCore.runtimeconfig.json
+/home/tul/apps/StockCore/bin/Debug/netcoreapp1.1/StockCore.runtimeconfig.dev.json
