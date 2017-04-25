@@ -15,7 +15,7 @@ namespace StockCore.DomainEntity
             this.description = description;
         }
         public int ID => id;
-        public Tracer Caller =>tracer;
+        public Tracer Caller => tracer;
         public List<CallHistory> CallHistories=new List<CallHistory>();
         public void AddCallHistory(CallHistory callHistory)
         {
