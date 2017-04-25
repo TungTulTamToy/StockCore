@@ -7,16 +7,16 @@ using StockCore.DomainEntity;
 
 namespace StockCore.Aop.Mon.Builder
 {
-    public class MonBuilderDec<TResult> : BaseMonDec, IBuilder<string, TResult> where TResult:class
+    public class CacheBuilderDec<TResult> : BaseMonDec, IBuilder<string, TResult> where TResult:class
     {
         private readonly IBuilder<string, TResult> inner;
         private readonly Func<ILogger,Tracer,string,bool> validate;
-        public MonBuilderDec(
+        public CacheBuilderDec(
             IBuilder<string, TResult> inner,
             Func<ILogger,Tracer,string,bool> validate,            
             int processErrorID,
             int outerErrorID,
-            MonitoringModule module,
+            Monitoring module,
             ILogger logger,
             Tracer tracer):base(processErrorID,outerErrorID,module,logger,tracer)
         {

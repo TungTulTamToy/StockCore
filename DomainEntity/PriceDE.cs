@@ -5,8 +5,13 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace StockCore.DomainEntity
 {
     [DataContract]
-    public class PriceDE:BaseDE,IJoinKeyField<DateTime>,IValidField,IQuoteKeyField
+    public class PriceDE:BaseDE,IJoinKeyField<DateTime>,IValidField,IKeyField<string>
     {
+        public string Key 
+        { 
+            get => Quote; 
+            set => Quote=value; 
+        }
         public string Quote { get; set; }
         [DataMember]
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]

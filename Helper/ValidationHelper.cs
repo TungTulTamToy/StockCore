@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
 using StockCore.ErrorException;
@@ -25,10 +26,20 @@ namespace StockCore.Helper
                 return true;
             };
         }
-        public Func<ILogger,Tracer,IEnumerable<string>,bool> ValidateListOfString(int errorID,string keyName)
+        public Func<ILogger,Tracer,IEnumerable<string>,bool> ValidateStringItems(int errorID,string keyName)
         {
-            return (logger,tracer,value)=>{
-                if(value.Any(v=>string.IsNullOrWhiteSpace(v)))
+            return (logger,tracer,item)=>{
+                if(item.Any(i=>string.IsNullOrWhiteSpace(i)))
+                {
+                    throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty");
+                }
+                return true;
+            };
+        }
+        public Func<ILogger,Tracer,Expression<Func<T,bool>>,bool> ValidateExpression<T>(int errorID,string keyName) where T:class
+        {
+            return (logger,tracer,expression)=>{
+                if(expression==null)
                 {
                     throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty");
                 }
@@ -49,10 +60,10 @@ namespace StockCore.Helper
                 return true;
             };
         }
-        public Func<ILogger,Tracer,IEnumerable<T>,bool> ValidateQuoteKeyField<T>(int errorID,string keyName) where T:IQuoteKeyField
+        public Func<ILogger,Tracer,IEnumerable<T>,bool> ValidateItemsWithStringKeyField<T>(int errorID,string keyName) where T:IKeyField<string>
         {
             return (logger,tracer,items)=>{
-                if(items.Any(i=>string.IsNullOrWhiteSpace(i.Quote)))
+                if(items.Any(i=>string.IsNullOrWhiteSpace(i.Key)))
                 {
                     throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty");
                 }

@@ -7,7 +7,7 @@ using System;
 
 namespace StockCore.Aop.Mon.Repo.MongoDB
 {
-    public class MonGetByKeyRepoDec<T> : MonRepoDec<T>, IGetByKeyRepo<T,string> where T:BaseDE,IQuoteKeyField
+    public class MonGetByKeyRepoDec<T> : MonRepoDec<T>, IGetByKeyRepo<T,string> where T:BaseDE,IKeyField<string>
     {
         private readonly Func<ILogger,Tracer,string,bool> validate;
         public MonGetByKeyRepoDec(
@@ -15,7 +15,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
             Func<ILogger,Tracer,string,bool> validate,            
             int processErrorID,
             int outerErrorID,
-            Monitoring module,
+            MonitoringModule module,
             ILogger logger,
             Tracer tracer
             ):base(inner,processErrorID,outerErrorID,module,logger,tracer)

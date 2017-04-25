@@ -10,13 +10,13 @@ namespace StockCore.Aop.Mon.Repo.AppSetting
     public class MonConfigReaderDec : BaseDec,IConfigReader
     {
         private readonly IConfigReader inner; 
-        private readonly Monitoring module;
+        private readonly MonitoringModule module;
         private readonly int processErrorID;
         private readonly Func<ILogger,Tracer,string,bool> validate;
         private readonly Tracer tracer;
         public MonConfigReaderDec(
             IConfigReader inner,
-            Monitoring module,
+            MonitoringModule module,
             Func<ILogger,Tracer,string,bool> validate,
             int processErrorID,
             int outerErrorID,

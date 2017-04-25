@@ -1,31 +1,26 @@
+using System;
 using System.Collections.Generic;
 
 namespace StockCore.DomainEntity
 {
-    public class StockDE:IQuoteKeyField
+    public class StockDE:BaseDE,IKeyField<string>
     {
-        public string Quote=>quote;
-        public IEnumerable<PriceDE> Price=>price;
-        public IEnumerable<StatisticDE> Statistic=>statistic;
-        public IEnumerable<ShareDE> Share=>share;
-        public IEnumerable<ConsensusDE> Consensuse=>consensus;
-        public IEnumerable<NetProfitDE> NetProfit=>netprofit;
-        public IEnumerable<GrowthDE> Growth=>growth;
-        public IEnumerable<PriceCalDE> PriceCal=>pricecal;
-        public IEnumerable<PeDE> Pe=>pe;
-        public IEnumerable<PegDE> Peg=>peg;
-        public IEnumerable<PeDiffPercentDE> PeDiffPercent=>pediffpercent;
-        private readonly string quote;
-        private readonly IEnumerable<PriceDE> price;
-        private readonly IEnumerable<StatisticDE> statistic;
-        private readonly IEnumerable<ShareDE> share;
-        private readonly IEnumerable<ConsensusDE> consensus;
-        private readonly IEnumerable<NetProfitDE> netprofit;
-        private readonly IEnumerable<GrowthDE> growth;
-        private readonly IEnumerable<PriceCalDE> pricecal;
-        private readonly IEnumerable<PeDE> pe;
-        private readonly IEnumerable<PegDE> peg;
-        private readonly IEnumerable<PeDiffPercentDE> pediffpercent;
+        public string Key
+        {
+            get=>Quote;
+            set=>Quote=value;
+        }
+        public string Quote{get;set;}
+        public IEnumerable<PriceDE> Price{get;set;}
+        public IEnumerable<StatisticDE> Statistic{get;set;}
+        public IEnumerable<ShareDE> Share{get;set;}
+        public IEnumerable<ConsensusDE> Consensus{get;set;}
+        public IEnumerable<NetProfitDE> NetProfit{get;set;}
+        public IEnumerable<GrowthDE> Growth{get;set;}
+        public IEnumerable<PriceCalDE> PriceCal{get;set;}
+        public IEnumerable<PeDE> Pe{get;set;}
+        public IEnumerable<PegDE> Peg{get;set;}
+        public IEnumerable<PeDiffPercentDE> PeDiffPercent{get;set;}
         public StockDE(
             string quote,
             IEnumerable<PriceDE> price,
@@ -39,17 +34,17 @@ namespace StockCore.DomainEntity
             IEnumerable<PegDE> peg,
             IEnumerable<PeDiffPercentDE> pediffpercent)
         {
-            this.quote = quote;
-            this.price = price;
-            this.statistic = statistic;
-            this.share = share;
-            this.consensus = consensus;
-            this.netprofit = netprofit;
-            this.growth = growth;
-            this.pricecal = pricecal;
-            this.pe = pe;
-            this.peg = peg;
-            this.pediffpercent = pediffpercent;
+            this.Quote = quote;
+            this.Price = price;
+            this.Statistic = statistic;
+            this.Share = share;
+            this.Consensus = consensus;
+            this.NetProfit = netprofit;
+            this.Growth = growth;
+            this.PriceCal = pricecal;
+            this.Pe = pe;
+            this.Peg = peg;
+            this.PeDiffPercent = pediffpercent;
         }
     }
 }

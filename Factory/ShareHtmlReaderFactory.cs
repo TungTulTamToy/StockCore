@@ -26,7 +26,7 @@ namespace StockCore.Factory
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
             IConfigReader configReader
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.client = client;
             this.doc = doc;

@@ -6,8 +6,13 @@ using static StockCore.DomainEntity.Enum.StateOperation;
 namespace StockCore.DomainEntity
 {
     [Serializable]
-    public class OperationStateDE:BaseDE,IQuoteKeyField
+    public class OperationStateDE:BaseDE,IKeyField<string>
     {
+        public string Key 
+        { 
+            get => Quote; 
+            set => Quote=value; 
+        }
         public string Quote { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Date { get; set; }

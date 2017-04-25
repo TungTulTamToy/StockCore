@@ -23,7 +23,7 @@ namespace StockCore.Factory
         public ModuleConfigFactory(ILogger logger,
             IConfigurationRoot configRoot,
             IConfigProvider config
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.configRoot = configRoot;
             this.config = config;

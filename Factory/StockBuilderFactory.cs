@@ -11,6 +11,7 @@ using StockCore.Helper;
 using StockCore.Business.Builder;
 using StockCore.Business.Repo.MongoDB;
 using StockCore.Aop.Mon.Builder;
+using StockCore.Aop.Cache.Builder;
 
 namespace StockCore.Factory
 {
@@ -22,23 +23,28 @@ namespace StockCore.Factory
         private const int OUTERERRID = 1020102;
         private const int MONPROCESSERRID = 1020103;
         private const int MONOUTERERRID = 1020104;
+        private const int CACHEPROCESSERRID = 1020105;
+        private const int CACHEOUTERERRID = 1020106;
         private readonly IConfigReader configReader;
         private readonly IFactory<string, IGetByKeyRepo<ShareDE,string>> shareRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<StatisticDE,string>> statisticRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<ConsensusDE,string>> consensusRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<PriceDE,string>> priceRepoFactory;
+        private readonly IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>> cacheRepoFactory;
         public StockBuilderFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<ShareDE,string>> shareRepoFactory,
             IFactory<string, IGetByKeyRepo<StatisticDE,string>> statisticRepoFactory,
             IFactory<string, IGetByKeyRepo<ConsensusDE,string>> consensusRepoFactory,
             IFactory<string, IGetByKeyRepo<PriceDE,string>> priceRepoFactory,
+            IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>> cacheRepoFactory,
             IConfigReader configReader
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.shareRepoFactory = shareRepoFactory;
             this.statisticRepoFactory = statisticRepoFactory;
             this.consensusRepoFactory = consensusRepoFactory;
             this.priceRepoFactory = priceRepoFactory;
+            this.cacheRepoFactory = cacheRepoFactory;
             this.configReader = configReader;
         }
         protected override IBuilder<string, StockDE> build(Tracer tracer,string t="")
@@ -50,12 +56,24 @@ namespace StockCore.Factory
                 consensusRepoFactory.Build(tracer),
                 priceRepoFactory.Build(tracer));  
             var module = configReader.GetByKey(getAopKey());
+            if(module.IsCacheActive())
+            {
+                inner = new CacheStockBuilderDec<StockDE>(
+                    inner,
+                    cacheRepoFactory.Build(tracer),
+                    module.Cache,
+                    CACHEPROCESSERRID,
+                    CACHEOUTERERRID,
+                    logger,
+                    tracer
+                );
+            }
             if(module.IsMonitoringActive())
             {
                 var helper = new ValidationHelper();
                 inner = new MonBuilderDec<StockDE>(
                     inner,
-                    helper.ValidateString(1020105,"Quote"),
+                    helper.ValidateString(1020107,"Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

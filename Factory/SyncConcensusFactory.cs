@@ -26,7 +26,7 @@ namespace StockCore.Factory
             ILogger logger,
             IFactory<string, IGetByKeyRepo<ConsensusDE,string>> dbConsensusFactory,
             IConfigReader configReader
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbConsensusFactory = dbConsensusFactory;
             this.configReader = configReader;
@@ -40,7 +40,7 @@ namespace StockCore.Factory
                 var helper = new ValidationHelper();
                 inner = new MonOperationDec<IEnumerable<ConsensusDE>>(
                     inner,
-                    helper.ValidateQuoteKeyField<ConsensusDE>(1014102,"Quote"),
+                    helper.ValidateItemsWithStringKeyField<ConsensusDE>(1014102,"Quote"),
                     MONPROCESSERRID,
                     OUTERERRID,
                     module.Monitoring,

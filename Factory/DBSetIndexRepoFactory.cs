@@ -31,7 +31,7 @@ namespace StockCore.Factory
             IReplaceOneModelBuilder replaceOneModelBuilder,
             IDeleteOneModelBuilder deleteOneModelBuilder,
             IConfigReader configReader
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.config = config;
             this.db = db;   

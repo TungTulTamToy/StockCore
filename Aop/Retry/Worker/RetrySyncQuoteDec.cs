@@ -15,13 +15,13 @@ namespace StockCore.Aop.Retry.Worker
     {
         private readonly IOperation<string> inner; 
         protected readonly IGetByKeyRepo<OperationStateDE,string> operationStateRepo;
-        private readonly StockCore.DomainEntity.Retry module;
+        private readonly StockCore.DomainEntity.RetryModule module;
         private readonly int processErrorID;
         private readonly Tracer tracer;
         public RetryOperationDec(
             IOperation<string> inner,
             IGetByKeyRepo<OperationStateDE,string> operationStateRepo,            
-            StockCore.DomainEntity.Retry module,
+            StockCore.DomainEntity.RetryModule module,
             int outerErrorID,
             ILogger logger,
             Tracer tracer,

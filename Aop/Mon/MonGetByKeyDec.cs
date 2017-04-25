@@ -16,7 +16,7 @@ namespace StockCore.Aop.Mon
             Func<ILogger,Tracer,string,bool> validate,
             int processErrorID,
             int outerErrorID,
-            Monitoring module,
+            MonitoringModule module,
             ILogger logger,
             Tracer tracer
             ):base(processErrorID,outerErrorID,module,logger,tracer)

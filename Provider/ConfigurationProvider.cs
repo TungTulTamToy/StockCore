@@ -24,6 +24,6 @@ namespace StockCore.Provider
                 return mongoDBUserName;                
             }
         }
-        public Monitoring MonitoringModule => configurationRoot.GetSection("ModuleRepo:Monitoring").Get<Monitoring>();
+        public MonitoringModule MonitoringModule => configurationRoot.GetSection("ModuleRepo:Monitoring").Get<MonitoringModule>();
     }
 }

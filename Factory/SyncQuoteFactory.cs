@@ -49,7 +49,7 @@ namespace StockCore.Factory
             IFactory<string, IGetByKey<IEnumerable<SetIndexDE>,string>> setIndexHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<ShareDE>,string>> shareHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<StatisticDE>,string>> statisticHtmlReaderFactory
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbPriceRepoFactory = dbPriceRepoFactory;
             this.dbSetIndexRepoFactory = dbSetIndexRepoFactory;

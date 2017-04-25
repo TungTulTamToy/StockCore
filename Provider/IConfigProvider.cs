@@ -6,6 +6,6 @@ namespace StockCore.Provider
     {
         string MongoDBDatabase{get;}
         string MongoDBUserName{get;}
-        Monitoring MonitoringModule{get;}
+        MonitoringModule MonitoringModule{get;}
     }
 }

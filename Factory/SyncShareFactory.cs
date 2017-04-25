@@ -26,7 +26,7 @@ namespace StockCore.Factory
             ILogger logger,
             IGetByKeyRepo<ShareDE,string> dbShareDE,
             IConfigReader configReader
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbShareDE = dbShareDE;
             this.configReader = configReader;
@@ -40,7 +40,7 @@ namespace StockCore.Factory
                 var helper = new ValidationHelper();
                 inner = new MonOperationDec<IEnumerable<ShareDE>>(
                     inner,
-                    helper.ValidateQuoteKeyField<ShareDE>(1018105,"Quote"),  
+                    helper.ValidateItemsWithStringKeyField<ShareDE>(1018105,"Quote"),  
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,    

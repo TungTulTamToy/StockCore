@@ -26,7 +26,7 @@ namespace StockCore.Factory
             ILogger logger,
             IGetByKeyRepo<StatisticDE,string> dbStatisticDE,
             IConfigReader configReader
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbStatisticDE = dbStatisticDE;
             this.configReader = configReader;
@@ -40,7 +40,7 @@ namespace StockCore.Factory
                 var helper = new ValidationHelper();
                 inner = new MonOperationDec<IEnumerable<StatisticDE>>(
                     inner,
-                    helper.ValidateQuoteKeyField<StatisticDE>(1019102,"Quote"),    
+                    helper.ValidateItemsWithStringKeyField<StatisticDE>(1019102,"Quote"),    
                     MONPROCESSERRID,
                     MONOUTERERRID,           
                     module.Monitoring,                   

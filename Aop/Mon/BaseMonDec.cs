@@ -12,13 +12,13 @@ namespace StockCore.Aop.Mon
 {
     public class BaseMonDec:BaseDec
     {
-        protected readonly Monitoring module;
+        protected readonly MonitoringModule module;
         private readonly int processErrorID;
         private readonly Tracer tracer;
         public BaseMonDec(
             int processErrorID,
             int outerErrorID,
-            Monitoring module,
+            MonitoringModule module,
             ILogger logger,
             Tracer tracer
             ):base(outerErrorID,module.Key,logger)
@@ -39,7 +39,7 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName),
                 validate:()=> validate(logger,tracer),
                 processAsync: async() => await processAsync(),
-                processFail:(ex)=>processFail(ex,input),
+                processFail:(ex)=>processFail(ex),
                 postProcess:()=>postProcess<TInput,string>(input,null,sw,methodName)
             );
             sw = null;
@@ -58,7 +58,7 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName),
                 validate:()=> validate(logger,tracer),
                 processAsync: async() => result = await processAsync(),
-                processFail:(ex)=>processFail(ex,input),
+                processFail:(ex)=>processFail(ex),
                 postProcess:()=>postProcess(input,result,sw,methodName)
             );
             sw = null;
@@ -83,7 +83,7 @@ namespace StockCore.Aop.Mon
             }
             return sw;
         }
-        private void processFail<T>(Exception ex,T input)
+        private void processFail(Exception ex)
         {
             if(ex is IStockCoreException)
             {

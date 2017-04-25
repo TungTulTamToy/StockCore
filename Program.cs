@@ -57,6 +57,7 @@ namespace StockCore
                     .AddScoped<IFactory<string, IGetByKeyRepo<ShareDE,string>>, DBShareRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<StatisticDE,string>>, DBStatisticRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<PriceDE,string>>, DBPriceRepoFactory>()
+                    .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>>, DBCacheRepoFactory<StockDE>>()
                     .AddScoped<IFactory<string, IRepo<SetIndexDE>>, DBSetIndexRepoFactory>()
                     .AddScoped<IFactory<string, IRepo<QuoteGroupDE>>, DBQuoteGroupRepoFactory>()
                     .AddScoped<IFactory<string, IBuilder<string, StockDE>>, StockBuilderFactory>()
@@ -77,10 +78,10 @@ namespace StockCore
                 var logger = loggerFactory.CreateLogger<Program>();
                 logger.LogDebug("Start application");
 
-                syncWeb(serviceProvider);
+                //syncWeb(serviceProvider);
                 //seedGroup(serviceProvider);
                 //syncBackupData(serviceProvider);
-                //var stockInfo = getStockInfo(serviceProvider,"ptt");
+                var stockInfo = getStockInfo(serviceProvider,"ptt");
             }        
             catch(Exception ex)
             {   

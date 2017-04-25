@@ -26,7 +26,7 @@ namespace StockCore.Factory
             ILogger logger,
             IFactory<string, IRepo<QuoteGroupDE>> dbQuoteGroupDEFactory,
             IConfigReader configReader
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbQuoteGroupDEFactory = dbQuoteGroupDEFactory;
             this.configReader = configReader;

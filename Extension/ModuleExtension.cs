@@ -12,5 +12,9 @@ namespace StockCore.Extension
         {
             return module!=null && module.IsActive && module.Retry!=null && module.Retry.IsActive;
         }
+        public static bool IsCacheActive(this ModuleDE module)
+        {
+            return module!=null && module.IsActive && module.Cache!=null && module.Cache.IsActive;
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace StockCore.Factory
             ILogger logger,
             IConfigReader configReader,
             IServiceProvider serviceProvider
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.syncQuoteFactory = syncQuoteFactory;
             this.configReader = configReader;
@@ -52,7 +52,7 @@ namespace StockCore.Factory
                 var helper = new ValidationHelper();
                 inner = new MonOperationDec<IEnumerable<string>>(
                     inner,
-                    helper.ValidateListOfString(1013105,"Quotes"),
+                    helper.ValidateStringItems(1013105,"Quotes"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

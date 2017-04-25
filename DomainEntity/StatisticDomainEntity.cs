@@ -4,8 +4,13 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace StockCore.DomainEntity
 {
     [DataContract]
-    public class StatisticDE:BaseDE,IJoinKeyField<int>,IValidField,IQuoteKeyField
+    public class StatisticDE:BaseDE,IJoinKeyField<int>,IValidField,IKeyField<string>
     {
+        public string Key 
+        { 
+            get => Quote; 
+            set => Quote=value; 
+        }
         public string Quote { get; set; }
         [DataMember]
         public int Year { get; set; }

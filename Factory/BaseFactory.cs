@@ -11,7 +11,7 @@ namespace StockCore.Factory
         private readonly int ID;
         private readonly int processErrID;
         protected abstract TResult build(Tracer tracer,TCondition intput=default(TCondition)); 
-        public BaseFactory(int outerErrID,int processErrID,int ID,string keyName,ILogger logger):base(outerErrID,keyName,logger)
+        public BaseFactory(int processErrID,int outerErrID,int ID,string keyName,ILogger logger):base(outerErrID,keyName,logger)
         {
             this.ID = ID;
             this.processErrID = processErrID;

@@ -26,7 +26,7 @@ namespace StockCore.Factory
             ILogger logger,
             IFactory<string, IGetByKeyRepo<PriceDE,string>> dbPriceDEFactory,
             IConfigReader configReader
-            ):base(OUTERERRID,PROCESSERRID,ID,KEY,logger)
+            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbPriceDEFactory = dbPriceDEFactory;
             this.configReader = configReader;
@@ -40,7 +40,7 @@ namespace StockCore.Factory
                 var helper = new ValidationHelper();
                 inner = new MonOperationDec<IEnumerable<PriceDE>>(
                     inner,
-                    helper.ValidateQuoteKeyField<PriceDE>(1015105,"Quote"),
+                    helper.ValidateItemsWithStringKeyField<PriceDE>(1015105,"Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
