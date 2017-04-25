@@ -66,7 +66,7 @@ namespace StockCore.Aop
             }
             catch(Exception e)
             {
-                manageOuterException(e,tracer);
+                baseProcessFail(e,outerErrID,false,tracer);
             }
         }
         protected void operate(
@@ -112,27 +112,33 @@ namespace StockCore.Aop
             }
             catch(Exception e)
             {
-                manageOuterException(e,tracer);
+                baseProcessFail(e,outerErrID,false,tracer);
             }
         }
-        private void manageOuterException(Exception e,Tracer tracer)
+        protected void baseProcessFail(Exception ex,int processErrorID,bool isThrow,Tracer tracer)
         {
-            if(e is IStockCoreException)
+            if(ex is IStockCoreException)
             {
-                var outerEx = (IStockCoreException)e;
-                if(!outerEx.IsLogged)
+                var e = (IStockCoreException)ex;
+                if(!e.IsLogged)
                 {
-                    logger.TraceError(keyName,outerEx.ID,"This exception has been detected from the final catch.",e);
-                    outerEx.IsLogged = true;
+                    logger.TraceError(keyName,e.ID,ex:ex);
+                    e.IsLogged=true;
                 }
-                throw e;                
+                if(isThrow)
+                {
+                    throw (Exception)e;
+                }
             }
             else
             {
-                var ex = new StockCoreException(outerErrID,e);
-                logger.TraceError(keyName,outerErrID,"This exception has been detected from the final catch.",e);  
-                throw ex;   
-            }               
+                logger.TraceError(keyName,processErrorID,ex:ex);          
+                var e = new StockCoreException(processErrorID,ex,tracer);
+                if(isThrow)
+                {
+                    throw e;
+                }
+            }
         }
         private void operate(Action process)
         {

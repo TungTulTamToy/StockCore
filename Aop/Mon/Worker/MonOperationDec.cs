@@ -29,11 +29,7 @@ namespace StockCore.Aop.Mon.Worker
         {     
             await operateAsync(t,
                 (logger,tracer) => validate(logger,tracer,t),
-                async ()=> await innerOperateAsync(t));
-        }
-        private async Task innerOperateAsync(T t)
-        {
-            await inner.OperateAsync(t);
+                async ()=> await inner.OperateAsync(t));
         }
     }
 }

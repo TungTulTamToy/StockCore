@@ -21,7 +21,7 @@ namespace StockCore.Helper
                 if(string.IsNullOrWhiteSpace(value))
                 {
                     logger.TraceError(keyName,errorID,msg:value);
-                    throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty.");
+                    throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty.",tracer);
                 }
                 return true;
             };
@@ -31,7 +31,7 @@ namespace StockCore.Helper
             return (logger,tracer,item)=>{
                 if(item.Any(i=>string.IsNullOrWhiteSpace(i)))
                 {
-                    throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty");
+                    throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty",tracer);
                 }
                 return true;
             };
@@ -41,7 +41,7 @@ namespace StockCore.Helper
             return (logger,tracer,expression)=>{
                 if(expression==null)
                 {
-                    throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty");
+                    throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty",tracer);
                 }
                 return true;
             };
@@ -51,11 +51,11 @@ namespace StockCore.Helper
             return (logger,tracer,quoteGroup)=>{
                 if(quoteGroup.Any(s=>string.IsNullOrWhiteSpace(s.Name)))
                 {
-                    throw new StockCoreArgumentNullException(errorID,"Name","Input cannot be null or empty");
+                    throw new StockCoreArgumentNullException(errorID,"Name","Input cannot be null or empty",tracer);
                 }
                 if(quoteGroup.Any(s=>s.Quotes==null || !s.Quotes.Any() || s.Quotes.Any(q=>string.IsNullOrWhiteSpace(q))))
                 {
-                    throw new StockCoreArgumentNullException(errorID,"Quotes","Input cannot be null or empty");
+                    throw new StockCoreArgumentNullException(errorID,"Quotes","Input cannot be null or empty",tracer);
                 }
                 return true;
             };
@@ -65,7 +65,7 @@ namespace StockCore.Helper
             return (logger,tracer,items)=>{
                 if(items.Any(i=>string.IsNullOrWhiteSpace(i.Key)))
                 {
-                    throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty");
+                    throw new StockCoreArgumentNullException(errorID,$"{keyName}","Input cannot be null or empty",tracer);
                 }
                 return true;
             };

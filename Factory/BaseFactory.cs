@@ -2,6 +2,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using StockCore.Aop;
 using StockCore.DomainEntity;
+using StockCore.ErrorException;
 using StockCore.Extension;
 
 namespace StockCore.Factory
@@ -44,6 +45,11 @@ namespace StockCore.Factory
         {
             var tracer = getTracer(caller);
             logger.TraceError($"Factory.{keyName}",processErrID,ex:ex);
+            var e = new StockCoreException(processErrID,ex,tracer)
+            {
+                IsLogged=true
+            };
+            throw e;
         }
     }
 }

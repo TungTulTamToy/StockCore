@@ -8,6 +8,7 @@ using StockCore.Business.Worker;
 using StockCore.DomainEntity;
 using StockCore.Extension;
 using static StockCore.DomainEntity.Enum.StateOperation;
+using StockCore.ErrorException;
 
 namespace StockCore.Aop.Retry.Worker
 {
@@ -55,7 +56,11 @@ namespace StockCore.Aop.Retry.Worker
         {
             logger.TraceError(module.Key,processErrorID,msg:quote,ex:ex);
             await saveState(quote,false);
-            throw ex;
+            var e = new StockCoreException(processErrorID,ex,tracer)
+            {
+                IsLogged=true
+            };
+            throw e;
         }
 
         private async Task<bool> shouldRetry(string quote)

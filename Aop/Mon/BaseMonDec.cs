@@ -39,7 +39,7 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName),
                 validate:()=> validate(logger,tracer),
                 processAsync: async() => await processAsync(),
-                processFail:(ex)=>processFail(ex),
+                processFail:(ex)=>baseProcessFail(ex,processErrorID,module.ThrowException,tracer),
                 postProcess:()=>postProcess<TInput,string>(input,null,sw,methodName)
             );
             sw = null;
@@ -58,7 +58,7 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName),
                 validate:()=> validate(logger,tracer),
                 processAsync: async() => result = await processAsync(),
-                processFail:(ex)=>processFail(ex),
+                processFail:(ex)=>baseProcessFail(ex,processErrorID,module.ThrowException,tracer),
                 postProcess:()=>postProcess(input,result,sw,methodName)
             );
             sw = null;
@@ -82,31 +82,6 @@ namespace StockCore.Aop.Mon
                 logger.TraceBegin($"{module.Key}.{methodName}",input,showParams:module.ShowParams);
             }
             return sw;
-        }
-        private void processFail(Exception ex)
-        {
-            if(ex is IStockCoreException)
-            {
-                var e = (IStockCoreException)ex;
-                if(!e.IsLogged)
-                {
-                    logger.TraceError(module.Key,e.ID,ex:ex);
-                    e.IsLogged=true;
-                }
-                if(module.ThrowException)
-                {
-                    throw (Exception)e;
-                }
-            }
-            else
-            {
-                logger.TraceError(module.Key,processErrorID,ex:ex);          
-                var e = new StockCoreException(processErrorID,ex);
-                if(module.ThrowException)
-                {
-                    throw e;
-                }
-            }
         }
         private void postProcess<TInput,TResult>(TInput input,TResult returnItem,Stopwatch sw,string methodName)
         {
