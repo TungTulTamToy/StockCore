@@ -6,6 +6,7 @@ using StockCore.Business.Repo.MongoDB;
 using StockCore.Aop.Mon.Repo.MongoDB;
 using StockCore.Business.Repo.AppSetting;
 using StockCore.Extension;
+using StockCore.Aop.Mon;
 
 namespace StockCore.Factory
 {

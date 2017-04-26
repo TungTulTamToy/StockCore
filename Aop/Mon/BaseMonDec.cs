@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
 using System.Diagnostics;
 using StockCore.Extension;
-using StockCore.ErrorException;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using System.Linq.Expressions;
@@ -72,9 +71,9 @@ namespace StockCore.Aop.Mon
         }
         private void processFail(Exception ex,int processErrorID)
         {
-            if(ex is IStockCoreException)
+            if(ex is StockCoreException)
             {
-                var e = (IStockCoreException)ex;
+                var e = (StockCoreException)ex;
                 if(!e.IsLogged)
                 {
                     logger.TraceError(module.Key,e.ID,ex:ex);
@@ -86,7 +85,7 @@ namespace StockCore.Aop.Mon
                 }
                 if(module.ThrowException)
                 {
-                    throw (Exception)e;
+                    throw e;
                 }
             }
             else

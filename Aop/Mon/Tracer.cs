@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace StockCore.DomainEntity
+namespace StockCore.Aop.Mon
 {
     public class Tracer
     {

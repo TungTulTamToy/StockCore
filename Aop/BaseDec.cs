@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
-using StockCore.ErrorException;
 using StockCore.Extension;
 
 namespace StockCore.Aop

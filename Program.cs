@@ -21,6 +21,7 @@ using StockCore.Factory;
 using System.Linq;
 using StockCore.Business.Repo.AppSetting;
 using StockCore.Business.Builder;
+using StockCore.Aop.Mon;
 
 namespace StockCore
 {
@@ -78,7 +79,7 @@ namespace StockCore
                 var logger = loggerFactory.CreateLogger<Program>();
                 logger.LogDebug("Start application");
 
-                //syncWeb(serviceProvider);
+                syncWeb(serviceProvider);
                 //seedGroup(serviceProvider);
                 //syncBackupData(serviceProvider);
                 var stockInfo = getStockInfo(serviceProvider,"ptt");

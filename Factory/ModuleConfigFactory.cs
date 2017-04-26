@@ -5,6 +5,7 @@ using StockCore.Provider;
 using StockCore.Business.Repo.AppSetting;
 using StockCore.DomainEntity;
 using StockCore.Helper;
+using StockCore.Aop.Mon;
 
 namespace StockCore.Factory
 {

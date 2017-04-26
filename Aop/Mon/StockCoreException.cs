@@ -1,9 +1,9 @@
 using System;
 using StockCore.DomainEntity;
 
-namespace StockCore.ErrorException
+namespace StockCore.Aop.Mon
 {
-    public class StockCoreException:Exception,IStockCoreException
+    public class StockCoreException:Exception
     {
         public bool IsLogged { get; set; }
         public Tracer Tracer { get; set; }

@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
 using StockCore.Extension;
 using StockCore.Business.Repo.AppSetting;
-using StockCore.ErrorException;
 
 namespace StockCore.Aop.Mon.Repo.AppSetting
 {

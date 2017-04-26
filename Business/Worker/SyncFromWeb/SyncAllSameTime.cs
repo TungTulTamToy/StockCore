@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using StockCore.DomainEntity;
+using StockCore.Aop.Mon;
 
 namespace StockCore.Business.Worker.SyncFromWeb
 {

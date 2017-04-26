@@ -8,7 +8,7 @@ using StockCore.Business.Worker;
 using StockCore.DomainEntity;
 using StockCore.Extension;
 using static StockCore.DomainEntity.Enum.StateOperation;
-using StockCore.ErrorException;
+using StockCore.Aop.Mon;
 
 namespace StockCore.Aop.Retry.Worker
 {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.Extensions.Logging;
+using StockCore.Aop.Mon;
 using StockCore.DomainEntity;
-using StockCore.ErrorException;
 using StockCore.Extension;
 
 namespace StockCore.Helper

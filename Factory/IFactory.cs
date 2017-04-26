@@ -1,4 +1,4 @@
-using StockCore.DomainEntity;
+using StockCore.Aop.Mon;
 
 namespace StockCore.Factory
 {
