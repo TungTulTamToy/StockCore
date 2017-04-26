@@ -13,24 +13,24 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         private readonly Func<ILogger,Tracer,Expression<Func<T,bool>>,bool> validateExpression;
         public MonGetByFuncRepoDec(
             IGetByFuncRepo<string,T> inner,
-            Func<ILogger,Tracer,Expression<Func<T,bool>>,bool> validateFunc,   
-            Func<ILogger,Tracer,string,bool> validate,          
+            Func<ILogger,Tracer,Expression<Func<T,bool>>,bool> validateExpression,   
+            Func<ILogger,Tracer,string,bool> validateQuote,          
             int processErrorID,
             int outerErrorID,
             MonitoringModule module,
             ILogger logger,
             Tracer tracer
-            ):base(inner,validate,processErrorID,outerErrorID,module,logger,tracer)
+            ):base(inner,validateQuote,processErrorID,outerErrorID,module,logger,tracer)
             {
-                this.validateExpression = validateFunc;
+                this.validateExpression = validateExpression;
             }
 
-        public async Task<IEnumerable<T>> GetByFuncAsync(Expression<Func<T, bool>> func)
+        public async Task<IEnumerable<T>> GetByFuncAsync(Expression<Func<T, bool>> expression)
         {
-            var returnItems = await operateWithResultAsync(
-                "",
-                (logger,tracer)=>validateExpression(logger,tracer,func),
-                async ()=> await ((IGetByFuncRepo<string,T>)inner).GetByFuncAsync(func));
+            var returnItems = await baseMonDecBuildAsync(
+                expression,
+                (logger,tracer)=>validateExpression(logger,tracer,expression),
+                async ()=> await ((IGetByFuncRepo<string,T>)inner).GetByFuncAsync(expression));
             return returnItems;
         }
     }

@@ -40,7 +40,7 @@ namespace StockCore.Factory
             this.deleteOneModelBuilder = deleteOneModelBuilder;
             this.configReader = configReader;
         }
-        protected override IRepo<SetIndexDE> build(Tracer trace,string t="")
+        protected override IRepo<SetIndexDE> baseFactoryBuild(Tracer trace,string t="")
         {
             IRepo<SetIndexDE> inner = new BaseDBRepo<SetIndexDE>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
             var module = configReader.GetByKey(getAopKey());

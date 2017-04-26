@@ -31,7 +31,7 @@ namespace StockCore.Factory
             this.dbPriceDEFactory = dbPriceDEFactory;
             this.configReader = configReader;
         }
-        protected override IOperation<IEnumerable<PriceDE>> build(Tracer tracer,string t="")
+        protected override IOperation<IEnumerable<PriceDE>> baseFactoryBuild(Tracer tracer,string t="")
         {
             IOperation<IEnumerable<PriceDE>> inner = new SyncPrice(dbPriceDEFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());

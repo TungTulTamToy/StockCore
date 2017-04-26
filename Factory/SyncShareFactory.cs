@@ -31,7 +31,7 @@ namespace StockCore.Factory
             this.dbShareDE = dbShareDE;
             this.configReader = configReader;
         }
-        protected override IOperation<IEnumerable<ShareDE>> build(Tracer tracer,string t="")
+        protected override IOperation<IEnumerable<ShareDE>> baseFactoryBuild(Tracer tracer,string t="")
         {
             IOperation<IEnumerable<ShareDE>> inner = new SyncShare(dbShareDE);
             var module = configReader.GetByKey(getAopKey());

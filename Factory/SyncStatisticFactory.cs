@@ -31,7 +31,7 @@ namespace StockCore.Factory
             this.dbStatisticDE = dbStatisticDE;
             this.configReader = configReader;
         }
-        protected override IOperation<IEnumerable<StatisticDE>> build(Tracer tracer,string t="")
+        protected override IOperation<IEnumerable<StatisticDE>> baseFactoryBuild(Tracer tracer,string t="")
         {
             IOperation<IEnumerable<StatisticDE>> inner = new SyncStatistic(dbStatisticDE);  
             var module = configReader.GetByKey(getAopKey());

@@ -32,7 +32,7 @@ namespace StockCore.Factory
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<ConsensusDE>,string> build(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<ConsensusDE>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
             IGetByKey<IEnumerable<ConsensusDE>,string> inner = new ConsensusHtmlReader(client,doc);
             var module = configReader.GetByKey(getAopKey());

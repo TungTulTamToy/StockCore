@@ -41,7 +41,7 @@ namespace StockCore.Factory
             this.deleteOneModelBuilder = deleteOneModelBuilder;
             this.configReader = configReader;
         }
-        protected override IGetByKeyRepo<OperationStateDE,string> build(Tracer tracer,string t="")
+        protected override IGetByKeyRepo<OperationStateDE,string> baseFactoryBuild(Tracer tracer,string t="")
         {
             IGetByKeyRepo<OperationStateDE,string> inner = new BaseQuoteDBRepo<OperationStateDE>(
                 config,

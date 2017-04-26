@@ -43,11 +43,6 @@ namespace StockCore.Business.Builder
             var statistic = await statisticTask;
             var consensus = await consensusTask;
             var price = await priceTask;
-            /*
-            var share = await shareRepo.GetByKeyAsync(quote);
-            var statistic = await statisticRepo.GetByKeyAsync(quote);
-            var consensus = await consensusRepo.GetByKeyAsync(quote);
-            var price = await priceRepo.GetByKeyAsync(quote);*/
 
             var shareByYear = calculateShareByYear(quote,share);    
             var netProfit = calculateNetProfit(quote,statistic,consensus,shareByYear);  

@@ -47,7 +47,7 @@ namespace StockCore.Factory
             this.cacheRepoFactory = cacheRepoFactory;
             this.configReader = configReader;
         }
-        protected override IBuilder<string, StockDE> build(Tracer tracer,string t="")
+        protected override IBuilder<string, StockDE> baseFactoryBuild(Tracer tracer,string t="")
         {
             IBuilder<string, StockDE> inner = new StockBuilder(
                 logger,
@@ -64,8 +64,7 @@ namespace StockCore.Factory
                     module.Cache,
                     CACHEPROCESSERRID,
                     CACHEOUTERERRID,
-                    logger,
-                    tracer
+                    logger
                 );
             }
             if(module.IsMonitoringActive())
@@ -73,7 +72,7 @@ namespace StockCore.Factory
                 var helper = new ValidationHelper();
                 inner = new MonBuilderDec<StockDE>(
                     inner,
-                    helper.ValidateString(1020107,"Quote"),
+                    helper.ValidateString(1020105,"Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

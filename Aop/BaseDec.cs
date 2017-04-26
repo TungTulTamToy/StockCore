@@ -9,17 +9,7 @@ namespace StockCore.Aop
 {
     public class BaseDec
     {
-        protected readonly ILogger logger;
-        protected readonly string keyName;
-        protected readonly int outerErrID;
-        public BaseDec(int outerErrID,string keyName,ILogger logger)
-        {
-            this.logger = logger;
-            this.keyName = keyName;
-            this.outerErrID = outerErrID;
-        }
-        protected async Task operateAsync(
-            Tracer tracer,
+        protected async Task baseDecOperateAsync(
             Action preProcess=null,   
             Func<Task> preProcessAsync=null,         
             Func<bool> validate=null,
@@ -31,7 +21,9 @@ namespace StockCore.Aop
             Action<Exception> processFail=null,
             Func<Exception,Task> processFailAsync=null,
             Action postProcess=null,
-            Func<Task> postProcessAsync=null
+            Func<Task> postProcessAsync=null,
+            Action<Exception> finalProcessFail=null,
+            Func<Exception,Task> finalProcessFailAsync=null
             )
         {
             try
@@ -50,14 +42,7 @@ namespace StockCore.Aop
                 }
                 catch(Exception ex)
                 {
-                    if(processFail!=null)
-                    {
-                        processFail(ex);
-                    }
-                    else if(processFailAsync!=null)
-                    {
-                        await processFailAsync(ex);
-                    }
+                    await operateFailAsync(ex,processFail,processFailAsync);    
                 }
                 finally
                 {
@@ -66,17 +51,17 @@ namespace StockCore.Aop
             }
             catch(Exception e)
             {
-                baseProcessFail(e,outerErrID,false,tracer);
+                await operateFailAsync(e,finalProcessFail,finalProcessFailAsync);    
             }
         }
-        protected void operate(
-            Tracer tracer,
+        protected void baseDecOperate(
             Action preProcess=null,   
             Func<bool> validate=null,
             Action process=null,
             Action invalidProcess=null,
             Action<Exception> processFail=null,
-            Action postProcess=null
+            Action postProcess=null,
+            Action<Exception> finalProcessFail=null
             )
         {
             try
@@ -112,32 +97,7 @@ namespace StockCore.Aop
             }
             catch(Exception e)
             {
-                baseProcessFail(e,outerErrID,false,tracer);
-            }
-        }
-        protected void baseProcessFail(Exception ex,int processErrorID,bool isThrow,Tracer tracer)
-        {
-            if(ex is IStockCoreException)
-            {
-                var e = (IStockCoreException)ex;
-                if(!e.IsLogged)
-                {
-                    logger.TraceError(keyName,e.ID,ex:ex);
-                    e.IsLogged=true;
-                }
-                if(isThrow)
-                {
-                    throw (Exception)e;
-                }
-            }
-            else
-            {
-                logger.TraceError(keyName,processErrorID,ex:ex);          
-                var e = new StockCoreException(processErrorID,ex,tracer);
-                if(isThrow)
-                {
-                    throw e;
-                }
+                finalProcessFail(e);
             }
         }
         private void operate(Action process)
@@ -145,6 +105,17 @@ namespace StockCore.Aop
             if(process!=null)
             {
                 process();
+            }
+        }
+        private async Task operateFailAsync(Exception ex,Action<Exception> finalProcessFail, Func<Exception,Task> finalProcessFailAsync)
+        {
+            if(finalProcessFail!=null)
+            {
+                finalProcessFail(ex);
+            }
+            else if(finalProcessFailAsync!=null)
+            {
+                await finalProcessFailAsync(ex);
             }
         }
         private async Task operateAsync(Action process, Func<Task> processAsync)

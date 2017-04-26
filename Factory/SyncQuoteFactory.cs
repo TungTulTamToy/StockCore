@@ -64,7 +64,7 @@ namespace StockCore.Factory
             this.shareHtmlReaderFactory = shareHtmlReaderFactory;
             this.statisticHtmlReaderFactory = statisticHtmlReaderFactory;
         }
-        protected override IOperation<string> build(Tracer tracer,string t="")
+        protected override IOperation<string> baseFactoryBuild(Tracer tracer,string t="")
         {
             IOperation<string> inner = new SyncQuote(
                 dbPriceRepoFactory.Build(tracer),
@@ -87,7 +87,6 @@ namespace StockCore.Factory
                     module.Retry,
                     RETRYOUTERERRID,
                     logger,
-                    tracer,
                     RETRYPROCESSERRID);
             }
             if(module.IsMonitoringActive())

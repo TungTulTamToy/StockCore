@@ -32,7 +32,7 @@ namespace StockCore.Factory
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<StatisticDE>,string> build(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<StatisticDE>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
             IGetByKey<IEnumerable<StatisticDE>,string> inner = new StatisticHtmlReader(client,doc);
             var module = configReader.GetByKey(getAopKey());

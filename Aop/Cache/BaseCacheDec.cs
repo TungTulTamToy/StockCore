@@ -13,45 +13,49 @@ namespace StockCore.Aop.Cache.Builder
 {
     public class BaseCacheDec<T>:BaseDec where T:BaseDE
     {
-        protected readonly IGetByFuncRepo<string,CacheDE<T>> cacheRepo;
+        private readonly IGetByFuncRepo<string,CacheDE<T>> cacheRepo;
         private readonly CacheModule module;
         private readonly int processErrorID;
-        protected readonly Tracer tracer;
+        private readonly int outerErrorID;
+        private readonly ILogger logger;
         public BaseCacheDec(
             IGetByFuncRepo<string,CacheDE<T>> cacheRepo,            
             CacheModule module,
             int processErrorID,            
             int outerErrorID,
-            ILogger logger,
-            Tracer tracer
-            ):base(outerErrorID,module.Key,logger)
+            ILogger logger
+            )
         {
             this.module = module;
             this.cacheRepo = cacheRepo;
-            this.tracer = tracer;
-            this.processErrorID = processErrorID;   
+            this.processErrorID = processErrorID; 
+            this.outerErrorID = outerErrorID;
+            this.logger=logger; 
         }
-        protected async Task<T> operateCacheAsync(
+        protected async Task<T> baseCacheDecOperateAsync(
             string key,
             Func<Task<T>> buildAsync
             )
         {
             T t = null;
-            await operateAsync(
-                tracer,
+            await baseDecOperateAsync(
                 validateAsync:async()=> {
                     t = await getFromCacheAsync(key);
-                    return t != null;
-                    },
+                    return t != null;},
                 invalidProcessAsync: async()=> {
                     t = await buildAsync();
-                    await createCacheAsync(t,key);
-                    },
-                processFail:(ex)=> processFail(ex)
+                    await createCacheAsync(t,key);},
+                processFail:(ex)=>processFail(ex,processErrorID,key),
+                finalProcessFail:(e)=>processFail(e,outerErrorID,key)
             );
             return t;
         }
-        protected async Task<T> getFromCacheAsync(string key)
+        //TODO:should be helper class
+        protected string getKeyByString(string quote,[CallerMemberName]string methodName="")
+        {
+            return $"{module.Key}_{methodName}_{quote}_v1";
+        }
+        private async Task<T> getFromCacheAsync(string key)
         {
             var cache = await cacheRepo.GetByFuncAsync(i=>i.Key==key&&i.ExpireAt>DateTime.Now);
             T item = null;            
@@ -66,6 +70,11 @@ namespace StockCore.Aop.Cache.Builder
             }
             return item;
         }
+        private void processFail(Exception ex,int errorID,string key)
+        {
+            var e = new StockCoreException(errorID,ex,$"Key:[{key}]",null);
+            throw e;//It will be manage by monitoring decorator
+        }
         private async Task<T> createCacheAsync(T item,string key)
         {
             var cacheDE = new CacheDE<T>(){
@@ -76,19 +85,6 @@ namespace StockCore.Aop.Cache.Builder
             };
             await cacheRepo.InsertAsync(cacheDE);
             return item;
-        }
-        protected string getKeyByString(string quote,[CallerMemberName]string methodName="")
-        {
-            return $"{module.Key}_{methodName}_{quote}_v1";
-        }
-        private void processFail(Exception ex)
-        {
-            logger.TraceError(module.Key,processErrorID,ex:ex);
-            var e = new StockCoreException(processErrorID,ex,tracer)
-            {
-                IsLogged=true
-            };
-            throw e;
         }
     }
 }

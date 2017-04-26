@@ -31,7 +31,7 @@ namespace StockCore.Factory
             this.dbConsensusFactory = dbConsensusFactory;
             this.configReader = configReader;
         }
-        protected override IOperation<IEnumerable<ConsensusDE>> build(Tracer tracer,string t="")
+        protected override IOperation<IEnumerable<ConsensusDE>> baseFactoryBuild(Tracer tracer,string t="")
         {
             IOperation<IEnumerable<ConsensusDE>> inner = new SyncConsensus(dbConsensusFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());

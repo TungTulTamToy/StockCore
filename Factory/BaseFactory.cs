@@ -10,21 +10,27 @@ namespace StockCore.Factory
     public abstract class BaseFactory<TCondition,TResult>:BaseDec,IFactory<TCondition,TResult> where TCondition:class where TResult:class
     {
         private readonly int ID;
+        private readonly string keyName;
         private readonly int processErrID;
-        protected abstract TResult build(Tracer tracer,TCondition intput=default(TCondition)); 
-        public BaseFactory(int processErrID,int outerErrID,int ID,string keyName,ILogger logger):base(outerErrID,keyName,logger)
+        private readonly int outerErrID;
+        protected readonly ILogger logger;
+        protected abstract TResult baseFactoryBuild(Tracer tracer,TCondition intput=default(TCondition)); 
+        public BaseFactory(int processErrID,int outerErrID,int ID,string keyName,ILogger logger)
         {
             this.ID = ID;
+            this.keyName = keyName;
             this.processErrID = processErrID;
+            this.outerErrID = outerErrID;
+            this.logger = logger;
         }
         public TResult Build(Tracer caller,TCondition intput=default(TCondition))
         {
             TResult t = default(TResult);
             var tracer = getTracer(caller);
-            operate(
-                tracer,
-                process:()=>t=build(tracer,intput),
-                processFail:(ex)=>processFail(ex,caller)//Not throw exception since this method can be called from constructor     
+            baseDecOperate(
+                process:()=>t=baseFactoryBuild(tracer,intput),
+                processFail:(ex)=>processFail(ex,processErrID,tracer),    
+                finalProcessFail:(e)=>processFail(e,outerErrID,tracer)
                 );
             return t;
         }
@@ -33,7 +39,7 @@ namespace StockCore.Factory
             return $"Aop.{keyName}";
         }
         
-        protected Tracer getTracer(Tracer caller,string description="")
+        private Tracer getTracer(Tracer caller,string description="")
         {
             if(string.IsNullOrEmpty(description))
             {
@@ -41,15 +47,9 @@ namespace StockCore.Factory
             }
             return new Tracer(ID,caller,description);
         }
-        private void processFail(Exception ex,Tracer caller)
-        {
-            var tracer = getTracer(caller);
-            logger.TraceError($"Factory.{keyName}",processErrID,ex:ex);
-            var e = new StockCoreException(processErrID,ex,tracer)
-            {
-                IsLogged=true
-            };
-            throw e;
-        }
+        private void processFail(Exception ex,int errorID,Tracer tracer) 
+        { 
+            logger.TraceError($"Factory.{keyName}",errorID,ex:ex);//Not throw exception since this method can be called from constructor 
+        } 
     }
 }

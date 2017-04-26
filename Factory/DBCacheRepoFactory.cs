@@ -41,9 +41,15 @@ namespace StockCore.Factory
             this.deleteOneModelBuilder = deleteOneModelBuilder;
             this.configReader = configReader;
         }
-        protected override IGetByFuncRepo<string,CacheDE<T>> build(Tracer tracer,string t="")
+        protected override IGetByFuncRepo<string,CacheDE<T>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByFuncRepo<string,CacheDE<T>> inner = new BaseFuncDBRepo<CacheDE<T>>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
+            IGetByFuncRepo<string,CacheDE<T>> inner = new BaseFuncDBRepo<CacheDE<T>>(
+                config,
+                db,
+                filterBuilder,
+                replaceOneModelBuilder,
+                deleteOneModelBuilder,
+                COLLECTIONNAME);   
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {

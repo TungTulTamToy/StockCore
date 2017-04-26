@@ -27,9 +27,13 @@ namespace StockCore.Aop.Mon.Worker
         }
         public async Task OperateAsync(T t)
         {     
-            await operateAsync(t,
+            await baseMonDecBuildAsync(
+                t,
                 (logger,tracer) => validate(logger,tracer,t),
-                async ()=> await inner.OperateAsync(t));
+                async ()=> {
+                    await inner.OperateAsync(t);
+                    return true;
+            });
         }
     }
 }

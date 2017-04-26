@@ -31,7 +31,7 @@ namespace StockCore.Factory
             this.dbQuoteGroupDEFactory = dbQuoteGroupDEFactory;
             this.configReader = configReader;
         }
-        protected override IOperation<IEnumerable<QuoteGroupDE>> build(Tracer tracer,string t="")
+        protected override IOperation<IEnumerable<QuoteGroupDE>> baseFactoryBuild(Tracer tracer,string t="")
         {
             IOperation<IEnumerable<QuoteGroupDE>> inner = new SyncQuoteGroup(dbQuoteGroupDEFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());

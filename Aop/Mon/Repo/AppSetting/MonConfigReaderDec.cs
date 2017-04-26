@@ -7,50 +7,30 @@ using StockCore.ErrorException;
 
 namespace StockCore.Aop.Mon.Repo.AppSetting
 {
-    public class MonConfigReaderDec : BaseDec,IConfigReader
+    public class MonConfigReaderDec : BaseMonDec,IConfigReader
     {
         private readonly IConfigReader inner; 
-        private readonly MonitoringModule module;
-        private readonly int processErrorID;
-        private readonly Func<ILogger,Tracer,string,bool> validate;
-        private readonly Tracer tracer;
+        private readonly Func<ILogger,Tracer,string,bool> validateKey;
         public MonConfigReaderDec(
             IConfigReader inner,
-            MonitoringModule module,
-            Func<ILogger,Tracer,string,bool> validate,
+            Func<ILogger,Tracer,string,bool> validateKey,
+            MonitoringModule module,            
             int processErrorID,
             int outerErrorID,
             ILogger logger,
             Tracer tracer
-            ):base(outerErrorID,module.Key,logger)
+            ):base(processErrorID,outerErrorID,module,logger,tracer)
         {
             this.inner = inner;
-            this.module = module;
-            this.validate = validate;
-            this.processErrorID = processErrorID;
-            this.tracer = tracer;
+            this.validateKey = validateKey;
         }
         public ModuleDE GetByKey(string key)
         {
-            ModuleDE m = null;
-            operate(
-                tracer,
-                preProcess:()=>logger.TraceBegin(m.Key,inputItem:key,showParams:module.ShowParams),
-                validate:()=>validate(logger,tracer,key),
-                process:()=>m = build(key),
-                processFail:(ex)=>processFail(ex,key),
-                postProcess:()=>logger.TraceEnd(m.Key,inputItem:key,showParams:true,returnItem:m,showResult:module.ShowResult)
-            );
+            var m = baseMonDecBuild(
+                key,
+                (logger,tracer) => validateKey(logger,tracer,key),
+                ()=> inner.GetByKey(key));
             return m;
-        }
-        private void processFail(Exception ex,string key)
-        {
-            logger.TraceError(module.Key,processErrorID,msg:key,ex:ex);
-            throw ex;
-        }
-        private ModuleDE build(string key)
-        {
-            return inner.GetByKey(key);
         }
     }
 }

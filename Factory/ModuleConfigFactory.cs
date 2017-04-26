@@ -28,7 +28,7 @@ namespace StockCore.Factory
             this.configRoot = configRoot;
             this.config = config;
         }
-        protected override IConfigReader build(Tracer tracer,string t="")
+        protected override IConfigReader baseFactoryBuild(Tracer tracer,string t="")
         {
             lock(padlock)//Cause this factory is Singleton!!!   
             {
@@ -39,8 +39,8 @@ namespace StockCore.Factory
                     var helper = new ValidationHelper();
                     inner = new MonConfigReaderDec(
                         inner,
-                        module,
                         helper.ValidateString(1008105,"Quote"),
+                        module,                        
                         MONPROCESSERRID,
                         MONOUTERERRID,
                         logger,

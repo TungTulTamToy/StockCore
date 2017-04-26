@@ -25,7 +25,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         }
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            var returnItems = await operateWithResultAsync(
+            var returnItems = await baseMonDecBuildAsync(
                 "",
                 (logger,tracer)=>true,
                 async ()=> await inner.GetAllAsync());
@@ -33,39 +33,75 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         }
         public async Task InsertAsync(T item)
         {
-            await operateAsync<T>(item,(logger,tracer)=>validate(logger,tracer,item),async ()=> await inner.InsertAsync(item));
+            await baseMonDecBuildAsync(
+                item,
+                (logger,tracer)=>validateEntity(logger,tracer,item),
+                async ()=> {
+                    await inner.InsertAsync(item);
+                    return true;
+            });
         }
 
         public async Task BatchInsertAsync(IEnumerable<T> items)
         {
-            await operateAsync<IEnumerable<T>>(items,(logger,tracer)=>validate(logger,tracer,items),async ()=> await inner.BatchInsertAsync(items));
+            await baseMonDecBuildAsync(
+                items,
+                (logger,tracer)=>validateEntities(logger,tracer,items),
+                async ()=> {
+                    await inner.BatchInsertAsync(items);
+                    return true;
+            });
         }
 
         public async Task UpdateAsync(T item)
         {
-            await operateAsync<T>(item,(logger,tracer)=>validate(logger,tracer,item),async ()=> await inner.UpdateAsync(item));
+            await baseMonDecBuildAsync(
+                item,
+                (logger,tracer)=>validateEntity(logger,tracer,item),
+                async ()=> {
+                    await inner.UpdateAsync(item);
+                    return true;
+            });
         }
 
         public async Task BatchUpdateAsync(IEnumerable<T> items)
         {
-            await operateAsync<IEnumerable<T>>(items,(logger,tracer)=>validate(logger,tracer,items),async ()=>await inner.BatchUpdateAsync(items));
+            await baseMonDecBuildAsync(
+                items,
+                (logger,tracer)=>validateEntities(logger,tracer,items),
+                async ()=>{
+                    await inner.BatchUpdateAsync(items);
+                    return true;
+            });
         }
 
         public async Task DeleteAsync(T item)
         {
-            await operateAsync<T>(item,(logger,tracer)=> validate(logger,tracer,item),async ()=>await inner.DeleteAsync(item));
+            await baseMonDecBuildAsync(
+                item,
+                (logger,tracer)=> validateEntity(logger,tracer,item),
+                async ()=>{
+                    await inner.DeleteAsync(item);
+                    return true;
+            });
         }
 
         public async Task BatchDeleteAsync(IEnumerable<T> items)
         {
-            await operateAsync<IEnumerable<T>>(items,(logger,tracer)=> validate(logger,tracer,items),async ()=> await inner.BatchDeleteAsync(items));
+            await baseMonDecBuildAsync(
+                items,
+                (logger,tracer)=> validateEntities(logger,tracer,items),
+                async ()=> {
+                    await inner.BatchDeleteAsync(items);
+                    return true;
+            });
         }
-        private bool validate(ILogger logger,Tracer tracer,T inputItem)
+        private bool validateEntity(ILogger logger,Tracer tracer,T inputItem)
         {
             return inputItem!=null;
         }
 
-        private bool validate(ILogger logger,Tracer tracer,IEnumerable<T> inputItems)
+        private bool validateEntities(ILogger logger,Tracer tracer,IEnumerable<T> inputItems)
         {
             return inputItems!=null && inputItems.Any();
         }

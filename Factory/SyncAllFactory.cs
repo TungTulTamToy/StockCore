@@ -35,7 +35,7 @@ namespace StockCore.Factory
             this.configReader = configReader;
             this.serviceProvider = serviceProvider;
         }
-        protected override IOperation<IEnumerable<string>> build(Tracer tracer,FactoryCondition condition=null)
+        protected override IOperation<IEnumerable<string>> baseFactoryBuild(Tracer tracer,FactoryCondition condition=null)
         {
             var module = configReader.GetByKey(getAopKey());            
             IOperation<IEnumerable<string>> inner = null;
