@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using StockCore.DomainEntity;
 
 namespace StockCore.Business.Repo.MongoDB

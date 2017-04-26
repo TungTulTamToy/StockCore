@@ -1,6 +1,6 @@
 namespace StockCore.DomainEntity.Enum
 {
-    public static class StateOperation
+    public class StateOperation
     {
         public enum OperationName
         {

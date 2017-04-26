@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using StockCore.DomainEntity;
 
 namespace StockCore.Extension
 {

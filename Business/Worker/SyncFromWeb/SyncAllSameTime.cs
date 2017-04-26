@@ -5,7 +5,6 @@ using System.Linq;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using StockCore.DomainEntity;
-using StockCore.Aop.Mon;
 
 namespace StockCore.Business.Worker.SyncFromWeb
 {
@@ -18,10 +17,9 @@ namespace StockCore.Business.Worker.SyncFromWeb
         }
         public async Task OperateAsync(IEnumerable<string> quotes)
         {
-            var tracer=new Tracer(0,null,"Start Sync All Same time.");
             var tasks = quotes.Select(async q=>{
                 var factory = serviceProvider.GetService<IFactory<string,IOperation<string>>>();
-                var o = factory.Build(tracer);                   
+                var o = factory.Build(null);                   
                 await o.OperateAsync(q);
                 });
             await Task.WhenAll(tasks);

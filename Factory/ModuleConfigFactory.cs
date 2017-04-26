@@ -3,13 +3,12 @@ using StockCore.Aop.Mon.Repo.AppSetting;
 using Microsoft.Extensions.Configuration;
 using StockCore.Provider;
 using StockCore.Business.Repo.AppSetting;
-using StockCore.DomainEntity;
 using StockCore.Helper;
 using StockCore.Aop.Mon;
 
 namespace StockCore.Factory
 {
-    public class ModuleConfigFactory : BaseFactory<string,IConfigReader>
+    public class ModuleConfigFactory : BaseFactory<string, IConfigReader>
     {
         private const string KEY = "ModuleGetByKey";
         private const int ID = 1008100;
@@ -24,29 +23,30 @@ namespace StockCore.Factory
         public ModuleConfigFactory(ILogger logger,
             IConfigurationRoot configRoot,
             IConfigProvider config
-            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
+            ) : base(PROCESSERRID, OUTERERRID, ID, KEY, logger)
         {
             this.configRoot = configRoot;
             this.config = config;
         }
-        protected override IConfigReader baseFactoryBuild(Tracer tracer,string t="")
+        protected override IConfigReader baseFactoryBuild(Tracer tracer, string t = "")
         {
-            lock(padlock)//Cause this factory is Singleton!!!   
+            lock (padlock)//Cause this factory is Singleton!!!   
             {
-                if(inner==null)
+                if (inner == null)
                 {
                     var module = config.MonitoringModule;
+                    module.LogTrace = false;//Make sure it will not open log trace cause this is singleton
                     inner = new ModuleConfigReader(configRoot);
                     var helper = new ValidationHelper();
                     inner = new MonConfigReaderDec(
                         inner,
-                        helper.ValidateString(1008105,"Quote"),
-                        module,                        
+                        helper.ValidateString(1008105, "Quote"),
+                        module,
                         MONPROCESSERRID,
                         MONOUTERERRID,
                         logger,
                         tracer
-                        );  
+                        );
                 }
             }
             return inner;

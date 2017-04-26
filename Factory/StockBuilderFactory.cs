@@ -1,9 +1,5 @@
-using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using StockCore.Business.Repo;
 using StockCore.DomainEntity;
-using StockCore.Wrapper;
-using StockCore.Business.Repo.Html;
 using StockCore.Business.Repo.AppSetting;
 using StockCore.Extension;
 using StockCore.Aop.Mon;

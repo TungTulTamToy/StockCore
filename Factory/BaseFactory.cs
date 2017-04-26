@@ -1,7 +1,6 @@
 using System;
 using Microsoft.Extensions.Logging;
 using StockCore.Aop;
-using StockCore.DomainEntity;
 using StockCore.Aop.Mon;
 using StockCore.Extension;
 

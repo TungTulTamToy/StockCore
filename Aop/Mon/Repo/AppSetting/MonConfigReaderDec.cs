@@ -1,7 +1,6 @@
 using System;
 using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
-using StockCore.Extension;
 using StockCore.Business.Repo.AppSetting;
 
 namespace StockCore.Aop.Mon.Repo.AppSetting

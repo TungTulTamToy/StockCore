@@ -7,8 +7,9 @@ using StockCore.Business.Repo.MongoDB;
 using StockCore.Business.Worker;
 using StockCore.DomainEntity;
 using StockCore.Extension;
-using static StockCore.DomainEntity.Enum.StateOperation;
+using StockCore.DomainEntity.Enum;
 using StockCore.Aop.Mon;
+using static StockCore.DomainEntity.Enum.StateOperation;
 
 namespace StockCore.Aop.Retry.Worker
 {

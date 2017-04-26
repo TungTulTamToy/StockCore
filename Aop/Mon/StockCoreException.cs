@@ -1,5 +1,4 @@
 using System;
-using StockCore.DomainEntity;
 
 namespace StockCore.Aop.Mon
 {

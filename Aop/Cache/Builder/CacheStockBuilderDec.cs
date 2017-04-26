@@ -1,11 +1,8 @@
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockCore.Business.Builder;
 using StockCore.Business.Repo.MongoDB;
 using StockCore.DomainEntity;
-using StockCore.Extension;
 
 namespace StockCore.Aop.Cache.Builder
 {
