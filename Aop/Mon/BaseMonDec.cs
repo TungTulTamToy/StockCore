@@ -39,13 +39,14 @@ namespace StockCore.Aop.Mon
         {
             TResult result = default(TResult);
             Stopwatch sw = null;
+            var subModule = module.OverrideConfigFromSubModuleIfAny(methodName);
             await baseDecOperateAsync(
-                preProcess:()=>sw = preProcess(input,sw,methodName),
+                preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer),
                 processAsync: async() => result = await processAsync(),
-                processFail:(ex)=>processFail(ex,processErrorID),
-                postProcess:()=>postProcess(input,result,sw,methodName),
-                finalProcessFail:(e)=>processFail(e,outerErrorID)
+                processFail:(ex)=>processFail(ex,processErrorID,subModule),
+                postProcess:()=>postProcess(input,result,sw,methodName,subModule),
+                finalProcessFail:(e)=>processFail(e,outerErrorID,subModule)
             );
             sw = null;
             return result;
@@ -58,18 +59,19 @@ namespace StockCore.Aop.Mon
         {
             TResult result = default(TResult);
             Stopwatch sw = null;
+            var subModule = module.OverrideConfigFromSubModuleIfAny(methodName);
             baseDecOperate(
-                preProcess:()=>sw = preProcess(input,sw,methodName),
+                preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer),
                 process:() => result = process(),
-                processFail:(ex)=>processFail(ex,processErrorID),
-                postProcess:()=>postProcess(input,result,sw,methodName),
-                finalProcessFail:(e)=>processFail(e,outerErrorID)
+                processFail:(ex)=>processFail(ex,processErrorID,subModule),
+                postProcess:()=>postProcess(input,result,sw,methodName,subModule),
+                finalProcessFail:(e)=>processFail(e,outerErrorID,subModule)
             );
             sw = null;
             return result;
         }
-        private void processFail(Exception ex,int processErrorID)
+        private void processFail(Exception ex,int processErrorID,MonitoringModule module)
         {
             if(ex is StockCoreException)
             {
@@ -101,7 +103,7 @@ namespace StockCore.Aop.Mon
                 }
             }
         }
-        private Stopwatch preProcess<TInput>(TInput input,Stopwatch sw,string methodName)
+        private Stopwatch preProcess<TInput>(TInput input,Stopwatch sw,string methodName,MonitoringModule module)
         {
             if(module.PerformanceMeasurement)
             {
@@ -124,7 +126,7 @@ namespace StockCore.Aop.Mon
             }
             return sw;
         }
-        private void postProcess<TInput,TResult>(TInput input,TResult returnItem,Stopwatch sw,string methodName)
+        private void postProcess<TInput,TResult>(TInput input,TResult returnItem,Stopwatch sw,string methodName,MonitoringModule module)
         {
             if(module.IsActive)
             {

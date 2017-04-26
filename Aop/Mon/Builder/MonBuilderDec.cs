@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockCore.Business.Builder;
 using StockCore.DomainEntity;
+using StockCore.Extension;
 
 namespace StockCore.Aop.Mon.Builder
 {
     public class MonBuilderDec<TResult> : BaseMonDec, IBuilder<string, TResult> where TResult:class
     {
+        private readonly MonitoringModule module;
         private readonly IBuilder<string, TResult> inner;
         private readonly Func<ILogger,Tracer,string,bool> validateQuote;
         public MonBuilderDec(
@@ -21,6 +23,7 @@ namespace StockCore.Aop.Mon.Builder
         {
             this.inner = inner;
             this.validateQuote = validateQuote;
+            this.module = module;
         }
         public async Task<TResult> BuildAsync(string quote)
         {

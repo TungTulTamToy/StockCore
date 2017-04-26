@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
 using StockCore.Business.Repo;
 using System;
+using StockCore.Extension;
 
 namespace StockCore.Aop.Mon
 {
@@ -29,8 +30,7 @@ namespace StockCore.Aop.Mon
             var returnItems = await baseMonDecBuildAsync(
                 quote,
                 (logger,tracer)=>validateQuote(logger,tracer,quote),
-                async ()=> await inner.GetByKeyAsync(quote)
-                );
+                async ()=> await inner.GetByKeyAsync(quote));
             return returnItems;
         }
     }
