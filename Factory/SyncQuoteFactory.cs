@@ -86,8 +86,8 @@ namespace StockCore.Factory
                     operationStateRepoFactory.Build(tracer),
                     module.Retry,
                     RETRYOUTERERRID,
-                    logger,
-                    RETRYPROCESSERRID);
+                    RETRYPROCESSERRID,
+                    logger);
             }
             if(module.IsMonitoringActive())
             {
