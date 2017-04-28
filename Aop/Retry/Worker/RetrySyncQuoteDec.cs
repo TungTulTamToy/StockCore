@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockCore.Business.Repo.MongoDB;
@@ -7,24 +8,27 @@ using static StockCore.DomainEntity.Enum.StateOperation;
 
 namespace StockCore.Aop.Retry.Worker
 {
-    public class RetryOperationDec : BaseRetryDec,IOperation<string>
+    public class RetryOperationDec<T> : BaseRetryDec,IOperation<T> where T:class
     {
-        private readonly IOperation<string> inner; 
+        private readonly IOperation<T> inner; 
+        private readonly Func<string,string,T, string> getKey;
         public RetryOperationDec(
-            IOperation<string> inner,
+            IOperation<T> inner,
+            Func<string,string,T,string> getKey,
             IGetByKeyRepo<OperationStateDE,string> operationStateRepo,            
             StockCore.DomainEntity.RetryModule module,
             int outerErrorID,
             int processErrorID,            
             ILogger logger):base(operationStateRepo,module,outerErrorID,processErrorID,logger)
         {
-            this.inner = inner;                 
+            this.inner = inner;              
+            this.getKey = getKey;   
         }
-        public async Task OperateAsync(string quote)
+        public async Task OperateAsync(T param)
         {
             await baseRetryDecOperateAsync(
-                quote,
-                async()=>await inner.OperateAsync(quote),
+                (moduleName,methodName)=>getKey(moduleName,methodName,param),
+                async()=>await inner.OperateAsync(param),
                 OperationName.RetrySyncQuoteDec
             );
         }

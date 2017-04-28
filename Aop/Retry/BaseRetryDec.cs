@@ -38,14 +38,16 @@ namespace StockCore.Aop.Retry.Worker
             this.logger = logger;
         }
         protected async Task baseRetryDecOperateAsync(
-            string key,
+            Func<string,string,string> getKey,
             Func<Task> innerProcessAsync,
             OperationName operationName,
             [CallerMemberName]string methodName="")
         {
             IEnumerable<OperationStateDE> items = null;
+            string key = "";
             await baseDecOperateAsync(
                 validateAsync:async()=>{
+                    key = getKey(module.Key,methodName);
                     items = await operationStateRepo.GetByKeyAsync(key);
                     return shouldRetryAsync(items,key,operationName);
                 },
