@@ -32,14 +32,16 @@ namespace StockCore.Aop.Cache.Builder
             this.logger=logger; 
         }
         protected async Task<T> baseCacheDecOperateAsync(
-            string key,
+            Func<string,string,string> getKey,
             Func<Task<T>> buildInnerAsync,
             [CallerMemberName]string methodName=""
             )
         {
             T item = null;
+            string key = "";
             await baseDecOperateAsync(
                 validateAsync:async()=> {
+                    key = getKey(module.Key,methodName);
                     item = await getItemFromCacheAsync(key);
                     return item != null;},
                 invalidProcessAsync: async()=> {
@@ -49,11 +51,6 @@ namespace StockCore.Aop.Cache.Builder
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,info:$"Key:[{key}]")
             );
             return item;
-        }
-        //TODO:should be helper class
-        protected string getKeyByString(string quote,[CallerMemberName]string methodName="")
-        {
-            return $"{module.Key}_{methodName}_{quote}_v1";
         }
         private async Task<T> getItemFromCacheAsync(string key)
         {

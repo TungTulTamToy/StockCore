@@ -44,8 +44,9 @@ namespace StockCore.Factory.Builder
             var module = configReader.GetByKey(getAopKey());
             if(module.IsCacheActive())
             {
-                inner = new CacheBuilderDec<DECollection<QuoteGroupDE>>(
+                inner = new CacheBuilderDec<string,DECollection<QuoteGroupDE>>(
                     inner,
+                    CacheHelper.GetKeyByString(),
                     cacheRepoFactory.Build(tracer),
                     module.Cache,
                     CACHEPROCESSERRID,
