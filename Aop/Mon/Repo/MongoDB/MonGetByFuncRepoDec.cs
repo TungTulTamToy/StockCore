@@ -10,11 +10,11 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
 {
     public class MonGetByFuncRepoDec<T> : MonGetByKeyRepoDec<T>, IGetByFuncRepo<string,T> where T:BaseDE,IKeyField<string>
     {
-        private readonly Func<ILogger,Tracer,string,Expression<Func<T,bool>>,bool> validateExpression;
+        private readonly Func<ILogger,Tracer,string,string,Expression<Func<T,bool>>,bool> validateExpression;
         public MonGetByFuncRepoDec(
             IGetByFuncRepo<string,T> inner,
-            Func<ILogger,Tracer,string,Expression<Func<T,bool>>,bool> validateExpression,   
-            Func<ILogger,Tracer,string,string,bool> validateQuote,          
+            Func<ILogger,Tracer,string,string,Expression<Func<T,bool>>,bool> validateExpression,   
+            Func<ILogger,Tracer,string,string,string,bool> validateQuote,          
             int processErrorID,
             int outerErrorID,
             MonitoringModule module,
@@ -29,7 +29,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         {
             var returnItems = await baseMonDecBuildAsync(
                 expression,
-                (logger,tracer,keyName)=>validateExpression(logger,tracer,keyName,expression),
+                (logger,tracer,moduleName,methodName)=>validateExpression(logger,tracer,moduleName,methodName,expression),
                 async ()=> await ((IGetByFuncRepo<string,T>)inner).GetByFuncAsync(expression));
             return returnItems;
         }

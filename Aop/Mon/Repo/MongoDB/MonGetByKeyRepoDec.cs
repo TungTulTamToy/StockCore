@@ -9,10 +9,10 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
 {
     public class MonGetByKeyRepoDec<T> : MonRepoDec<T>, IGetByKeyRepo<T,string> where T:BaseDE,IKeyField<string>
     {
-        private readonly Func<ILogger,Tracer,string,string,bool> validateQuote;
+        private readonly Func<ILogger,Tracer,string,string,string,bool> validateQuote;
         public MonGetByKeyRepoDec(
             IGetByKeyRepo<T,string> inner,
-            Func<ILogger,Tracer,string,string,bool> validateQuote,            
+            Func<ILogger,Tracer,string,string,string,bool> validateQuote,            
             int processErrorID,
             int outerErrorID,
             MonitoringModule module,
@@ -26,7 +26,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         {
             var returnItems = await baseMonDecBuildAsync(
                 quote,
-                (logger,tracer,keyName)=>validateQuote(logger,tracer,keyName,quote),
+                (logger,tracer,moduleName,methodName)=>validateQuote(logger,tracer,moduleName,methodName,quote),
                 async ()=> await ((IGetByKeyRepo<T,string>)inner).GetByKeyAsync(quote));
             return returnItems;
         }

@@ -59,10 +59,9 @@ namespace StockCore.Factory.Builder
             }
             if(module.IsMonitoringActive())
             {
-                var helper = new ValidationHelper();
                 inner = new MonBuilderDec<DECollection<StockDE>>(
                     inner,
-                    helper.ValidateString(1023107,"GroupName"),
+                    ValidationHelper.ValidateString(1023107,"GroupName"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

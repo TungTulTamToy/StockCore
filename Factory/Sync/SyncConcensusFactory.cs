@@ -37,10 +37,9 @@ namespace StockCore.Factory.Sync
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                var helper = new ValidationHelper();
                 inner = new MonOperationDec<IEnumerable<ConsensusDE>>(
                     inner,
-                    helper.ValidateItemsWithStringKeyField<ConsensusDE>(1014102,"Quote"),
+                    ValidationHelper.ValidateItemsWithStringKeyField<ConsensusDE>(1014102,"Quote"),
                     MONPROCESSERRID,
                     OUTERERRID,
                     module.Monitoring,

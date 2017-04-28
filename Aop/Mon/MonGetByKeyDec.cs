@@ -11,10 +11,10 @@ namespace StockCore.Aop.Mon
     public class MonGetByKeyDec<T> : BaseMonDec,IGetByKey<IEnumerable<T>,string> where T:BaseDE
     {
         private readonly IGetByKey<IEnumerable<T>,string> inner; 
-        private readonly Func<ILogger,Tracer,string,string,bool> validateQuote;
+        private readonly Func<ILogger,Tracer,string,string,string,bool> validateQuote;
         public MonGetByKeyDec(
             IGetByKey<IEnumerable<T>,string> inner,
-            Func<ILogger,Tracer,string,string,bool> validateString,
+            Func<ILogger,Tracer,string,string,string,bool> validateString,
             int processErrorID,
             int outerErrorID,
             MonitoringModule module,
@@ -29,7 +29,7 @@ namespace StockCore.Aop.Mon
         {
             var returnItems = await baseMonDecBuildAsync(
                 quote,
-                (logger,tracer,keyName)=>validateQuote(logger,tracer,keyName,quote),
+                (logger,tracer,moduleName,methodName)=>validateQuote(logger,tracer,moduleName,methodName,quote),
                 async ()=> await inner.GetByKeyAsync(quote));
             return returnItems;
         }

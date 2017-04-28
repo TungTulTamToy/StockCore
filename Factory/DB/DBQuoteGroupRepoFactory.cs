@@ -48,10 +48,9 @@ namespace StockCore.Factory.DB
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                var helper = new ValidationHelper();
                 inner = new MonGetByKeyRepoDec<QuoteGroupDE>(
                     inner,
-                    helper.ValidateString(1004104,"GroupName"),
+                    ValidationHelper.ValidateString(1004104,"GroupName"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

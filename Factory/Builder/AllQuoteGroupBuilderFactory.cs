@@ -57,7 +57,7 @@ namespace StockCore.Factory.Builder
             {
                 inner = new MonBuilderDec<DECollection<QuoteGroupDE>>(
                     inner,
-                    (logger,fakeTracer,keyName,value)=>true,
+                    (logger,fakeTracer,moduleName,methodName,value)=>true,
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

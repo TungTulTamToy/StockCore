@@ -25,7 +25,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         {
             var returnItems = await baseMonDecBuildAsync(
                 "",
-                (logger,tracer,keyName)=>true,
+                (logger,tracer,moduleName,methodName)=>true,
                 async ()=> await inner.GetAllAsync());
             return returnItems;
         }
@@ -33,7 +33,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         {
             await baseMonDecBuildAsync(
                 item,
-                (logger,tracer,keyName)=>validateEntity(item),
+                (logger,tracer,moduleName,methodName)=>validateEntity(item),
                 async ()=> {
                     await inner.InsertAsync(item);
                     return true;
@@ -44,7 +44,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         {
             await baseMonDecBuildAsync(
                 items,
-                (logger,tracer,keyName)=>validateEntities(items),
+                (logger,tracer,moduleName,methodName)=>validateEntities(items),
                 async ()=> {
                     await inner.BatchInsertAsync(items);
                     return true;
@@ -55,7 +55,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         {
             await baseMonDecBuildAsync(
                 item,
-                (logger,tracer,keyName)=>validateEntity(item),
+                (logger,tracer,moduleName,methodName)=>validateEntity(item),
                 async ()=> {
                     await inner.UpdateAsync(item);
                     return true;
@@ -66,7 +66,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         {
             await baseMonDecBuildAsync(
                 items,
-                (logger,tracer,keyName)=>validateEntities(items),
+                (logger,tracer,moduleName,methodName)=>validateEntities(items),
                 async ()=>{
                     await inner.BatchUpdateAsync(items);
                     return true;
@@ -77,7 +77,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         {
             await baseMonDecBuildAsync(
                 item,
-                (logger,tracer,keyName)=> validateEntity(item),
+                (logger,tracer,moduleName,methodName)=> validateEntity(item),
                 async ()=>{
                     await inner.DeleteAsync(item);
                     return true;
@@ -88,7 +88,7 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
         {
             await baseMonDecBuildAsync(
                 items,
-                (logger,tracer,keyName)=> validateEntities(items),
+                (logger,tracer,moduleName,methodName)=> validateEntities(items),
                 async ()=> {
                     await inner.BatchDeleteAsync(items);
                     return true;

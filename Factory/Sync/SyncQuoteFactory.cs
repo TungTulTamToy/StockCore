@@ -91,10 +91,9 @@ namespace StockCore.Factory.Sync
             }
             if(module.IsMonitoringActive())
             {
-                var helper = new ValidationHelper();
                 inner = new MonOperationDec<string>(
                     inner,
-                    helper.ValidateString(1016107,"Quote"),   
+                    ValidationHelper.ValidateString(1016107,"Quote"),   
                     MONPROCESSERRID, 
                     MONOUTERERRID,        
                     module.Monitoring,     

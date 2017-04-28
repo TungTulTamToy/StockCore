@@ -38,10 +38,9 @@ namespace StockCore.Factory.Html
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                var helper = new ValidationHelper();
                 inner = new MonGetByKeyDec<ConsensusDE>(
                     inner,
-                    helper.ValidateString(1000105,"Quote"),
+                    ValidationHelper.ValidateString(1000105,"Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

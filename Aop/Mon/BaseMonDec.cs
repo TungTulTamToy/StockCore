@@ -7,6 +7,7 @@ using StockCore.Extension;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using System.Linq.Expressions;
+using StockCore.Helper;
 
 namespace StockCore.Aop.Mon
 {
@@ -33,7 +34,7 @@ namespace StockCore.Aop.Mon
         }
         protected async Task<TResult> baseMonDecBuildAsync<TInput,TResult>(
             TInput input,
-            Func<ILogger,Tracer,string,bool> validate,
+            Func<ILogger,Tracer,string,string,bool> validate,
             Func<Task<TResult>> processAsync,
             [CallerMemberName]string methodName="")
         {
@@ -42,18 +43,18 @@ namespace StockCore.Aop.Mon
             var subModule = module.OverrideConfigFromSubModuleIfAny(methodName);
             await baseDecOperateAsync(
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
-                validate:()=> validate(logger,tracer,module.Key),
+                validate:()=> validate(logger,tracer,module.Key,methodName),
                 processAsync: async() => result = await processAsync(),
-                processFail:(ex)=>ProcessFail.ComposeAndThrowException(logger,ex,processErrorID,subModule.Key,tracer,module.ThrowException),
+                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,tracer,module.ThrowException),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>ProcessFail.ComposeAndThrowException(logger,e,outerErrorID,subModule.Key,tracer,module.ThrowException)
+                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException)
             );
             sw = null;
             return result;
         }
         protected TResult baseMonDecBuild<TInput,TResult>(
             TInput input,
-            Func<ILogger,Tracer,string,bool> validate,
+            Func<ILogger,Tracer,string,string,bool> validate,
             Func<TResult> process,
             [CallerMemberName]string methodName="")
         {
@@ -62,11 +63,11 @@ namespace StockCore.Aop.Mon
             var subModule = module.OverrideConfigFromSubModuleIfAny(methodName);
             baseDecOperate(
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
-                validate:()=> validate(logger,tracer,module.Key),
+                validate:()=> validate(logger,tracer,module.Key,methodName),
                 process:() => result = process(),
-                processFail:(ex)=>ProcessFail.ComposeAndThrowException(logger,ex,processErrorID,$"{module.Key}.{subModule.Key}",tracer,module.ThrowException),
+                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,tracer,module.ThrowException),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>ProcessFail.ComposeAndThrowException(logger,e,outerErrorID,$"{module.Key}.{subModule.Key}",tracer,module.ThrowException)
+                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException)
             );
             sw = null;
             return result;

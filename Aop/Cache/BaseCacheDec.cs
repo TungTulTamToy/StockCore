@@ -3,10 +3,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using StockCore.Aop.Mon;
 using StockCore.Business.Repo.MongoDB;
 using StockCore.DomainEntity;
 using StockCore.Extension;
+using StockCore.Helper;
 
 namespace StockCore.Aop.Cache.Builder
 {
@@ -33,7 +33,8 @@ namespace StockCore.Aop.Cache.Builder
         }
         protected async Task<T> baseCacheDecOperateAsync(
             string key,
-            Func<Task<T>> buildAsync
+            Func<Task<T>> buildAsync,
+            [CallerMemberName]string methodName=""
             )
         {
             T t = null;
@@ -44,8 +45,8 @@ namespace StockCore.Aop.Cache.Builder
                 invalidProcessAsync: async()=> {
                     t = await buildAsync();
                     await createCacheAsync(t,key);},
-                processFail:(ex)=>ProcessFail.ComposeAndThrowException(logger,ex,processErrorID,module.Key,info:$"Key:[{key}]"),
-                finalProcessFail:(e)=>ProcessFail.ComposeAndThrowException(logger,e,outerErrorID,module.Key,info:$"Key:[{key}]")
+                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,info:$"Key:[{key}]"),
+                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,info:$"Key:[{key}]")
             );
             return t;
         }

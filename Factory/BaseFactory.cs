@@ -2,7 +2,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using StockCore.Aop;
 using StockCore.Aop.Mon;
-using StockCore.Extension;
+using StockCore.Helper;
 using static StockCore.DomainEntity.Enum.TraceSource;
 
 namespace StockCore.Factory
@@ -23,14 +23,17 @@ namespace StockCore.Factory
             this.outerErrID = outerErrID;
             this.logger = logger;
         }
-        public TResult Build(Tracer caller,TCondition intput=default(TCondition))
+        public TResult Build(
+            Tracer caller,
+            TCondition intput=default(TCondition)
+            )
         {
             TResult t = default(TResult);
             var tracer = getTracer(caller);
             baseDecOperate(
                 process:()=>t=baseFactoryBuild(tracer,intput),
-                processFail:(ex)=>processFail(ex,processErrID,tracer),    
-                finalProcessFail:(e)=>processFail(e,outerErrID,tracer)
+                processFail:(ex)=>processFail(ex,processErrID,tracer,"Build"),    
+                finalProcessFail:(e)=>processFail(e,outerErrID,tracer,"Build")
                 );
             return t;
         }
@@ -47,9 +50,9 @@ namespace StockCore.Factory
             }
             return new Tracer(ID,caller,description,TraceSourceName.Dll);
         }
-        private void processFail(Exception ex,int errorID,Tracer tracer) 
+        private void processFail(Exception ex,int errorID,Tracer tracer,string methodName) 
         { 
-            ProcessFail.ComposeAndThrowException(logger,ex,errorID,$"Factory.{keyName}",tracer);
-        } 
+            ProcessFailHelper.ComposeAndThrowException(logger,ex,errorID,$"Factory.{keyName}",methodName,tracer:tracer);
+        }
     }
 }

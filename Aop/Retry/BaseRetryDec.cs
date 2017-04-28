@@ -11,6 +11,8 @@ using StockCore.DomainEntity.Enum;
 using StockCore.Aop.Mon;
 using static StockCore.DomainEntity.Enum.StateOperation;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using StockCore.Helper;
 
 namespace StockCore.Aop.Retry.Worker
 {
@@ -38,7 +40,8 @@ namespace StockCore.Aop.Retry.Worker
         protected async Task baseRetryDecOperateAsync(
             string key,
             Func<Task> processAsync,
-            OperationName operationName)
+            OperationName operationName,
+            [CallerMemberName]string methodName="")
         {
             IEnumerable<OperationStateDE> items = null;
             await baseDecOperateAsync(
@@ -53,9 +56,9 @@ namespace StockCore.Aop.Retry.Worker
                 invalidProcess:()=>logger.TraceMessage(module.Key,key,msg:$"No retry.",showParams:true),
                 processFailAsync:async(ex)=> {
                     await saveStateAsync(items,key,false,operationName);
-                    ProcessFail.ComposeAndThrowException(logger,ex,processErrorID,module.Key,info:$"Key:[{key}]");
+                    ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,info:$"Key:[{key}]");
                 },
-                finalProcessFail:(e)=>ProcessFail.ComposeAndThrowException(logger,e,outerErrorID,module.Key,info:$"Key:[{key}]")
+                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,info:$"Key:[{key}]")
             );
         }
         private bool shouldRetryAsync(IEnumerable<OperationStateDE> items,string key,OperationName operationName)
