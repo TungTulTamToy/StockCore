@@ -81,8 +81,9 @@ namespace StockCore.Factory.Sync
             var module = configReader.GetByKey(getAopKey());
             if(module.IsRetryActive())
             {
-                inner = new RetryOperationDec(
+                inner = new RetryOperationDec<string>(
                     inner,
+                    CacheHelper.GetKeyByString(),
                     operationStateRepoFactory.Build(tracer),
                     module.Retry,
                     RETRYOUTERERRID,

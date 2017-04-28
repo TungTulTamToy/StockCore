@@ -54,7 +54,7 @@ namespace StockCore.Factory.DB
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByFuncRepoDec<CacheDE<T>>(
+                inner = new MonGetByFuncRepoDec<string,CacheDE<T>>(
                     inner,
                     ValidationHelper.ValidateExpression<CacheDE<T>>(1021106,"Criteria"),
                     ValidationHelper.ValidateString(1021105,"Key"),

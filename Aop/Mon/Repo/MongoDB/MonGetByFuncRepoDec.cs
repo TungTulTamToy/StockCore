@@ -8,13 +8,13 @@ using System.Linq.Expressions;
 
 namespace StockCore.Aop.Mon.Repo.MongoDB
 {
-    public class MonGetByFuncRepoDec<T> : MonGetByKeyRepoDec<T>, IGetByFuncRepo<string,T> where T:BaseDE,IKeyField<string>
+    public class MonGetByFuncRepoDec<TInput,TResult> : MonGetByKeyRepoDec<TInput,TResult>, IGetByFuncRepo<TInput,TResult> where TInput:class where TResult:BaseDE,IKeyField<string>
     {
-        private readonly Func<ILogger,Tracer,string,string,Expression<Func<T,bool>>,bool> validateExpression;
+        private readonly Func<ILogger,Tracer,string,string,Expression<Func<TResult,bool>>,bool> validateExpression;
         public MonGetByFuncRepoDec(
-            IGetByFuncRepo<string,T> inner,
-            Func<ILogger,Tracer,string,string,Expression<Func<T,bool>>,bool> validateExpression,   
-            Func<ILogger,Tracer,string,string,string,bool> validateQuote,          
+            IGetByFuncRepo<TInput,TResult> inner,
+            Func<ILogger,Tracer,string,string,Expression<Func<TResult,bool>>,bool> validateExpression,   
+            Func<ILogger,Tracer,string,string,TInput,bool> validateQuote,          
             int processErrorID,
             int outerErrorID,
             MonitoringModule module,
@@ -25,12 +25,12 @@ namespace StockCore.Aop.Mon.Repo.MongoDB
                 this.validateExpression = validateExpression;
             }
 
-        public async Task<IEnumerable<T>> GetByFuncAsync(Expression<Func<T, bool>> expression)
+        public async Task<IEnumerable<TResult>> GetByFuncAsync(Expression<Func<TResult, bool>> expression)
         {
             var returnItems = await baseMonDecBuildAsync(
                 expression,
                 (logger,tracer,moduleName,methodName)=>validateExpression(logger,tracer,moduleName,methodName,expression),
-                async ()=> await ((IGetByFuncRepo<string,T>)inner).GetByFuncAsync(expression));
+                async ()=> await ((IGetByFuncRepo<TInput,TResult>)inner).GetByFuncAsync(expression));
             return returnItems;
         }
     }

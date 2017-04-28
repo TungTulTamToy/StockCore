@@ -56,7 +56,7 @@ namespace StockCore.Factory.Builder
             }
             if(module.IsMonitoringActive())
             {
-                inner = new MonBuilderDec<DECollection<QuoteGroupDE>>(
+                inner = new MonBuilderDec<string,DECollection<QuoteGroupDE>>(
                     inner,
                     (logger,fakeTracer,moduleName,methodName,value)=>true,
                     MONPROCESSERRID,

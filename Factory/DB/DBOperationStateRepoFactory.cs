@@ -54,7 +54,7 @@ namespace StockCore.Factory.DB
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByKeyRepoDec<OperationStateDE>(
+                inner = new MonGetByKeyRepoDec<string,OperationStateDE>(
                     inner,
                     ValidationHelper.ValidateString(1002105,"Quote"),
                     MONPROCESSERRID,

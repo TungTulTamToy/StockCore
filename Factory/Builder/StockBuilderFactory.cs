@@ -66,7 +66,7 @@ namespace StockCore.Factory.Builder
             }
             if(module.IsMonitoringActive())
             {
-                inner = new MonBuilderDec<StockDE>(
+                inner = new MonBuilderDec<string,StockDE>(
                     inner,
                     ValidationHelper.ValidateString(1020105,"Quote"),
                     MONPROCESSERRID,

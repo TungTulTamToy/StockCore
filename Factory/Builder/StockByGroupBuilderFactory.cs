@@ -60,7 +60,7 @@ namespace StockCore.Factory.Builder
             }
             if(module.IsMonitoringActive())
             {
-                inner = new MonBuilderDec<DECollection<StockDE>>(
+                inner = new MonBuilderDec<string,DECollection<StockDE>>(
                     inner,
                     ValidationHelper.ValidateString(1023107,"GroupName"),
                     MONPROCESSERRID,

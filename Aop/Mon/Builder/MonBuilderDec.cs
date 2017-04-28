@@ -6,14 +6,14 @@ using StockCore.DomainEntity;
 
 namespace StockCore.Aop.Mon.Builder
 {
-    public class MonBuilderDec<TResult> : BaseMonDec, IBuilder<string, TResult> where TResult:class
+    public class MonBuilderDec<TInput,TResult> : BaseMonDec, IBuilder<TInput, TResult> where TInput:class where TResult:class
     {
         private readonly MonitoringModule module;
-        private readonly IBuilder<string, TResult> inner;
-        private readonly Func<ILogger,Tracer,string,string,string,bool> validateQuote;
+        private readonly IBuilder<TInput, TResult> inner;
+        private readonly Func<ILogger,Tracer,string,string,TInput,bool> validateQuote;
         public MonBuilderDec(
-            IBuilder<string, TResult> inner,
-            Func<ILogger,Tracer,string,string,string,bool> validateQuote,            
+            IBuilder<TInput, TResult> inner,
+            Func<ILogger,Tracer,string,string,TInput,bool> validateQuote,            
             int processErrorID,
             int outerErrorID,
             MonitoringModule module,
@@ -24,12 +24,12 @@ namespace StockCore.Aop.Mon.Builder
             this.validateQuote = validateQuote;
             this.module = module;
         }
-        public async Task<TResult> BuildAsync(string quote)
+        public async Task<TResult> BuildAsync(TInput param)
         {
             var item = await baseMonDecBuildAsync(
-                quote,
-                (logger,tracer,moduleName,methodName)=>validateQuote(logger,tracer,moduleName,methodName,quote),
-                async ()=> await inner.BuildAsync(quote));
+                param,
+                (logger,tracer,moduleName,methodName)=>validateQuote(logger,tracer,moduleName,methodName,param),
+                async ()=> await inner.BuildAsync(param));
             return item;
         }
     }
