@@ -10,7 +10,7 @@ using StockCore.Aop.Mon.Worker;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.Sync
 {
     public class SyncConcensusFactory : BaseFactory<string,IOperation<IEnumerable<ConsensusDE>>>
     {

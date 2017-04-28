@@ -9,7 +9,7 @@ using StockCore.Business.Repo.MongoDB;
 using StockCore.Aop.Mon.Builder;
 using StockCore.Aop.Cache.Builder;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.Builder
 {
     public class StockBuilderFactory : BaseFactory<string,IBuilder<string, StockDE>>
     {

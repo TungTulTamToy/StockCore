@@ -9,7 +9,7 @@ using StockCore.Extension;
 using StockCore.Helper;
 using StockCore.Aop.Mon;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.DB
 {
     public class DBPriceRepoFactory : BaseFactory<string,IGetByKeyRepo<PriceDE,string>>
     {

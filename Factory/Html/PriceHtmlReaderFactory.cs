@@ -9,20 +9,20 @@ using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.Html
 {
-    public class ConsensusHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<ConsensusDE>,string>>
+    public class PriceHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<PriceDE>,string>>
     {
-        private const string KEY = "ConsensusHtmlReader";
-        private const int ID = 1000100;
-        private const int PROCESSERRID = 1000101;
-        private const int OUTERERRID = 1000102;
-        private const int MONPROCESSERRID = 1000103;
-        private const int MONOUTERERRID = 1000104;
+        private const string KEY = "HtmlPriceGetByKey";
+        private const int ID = 1009100;
+        private const int PROCESSERRID = 1009101;
+        private const int OUTERERRID = 1009102;
+        private const int MONPROCESSERRID = 1009103;
+        private const int MONOUTERERRID = 1009104;
+        private readonly IConfigReader configReader;
         private readonly IHttpClientWrapper client;
         private readonly IHtmlDocumentWrapper doc;
-        private readonly IConfigReader configReader;
-        public ConsensusHtmlReaderFactory(ILogger logger,
+        public PriceHtmlReaderFactory(ILogger logger,
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
             IConfigReader configReader
@@ -32,16 +32,16 @@ namespace StockCore.Factory
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<ConsensusDE>,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<PriceDE>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<ConsensusDE>,string> inner = new ConsensusHtmlReader(client,doc);
+            IGetByKey<IEnumerable<PriceDE>,string> inner = new PriceHtmlReader(client,doc);  
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
                 var helper = new ValidationHelper();
-                inner = new MonGetByKeyDec<ConsensusDE>(
+                inner = new MonGetByKeyDec<PriceDE>(
                     inner,
-                    helper.ValidateString(1000105,"Quote"),
+                    helper.ValidateString(1009105,"Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

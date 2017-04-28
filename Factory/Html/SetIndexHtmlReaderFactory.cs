@@ -9,20 +9,20 @@ using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.Html
 {
-    public class StatisticHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<StatisticDE>,string>>
+    public class SetIndexHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<SetIndexDE>,string>>
     {
-        private const string KEY = "HtmlStatisticGetByKey";
-        private const int ID = 1012100;
-        private const int PROCESSERRID = 1012101;
-        private const int OUTERERRID = 1012102;
-        private const int MONPROCESSERRID = 1012103;
-        private const int MONOUTERERRID = 1012104;
+        private const string KEY = "HtmlSetIndexGetByKey";
+        private const int ID = 1010100;
+        private const int PROCESSERRID = 1010101;
+        private const int OUTERERRID = 1010102;
+        private const int MONPROCESSERRID = 1010103;
+        private const int MONOUTERERRID = 1010104;
         private readonly IConfigReader configReader;
         private readonly IHttpClientWrapper client;
         private readonly IHtmlDocumentWrapper doc;
-        public StatisticHtmlReaderFactory(ILogger logger,
+        public SetIndexHtmlReaderFactory(ILogger logger,
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
             IConfigReader configReader
@@ -32,22 +32,22 @@ namespace StockCore.Factory
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<StatisticDE>,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<SetIndexDE>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<StatisticDE>,string> inner = new StatisticHtmlReader(client,doc);
+            IGetByKey<IEnumerable<SetIndexDE>,string> inner = new SetIndexHtmlReader(client,doc);   
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
                 var helper = new ValidationHelper();
-                inner = new MonGetByKeyDec<StatisticDE>(
+                inner = new MonGetByKeyDec<SetIndexDE>(
                     inner,
-                    helper.ValidateString(1012105,"Quote"),
+                    helper.ValidateString(1010105,"Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
                     logger,
                     tracer
-                    );
+                    ); 
             }
             return inner;
         }

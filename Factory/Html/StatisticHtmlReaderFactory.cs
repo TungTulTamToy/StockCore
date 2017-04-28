@@ -9,20 +9,20 @@ using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.Html
 {
-    public class ShareHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<ShareDE>,string>>
+    public class StatisticHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<StatisticDE>,string>>
     {
-        private const string KEY = "HtmlShareGetByKey";
-        private const int ID = 1011100;
-        private const int PROCESSERRID = 1011101;
-        private const int OUTERERRID = 1011102;
-        private const int MONPROCESSERRID = 1011103;
-        private const int MONOUTERERRID = 1011104;
+        private const string KEY = "HtmlStatisticGetByKey";
+        private const int ID = 1012100;
+        private const int PROCESSERRID = 1012101;
+        private const int OUTERERRID = 1012102;
+        private const int MONPROCESSERRID = 1012103;
+        private const int MONOUTERERRID = 1012104;
         private readonly IConfigReader configReader;
         private readonly IHttpClientWrapper client;
         private readonly IHtmlDocumentWrapper doc;
-        public ShareHtmlReaderFactory(ILogger logger,
+        public StatisticHtmlReaderFactory(ILogger logger,
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
             IConfigReader configReader
@@ -32,16 +32,16 @@ namespace StockCore.Factory
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<ShareDE>,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<StatisticDE>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<ShareDE>,string> inner = new ShareHtmlReader(client,doc);  
+            IGetByKey<IEnumerable<StatisticDE>,string> inner = new StatisticHtmlReader(client,doc);
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
                 var helper = new ValidationHelper();
-                inner = new MonGetByKeyDec<ShareDE>(
+                inner = new MonGetByKeyDec<StatisticDE>(
                     inner,
-                    helper.ValidateString(1011105,"Quote"),
+                    helper.ValidateString(1012105,"Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

@@ -10,7 +10,7 @@ using StockCore.Aop.Mon.Builder;
 using StockCore.Aop.Cache.Builder;
 using System.Collections.Generic;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.Builder
 {
     public class AllQuoteGroupBuilderFactory : BaseFactory<string,IBuilder<string, DECollection<QuoteGroupDE>>>
     {

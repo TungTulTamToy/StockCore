@@ -9,20 +9,20 @@ using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.Html
 {
-    public class SetIndexHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<SetIndexDE>,string>>
+    public class ConsensusHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<ConsensusDE>,string>>
     {
-        private const string KEY = "HtmlSetIndexGetByKey";
-        private const int ID = 1010100;
-        private const int PROCESSERRID = 1010101;
-        private const int OUTERERRID = 1010102;
-        private const int MONPROCESSERRID = 1010103;
-        private const int MONOUTERERRID = 1010104;
-        private readonly IConfigReader configReader;
+        private const string KEY = "ConsensusHtmlReader";
+        private const int ID = 1000100;
+        private const int PROCESSERRID = 1000101;
+        private const int OUTERERRID = 1000102;
+        private const int MONPROCESSERRID = 1000103;
+        private const int MONOUTERERRID = 1000104;
         private readonly IHttpClientWrapper client;
         private readonly IHtmlDocumentWrapper doc;
-        public SetIndexHtmlReaderFactory(ILogger logger,
+        private readonly IConfigReader configReader;
+        public ConsensusHtmlReaderFactory(ILogger logger,
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
             IConfigReader configReader
@@ -32,22 +32,22 @@ namespace StockCore.Factory
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<SetIndexDE>,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<ConsensusDE>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<SetIndexDE>,string> inner = new SetIndexHtmlReader(client,doc);   
+            IGetByKey<IEnumerable<ConsensusDE>,string> inner = new ConsensusHtmlReader(client,doc);
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
                 var helper = new ValidationHelper();
-                inner = new MonGetByKeyDec<SetIndexDE>(
+                inner = new MonGetByKeyDec<ConsensusDE>(
                     inner,
-                    helper.ValidateString(1010105,"Quote"),
+                    helper.ValidateString(1000105,"Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
                     logger,
                     tracer
-                    ); 
+                    );
             }
             return inner;
         }

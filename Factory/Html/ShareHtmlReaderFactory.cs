@@ -9,20 +9,20 @@ using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.Html
 {
-    public class PriceHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<PriceDE>,string>>
+    public class ShareHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<ShareDE>,string>>
     {
-        private const string KEY = "HtmlPriceGetByKey";
-        private const int ID = 1009100;
-        private const int PROCESSERRID = 1009101;
-        private const int OUTERERRID = 1009102;
-        private const int MONPROCESSERRID = 1009103;
-        private const int MONOUTERERRID = 1009104;
+        private const string KEY = "HtmlShareGetByKey";
+        private const int ID = 1011100;
+        private const int PROCESSERRID = 1011101;
+        private const int OUTERERRID = 1011102;
+        private const int MONPROCESSERRID = 1011103;
+        private const int MONOUTERERRID = 1011104;
         private readonly IConfigReader configReader;
         private readonly IHttpClientWrapper client;
         private readonly IHtmlDocumentWrapper doc;
-        public PriceHtmlReaderFactory(ILogger logger,
+        public ShareHtmlReaderFactory(ILogger logger,
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
             IConfigReader configReader
@@ -32,16 +32,16 @@ namespace StockCore.Factory
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<PriceDE>,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<ShareDE>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<PriceDE>,string> inner = new PriceHtmlReader(client,doc);  
+            IGetByKey<IEnumerable<ShareDE>,string> inner = new ShareHtmlReader(client,doc);  
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
                 var helper = new ValidationHelper();
-                inner = new MonGetByKeyDec<PriceDE>(
+                inner = new MonGetByKeyDec<ShareDE>(
                     inner,
-                    helper.ValidateString(1009105,"Quote"),
+                    helper.ValidateString(1011105,"Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

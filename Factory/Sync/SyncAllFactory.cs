@@ -11,7 +11,7 @@ using StockCore.Aop.Mon;
 using StockCore.Helper;
 using StockCore.DomainEntity;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.Sync
 {
     public class SyncAllFactory : BaseFactory<FactoryCondition,IOperation<IEnumerable<string>>>
     {

@@ -9,24 +9,24 @@ using StockCore.Extension;
 using StockCore.Helper;
 using StockCore.Aop.Mon;
 
-namespace StockCore.Factory
+namespace StockCore.Factory.DB
 {
-    public class DBOperationStateRepoFactory : BaseFactory<string,IGetByKeyRepo<OperationStateDE,string>>
+    public class DBQuoteGroupRepoFactory : BaseFactory<string,IGetByKeyRepo<QuoteGroupDE,string>>
     {
-        private const string KEY = "DBOperationStateRepo";
-        private const string COLLECTIONNAME = "OperationState";
-        private const int ID = 1002100;
-        private const int PROCESSERRID = 1002101;
-        private const int OUTERERRID = 1002102;
-        private const int MONPROCESSERRID = 1002103;
-        private const int MONOUTERERRID = 1002104;
+        private const string KEY = "DBQuoteGroupRepo";
+        private const string COLLECTIONNAME = "QuoteGroup";
+        private const int ID = 1004100;
+        private const int PROCESSERRID = 1004101;
+        private const int OUTERERRID = 1004102;
+        private const int MONPROCESSERRID = 1004103;
+        private const int MONOUTERERRID = 1004104;
         private readonly IConfigProvider config;
         private readonly IMongoDatabaseWrapper db;
         private readonly IFilterDefinitionBuilderWrapper filterBuilder;
         private readonly IReplaceOneModelBuilder replaceOneModelBuilder;
         private readonly IDeleteOneModelBuilder deleteOneModelBuilder;
         private readonly IConfigReader configReader;
-        public DBOperationStateRepoFactory(IConfigProvider config, 
+        public DBQuoteGroupRepoFactory(IConfigProvider config, 
             ILogger logger,
             IMongoDatabaseWrapper db, 
             IFilterDefinitionBuilderWrapper filterBuilder,
@@ -42,22 +42,16 @@ namespace StockCore.Factory
             this.deleteOneModelBuilder = deleteOneModelBuilder;
             this.configReader = configReader;
         }
-        protected override IGetByKeyRepo<OperationStateDE,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKeyRepo<QuoteGroupDE,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKeyRepo<OperationStateDE,string> inner = new BaseKeyDBRepo<OperationStateDE>(
-                config,
-                db,
-                filterBuilder,
-                replaceOneModelBuilder,
-                deleteOneModelBuilder,
-                COLLECTIONNAME);    
+            IGetByKeyRepo<QuoteGroupDE,string> inner = new BaseKeyDBRepo<QuoteGroupDE>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME); 
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
                 var helper = new ValidationHelper();
-                inner = new MonGetByKeyRepoDec<OperationStateDE>(
+                inner = new MonGetByKeyRepoDec<QuoteGroupDE>(
                     inner,
-                    helper.ValidateString(1002105,"Quote"),
+                    helper.ValidateString(1004104,"GroupName"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
