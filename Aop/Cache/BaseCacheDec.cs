@@ -44,8 +44,8 @@ namespace StockCore.Aop.Cache.Builder
                 invalidProcessAsync: async()=> {
                     t = await buildAsync();
                     await createCacheAsync(t,key);},
-                processFail:(ex)=>processFail(ex,processErrorID,key),
-                finalProcessFail:(e)=>processFail(e,outerErrorID,key)
+                processFail:(ex)=>baseDecProcessFail(logger,ex,processErrorID,module.Key,$"Key:[{key}]"),
+                finalProcessFail:(e)=>baseDecProcessFail(logger,e,outerErrorID,module.Key,$"Key:[{key}]")
             );
             return t;
         }
@@ -68,11 +68,6 @@ namespace StockCore.Aop.Cache.Builder
                 logger.TraceMessage(module.Key,key,msg:$"Cache miss.",showParams:true);    
             }
             return item;
-        }
-        private void processFail(Exception ex,int errorID,string key)
-        {
-            var e = new StockCoreException(errorID,module.Key,ex,info:$"Key:[{key}]");
-            throw e;//It will be manage by monitoring decorator
         }
         private async Task<T> createCacheAsync(T item,string key)
         {

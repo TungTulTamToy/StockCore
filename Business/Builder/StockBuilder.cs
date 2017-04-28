@@ -102,38 +102,41 @@ namespace StockCore.Business.Builder
             IEnumerable<ShareDE> shareByYear,
             IEnumerable<ConsensusDE> consensus)
         {
-            var avgPriceOfEachJan = from p in price
-                where p.Date.Month == 1
-                group p by p.Date.Year into g
-                select new PriceDE
-                {
-                    Close = g.WeightedAverage(p => p.Close.Value, p => p.Date.Day),
-                    Date = new DateTime(g.Key, 1, 1)
-                };
+            IEnumerable<PeDE> pe = null;
+            if(shareByYear != null && shareByYear.Any())
+            {
+                var avgPriceOfEachJan = from p in price
+                    where p.Date.Month == 1
+                    group p by p.Date.Year into g
+                    select new PriceDE
+                    {
+                        Close = g.WeightedAverage(p => p.Close.Value, p => p.Date.Day),
+                        Date = new DateTime(g.Key, 1, 1)
+                    };
 
-            var pe = from p in avgPriceOfEachJan
-                join stat in statistic on (p.Date.Year-1) equals stat.Year
-                join s in shareByYear on stat.Year equals s.Date.Year
-                where stat.Year < DateTime.Now.Year
-                select new PeDE
-                {
-                    Year = stat.Year,
-                    Value = p.Close.Value / (stat.NetProfit.Value/((double)s.Amount.Value/1000000)),
-                    IsActual = true
-                };
+                pe = from p in avgPriceOfEachJan
+                    join stat in statistic on (p.Date.Year-1) equals stat.Year
+                    join s in shareByYear on stat.Year equals s.Date.Year
+                    where stat.Year < DateTime.Now.Year
+                    select new PeDE
+                    {
+                        Year = stat.Year,
+                        Value = p.Close.Value / (stat.NetProfit.Value/((double)s.Amount.Value/1000000)),
+                        IsActual = true
+                    };
 
-            var lastPrice = price.OrderByDescending(p=>p.Date).FirstOrDefault();
+                var lastPrice = price.OrderByDescending(p=>p.Date).FirstOrDefault();
 
-            //Forward PE
-            pe = pe.Union(from c in consensus
-                where c.Year >= DateTime.Now.Year
-                select new PeDE
-                {
-                    Year = c.Year,
-                    Value = c.Average < c.Median ? lastPrice.Close.Value / c.Average.Value : lastPrice.Close.Value / c.Median.Value,
-                    IsActual = false
-                }).OrderByDescending(p=>p.Year);
-
+                //Forward PE
+                pe = pe.Union(from c in consensus
+                    where c.Year >= DateTime.Now.Year
+                    select new PeDE
+                    {
+                        Year = c.Year,
+                        Value = c.Average < c.Median ? lastPrice.Close.Value / c.Average.Value : lastPrice.Close.Value / c.Median.Value,
+                        IsActual = false
+                    }).OrderByDescending(p=>p.Year);
+            }
             return pe;
         }
         private IEnumerable<PriceCalDE> calculatePriceCalDE(IEnumerable<PriceDE> price)
@@ -213,15 +216,19 @@ namespace StockCore.Business.Builder
 
         private IEnumerable<GrowthDE> calculateGrowth(IEnumerable<NetProfitDE> netProfit)
         {
-            var growth = from n in netProfit
-            join nn in netProfit on n.Year equals nn.Year+1
-            orderby n.Year descending
-            select new GrowthDE
+            IEnumerable<GrowthDE> growth = null;
+            if(netProfit != null && netProfit.Any())
             {
-                Year = n.Year,
-                Value = ((n.Value - nn.Value)/nn.Value)*100,
-                IsActual = n.IsActual
-            };
+                growth = from n in netProfit
+                join nn in netProfit on n.Year equals nn.Year+1
+                orderby n.Year descending
+                select new GrowthDE
+                {
+                    Year = n.Year,
+                    Value = ((n.Value - nn.Value)/nn.Value)*100,
+                    IsActual = n.IsActual
+                };
+            }
             return growth;
         }
 
@@ -231,46 +238,54 @@ namespace StockCore.Business.Builder
             IEnumerable<ConsensusDE> consensus,
             IEnumerable<ShareDE> shareByYear)
         {
-            //actual
-            var netProfit = from stat in statistic
-                where stat.Year < DateTime.Now.Year
-                select new NetProfitDE
-                {
-                    Year = stat.Year,
-                    Value = stat.NetProfit.Value,
-                    IsActual = true
-                };
+            IEnumerable<NetProfitDE> netProfit=null;
+            if(shareByYear!=null && shareByYear.Any())
+            {
+                //actual
+                netProfit = from stat in statistic
+                    where stat.Year < DateTime.Now.Year
+                    select new NetProfitDE
+                    {
+                        Year = stat.Year,
+                        Value = stat.NetProfit.Value,
+                        IsActual = true
+                    };
 
-            //forecast
-            netProfit = netProfit.Union(from c in consensus
-                join s in shareByYear on c.Year equals s.Date.Year
-                where c.Year >= DateTime.Now.Year
-                select new NetProfitDE
-                {
-                    Year = c.Year,
-                    Value = c.Average < c.Median ? ((c.Average * s.Amount) / 1000000).Value : ((c.Median * s.Amount) / 1000000).Value,
-                    IsActual = false
-                }).OrderByDescending(n=>n.Year);
+                //forecast
+                netProfit = netProfit.Union(from c in consensus
+                    join s in shareByYear on c.Year equals s.Date.Year
+                    where c.Year >= DateTime.Now.Year
+                    select new NetProfitDE
+                    {
+                        Year = c.Year,
+                        Value = c.Average < c.Median ? ((c.Average * s.Amount) / 1000000).Value : ((c.Median * s.Amount) / 1000000).Value,
+                        IsActual = false
+                    }).OrderByDescending(n=>n.Year);
+            }
             return netProfit;
         }
 
         private IEnumerable<ShareDE> calculateShareByYear(string quote,IEnumerable<ShareDE> share)
         {
-            var shareByYear = from s in share
-                            group s by s.Date.Year into g
-                            select (g.OrderByDescending(s => s.Date).First());
-            var oldestYear = shareByYear.OrderBy(g => g.Date).FirstOrDefault();
-            var newestYear = shareByYear.OrderByDescending(g => g.Date).FirstOrDefault();
-            shareByYear = shareByYear.Concat(new ShareDE[] 
-            { 
-                new ShareDE { Date = oldestYear.Date.AddYears(-5), Amount = oldestYear.Amount },
-                new ShareDE { Date = oldestYear.Date.AddYears(-4), Amount = oldestYear.Amount },
-                new ShareDE { Date = oldestYear.Date.AddYears(-3), Amount = oldestYear.Amount },
-                new ShareDE { Date = oldestYear.Date.AddYears(-2), Amount = oldestYear.Amount },
-                new ShareDE { Date = oldestYear.Date.AddYears(-1), Amount = oldestYear.Amount },
-                new ShareDE { Date = newestYear.Date.AddYears(1), Amount = newestYear.Amount },
-                new ShareDE { Date = newestYear.Date.AddYears(2), Amount = newestYear.Amount } 
-            }).OrderByDescending(s=>s.Date);
+            IEnumerable<ShareDE> shareByYear = null;
+            if(share != null && share.Any())
+            {
+                shareByYear = from s in share
+                                group s by s.Date.Year into g
+                                select (g.OrderByDescending(s => s.Date).First());
+                var oldestYear = shareByYear.OrderBy(g => g.Date).FirstOrDefault();
+                var newestYear = shareByYear.OrderByDescending(g => g.Date).FirstOrDefault();
+                shareByYear = shareByYear.Concat(new ShareDE[] 
+                { 
+                    new ShareDE { Date = oldestYear.Date.AddYears(-5), Amount = oldestYear.Amount },
+                    new ShareDE { Date = oldestYear.Date.AddYears(-4), Amount = oldestYear.Amount },
+                    new ShareDE { Date = oldestYear.Date.AddYears(-3), Amount = oldestYear.Amount },
+                    new ShareDE { Date = oldestYear.Date.AddYears(-2), Amount = oldestYear.Amount },
+                    new ShareDE { Date = oldestYear.Date.AddYears(-1), Amount = oldestYear.Amount },
+                    new ShareDE { Date = newestYear.Date.AddYears(1), Amount = newestYear.Amount },
+                    new ShareDE { Date = newestYear.Date.AddYears(2), Amount = newestYear.Amount } 
+                }).OrderByDescending(s=>s.Date);
+            }
             return shareByYear;
         }
     }

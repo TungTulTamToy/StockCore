@@ -53,15 +53,10 @@ namespace StockCore.Aop.Retry.Worker
                 invalidProcess:()=>logger.TraceMessage(module.Key,key,msg:$"No retry.",showParams:true),
                 processFailAsync:async(ex)=> {
                     await saveStateAsync(items,key,false,operationName);
-                    processFail(ex,processErrorID,key);
+                    baseDecProcessFail(logger,ex,processErrorID,module.Key,$"Key:[{key}]");
                 },
-                finalProcessFail:(e)=>processFail(e,outerErrorID,key)
+                finalProcessFail:(e)=>baseDecProcessFail(logger,e,outerErrorID,module.Key,$"Key:[{key}]")
             );
-        }
-        private void processFail(Exception ex,int errorID,string key)
-        {
-            var e = new StockCoreException(errorID,module.Key,ex,info:$"[{key}]");
-            throw e;//It will be manage by monitoring decorator
         }
         private bool shouldRetryAsync(IEnumerable<OperationStateDE> items,string key,OperationName operationName)
         {

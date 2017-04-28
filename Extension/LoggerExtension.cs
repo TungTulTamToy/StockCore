@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -45,7 +44,7 @@ namespace StockCore.Extension
         {
             if(ex!=null)
             {
-                logger.LogError($"!!!!! Process:[{ex.Key}] ID:[{ex.ID}] Message: [{ex.Info}] Exception: {ex.Message} Stack: {ex.StackTrace} !!!!!");
+                logger.LogError($"!!!!! Process:[{ex.Key}] ID:[{ex.ErrorID}] Message: [{ex.Info}] Exception: {ex.Message} Stack: {ex.StackTrace} !!!!!");
             }
         }
         private static void traceDebug(this ILogger logger,string prefix,string keyName, string msg,string suffix="")
