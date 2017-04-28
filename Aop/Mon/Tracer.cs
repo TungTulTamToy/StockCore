@@ -6,19 +6,17 @@ namespace StockCore.Aop.Mon
 {
     public class Tracer
     {
-        public int ID => id;
-        public Tracer Caller => tracer;
+        public int ID{get;set;}
+        public Tracer Caller{get;set;}
         public TraceSourceName TraceSourceName{get;set;}
+        public string Descripton{get;set;}
         public List<CallHistory> CallHistories=new List<CallHistory>();
-        private readonly int id;
-        private readonly Tracer tracer;
-        private readonly string description;
         public Tracer(int id, Tracer tracer, string description, TraceSourceName traceSourceName)
         {
-            this.id = id;
-            this.tracer = tracer;
-            this.description = description;
-            this.TraceSourceName = TraceSourceName;
+            this.ID = id;
+            this.Caller = tracer;
+            this.Descripton = description;
+            this.TraceSourceName = traceSourceName;
         }
         public void AddCallHistory(CallHistory callHistory)
         {
@@ -27,17 +25,14 @@ namespace StockCore.Aop.Mon
     }
     public class CallHistory
     {
-        public string MethodName=>methodName;
-        public string Parameters=>parameters;
-        public DateTime ActivateTime=>activateTime;
-        private readonly string methodName;
-        private readonly string parameters;
-        private readonly DateTime activateTime;
+        public string MethodName{get;set;}
+        public string Parameters{get;set;}
+        public DateTime ActivateTime{get;set;}
         public CallHistory(string methodName,string parameters)
         {
-            this.methodName = methodName;
-            this.parameters = parameters;
-            this.activateTime = DateTime.Now;
+            this.MethodName = methodName;
+            this.Parameters = parameters;
+            this.ActivateTime = DateTime.Now;
         }
     }
 }

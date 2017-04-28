@@ -23,15 +23,15 @@ namespace StockCore.Factory
         private const int CACHEPROCESSERRID = 1022105;
         private const int CACHEOUTERERRID = 1022106;
         private readonly IConfigReader configReader;
-        private readonly IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> allQuoteGroupRepoFactory;
+        private readonly IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> quoteGroupRepoFactory;
         private readonly IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroupDE>>>> cacheRepoFactory;
         public AllQuoteGroupBuilderFactory(ILogger logger,
-            IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> allQuoteGroupRepoFactory,
+            IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> quoteGroupRepoFactory,
             IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroupDE>>>> cacheRepoFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
-            this.allQuoteGroupRepoFactory = allQuoteGroupRepoFactory;
+            this.quoteGroupRepoFactory = quoteGroupRepoFactory;
             this.cacheRepoFactory = cacheRepoFactory;
             this.configReader = configReader;
         }
@@ -39,7 +39,7 @@ namespace StockCore.Factory
         {
             IBuilder<string, DECollection<QuoteGroupDE>> inner = new AllQuoteGroupBuilder(
                 logger,
-                allQuoteGroupRepoFactory.Build(tracer)
+                quoteGroupRepoFactory.Build(tracer)
                 );  
             var module = configReader.GetByKey(getAopKey());
             if(module.IsCacheActive())

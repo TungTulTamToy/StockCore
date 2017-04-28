@@ -8,7 +8,7 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.MongoDB
 {
-    public class BaseFuncDBRepo<T>:BaseQuoteDBRepo<T>,IGetByFuncRepo<string,T> where T:BaseDE,IKeyField<string>
+    public class BaseFuncDBRepo<T>:BaseKeyDBRepo<T>,IGetByFuncRepo<string,T> where T:BaseDE,IKeyField<string>
     {
         public BaseFuncDBRepo(
             IConfigProvider config, 

@@ -44,7 +44,7 @@ namespace StockCore.Factory
         }
         protected override IGetByKeyRepo<PriceDE,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKeyRepo<PriceDE,string> inner = new BaseQuoteDBRepo<PriceDE>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
+            IGetByKeyRepo<PriceDE,string> inner = new BaseKeyDBRepo<PriceDE>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {

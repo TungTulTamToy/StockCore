@@ -10,6 +10,7 @@ using StockCore.Extension;
 using StockCore.DomainEntity.Enum;
 using StockCore.Aop.Mon;
 using static StockCore.DomainEntity.Enum.StateOperation;
+using System.Collections.Generic;
 
 namespace StockCore.Aop.Retry.Worker
 {
@@ -39,15 +40,19 @@ namespace StockCore.Aop.Retry.Worker
             Func<Task> processAsync,
             OperationName operationName)
         {
+            IEnumerable<OperationStateDE> items = null;
             await baseDecOperateAsync(
-                validateAsync:async()=>await shouldRetryAsync(key,operationName),
+                validateAsync:async()=>{
+                    items = await operationStateRepo.GetByKeyAsync(key);
+                    return shouldRetryAsync(items,key,operationName);
+                },
                 processAsync:async()=>{
                     await processAsync();
-                    await saveStateAsync(key,true,operationName);
+                    await saveStateAsync(items,key,true,operationName);
                 },
                 invalidProcess:()=>logger.TraceMessage(module.Key,key,msg:$"No retry.",showParams:true),
                 processFailAsync:async(ex)=> {
-                    await saveStateAsync(key,false,operationName);
+                    await saveStateAsync(items,key,false,operationName);
                     processFail(ex,processErrorID,key);
                 },
                 finalProcessFail:(e)=>processFail(e,outerErrorID,key)
@@ -58,9 +63,8 @@ namespace StockCore.Aop.Retry.Worker
             var e = new StockCoreException(errorID,module.Key,ex,info:$"[{key}]");
             throw e;//It will be manage by monitoring decorator
         }
-        private async Task<bool> shouldRetryAsync(string key,OperationName operationName)
+        private bool shouldRetryAsync(IEnumerable<OperationStateDE> items,string key,OperationName operationName)
         {
-            var items = await operationStateRepo.GetByKeyAsync(key);
             var selectedItems = from i in items where 
                 i.OperationName==operationName && 
                 i.OperationState==true &&
@@ -69,9 +73,8 @@ namespace StockCore.Aop.Retry.Worker
             return !selectedItems.Any();
         }
 
-        private async Task saveStateAsync(string key,bool state,OperationName operationName)
+        private async Task saveStateAsync(IEnumerable<OperationStateDE> items,string key,bool state,OperationName operationName)
         {
-            var items = await operationStateRepo.GetByKeyAsync(key);
             var selectedItems = from i in items where i.OperationName==operationName select i;
             if(selectedItems.Any())
             {

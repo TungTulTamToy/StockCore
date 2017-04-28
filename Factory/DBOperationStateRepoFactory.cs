@@ -44,7 +44,7 @@ namespace StockCore.Factory
         }
         protected override IGetByKeyRepo<OperationStateDE,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKeyRepo<OperationStateDE,string> inner = new BaseQuoteDBRepo<OperationStateDE>(
+            IGetByKeyRepo<OperationStateDE,string> inner = new BaseKeyDBRepo<OperationStateDE>(
                 config,
                 db,
                 filterBuilder,

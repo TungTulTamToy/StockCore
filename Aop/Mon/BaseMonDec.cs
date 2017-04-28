@@ -114,6 +114,10 @@ namespace StockCore.Aop.Mon
                 {
                     paramsValue = JsonConvert.SerializeObject(input);
                 }
+                else
+                {
+                    paramsValue = "Not log expression type.";
+                }
                 var callHistory = new CallHistory(methodName,paramsValue);
                 tracer.AddCallHistory(callHistory);
             }

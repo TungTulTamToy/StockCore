@@ -50,7 +50,8 @@ namespace StockCore.Factory
         private void processFail(Exception ex,int errorID,Tracer tracer) 
         { 
             var e = new StockCoreException(errorID,$"Factory.{keyName}",ex,tracer,true);
-            logger.TraceError(e);//Not throw exception since this method can be called from constructor 
+            logger.TraceError(e);
+            throw e;
         } 
     }
 }

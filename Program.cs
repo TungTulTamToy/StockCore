@@ -82,11 +82,11 @@ namespace StockCore
                 var logger = loggerFactory.CreateLogger<Program>();
                 logger.LogDebug("Start application");
 
-                //syncWeb(serviceProvider);
-                //seedGroup(serviceProvider);
+                syncWeb(serviceProvider);
+                seedGroup(serviceProvider);
                 //syncBackupData(serviceProvider);
-                //var stockInfo = getStockInfo(serviceProvider,"ptt");
-                //var groups = getAllQuoteGroup(serviceProvider);
+                var stockInfo = getStockInfo(serviceProvider,"ptt");
+                var groups = getAllQuoteGroup(serviceProvider);
                 var stocks = getStockByGroup(serviceProvider,"Test02");
             }        
             catch(Exception ex)

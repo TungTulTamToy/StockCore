@@ -6,18 +6,18 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.MongoDB
 {
-    public class BaseQuoteDBRepo<T> : BaseDBRepo<T>, IGetByKeyRepo<T,string> where T:BaseDE,IKeyField<string>
+    public class BaseKeyDBRepo<T> : BaseAllDBRepo<T>, IGetByKeyRepo<T,string> where T:BaseDE,IKeyField<string>
     {
-        public BaseQuoteDBRepo(
+        public BaseKeyDBRepo(
             IConfigProvider config, 
             IMongoDatabaseWrapper db, 
             IFilterDefinitionBuilderWrapper filterBuilder,
             IReplaceOneModelBuilder replaceOneModelBuilder,  
             IDeleteOneModelBuilder deleteOneModelBuilder,
             string collectionName):base(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,collectionName){}
-        public async Task<IEnumerable<T>> GetByKeyAsync(string quote)
+        public async Task<IEnumerable<T>> GetByKeyAsync(string keyName)
         {
-            return await collection.ToListAsync(i=>i.Key == quote);
+            return await collection.ToListAsync(i=>i.Key == keyName);
         }
     }
 }

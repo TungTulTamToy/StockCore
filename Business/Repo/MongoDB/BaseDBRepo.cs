@@ -8,7 +8,7 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.MongoDB
 {
-    public class BaseDBRepo<T> : IRepo<T> where T:BaseDE
+    public class BaseAllDBRepo<T> : IRepo<T> where T:BaseDE
     {
         private const string ID = "Id";
         private readonly string collectionName;
@@ -18,7 +18,7 @@ namespace StockCore.Business.Repo.MongoDB
         private readonly IReplaceOneModelBuilder replaceOneModelBuilder;
         private readonly IDeleteOneModelBuilder deleteOneModelBuilder;
         protected IMongoCollectionWrapper<T> collection => db.GetCollection<T>(collectionName);
-        public BaseDBRepo(
+        public BaseAllDBRepo(
             IConfigProvider config, 
             IMongoDatabaseWrapper db, 
             IFilterDefinitionBuilderWrapper filterBuilder,
