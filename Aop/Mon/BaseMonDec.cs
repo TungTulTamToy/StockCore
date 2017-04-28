@@ -35,7 +35,7 @@ namespace StockCore.Aop.Mon
         protected async Task<TResult> baseMonDecBuildAsync<TInput,TResult>(
             TInput input,
             Func<ILogger,Tracer,string,string,bool> validate,
-            Func<Task<TResult>> processAsync,
+            Func<Task<TResult>> innerProcessAsync,
             [CallerMemberName]string methodName="")
         {
             TResult result = default(TResult);
@@ -44,7 +44,7 @@ namespace StockCore.Aop.Mon
             await baseDecOperateAsync(
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer,module.Key,methodName),
-                processAsync: async() => result = await processAsync(),
+                processAsync: async() => result = await innerProcessAsync(),
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,tracer,module.ThrowException),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException)
@@ -55,7 +55,7 @@ namespace StockCore.Aop.Mon
         protected TResult baseMonDecBuild<TInput,TResult>(
             TInput input,
             Func<ILogger,Tracer,string,string,bool> validate,
-            Func<TResult> process,
+            Func<TResult> innerProcess,
             [CallerMemberName]string methodName="")
         {
             TResult result = default(TResult);
@@ -64,7 +64,7 @@ namespace StockCore.Aop.Mon
             baseDecOperate(
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer,module.Key,methodName),
-                process:() => result = process(),
+                process:() => result = innerProcess(),
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,tracer,module.ThrowException),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException)

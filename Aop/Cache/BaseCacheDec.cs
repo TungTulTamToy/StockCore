@@ -33,29 +33,29 @@ namespace StockCore.Aop.Cache.Builder
         }
         protected async Task<T> baseCacheDecOperateAsync(
             string key,
-            Func<Task<T>> buildAsync,
+            Func<Task<T>> buildInnerAsync,
             [CallerMemberName]string methodName=""
             )
         {
-            T t = null;
+            T item = null;
             await baseDecOperateAsync(
                 validateAsync:async()=> {
-                    t = await getFromCacheAsync(key);
-                    return t != null;},
+                    item = await getItemFromCacheAsync(key);
+                    return item != null;},
                 invalidProcessAsync: async()=> {
-                    t = await buildAsync();
-                    await createCacheAsync(t,key);},
+                    item = await buildInnerAsync();
+                    await createCacheAsync(key,item);},
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,info:$"Key:[{key}]"),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,info:$"Key:[{key}]")
             );
-            return t;
+            return item;
         }
         //TODO:should be helper class
         protected string getKeyByString(string quote,[CallerMemberName]string methodName="")
         {
             return $"{module.Key}_{methodName}_{quote}_v1";
         }
-        private async Task<T> getFromCacheAsync(string key)
+        private async Task<T> getItemFromCacheAsync(string key)
         {
             var cache = await cacheRepo.GetByFuncAsync(i=>i.Key==key&&i.ExpireAt>DateTime.Now);
             T item = null;            
@@ -70,7 +70,7 @@ namespace StockCore.Aop.Cache.Builder
             }
             return item;
         }
-        private async Task<T> createCacheAsync(T item,string key)
+        private async Task<T> createCacheAsync(string key,T item)
         {
             var cacheDE = new CacheDE<T>(){
                 Key=key,

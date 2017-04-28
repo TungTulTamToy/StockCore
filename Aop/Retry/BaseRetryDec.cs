@@ -39,7 +39,7 @@ namespace StockCore.Aop.Retry.Worker
         }
         protected async Task baseRetryDecOperateAsync(
             string key,
-            Func<Task> processAsync,
+            Func<Task> innerProcessAsync,
             OperationName operationName,
             [CallerMemberName]string methodName="")
         {
@@ -50,7 +50,7 @@ namespace StockCore.Aop.Retry.Worker
                     return shouldRetryAsync(items,key,operationName);
                 },
                 processAsync:async()=>{
-                    await processAsync();
+                    await innerProcessAsync();
                     await saveStateAsync(items,key,true,operationName);
                 },
                 invalidProcess:()=>logger.TraceMessage(module.Key,key,msg:$"No retry.",showParams:true),
