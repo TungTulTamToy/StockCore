@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using static StockCore.DomainEntity.Enum.StateOperation;

@@ -18,7 +18,7 @@ namespace StockCore.Aop.Cache.Builder
         private readonly int outerErrorID;
         private readonly ILogger logger;
         public BaseCacheDec(
-            IGetByFuncRepo<string,CacheDE<T>> cacheRepo,            
+            IGetByFuncRepo<string,CacheDE<T>> cacheRepo,        
             CacheModule module,
             int processErrorID,            
             int outerErrorID,
@@ -71,7 +71,7 @@ namespace StockCore.Aop.Cache.Builder
         }
         private void processFail(Exception ex,int errorID,string key)
         {
-            var e = new StockCoreException(errorID,ex,$"Key:[{key}]",null);
+            var e = new StockCoreException(errorID,module.Key,ex,info:$"Key:[{key}]");
             throw e;//It will be manage by monitoring decorator
         }
         private async Task<T> createCacheAsync(T item,string key)

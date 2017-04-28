@@ -8,7 +8,6 @@ namespace StockCore.Business.Repo.AppSetting
     public class ModuleConfigReader:IConfigReader
     {
         private static readonly object padlock = new object();
-        private const string MAPKEY = "Aop";
         private IConfigurationRoot configRoot;
         private Dictionary<string,ModuleDE> modules;
         public ModuleConfigReader(IConfigurationRoot configRoot)

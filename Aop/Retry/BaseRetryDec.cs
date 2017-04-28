@@ -55,7 +55,7 @@ namespace StockCore.Aop.Retry.Worker
         }
         private void processFail(Exception ex,int errorID,string key)
         {
-            var e = new StockCoreException(errorID,ex,$"[{key}]",null);
+            var e = new StockCoreException(errorID,module.Key,ex,info:$"[{key}]");
             throw e;//It will be manage by monitoring decorator
         }
         private async Task<bool> shouldRetryAsync(string key,OperationName operationName)

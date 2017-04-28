@@ -10,8 +10,6 @@ using StockCore.Wrapper;
 using StockCore.DomainEntity;
 using StockCore.Provider;
 using StockCore.Business.Repo;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using StockCore.Business.Repo.MongoDB;
 using MongoDB.Driver;
 using StockCore.DomainEntity.Data;
@@ -22,6 +20,7 @@ using System.Linq;
 using StockCore.Business.Repo.AppSetting;
 using StockCore.Business.Builder;
 using StockCore.Aop.Mon;
+using static StockCore.DomainEntity.Enum.TraceSource;
 
 namespace StockCore
 {
@@ -58,10 +57,14 @@ namespace StockCore
                     .AddScoped<IFactory<string, IGetByKeyRepo<ShareDE,string>>, DBShareRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<StatisticDE,string>>, DBStatisticRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<PriceDE,string>>, DBPriceRepoFactory>()
+                    .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>>, DBQuoteGroupRepoFactory>()                                        
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>>, DBCacheRepoFactory<StockDE>>()
+                    .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroupDE>>>>, DBCacheRepoFactory<DECollection<QuoteGroupDE>>>()
+                    .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<StockDE>>>>, DBCacheRepoFactory<DECollection<StockDE>>>()
                     .AddScoped<IFactory<string, IRepo<SetIndexDE>>, DBSetIndexRepoFactory>()
-                    .AddScoped<IFactory<string, IRepo<QuoteGroupDE>>, DBQuoteGroupRepoFactory>()
                     .AddScoped<IFactory<string, IBuilder<string, StockDE>>, StockBuilderFactory>()
+                    .AddScoped<IFactory<string, IBuilder<string, DECollection<QuoteGroupDE>>>, AllQuoteGroupBuilderFactory>()
+                    .AddScoped<IFactory<string, IBuilder<string, DECollection<StockDE>>>, StockByGroupBuilderFactory>()
                     .AddScoped<IMongoDatabaseWrapper,MongoDatabaseWrapper>()
                     .AddScoped<IMongoClient>(ctx => new MongoClient(ctx.GetService<IConfigurationRoot>().GetSection("MongoConnection:ConnectionString").Value))    
 
@@ -79,22 +82,56 @@ namespace StockCore
                 var logger = loggerFactory.CreateLogger<Program>();
                 logger.LogDebug("Start application");
 
-                syncWeb(serviceProvider);
+                //syncWeb(serviceProvider);
                 //seedGroup(serviceProvider);
                 //syncBackupData(serviceProvider);
-                var stockInfo = getStockInfo(serviceProvider,"ptt");
+                //var stockInfo = getStockInfo(serviceProvider,"ptt");
+                //var groups = getAllQuoteGroup(serviceProvider);
+                var stocks = getStockByGroup(serviceProvider,"Test02");
             }        
             catch(Exception ex)
             {   
                 Console.WriteLine(ex);
             }
         }
+        private static DECollection<StockDE> getStockByGroup(IServiceProvider serviceProvider,string quoteGroupName)
+        {
+            DECollection<StockDE> stocks = null;
+            try
+            {
+                var tracer=new Tracer(0,null,"Get Stock by Quote Group.",TraceSourceName.TestConsole);
+                var stockByGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, DECollection<StockDE>>>>();
+                var builder = stockByGroupBuilderFactory.Build(tracer);
+                Task.Run(async()=>stocks = await builder.BuildAsync(quoteGroupName)).GetAwaiter().GetResult();
+            }         
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }        
+            return stocks;
+        }
+        private static DECollection<QuoteGroupDE> getAllQuoteGroup(IServiceProvider serviceProvider)
+        {
+            DECollection<QuoteGroupDE> groups = null;
+            try
+            {
+                var tracer=new Tracer(0,null,"Get All Quote Group.",TraceSourceName.TestConsole);
+                var allQuoteGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, DECollection<QuoteGroupDE>>>>();
+                var builder = allQuoteGroupBuilderFactory.Build(tracer);
+                Task.Run(async()=>groups = await builder.BuildAsync()).GetAwaiter().GetResult();
+            }         
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }        
+            return groups;
+        }
         private static StockDE getStockInfo(IServiceProvider serviceProvider,string quote)
         {
             StockDE stockInfo = null;
             try
             {
-                var tracer=new Tracer(0,null,"Get Stock Info.");
+                var tracer=new Tracer(0,null,"Get Stock Info.",TraceSourceName.TestConsole);
                 var stockBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, StockDE>>>();
                 var builder = stockBuilderFactory.Build(tracer);
                 Task.Run(async()=>stockInfo = await builder.BuildAsync(quote)).GetAwaiter().GetResult();
@@ -132,13 +169,13 @@ namespace StockCore
                 where s!=null
                 select new StatisticDE{Quote=backup.Quote,NetProfit=s.NetProfit,Year=s.Year,IsValid=true};
 
-            var priceTracer=new Tracer(0,null,"Start Seed Price");
+            var priceTracer=new Tracer(0,null,"Start Seed Price",TraceSourceName.TestConsole);
             var seedPriceOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<PriceDE>>>>().Build(priceTracer);
-            var consensusTracer=new Tracer(0,null,"Start Seed Consensus");
+            var consensusTracer=new Tracer(0,null,"Start Seed Consensus",TraceSourceName.TestConsole);
             var seedConsensusOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<ConsensusDE>>>>().Build(consensusTracer);
-            var shareTracer=new Tracer(0,null,"Start Seed Share");
+            var shareTracer=new Tracer(0,null,"Start Seed Share",TraceSourceName.TestConsole);
             var seedShareOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<ShareDE>>>>().Build(shareTracer);
-            var statisticTracer=new Tracer(0,null,"Start Seed Price");
+            var statisticTracer=new Tracer(0,null,"Start Seed Price",TraceSourceName.TestConsole);
             var seedStatisticOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<StatisticDE>>>>().Build(statisticTracer);            
 
             Task.Run(async()=> {
@@ -153,92 +190,11 @@ namespace StockCore
                 await seedStatisticTask;
             }).GetAwaiter().GetResult();
         }
-        private static IServiceProvider configureAutoFac(IServiceCollection services)
-        {                
-            // Create the Autofac container builder.
-            var builder = new ContainerBuilder();
-            // Add any Autofac modules or registrations.
-            /*Attribute injector */
-            /*
-            builder.Register(ctx => new Interceptor.MonitorDecoratorAsync(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IServiceProvider>())).InstancePerDependency();
-            builder.RegisterType<SeedQuoteGroup>().As<IOperation<IEnumerable<QuoteGroupDomainEntity>>>().InstancePerLifetimeScope().EnableInterfaceInterceptors();
-            builder.RegisterType<SyncAllQuotesFromWebToDB>().As<IOperation<IEnumerable<string>>>().InstancePerLifetimeScope().EnableInterfaceInterceptors();
-            builder.RegisterType<SyncQuoteFromWebToDB>().As<IOperation<string>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<SetTradePriceRepository>().As<IManyReadable<PriceDomainEntity,string>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<SetTradeSetIndexRepository>().As<IManyReadable<SetIndexDomainEntity,string>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<SetTradeConsensusRepository>().As<IManyReadable<ConsensusDomainEntity,string>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<SetTradeShareRepository>().As<IManyReadable<ShareDomainEntity,string>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<SetTradeStatisticRepository>().As<IManyReadable<StatisticDomainEntity,string>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<MongoDBPriceRepository>().As<IRepository<PriceDomainEntity>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<MongoDBSetIndexRepository>().As<IRepository<SetIndexDomainEntity>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<MongoDBConsensusRepository>().As<IRepository<ConsensusDomainEntity>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<MongoDBShareRepository>().As<IRepository<ShareDomainEntity>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<MongoDBStatisticRepository>().As<IRepository<StatisticDomainEntity>>().InstancePerDependency().EnableInterfaceInterceptors();
-            builder.RegisterType<MongoDBQuoteGroupRepository>().As<IRepository<QuoteGroupDomainEntity>>().InstancePerDependency().EnableInterfaceInterceptors();
-            */
-
-            //Decorator
-            //builder.Register(_=>new HttpClientWrapper(new HttpClient())).As<IHttpClientWrapper>().InstancePerDependency();
-            //builder.Register(ctx=>new MongoClient(ctx.Resolve<IConfigurationRoot>().GetSection("MongoConnection:ConnectionString").Value)).As<IMongoClient>().InstancePerLifetimeScope();
-            
-            //builder.RegisterType<ModuleGetByKey>().Named<IGetByKey<ModuleDE,string>>("ModuleRepo").SingleInstance();      
-            //builder.RegisterType<MongoDatabaseWrapper>().As<IMongoDatabaseWrapper>().InstancePerLifetimeScope();
-            //builder.RegisterType<DeleteOneModelBuilder>().As<IDeleteOneModelBuilder>().InstancePerDependency();
-            //builder.RegisterType<ReplaceOneModelBuilder>().As<IReplaceOneModelBuilder>().InstancePerDependency();
-            //builder.RegisterType<FilterDefinitionBuilderWrapper>().As<IFilterDefinitionBuilderWrapper>().InstancePerDependency();
-            //builder.RegisterType<HtmlDocumentWrapper>().As<IHtmlDocumentWrapper>().InstancePerDependency();
-
-            //builder.RegisterType<DBOperationStateRepo>().Named<IGetByKeyRepo<OperationStateDE,string>>("DBOperationStateRepo").InstancePerDependency();
-            //builder.RegisterType<SyncQuoteGroup>().Named<IOperation<IEnumerable<QuoteGroupDE>>>("SyncQuoteGroup").InstancePerDependency();
-            //builder.RegisterType<SyncAll>().Named<IOperation<IEnumerable<string>>>("SyncAll").InstancePerDependency();
-            //builder.RegisterType<SyncQuote>().Named<IOperation<string>>("SyncQuote").InstancePerDependency();
-            //builder.RegisterType<DBQuoteGroupRepo>().Named<IRepo<QuoteGroupDE>>("DBQuoteGroupRepo").InstancePerDependency();
-            //builder.RegisterType<DBSetIndexRepo>().Named<IRepo<SetIndexDE>>("DBSetIndex").InstancePerDependency();              
-            //builder.RegisterType<DBPriceRepo>().Named<IGetByKeyRepo<PriceDE,string>>("DBPriceRepo").InstancePerDependency();          
-            //builder.RegisterType<DBConsensusRepo>().Named<IGetByKeyRepo<ConsensusDE,string>>("DBConsensusRepo").InstancePerDependency();  
-            //builder.RegisterType<DBShareRepo>().Named<IGetByKeyRepo<ShareDE,string>>("DBShareRepo").InstancePerDependency();  
-            //builder.RegisterType<DBStatisticRepo>().Named<IGetByKeyRepo<StatisticDE,string>>("DBStatisticRepo").InstancePerDependency();                      
-            //builder.RegisterType<PriceHtmlReader>().Named<IGetByKey<IEnumerable<PriceDE>,string>>("HtmlPriceRepo").InstancePerDependency();
-            //builder.RegisterType<ConsensusHtmlReader>().Named<IGetByKey<IEnumerable<ConsensusDE>,string>>("HtmlConsensusRepo").InstancePerDependency();
-            //builder.RegisterType<SetIndexHtmlReader>().Named<IGetByKey<IEnumerable<SetIndexDE>,string>>("HtmlSetIndexRepo").InstancePerDependency();
-            //builder.RegisterType<ShareHtmlReader>().Named<IGetByKey<IEnumerable<ShareDE>,string>>("HtmlShareRepo").InstancePerDependency();
-            //builder.RegisterType<StatisticHtmlReader>().Named<IGetByKey<IEnumerable<StatisticDE>,string>>("HtmlStatisticRepo").InstancePerDependency();
-            
-            //builder.RegisterDecorator<IGetByKey<ModuleDE,string>>((ctx,inner) =>new ModuleConfigDec(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IConfigProvider>(),inner),"ModuleRepo").SingleInstance();
-            //builder.RegisterDecorator<IGetByKeyRepo<OperationStateDE,string>>((ctx,inner) =>new BaseManyGetDBRepoDec<OperationStateDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IFactory<string,IGetByKey<ModuleDE,string>>>(),"Aop.DBOperationStateRepo",inner), "DBOperationStateRepo").InstancePerDependency();
-            //builder.RegisterDecorator<IOperation<IEnumerable<QuoteGroupDE>>>((ctx,inner) =>new SyncQuoteGroupDec(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IGetByKey<ModuleDE,string>>(),inner), "SyncQuoteGroup").InstancePerDependency();
-            //builder.RegisterDecorator<IOperation<IEnumerable<string>>>((ctx,inner) =>new SyncAllDec(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IGetByKey<ModuleDE,string>>(),inner), "SyncAll").InstancePerDependency();
-            //builder.RegisterDecorator<IOperation<string>>((ctx,inner) =>new RetrySyncQuoteDec(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IGetByKey<ModuleDE,string>>(),ctx.Resolve<IGetByKeyRepo<OperationStateDE,string>>(),inner), "SyncQuote").Named<IOperation<string>>("SyncQuote2").InstancePerDependency();
-            //builder.RegisterDecorator<IOperation<string>>((ctx,inner) =>new SyncQuoteDec(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IGetByKey<ModuleDE,string>>(),inner), "SyncQuote2").InstancePerDependency();
-            //builder.RegisterDecorator<IRepo<QuoteGroupDE>>((ctx,inner) =>new BaseDBRepoDec<QuoteGroupDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IFactory<string,IGetByKey<ModuleDE,string>>>(),"Aop.DBQuoteGroupRepo",inner), "DBQuoteGroupRepo").InstancePerDependency();
-            //builder.RegisterDecorator<IGetByKeyRepo<PriceDE,string>>((ctx,inner) =>new BaseManyGetDBRepoDec<PriceDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IFactory<string,IGetByKey<ModuleDE,string>>>(),"Aop.DBPriceRepo",inner), "DBPriceRepo").InstancePerDependency();
-            //builder.RegisterDecorator<IGetByKeyRepo<ConsensusDE,string>>((ctx,inner) =>new BaseManyGetDBRepoDec<ConsensusDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IFactory<string,IGetByKey<ModuleDE,string>>>(),"Aop.DBConsensusRepo",inner), "DBConsensusRepo").InstancePerDependency();
-            //builder.RegisterDecorator<IRepo<SetIndexDE>>((ctx,inner) =>new BaseDBRepoDec<SetIndexDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IFactory<string,IGetByKey<ModuleDE,string>>>(),"Aop.DBSetIndexRepo",inner), "DBSetIndex").InstancePerDependency();
-            //builder.RegisterDecorator<IGetByKeyRepo<ShareDE,string>>((ctx,inner) =>new BaseManyGetDBRepoDec<ShareDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IFactory<string,IGetByKey<ModuleDE,string>>>(),"Aop.DBShareRepo",inner), "DBShareRepo").InstancePerDependency();
-            //builder.RegisterDecorator<IGetByKeyRepo<StatisticDE,string>>((ctx,inner) =>new BaseManyGetDBRepoDec<StatisticDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IFactory<string,IGetByKey<ModuleDE,string>>>(),"Aop.DBStatisticRepo",inner), "DBStatisticRepo").InstancePerDependency();
-            //builder.RegisterDecorator<IGetByKey<IEnumerable<PriceDE>,string>>((ctx,inner) =>new BaseHtmlReader<PriceDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IGetByKey<ModuleDE,string>>(),"Aop.HtmlPriceGetByKey",inner), "HtmlPriceRepo").InstancePerDependency();
-            //builder.RegisterDecorator<IGetByKey<IEnumerable<ConsensusDE>,string>>((ctx,inner) =>new BaseHtmlReader<ConsensusDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IGetByKey<ModuleDE,string>>(),"Aop.HtmlConsensusGetByKey",inner), "HtmlConsensusRepo").InstancePerDependency();
-            //builder.RegisterDecorator<IGetByKey<IEnumerable<SetIndexDE>,string>>((ctx,inner) =>new BaseHtmlReader<SetIndexDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IGetByKey<ModuleDE,string>>(),"Aop.HtmlSetIndexGetByKey",inner), "HtmlSetIndexRepo").InstancePerDependency();
-            //builder.RegisterDecorator<IGetByKey<IEnumerable<ShareDE>,string>>((ctx,inner) =>new BaseHtmlReader<ShareDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IGetByKey<ModuleDE,string>>(),"Aop.HtmlShareGetByKey",inner), "HtmlShareRepo").InstancePerDependency();
-            //builder.RegisterDecorator<IGetByKey<IEnumerable<StatisticDE>,string>>((ctx,inner) =>new BaseHtmlReader<StatisticDE>(ctx.Resolve<ILogger<Program>>(),ctx.Resolve<IGetByKey<ModuleDE,string>>(),"Aop.HtmlStatisticGetByKey",inner), "HtmlStatisticRepo").InstancePerDependency();
-            
-            // Populate the services.
-            builder.Populate(services);
-            // Build the container.
-            var container = builder.Build();
-
-            // Create the service provider.
-            var serviceProvider = new AutofacServiceProvider(container);
-
-            //services.BuildServiceProvider();
-
-            return serviceProvider;
-        }
         private static void syncWeb(IServiceProvider serviceProvider)
         {
             try
             {
-                var tracer=new Tracer(0,null,"Start Sync Web");
+                var tracer=new Tracer(0,null,"Start Sync Web",TraceSourceName.TestConsole);
                 var syncAllFactory = serviceProvider.GetService<IFactory<FactoryCondition,IOperation<IEnumerable<string>>>>();
                 var condition = new FactoryCondition()
                 {
@@ -260,7 +216,7 @@ namespace StockCore
         {
             try
             {
-                var tracer=new Tracer(0,null,"Start Seed Group");
+                var tracer=new Tracer(0,null,"Start Seed Group",TraceSourceName.TestConsole);
                 var operation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<QuoteGroupDE>>>>().Build(tracer);
                 var seedGroup1 = QuoteGroupData.Sample1;
                 var seedGroup2 = QuoteGroupData.Sample2;

@@ -11,7 +11,7 @@ using StockCore.Aop.Mon;
 
 namespace StockCore.Factory
 {
-    public class DBQuoteGroupRepoFactory : BaseFactory<string,IRepo<QuoteGroupDE>>
+    public class DBQuoteGroupRepoFactory : BaseFactory<string,IGetByKeyRepo<QuoteGroupDE,string>>
     {
         private const string KEY = "DBQuoteGroupRepo";
         private const string COLLECTIONNAME = "QuoteGroup";
@@ -42,15 +42,16 @@ namespace StockCore.Factory
             this.deleteOneModelBuilder = deleteOneModelBuilder;
             this.configReader = configReader;
         }
-        protected override IRepo<QuoteGroupDE> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKeyRepo<QuoteGroupDE,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IRepo<QuoteGroupDE> inner = new BaseDBRepo<QuoteGroupDE>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME); 
+            IGetByKeyRepo<QuoteGroupDE,string> inner = new BaseQuoteDBRepo<QuoteGroupDE>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME); 
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
                 var helper = new ValidationHelper();
-                inner = new MonRepoDec<QuoteGroupDE>(
+                inner = new MonGetByKeyRepoDec<QuoteGroupDE>(
                     inner,
+                    helper.ValidateString(1004104,"GroupName"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

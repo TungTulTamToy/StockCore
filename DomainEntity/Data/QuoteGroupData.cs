@@ -10,11 +10,15 @@ namespace StockCore.DomainEntity.Data
                 return new List<QuoteGroupDE>(){
                     new QuoteGroupDE(){
                         Name = "Test01",
-                        Quotes = new[]{"A","B"}
+                        Quotes = new[]{"ptt","bec"},
+                        Order = 1,
+                        IsDefault = true
                         },
                     new QuoteGroupDE(){
                         Name = "Test02",
-                        Quotes = new[]{"C","D","E"}
+                        Quotes = new[]{"work","bbl","scb"},
+                        Order = 2,
+                        IsDefault = false
                         }
                 };
             }
@@ -25,11 +29,15 @@ namespace StockCore.DomainEntity.Data
                 return new List<QuoteGroupDE>(){
                     new QuoteGroupDE(){
                         Name = "Test02",
-                        Quotes = new[]{"A","B","C"}
+                        Quotes = new[]{"ptt","bec","work"},
+                        Order = 1,
+                        IsDefault = true
                         },
                     new QuoteGroupDE(){
                         Name = "Test03",
-                        Quotes = new[]{"Z"}
+                        Quotes = new[]{"smit"},
+                        Order = 2,
+                        IsDefault = false
                         }
                 };
             }

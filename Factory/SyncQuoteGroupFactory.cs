@@ -21,10 +21,10 @@ namespace StockCore.Factory
         private const int MONPROCESSERRID = 1017103;
         private const int MONOUTERERRID = 1017104;
         private readonly IConfigReader configReader;
-        private readonly IFactory<string, IRepo<QuoteGroupDE>> dbQuoteGroupDEFactory;
+        private readonly IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> dbQuoteGroupDEFactory;
         public SyncQuoteGroupFactory(
             ILogger logger,
-            IFactory<string, IRepo<QuoteGroupDE>> dbQuoteGroupDEFactory,
+            IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> dbQuoteGroupDEFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {

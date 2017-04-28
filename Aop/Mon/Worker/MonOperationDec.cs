@@ -8,11 +8,11 @@ namespace StockCore.Aop.Mon.Worker
 {
     public class MonOperationDec<T> : BaseMonDec,IOperation<T> where T:class
     {
-        private readonly Func<ILogger,Tracer,T,bool> validate;
+        private readonly Func<ILogger,Tracer,string,T,bool> validate;
         private readonly IOperation<T> inner; 
         public MonOperationDec(
             IOperation<T> inner,    
-            Func<ILogger,Tracer,T,bool> validate,
+            Func<ILogger,Tracer,string,T,bool> validate,
             int processErrorID,
             int outerErrorID,  
             MonitoringModule module,    
@@ -27,7 +27,7 @@ namespace StockCore.Aop.Mon.Worker
         {     
             await baseMonDecBuildAsync(
                 t,
-                (logger,tracer) => validate(logger,tracer,t),
+                (logger,tracer,keyName) => validate(logger,tracer,keyName,t),
                 async ()=> {
                     await inner.OperateAsync(t);
                     return true;

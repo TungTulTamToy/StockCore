@@ -11,10 +11,10 @@ namespace StockCore.Aop.Mon.Builder
     {
         private readonly MonitoringModule module;
         private readonly IBuilder<string, TResult> inner;
-        private readonly Func<ILogger,Tracer,string,bool> validateQuote;
+        private readonly Func<ILogger,Tracer,string,string,bool> validateQuote;
         public MonBuilderDec(
             IBuilder<string, TResult> inner,
-            Func<ILogger,Tracer,string,bool> validateQuote,            
+            Func<ILogger,Tracer,string,string,bool> validateQuote,            
             int processErrorID,
             int outerErrorID,
             MonitoringModule module,
@@ -29,7 +29,7 @@ namespace StockCore.Aop.Mon.Builder
         {
             var item = await baseMonDecBuildAsync(
                 quote,
-                (logger,tracer)=>validateQuote(logger,tracer,quote),
+                (logger,tracer,keyName)=>validateQuote(logger,tracer,keyName,quote),
                 async ()=> await inner.BuildAsync(quote));
             return item;
         }

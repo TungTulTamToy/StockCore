@@ -1,22 +1,25 @@
 using System;
 using System.Collections.Generic;
+using static StockCore.DomainEntity.Enum.TraceSource;
 
 namespace StockCore.Aop.Mon
 {
     public class Tracer
     {
+        public int ID => id;
+        public Tracer Caller => tracer;
+        public TraceSourceName TraceSourceName{get;set;}
+        public List<CallHistory> CallHistories=new List<CallHistory>();
         private readonly int id;
         private readonly Tracer tracer;
         private readonly string description;
-        public Tracer(int id, Tracer tracer, string description)
+        public Tracer(int id, Tracer tracer, string description, TraceSourceName traceSourceName)
         {
             this.id = id;
             this.tracer = tracer;
             this.description = description;
+            this.TraceSourceName = TraceSourceName;
         }
-        public int ID => id;
-        public Tracer Caller => tracer;
-        public List<CallHistory> CallHistories=new List<CallHistory>();
         public void AddCallHistory(CallHistory callHistory)
         {
             CallHistories.Add(callHistory);

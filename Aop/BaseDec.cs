@@ -103,15 +103,15 @@ namespace StockCore.Aop
                 process();
             }
         }
-        private async Task operateFailAsync(Exception ex,Action<Exception> finalProcessFail, Func<Exception,Task> finalProcessFailAsync)
+        private async Task operateFailAsync(Exception ex,Action<Exception> processFail, Func<Exception,Task> processFailAsync)
         {
-            if(finalProcessFail!=null)
+            if(processFail!=null)
             {
-                finalProcessFail(ex);
+                processFail(ex);
             }
-            else if(finalProcessFailAsync!=null)
+            else if(processFailAsync!=null)
             {
-                await finalProcessFailAsync(ex);
+                await processFailAsync(ex);
             }
         }
         private async Task operateAsync(Action process, Func<Task> processAsync)

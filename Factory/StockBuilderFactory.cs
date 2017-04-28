@@ -54,7 +54,7 @@ namespace StockCore.Factory
             var module = configReader.GetByKey(getAopKey());
             if(module.IsCacheActive())
             {
-                inner = new CacheStockBuilderDec<StockDE>(
+                inner = new CacheBuilderDec<StockDE>(
                     inner,
                     cacheRepoFactory.Build(tracer),
                     module.Cache,

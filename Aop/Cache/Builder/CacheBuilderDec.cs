@@ -6,10 +6,10 @@ using StockCore.DomainEntity;
 
 namespace StockCore.Aop.Cache.Builder
 {
-    public class CacheStockBuilderDec<T>:BaseCacheDec<T>,IBuilder<string, T> where T:BaseDE
+    public class CacheBuilderDec<T>:BaseCacheDec<T>,IBuilder<string, T> where T:BaseDE
     {
         private readonly IBuilder<string, T> inner; 
-        public CacheStockBuilderDec(
+        public CacheBuilderDec(
             IBuilder<string, T> inner,
             IGetByFuncRepo<string,CacheDE<T>> cacheRepo,            
             CacheModule module,
@@ -21,11 +21,11 @@ namespace StockCore.Aop.Cache.Builder
             this.inner = inner;     
         }
 
-        public async Task<T> BuildAsync(string quote)
+        public async Task<T> BuildAsync(string param)
         {
             var item = await baseCacheDecOperateAsync(
-                getKeyByString(quote),
-                async()=>await inner.BuildAsync(quote)
+                getKeyByString(param),
+                async()=>await inner.BuildAsync(param)
             );
             return item;
         }

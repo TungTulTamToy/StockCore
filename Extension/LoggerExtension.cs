@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using StockCore.Aop.Mon;
 
 namespace StockCore.Extension
 {
@@ -40,15 +41,11 @@ namespace StockCore.Extension
             sb.Append(msg);
             logger.traceDebug("****",keyName, sb.ToString(),"****");
         }
-        public static void TraceError(this ILogger logger,string keyName,int registrationID,string msg="")
-        {
-            logger.LogError($"XXXXX Exception at [{keyName}] with message: [{msg}] XXXXX");
-        }
-        public static void TraceError(this ILogger logger,string keyName,int registrationID,string msg="",Exception ex=null)
+        public static void TraceError(this ILogger logger,StockCoreException ex)
         {
             if(ex!=null)
             {
-                logger.LogError($"!!!!! [{keyName}] with message: [{msg}] with exception: {ex.Message} with stack: {ex.StackTrace} !!!!!");
+                logger.LogError($"!!!!! Process:[{ex.Key}] ID:[{ex.ID}] Message: [{ex.Info}] Exception: {ex.Message} Stack: {ex.StackTrace} !!!!!");
             }
         }
         private static void traceDebug(this ILogger logger,string prefix,string keyName, string msg,string suffix="")

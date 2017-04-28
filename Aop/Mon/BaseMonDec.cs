@@ -33,7 +33,7 @@ namespace StockCore.Aop.Mon
         }
         protected async Task<TResult> baseMonDecBuildAsync<TInput,TResult>(
             TInput input,
-            Func<ILogger,Tracer,bool> validate,
+            Func<ILogger,Tracer,string,bool> validate,
             Func<Task<TResult>> processAsync,
             [CallerMemberName]string methodName="")
         {
@@ -42,7 +42,7 @@ namespace StockCore.Aop.Mon
             var subModule = module.OverrideConfigFromSubModuleIfAny(methodName);
             await baseDecOperateAsync(
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
-                validate:()=> validate(logger,tracer),
+                validate:()=> validate(logger,tracer,module.Key),
                 processAsync: async() => result = await processAsync(),
                 processFail:(ex)=>processFail(ex,processErrorID,subModule),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
@@ -53,7 +53,7 @@ namespace StockCore.Aop.Mon
         }
         protected TResult baseMonDecBuild<TInput,TResult>(
             TInput input,
-            Func<ILogger,Tracer,bool> validate,
+            Func<ILogger,Tracer,string,bool> validate,
             Func<TResult> process,
             [CallerMemberName]string methodName="")
         {
@@ -62,7 +62,7 @@ namespace StockCore.Aop.Mon
             var subModule = module.OverrideConfigFromSubModuleIfAny(methodName);
             baseDecOperate(
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
-                validate:()=> validate(logger,tracer),
+                validate:()=> validate(logger,tracer,module.Key),
                 process:() => result = process(),
                 processFail:(ex)=>processFail(ex,processErrorID,subModule),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
@@ -78,7 +78,7 @@ namespace StockCore.Aop.Mon
                 var e = (StockCoreException)ex;
                 if(!e.IsLogged)
                 {
-                    logger.TraceError(module.Key,e.ID,ex:ex);
+                    logger.TraceError(e);
                     e.IsLogged=true;
                 }
                 if(e.Tracer==null)
@@ -92,11 +92,8 @@ namespace StockCore.Aop.Mon
             }
             else
             {
-                logger.TraceError(module.Key,processErrorID,ex:ex);          
-                var e = new StockCoreException(processErrorID,ex,"",tracer)
-                {
-                    IsLogged=true
-                };
+                var e = new StockCoreException(processErrorID,module.Key,ex,tracer,true);
+                logger.TraceError(e);
                 if(module.ThrowException)
                 {
                     throw e;

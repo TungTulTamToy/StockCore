@@ -12,70 +12,68 @@ namespace StockCore.Helper
     public class ValidationHelper
     {
         public ValidationHelper(){}
-        public Func<ILogger,Tracer,string,bool> ValidateString(int errorID,string keyName)
+        public Func<ILogger,Tracer,string,string,bool> ValidateString(int errorID,string paramName)
         {
-            return (logger,tracer,value)=>
+            return (logger,tracer,keyName,value)=>
             {
                 if(string.IsNullOrWhiteSpace(value))
                 {
-                    logger.TraceError(keyName,errorID,msg:value);
-                    throwArgumentNullException(keyName,errorID,tracer,true);
+                    throwArgumentNullException(errorID,keyName,paramName,logger,tracer);
                 }
                 return true;
             };
         }
-        public Func<ILogger,Tracer,IEnumerable<string>,bool> ValidateStringItems(int errorID,string keyName)
+        public Func<ILogger,Tracer,string,IEnumerable<string>,bool> ValidateStringItems(int errorID,string paramName)
         {
-            return (logger,tracer,item)=>{
+            return (logger,tracer,keyName,item)=>{
                 if(item.Any(i=>string.IsNullOrWhiteSpace(i)))
                 {
-                    throwArgumentNullException(keyName,errorID,tracer,false);
+                    throwArgumentNullException(errorID,keyName,paramName,logger,tracer);
                 }
                 return true;
             };
         }
-        public Func<ILogger,Tracer,Expression<Func<T,bool>>,bool> ValidateExpression<T>(int errorID,string keyName) where T:class
+        public Func<ILogger,Tracer,string,Expression<Func<T,bool>>,bool> ValidateExpression<T>(int errorID,string paramName) where T:class
         {
-            return (logger,tracer,expression)=>{
+            return (logger,tracer,keyName,expression)=>{
                 if(expression==null)
                 {
-                    throwArgumentNullException(keyName,errorID,tracer,false);
+                    throwArgumentNullException(errorID,keyName,paramName,logger,tracer);
                 }
                 return true;
             };
         }
-        public Func<ILogger,Tracer,IEnumerable<QuoteGroupDE>,bool> ValidateQuoteGroups(int errorID)
+        public Func<ILogger,Tracer,string,IEnumerable<QuoteGroupDE>,bool> ValidateQuoteGroups(int errorID)
         {
-            return (logger,tracer,quoteGroup)=>{
+            return (logger,tracer,keyName,quoteGroup)=>{
                 if(quoteGroup.Any(s=>string.IsNullOrWhiteSpace(s.Name)))
                 {
-                    throwArgumentNullException("Name",errorID,tracer,false);
+                    throwArgumentNullException(errorID,keyName,"Name",logger,tracer);
                 }
                 if(quoteGroup.Any(s=>s.Quotes==null || !s.Quotes.Any() || s.Quotes.Any(q=>string.IsNullOrWhiteSpace(q))))
                 {
-                    throwArgumentNullException("Quotes",errorID,tracer,false);
+                    throwArgumentNullException(errorID,"","Quotes",logger,tracer);
                 }
                 return true;
             };
         }
-        public Func<ILogger,Tracer,IEnumerable<T>,bool> ValidateItemsWithStringKeyField<T>(int errorID,string keyName) where T:IKeyField<string>
+        public Func<ILogger,Tracer,string,IEnumerable<T>,bool> ValidateItemsWithStringKeyField<T>(int errorID,string paramName) where T:IKeyField<string>
         {
-            return (logger,tracer,items)=>{
+            return (logger,tracer,keyName,items)=>{
                 if(items.Any(i=>string.IsNullOrWhiteSpace(i.Key)))
                 {
-                    throwArgumentNullException(keyName,errorID,tracer,false);
+                    throwArgumentNullException(errorID,keyName,paramName,logger,tracer);
                 }
                 return true;
             };
         }
 
-        private void throwArgumentNullException(string paramName,int errorID, Tracer tracer, bool isLogged)
+        private void throwArgumentNullException(int errorID,string keyName,string paramName,ILogger logger, Tracer tracer)
         {
             var e = new ArgumentNullException(paramName,"Input cannot be null or empty.");
-            throw new StockCoreException(errorID,e,"",tracer)
-            {
-                IsLogged=isLogged
-            };
+            var ex = new StockCoreException(errorID,keyName,e,tracer,true);
+            logger.TraceError(ex);
+            throw ex;
         }
     }
 }

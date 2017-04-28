@@ -58,26 +58,33 @@ namespace StockCore.Business.Builder
         }
         private IEnumerable<PeDiffPercentDE> calculatePeDiffPercent(IEnumerable<PeDE> pe)
         {
-            int limit = 7;
-            var focusPEs = pe.Where(p=>p.Value>0).Take(limit);
-            var minYear = focusPEs.Min(p => p.Year);
-            var weightedPE = focusPEs.WeightedAverage(p => p.Value, p => (p.Year-minYear)+1);
-            var medianPE = focusPEs.Select(p => p.Value).Median();
-            var minPE = (medianPE < weightedPE) ? medianPE : weightedPE;
+            IEnumerable<PeDiffPercentDE> ped = null;
+            if(pe!=null && pe.Any())
+            {
+                int limit = 7;
+                var focusPEs = pe.Where(p=>p.Value>0).Take(limit);
+                var minYear = focusPEs.Min(p => p.Year);
+                var weightedPE = focusPEs.WeightedAverage(p => p.Value, p => (p.Year-minYear)+1);
+                var medianPE = focusPEs.Select(p => p.Value).Median();
+                var minPE = (medianPE < weightedPE) ? medianPE : weightedPE;
 
-            var ped = from p in pe
-                where p.Value > 0
-                orderby p.Year descending
-                select new PeDiffPercentDE
-                {
-                    Year = p.Year,
-                    Value = (minPE-p.Value)/minPE
-                };
+                ped = from p in pe
+                    where p.Value > 0
+                    orderby p.Year descending
+                    select new PeDiffPercentDE
+                    {
+                        Year = p.Year,
+                        Value = (minPE-p.Value)/minPE
+                    };
+            }
             return ped;
         }
         private IEnumerable<PegDE> calculatePeg(IEnumerable<PeDE> pe, IEnumerable<GrowthDE> growth)
         {
-            var peg = from p in pe
+            IEnumerable<PegDE> peg=null;
+            if(pe!=null && pe.Any() && growth!=null && growth.Any())
+            {
+                peg = from p in pe
                 join g in growth on p.Year equals g.Year
                 orderby p.Year descending
                 select new PegDE
@@ -86,6 +93,7 @@ namespace StockCore.Business.Builder
                     Value = p.Value/g.Value,
                     IsActual = p.IsActual
                 };
+            }
             return peg;
         }
         private IEnumerable<PeDE> calculatePe(

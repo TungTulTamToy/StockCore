@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 

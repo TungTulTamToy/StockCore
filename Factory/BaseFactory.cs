@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using StockCore.Aop;
 using StockCore.Aop.Mon;
 using StockCore.Extension;
+using static StockCore.DomainEntity.Enum.TraceSource;
 
 namespace StockCore.Factory
 {
@@ -44,11 +45,12 @@ namespace StockCore.Factory
             {
                 description = keyName;
             }
-            return new Tracer(ID,caller,description);
+            return new Tracer(ID,caller,description,TraceSourceName.Dll);
         }
         private void processFail(Exception ex,int errorID,Tracer tracer) 
         { 
-            logger.TraceError($"Factory.{keyName}",errorID,ex:ex);//Not throw exception since this method can be called from constructor 
+            var e = new StockCoreException(errorID,$"Factory.{keyName}",ex,tracer,true);
+            logger.TraceError(e);//Not throw exception since this method can be called from constructor 
         } 
     }
 }

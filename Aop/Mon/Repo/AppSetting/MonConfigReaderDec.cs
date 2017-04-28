@@ -8,10 +8,10 @@ namespace StockCore.Aop.Mon.Repo.AppSetting
     public class MonConfigReaderDec : BaseMonDec,IConfigReader
     {
         private readonly IConfigReader inner; 
-        private readonly Func<ILogger,Tracer,string,bool> validateKey;
+        private readonly Func<ILogger,Tracer,string,string,bool> validateKey;
         public MonConfigReaderDec(
             IConfigReader inner,
-            Func<ILogger,Tracer,string,bool> validateKey,
+            Func<ILogger,Tracer,string,string,bool> validateKey,
             MonitoringModule module,            
             int processErrorID,
             int outerErrorID,
@@ -26,7 +26,7 @@ namespace StockCore.Aop.Mon.Repo.AppSetting
         {
             var m = baseMonDecBuild(
                 key,
-                (logger,tracer) => validateKey(logger,tracer,key),
+                (logger,tracer,keyName) => validateKey(logger,tracer,keyName,key),
                 ()=> inner.GetByKey(key));
             return m;
         }
