@@ -44,8 +44,8 @@ namespace StockCore.Aop.Cache.Builder
                 invalidProcessAsync: async()=> {
                     t = await buildAsync();
                     await createCacheAsync(t,key);},
-                processFail:(ex)=>baseDecProcessFail(logger,ex,processErrorID,module.Key,$"Key:[{key}]"),
-                finalProcessFail:(e)=>baseDecProcessFail(logger,e,outerErrorID,module.Key,$"Key:[{key}]")
+                processFail:(ex)=>ProcessFail.ComposeAndThrowException(logger,ex,processErrorID,module.Key,info:$"Key:[{key}]"),
+                finalProcessFail:(e)=>ProcessFail.ComposeAndThrowException(logger,e,outerErrorID,module.Key,info:$"Key:[{key}]")
             );
             return t;
         }

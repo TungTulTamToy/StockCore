@@ -44,9 +44,9 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer,module.Key),
                 processAsync: async() => result = await processAsync(),
-                processFail:(ex)=>processFail(ex,processErrorID,subModule),
+                processFail:(ex)=>ProcessFail.ComposeAndThrowException(logger,ex,processErrorID,subModule.Key,tracer,module.ThrowException),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>processFail(e,outerErrorID,subModule)
+                finalProcessFail:(e)=>ProcessFail.ComposeAndThrowException(logger,e,outerErrorID,subModule.Key,tracer,module.ThrowException)
             );
             sw = null;
             return result;
@@ -64,41 +64,12 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer,module.Key),
                 process:() => result = process(),
-                processFail:(ex)=>processFail(ex,processErrorID,subModule),
+                processFail:(ex)=>ProcessFail.ComposeAndThrowException(logger,ex,processErrorID,$"{module.Key}.{subModule.Key}",tracer,module.ThrowException),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>processFail(e,outerErrorID,subModule)
+                finalProcessFail:(e)=>ProcessFail.ComposeAndThrowException(logger,e,outerErrorID,$"{module.Key}.{subModule.Key}",tracer,module.ThrowException)
             );
             sw = null;
             return result;
-        }
-        private void processFail(Exception ex,int processErrorID,MonitoringModule module)
-        {
-            if(ex is StockCoreException)
-            {
-                var e = (StockCoreException)ex;
-                if(!e.IsLogged)
-                {
-                    logger.TraceError(e);
-                    e.IsLogged=true;
-                }
-                if(e.Tracer==null)
-                {
-                    e.Tracer=tracer;
-                }
-                if(module.ThrowException)
-                {
-                    throw e;
-                }
-            }
-            else
-            {
-                var e = new StockCoreException(processErrorID,module.Key,ex,tracer,true);
-                logger.TraceError(e);
-                if(module.ThrowException)
-                {
-                    throw e;
-                }
-            }
         }
         private Stopwatch preProcess<TInput>(TInput input,Stopwatch sw,string methodName,MonitoringModule module)
         {

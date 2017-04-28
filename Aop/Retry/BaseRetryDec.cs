@@ -53,9 +53,9 @@ namespace StockCore.Aop.Retry.Worker
                 invalidProcess:()=>logger.TraceMessage(module.Key,key,msg:$"No retry.",showParams:true),
                 processFailAsync:async(ex)=> {
                     await saveStateAsync(items,key,false,operationName);
-                    baseDecProcessFail(logger,ex,processErrorID,module.Key,$"Key:[{key}]");
+                    ProcessFail.ComposeAndThrowException(logger,ex,processErrorID,module.Key,info:$"Key:[{key}]");
                 },
-                finalProcessFail:(e)=>baseDecProcessFail(logger,e,outerErrorID,module.Key,$"Key:[{key}]")
+                finalProcessFail:(e)=>ProcessFail.ComposeAndThrowException(logger,e,outerErrorID,module.Key,info:$"Key:[{key}]")
             );
         }
         private bool shouldRetryAsync(IEnumerable<OperationStateDE> items,string key,OperationName operationName)

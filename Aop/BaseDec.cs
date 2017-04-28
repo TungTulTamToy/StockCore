@@ -99,24 +99,6 @@ namespace StockCore.Aop
                 finalProcessFail(e);
             }
         }
-        protected void baseDecProcessFail(ILogger logger,Exception ex,int errorID,string moduleKey,string info)
-        {
-            StockCoreException e = null;
-            if(ex is StockCoreException)
-            {
-                e = (StockCoreException)ex;
-                if(!e.IsLogged)
-                {
-                    logger.TraceError(e);
-                    e.IsLogged = true;
-                }
-            }
-            else
-            {
-                e = new StockCoreException(errorID,moduleKey,ex,info:info);
-            }
-            throw e;
-        }
         private void operate(Action process)
         {
             if(process!=null)

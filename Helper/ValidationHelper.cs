@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.Extensions.Logging;
+using StockCore.Aop;
 using StockCore.Aop.Mon;
 using StockCore.DomainEntity;
 using StockCore.Extension;
@@ -71,9 +72,7 @@ namespace StockCore.Helper
         private void throwArgumentNullException(int errorID,string keyName,string paramName,ILogger logger, Tracer tracer)
         {
             var e = new ArgumentNullException(paramName,"Input cannot be null or empty.");
-            var ex = new StockCoreException(errorID,keyName,e,tracer,true);
-            logger.TraceError(ex);
-            throw ex;
+            ProcessFail.ComposeAndThrowException(logger,e,errorID,keyName,tracer);
         }
     }
 }

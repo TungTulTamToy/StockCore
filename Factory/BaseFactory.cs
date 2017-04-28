@@ -49,9 +49,7 @@ namespace StockCore.Factory
         }
         private void processFail(Exception ex,int errorID,Tracer tracer) 
         { 
-            var e = new StockCoreException(errorID,$"Factory.{keyName}",ex,tracer,true);
-            logger.TraceError(e);
-            throw e;
+            ProcessFail.ComposeAndThrowException(logger,ex,errorID,$"Factory.{keyName}",tracer);
         } 
     }
 }
