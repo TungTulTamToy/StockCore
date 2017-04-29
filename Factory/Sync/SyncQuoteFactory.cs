@@ -5,12 +5,14 @@ using StockCore.Business.Worker.SyncFromWeb;
 using StockCore.Business.Repo;
 using StockCore.DomainEntity;
 using StockCore.Business.Repo.MongoDB;
-using StockCore.Aop.Retry.Worker;
 using StockCore.Business.Repo.AppSetting;
 using StockCore.Extension;
 using StockCore.Aop.Mon.Worker;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
+using StockCore.Aop.Retry;
+using StockCore.DomainEntity.Enum;
+using static StockCore.DomainEntity.Enum.StateOperation;
 
 namespace StockCore.Factory.Sync
 {
@@ -84,6 +86,7 @@ namespace StockCore.Factory.Sync
                 inner = new RetryOperationDec<string>(
                     inner,
                     CacheHelper.GetKeyByString(),
+                    OperationName.RetrySyncQuoteDec,
                     operationStateRepoFactory.Build(tracer),
                     module.Retry,
                     RETRYOUTERERRID,

@@ -6,7 +6,7 @@ using StockCore.Business.Worker;
 using StockCore.DomainEntity;
 using static StockCore.DomainEntity.Enum.StateOperation;
 
-namespace StockCore.Aop.Retry.Worker
+namespace StockCore.Aop.Retry
 {
     public class RetryOperationDec<T> : BaseRetryDec,IOperation<T> where T:class
     {
@@ -15,11 +15,12 @@ namespace StockCore.Aop.Retry.Worker
         public RetryOperationDec(
             IOperation<T> inner,
             Func<string,string,T,string> getKey,
+            OperationName operationName,
             IGetByKeyRepo<OperationStateDE,string> operationStateRepo,            
             StockCore.DomainEntity.RetryModule module,
             int outerErrorID,
             int processErrorID,            
-            ILogger logger):base(operationStateRepo,module,outerErrorID,processErrorID,logger)
+            ILogger logger):base(operationName,operationStateRepo,module,outerErrorID,processErrorID,logger)
         {
             this.inner = inner;              
             this.getKey = getKey;   
@@ -28,8 +29,7 @@ namespace StockCore.Aop.Retry.Worker
         {
             await baseRetryDecOperateAsync(
                 (moduleName,methodName)=>getKey(moduleName,methodName,param),
-                async()=>await inner.OperateAsync(param),
-                OperationName.RetrySyncQuoteDec
+                async()=>await inner.OperateAsync(param)
             );
         }
     }

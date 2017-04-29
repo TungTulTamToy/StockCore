@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using StockCore.Helper;
 
-namespace StockCore.Aop.Retry.Worker
+namespace StockCore.Aop.Retry
 {
     public class BaseRetryDec : BaseDec
     {
@@ -23,7 +23,9 @@ namespace StockCore.Aop.Retry.Worker
         private readonly int processErrorID;
         private readonly ILogger logger;
         private readonly int outerErrorID;
+        private readonly OperationName operationName;
         public BaseRetryDec(
+            OperationName operationName,
             IGetByKeyRepo<OperationStateDE,string> operationStateRepo,            
             StockCore.DomainEntity.RetryModule module,
             int outerErrorID,
@@ -31,6 +33,7 @@ namespace StockCore.Aop.Retry.Worker
             ILogger logger
             )
         {
+            this.operationName = operationName;
             this.module = module;
             this.operationStateRepo = operationStateRepo;
             this.processErrorID = processErrorID;   
@@ -40,7 +43,6 @@ namespace StockCore.Aop.Retry.Worker
         protected async Task baseRetryDecOperateAsync(
             Func<string,string,string> getKey,
             Func<Task> innerProcessAsync,
-            OperationName operationName,
             [CallerMemberName]string methodName="")
         {
             IEnumerable<OperationStateDE> items = null;
