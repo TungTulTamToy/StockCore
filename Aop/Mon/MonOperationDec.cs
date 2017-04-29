@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using StockCore.Business.Worker;
 using StockCore.DomainEntity;
 
-namespace StockCore.Aop.Mon.Worker
+namespace StockCore.Aop.Mon
 {
     public class MonOperationDec<T> : BaseMonDec,IOperation<T> where T:class
     {

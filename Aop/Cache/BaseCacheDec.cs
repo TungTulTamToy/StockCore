@@ -8,7 +8,7 @@ using StockCore.DomainEntity;
 using StockCore.Extension;
 using StockCore.Helper;
 
-namespace StockCore.Aop.Cache.Builder
+namespace StockCore.Aop.Cache
 {
     public class BaseCacheDec<T>:BaseDec where T:BaseDE
     {

@@ -5,7 +5,7 @@ using StockCore.Business.Builder;
 using StockCore.Business.Repo.MongoDB;
 using StockCore.DomainEntity;
 
-namespace StockCore.Aop.Cache.Builder
+namespace StockCore.Aop.Cache
 {
     public class CacheBuilderDec<TInput,TResult>:BaseCacheDec<TResult>,IBuilder<TInput, TResult> where TInput:class where TResult:BaseDE
     {

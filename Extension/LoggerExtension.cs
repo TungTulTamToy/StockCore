@@ -46,7 +46,7 @@ namespace StockCore.Extension
             if(ex!=null)
             {
                 var sb = new StringBuilder();
-                sb.Append($"!!!!! Process:[{ex.ModuleName}] ");
+                sb.Append($"Process:[{ex.ModuleName}] ");
                 sb.AppendLine();
                 sb.Append($"ID:[{ex.ErrorID}] ");
                 sb.AppendLine();
@@ -66,7 +66,6 @@ namespace StockCore.Extension
                         sb.AppendLine();
                     }
                 }
-                sb.Append($"!!!!!");
                 logger.LogError(sb.ToString());
             }
         }

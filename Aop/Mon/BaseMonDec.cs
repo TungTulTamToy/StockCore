@@ -45,9 +45,9 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer,module.Key,methodName),
                 processAsync: async() => result = await innerProcessAsync(),
-                processFail:(ex)=>composeAndThrowException(ex,methodName,input),
+                processFail:(ex)=>/*ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,tracer,module.ThrowException),*/composeAndThrowException(ex,processErrorID,methodName,input),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>composeAndThrowException(e,methodName,input)
+                finalProcessFail:(e)=>/*ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException)*/composeAndThrowException(e,outerErrorID,methodName,input)
             );
             sw = null;
             return result;
@@ -65,21 +65,21 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer,module.Key,methodName),
                 process:() => result = innerProcess(),
-                processFail:(ex)=>composeAndThrowException(ex,methodName,input),
+                processFail:(ex)=>/*ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,tracer,module.ThrowException),*/composeAndThrowException(ex,processErrorID,methodName,input),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>composeAndThrowException(e,methodName,input)
+                finalProcessFail:(e)=>/*ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException)*/composeAndThrowException(e,outerErrorID,methodName,input)
             );
             sw = null;
             return result;
         }
-        private void composeAndThrowException<T>(Exception e,string methodName,T item=default(T))
+        private void composeAndThrowException<T>(Exception e,int errorID,string methodName,T item=default(T))
         {
             var info = "";
             if(item !=null && item is string)
             {
                 info = item as string;
             }
-            ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException,info:info);
+            ProcessFailHelper.ComposeAndThrowException(logger,e,errorID,module.Key,methodName,tracer,module.ThrowException,info:info);
         }
         private Stopwatch preProcess<TInput>(TInput input,Stopwatch sw,string methodName,MonitoringModule module)
         {

@@ -6,9 +6,8 @@ using StockCore.Aop.Mon;
 using StockCore.Helper;
 using StockCore.Business.Builder;
 using StockCore.Business.Repo.MongoDB;
-using StockCore.Aop.Mon.Builder;
-using StockCore.Aop.Cache.Builder;
 using System.Collections.Generic;
+using StockCore.Aop.Cache;
 
 namespace StockCore.Factory.Builder
 {

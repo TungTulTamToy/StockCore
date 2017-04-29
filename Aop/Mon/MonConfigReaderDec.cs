@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
 using StockCore.Business.Repo.AppSetting;
 
-namespace StockCore.Aop.Mon.Repo.AppSetting
+namespace StockCore.Aop.Mon
 {
     public class MonConfigReaderDec : BaseMonDec,IConfigReader
     {

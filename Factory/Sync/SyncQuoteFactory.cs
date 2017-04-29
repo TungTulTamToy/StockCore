@@ -7,7 +7,6 @@ using StockCore.DomainEntity;
 using StockCore.Business.Repo.MongoDB;
 using StockCore.Business.Repo.AppSetting;
 using StockCore.Extension;
-using StockCore.Aop.Mon.Worker;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 using StockCore.Aop.Retry;

@@ -5,7 +5,7 @@ using StockCore.DomainEntity;
 using StockCore.Business.Repo.MongoDB;
 using System;
 
-namespace StockCore.Aop.Mon.Repo.MongoDB
+namespace StockCore.Aop.Mon
 {
     public class MonGetByKeyRepoDec<TInput,TResult> : MonRepoDec<TResult>, IGetByKeyRepo<TResult,TInput> where TInput:class where TResult:BaseDE,IKeyField<string>
     {

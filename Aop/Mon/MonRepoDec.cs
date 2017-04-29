@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
 using StockCore.Business.Repo.MongoDB;
 
-namespace StockCore.Aop.Mon.Repo.MongoDB
+namespace StockCore.Aop.Mon
 {
     public class MonRepoDec<T> : BaseMonDec,IRepo<T> where T:BaseDE
     {

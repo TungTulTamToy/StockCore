@@ -6,7 +6,7 @@ using StockCore.Business.Repo.MongoDB;
 using System;
 using System.Linq.Expressions;
 
-namespace StockCore.Aop.Mon.Repo.MongoDB
+namespace StockCore.Aop.Mon
 {
     public class MonGetByFuncRepoDec<TInput,TResult> : MonGetByKeyRepoDec<TInput,TResult>, IGetByFuncRepo<TInput,TResult> where TInput:class where TResult:BaseDE,IKeyField<string>
     {

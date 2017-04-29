@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using StockCore.Business.Builder;
 using StockCore.DomainEntity;
 
-namespace StockCore.Aop.Mon.Builder
+namespace StockCore.Aop.Mon
 {
     public class MonBuilderDec<TInput,TResult> : BaseMonDec, IBuilder<TInput, TResult> where TInput:class where TResult:class
     {
