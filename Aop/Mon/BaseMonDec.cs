@@ -45,9 +45,9 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer,module.Key,methodName),
                 processAsync: async() => result = await innerProcessAsync(),
-                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,tracer,module.ThrowException),
+                processFail:(ex)=>composeAndThrowException(ex,methodName,input),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException)
+                finalProcessFail:(e)=>composeAndThrowException(e,methodName,input)
             );
             sw = null;
             return result;
@@ -65,12 +65,21 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer,module.Key,methodName),
                 process:() => result = innerProcess(),
-                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,tracer,module.ThrowException),
+                processFail:(ex)=>composeAndThrowException(ex,methodName,input),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException)
+                finalProcessFail:(e)=>composeAndThrowException(e,methodName,input)
             );
             sw = null;
             return result;
+        }
+        private void composeAndThrowException<T>(Exception e,string methodName,T item=default(T))
+        {
+            var info = "";
+            if(item !=null && item is string)
+            {
+                info = item as string;
+            }
+            ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException,info:info);
         }
         private Stopwatch preProcess<TInput>(TInput input,Stopwatch sw,string methodName,MonitoringModule module)
         {
@@ -82,13 +91,13 @@ namespace StockCore.Aop.Mon
             if(module.LogTrace)
             {
                 var paramsValue = "";
-                if(!(input is Expression))
+                if(input!=null && !(input is Expression))
                 {
                     paramsValue = JsonConvert.SerializeObject(input);
                 }
                 else
                 {
-                    paramsValue = "Not log expression type.";
+                    paramsValue = "Not log expression type or null.";
                 }
                 var callHistory = new CallHistory(methodName,paramsValue);
                 tracer.AddCallHistory(callHistory);

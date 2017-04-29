@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -44,7 +45,29 @@ namespace StockCore.Extension
         {
             if(ex!=null)
             {
-                logger.LogError($"!!!!! Process:[{ex.ModuleName}] ID:[{ex.ErrorID}] Message: [{ex.Info}] Exception: {ex.Message} Stack: {ex.StackTrace} !!!!!");
+                var sb = new StringBuilder();
+                sb.Append($"!!!!! Process:[{ex.ModuleName}] ");
+                sb.AppendLine();
+                sb.Append($"ID:[{ex.ErrorID}] ");
+                sb.AppendLine();
+                sb.Append($"Info: [{ex.Info}] ");
+                sb.AppendLine();
+                if(ex!=null)
+                {
+                    sb.Append($"Exception: {ex.Message} ");
+                    sb.AppendLine();
+                    sb.Append($"Stack: {ex.StackTrace} ");
+                    sb.AppendLine();
+                    if(ex.InnerException!=null)
+                    {
+                        sb.Append($"Inner Exception: {ex.InnerException.Message} ");
+                        sb.AppendLine();
+                        sb.Append($"Inner Stack: {ex.InnerException.StackTrace} ");
+                        sb.AppendLine();
+                    }
+                }
+                sb.Append($"!!!!!");
+                logger.LogError(sb.ToString());
             }
         }
         private static void traceDebug(this ILogger logger,string prefix,string keyName, string msg,string suffix="")
@@ -53,7 +76,15 @@ namespace StockCore.Extension
         }
         private static string getParamMessage<T>(T inputItem)
         {
-            var paramsValue = JsonConvert.SerializeObject(inputItem);
+            var paramsValue = "";
+            if(inputItem!=null && !(inputItem is Expression))
+            {
+                paramsValue = JsonConvert.SerializeObject(inputItem);
+            }
+            else
+            {
+                paramsValue = "Not log expression type or null.";
+            }
             var message = $"with parameters: {paramsValue} ";
             return message;
         }
