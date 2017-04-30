@@ -98,17 +98,12 @@ namespace StockCore.Extension
                 sb.Append($"Parameter: {JsonHelper.SerializeObject(inputItem)}");
                 sb.AppendLine();
             }
-            else if (inputItem != null && (inputItem is string || inputItem is IKeyField<string> || inputItem is IEnumerable))
+            else if (inputItem != null && (inputItem is IKeyField<string> || inputItem is IEnumerable))
             {
-                /*
-                if (inputItem is string)
-                {
-                    sb.Append($"Parameter: {JsonHelper.SerializeObject(inputItem)}");
-                }*/
                 if (inputItem is IKeyField<string>)
                 {
                     var key = inputItem as IKeyField<string>;
-                    sb.Append($"Parameter: {JsonHelper.SerializeObject(key.Key)}");
+                    sb.Append($"Parameter Key: {key.Key}");
                 }
                 else if (inputItem is IEnumerable)
                 {
@@ -117,16 +112,6 @@ namespace StockCore.Extension
                     var keyList = new List<string>();
                     foreach (var item in items)
                     {
-                        /*
-                        if (item is string)
-                        {
-                            var key = item as string;
-                            if (!(keyList.Contains(key)))
-                            {
-                                sb.Append($"[{item}],");
-                                keyList.Add(key);
-                            }
-                        }*/
                         if (item is IKeyField<string>)
                         {
                             var key = item as IKeyField<string>;
@@ -134,7 +119,7 @@ namespace StockCore.Extension
                             {
                                 if(index==0)
                                 {
-                                    sb.Append($"Parameter : ");
+                                    sb.Append($"Parameter Keys : ");
                                 }
                                 else
                                 {
