@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Microsoft.Extensions.Logging;
@@ -12,66 +14,32 @@ namespace StockCore.Extension
 {
     public static class LoggerExtension
     {
-        public static void TraceBegin<T>(this ILogger logger,string keyName,T inputItem,bool showParams,bool showInputCount)
+        public static void TraceBegin<T>(this ILogger logger,string keyName,T inputItem,bool showParams,bool showCount)
         {
             var sb = new StringBuilder();
-            var key = getKey(inputItem);
-            if(key !=null)
-            {
-                sb.Append($"Key: [{key}] ");
-            }
-            if(showParams)
-            {
-                sb.Append(getParamMessage(inputItem));
-            }
-            if(showInputCount && inputItem!=null && inputItem is IEnumerable)
-            {
-                int count = 0;
-                var items = inputItem as IEnumerable;
-                var keys = new List<string>();                
-                foreach (var item in items)
-                {
-                    var tempKey = getKey(item);
-                    if(tempKey != null && !keys.Contains(tempKey))
-                    {
-                        keys.Add(tempKey);
-                        sb.Append($"Sub Key: [{tempKey}] ");
-                    }
-                    count++;
-                }
-                sb.Append($"with Count: {count}");
-            }
+            sb.AppendLine();
+            traceParam(inputItem, showParams, sb);
+            traceCount(inputItem, showCount, sb,"Input Count");
             logger.traceDebug("--->", keyName, sb.ToString());
         }
-        private static string getKey<T>(T inputItem)
-        {
-            string key = null;
-            if(inputItem !=null && inputItem is IKeyField<string>)
-            {
-                var k = inputItem as IKeyField<string>;
-                key = k.Key;
-            }
-            return key;
-        }
-        public static void TraceEnd<T,TOut>(
-            this ILogger logger,
-            string keyName,
-            T inputItem=default(T),
-            TOut returnItem=default(TOut),
-            bool showParams=false,
-            bool showResult=false)
+        public static void TraceEnd<T,TOut>(this ILogger logger,string keyName,T inputItem,TOut returnItem,string perfMsg,bool showParams,bool showResult,bool showCount)
         {
             var sb = new StringBuilder();
-            if(showParams)
-            {
-                sb.Append(getParamMessage(inputItem)); 
-            }
+            sb.AppendLine();
+            traceParam(inputItem, showParams, sb);
+            traceCount(inputItem, showCount, sb,"Input Count");
             if(showResult)
             {
-                sb.Append(getResultMessage(returnItem));
+                sb.Append($"Result: {JsonHelper.SerializeObject(returnItem)}");
+                sb.AppendLine();
             }
-            var message = sb.ToString();
-            logger.traceDebug("<---", keyName, message);
+            traceCount(returnItem, showCount, sb,"Output Count");
+            if(!string.IsNullOrEmpty(perfMsg))
+            {
+                sb.Append($"ElapsedMilliseconds: {perfMsg}");
+                sb.AppendLine();
+            }
+            logger.traceDebug("<---", keyName, sb.ToString());
         }
         public static void TraceMessage(this ILogger logger,string keyName,string msg)
         {
@@ -105,21 +73,94 @@ namespace StockCore.Extension
                 logger.LogError(sb.ToString());
             }
         }
+        private static int? getCount<T>(T items)
+        {
+            int? count = null;
+            if(items !=  null && !(items is string) && items is IEnumerable)
+            {
+                count = 0;
+                var castItems = items as IEnumerable;
+                foreach (var item in castItems)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
         private static void traceDebug(this ILogger logger,string prefix,string keyName, string msg,string suffix="")
         {
             logger.LogDebug($"{prefix} {keyName} {msg} {suffix}");
         }
-        private static string getParamMessage<T>(T inputItem)
+        private static void traceParam<T>(T inputItem, bool showParams, StringBuilder sb)
         {
-            var paramsValue = JsonHelper.SerializeObject(inputItem);
-            var message = $"with parameters: {paramsValue} ";
-            return message;
+            if (showParams)
+            {
+                sb.Append($"Parameter: {JsonHelper.SerializeObject(inputItem)}");
+                sb.AppendLine();
+            }
+            else if (inputItem != null && (inputItem is string || inputItem is IKeyField<string> || inputItem is IEnumerable))
+            {
+                /*
+                if (inputItem is string)
+                {
+                    sb.Append($"Parameter: {JsonHelper.SerializeObject(inputItem)}");
+                }*/
+                if (inputItem is IKeyField<string>)
+                {
+                    var key = inputItem as IKeyField<string>;
+                    sb.Append($"Parameter: {JsonHelper.SerializeObject(key.Key)}");
+                }
+                else if (inputItem is IEnumerable)
+                {
+                    var items = inputItem as IEnumerable;
+                    var index = 0;
+                    var keyList = new List<string>();
+                    foreach (var item in items)
+                    {
+                        /*
+                        if (item is string)
+                        {
+                            var key = item as string;
+                            if (!(keyList.Contains(key)))
+                            {
+                                sb.Append($"[{item}],");
+                                keyList.Add(key);
+                            }
+                        }*/
+                        if (item is IKeyField<string>)
+                        {
+                            var key = item as IKeyField<string>;
+                            if (!(keyList.Contains(key.Key)))
+                            {
+                                if(index==0)
+                                {
+                                    sb.Append($"Parameter : ");
+                                }
+                                else
+                                {
+                                    sb.Append($", ");
+                                }
+                                sb.Append($"[{key.Key}]");
+                                keyList.Add(key.Key);
+                            }
+                        }
+                        index++;
+                    }
+                }
+                sb.AppendLine();
+            }
         }
-        private static string getResultMessage<T>(T resultItem)
+        private static void traceCount<T>(T inputItem, bool showCount, StringBuilder sb, string prefix)
         {
-            var paramsValue = JsonHelper.SerializeObject(resultItem);
-            var message = $"with results: {paramsValue} ";
-            return message;
+            if (showCount)
+            {
+                var count = getCount(inputItem);
+                if (count != null)
+                {
+                    sb.Append($"{prefix}: {count}");
+                    sb.AppendLine();
+                }
+            }
         }
     }
 }

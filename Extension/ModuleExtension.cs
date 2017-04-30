@@ -19,7 +19,6 @@ namespace StockCore.Extension
         }
         public static MonitoringModule OverrideConfigFromSubModuleIfAny(this MonitoringModule module,string methodName)
         {
-            MonitoringModule newModule = null;
             if(module != null)
             {
                 if(module.Actions != null)
@@ -27,26 +26,26 @@ namespace StockCore.Extension
                     var item = module.Actions.FirstOrDefault(action=>action != null && action.Key == methodName);
                     if(item != null)
                     {
-                        newModule=item.Copy();
+                        var newModule=item.Copy(module.Key);
+                        return newModule;
                     }
                 }
-                newModule=module.Copy();
             }
-            return newModule;
+            return module;
         }
 
-        private static MonitoringModule Copy(this MonitoringModule module)
+        private static MonitoringModule Copy(this MonitoringModule module,string parentModuleKey)
         {
             MonitoringModule newModule=null;
             if(module!=null)
             {
                 newModule=new MonitoringModule()
                 {
-                    Key=module.Key,
+                    Key=$"{parentModuleKey}.Sub",
                     IsActive=module.IsActive,
                     ShowParams=module.ShowParams,
                     ShowResult=module.ShowResult,
-                    ShowInputCount=module.ShowInputCount,
+                    ShowCount=module.ShowCount,
                     PerformanceMeasurement=module.PerformanceMeasurement,
                     ThrowException=module.ThrowException,
                     LogTrace=module.LogTrace

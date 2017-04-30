@@ -16,7 +16,7 @@ namespace StockCore.DomainEntity
         public bool IsActive {get;set;}
         public bool ShowParams {get;set;}
         public bool ShowResult {get;set;}
-        public bool ShowInputCount {get;set;}
+        public bool ShowCount {get;set;}
         public bool PerformanceMeasurement{get;set;}
         public bool ThrowException{get;set;}
         public bool LogTrace{get;set;}

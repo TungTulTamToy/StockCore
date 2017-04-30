@@ -96,7 +96,7 @@ namespace StockCore.Aop.Mon
                     var callHistory = new CallHistory(methodName,paramsValue);
                     tracer.AddCallHistory(callHistory);
                 }
-                logger.TraceBegin($"{module.Key}.{methodName}",input,module.ShowParams,module.ShowInputCount);
+                logger.TraceBegin($"{module.Key}.{methodName}",input,module.ShowParams,module.ShowCount);
             }
             return sw;
         }
@@ -104,23 +104,20 @@ namespace StockCore.Aop.Mon
         {
             if(module.IsActive)
             {
-                logger.TraceEnd(
-                    $"{module.Key}.{methodName}",
-                    input,
-                    showParams:module.ShowParams,
-                    returnItem:returnItem,
-                    showResult:module.ShowResult);
+                var perfMsg = "";
                 if(module.PerformanceMeasurement)
                 {
                     sw.Stop();
-                    var msg = $"ElapsedMilliseconds:{sw.ElapsedMilliseconds}";
-                    if(module.ShowParams)
-                    {
-                        var inputText = JsonHelper.SerializeObject(input);
-                        msg = $"[{inputText}] {msg}";
-                    }
-                    logger.TraceMessage(module.Key,msg);
+                    perfMsg = sw.ElapsedMilliseconds.ToString();
                 }
+                logger.TraceEnd(
+                    $"{module.Key}.{methodName}",
+                    input,
+                    returnItem,
+                    perfMsg,
+                    module.ShowParams,
+                    module.ShowResult,
+                    module.ShowCount);
             }
         }
         
