@@ -35,7 +35,13 @@ namespace StockCore.Wrapper
 
         public IHtmlNodeCollectionWrapper SelectNodes(string xpath)
         {
-            return new HtmlNodeCollectionWrapper(node.SelectNodes(xpath));
+            HtmlNodeCollectionWrapper wrapper = null;
+            var nodes = node.SelectNodes(xpath);
+            if(nodes!=null)
+            {
+                wrapper = new HtmlNodeCollectionWrapper(node.SelectNodes(xpath));
+            }
+            return wrapper;
         }
     }
 
@@ -49,7 +55,7 @@ namespace StockCore.Wrapper
 
         public IHtmlNodeWrapper this[int index] 
         { 
-            get => new HtmlNodeWrapper(nodes.ElementAt(index));// throw new NotImplementedException(); 
+            get => new HtmlNodeWrapper(nodes.ElementAt(index));
             set => throw new NotImplementedException(); 
         }
 

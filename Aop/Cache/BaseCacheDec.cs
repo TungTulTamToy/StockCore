@@ -58,12 +58,12 @@ namespace StockCore.Aop.Cache
             T item = null;            
             if(cache!=null && cache.Any())
             {
-                logger.TraceMessage(module.Key,key,msg:$"Cache hit.",showParams:true);                
+                logger.TraceMessage(module.Key,$"[{key}] Cache hit.");                
                 item = cache.First().CacheObject;
             }
             else
             {
-                logger.TraceMessage(module.Key,key,msg:$"Cache miss.",showParams:true);    
+                logger.TraceMessage(module.Key,$"[{key}] Cache miss.");    
             }
             return item;
         }

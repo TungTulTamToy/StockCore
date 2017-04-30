@@ -1,23 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StockCore.Aop.Mon;
+using StockCore.DomainEntity;
+using StockCore.Helper;
 
 namespace StockCore.Extension
 {
     public static class LoggerExtension
     {
-        public static void TraceBegin<T>(this ILogger logger,string keyName,T inputItem=default(T),bool showParams=false)
+        public static void TraceBegin<T>(this ILogger logger,string keyName,T inputItem,bool showParams,bool showInputCount)
         {
-            var message = "";
+            var sb = new StringBuilder();
+            var key = getKey(inputItem);
+            if(key !=null)
+            {
+                sb.Append($"Key: [{key}] ");
+            }
             if(showParams)
             {
-                message = getParamMessage(inputItem);
+                sb.Append(getParamMessage(inputItem));
             }
-            logger.traceDebug("--->", keyName, message);
+            if(showInputCount && inputItem!=null && inputItem is IEnumerable)
+            {
+                int count = 0;
+                var items = inputItem as IEnumerable;
+                var keys = new List<string>();                
+                foreach (var item in items)
+                {
+                    var tempKey = getKey(item);
+                    if(tempKey != null && !keys.Contains(tempKey))
+                    {
+                        keys.Add(tempKey);
+                        sb.Append($"Sub Key: [{tempKey}] ");
+                    }
+                    count++;
+                }
+                sb.Append($"with Count: {count}");
+            }
+            logger.traceDebug("--->", keyName, sb.ToString());
         }
-        public static void TraceEnd<T,TOut>(this ILogger logger,string keyName,T inputItem=default(T),TOut returnItem=default(TOut),bool showParams=false,bool showResult=false)
+        private static string getKey<T>(T inputItem)
+        {
+            string key = null;
+            if(inputItem !=null && inputItem is IKeyField<string>)
+            {
+                var k = inputItem as IKeyField<string>;
+                key = k.Key;
+            }
+            return key;
+        }
+        public static void TraceEnd<T,TOut>(
+            this ILogger logger,
+            string keyName,
+            T inputItem=default(T),
+            TOut returnItem=default(TOut),
+            bool showParams=false,
+            bool showResult=false)
         {
             var sb = new StringBuilder();
             if(showParams)
@@ -31,15 +73,9 @@ namespace StockCore.Extension
             var message = sb.ToString();
             logger.traceDebug("<---", keyName, message);
         }
-        public static void TraceMessage<T>(this ILogger logger,string keyName,T inputItem=default(T),string msg = "",bool showParams=false)
+        public static void TraceMessage(this ILogger logger,string keyName,string msg)
         {
-            var sb = new StringBuilder();
-            if(showParams)
-            {
-                sb.Append(getParamMessage(inputItem));
-            }
-            sb.Append(msg);
-            logger.traceDebug("****",keyName, sb.ToString(),"****");
+            logger.traceDebug("****",keyName, msg,"****");
         }
         public static void TraceError(this ILogger logger,StockCoreException ex)
         {
@@ -75,21 +111,13 @@ namespace StockCore.Extension
         }
         private static string getParamMessage<T>(T inputItem)
         {
-            var paramsValue = "";
-            if(inputItem!=null && !(inputItem is Expression))
-            {
-                paramsValue = JsonConvert.SerializeObject(inputItem);
-            }
-            else
-            {
-                paramsValue = "Not log expression type or null.";
-            }
+            var paramsValue = JsonHelper.SerializeObject(inputItem);
             var message = $"with parameters: {paramsValue} ";
             return message;
         }
         private static string getResultMessage<T>(T resultItem)
         {
-            var paramsValue = JsonConvert.SerializeObject(resultItem);
+            var paramsValue = JsonHelper.SerializeObject(resultItem);
             var message = $"with results: {paramsValue} ";
             return message;
         }

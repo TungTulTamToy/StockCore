@@ -19,25 +19,28 @@ namespace StockCore.Business.Repo.Html
             var pattern = "\\d{2}/\\d{2}/\\d{4}:$";
             var nodes = doc.DocumentNode.SelectNodes("//div").Where(node => Regex.IsMatch(node.InnerText.Trim(), pattern)).Take(4).Reverse();
             var shares = new List<ShareDE>();
-            foreach (var node in nodes)
+            if(nodes!=null)
             {
-                var selectedValue = node.NextSibling.NextSibling.InnerText.Trim();
-                var splitedValue = selectedValue.Split(' ');
-                var amount = parselong(splitedValue[0]);
-                if (amount != null)
+                foreach (var node in nodes)
                 {
-                    foreach (Match match in Regex.Matches(node.InnerText.Trim(), pattern))
+                    var selectedValue = node.NextSibling.NextSibling.InnerText.Trim();
+                    var splitedValue = selectedValue.Split(' ');
+                    var amount = parselong(splitedValue[0]);
+                    if (amount != null)
                     {
-                        var date = parseDateTime(match.Value.TrimEnd(':'), "dd/MM/yyyy", "th-TH");
-                        if (!shares.Any(s => s.Date == date))
+                        foreach (Match match in Regex.Matches(node.InnerText.Trim(), pattern))
                         {
-                            shares.Add(new ShareDE
+                            var date = parseDateTime(match.Value.TrimEnd(':'), "dd/MM/yyyy", "th-TH");
+                            if (!shares.Any(s => s.Date == date))
                             {
-                                Quote = keyword,
-                                Date = date,
-                                Amount = amount,
-                                IsValid = true
-                            });
+                                shares.Add(new ShareDE
+                                {
+                                    Quote = keyword,
+                                    Date = date,
+                                    Amount = amount,
+                                    IsValid = true
+                                });
+                            }
                         }
                     }
                 }

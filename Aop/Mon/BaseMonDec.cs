@@ -13,7 +13,7 @@ namespace StockCore.Aop.Mon
 {
     public class BaseMonDec:BaseDec
     {
-        private readonly MonitoringModule module;
+        protected readonly MonitoringModule module;
         private readonly int processErrorID;
         private readonly Tracer tracer;
         private readonly ILogger logger;
@@ -45,9 +45,9 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer,module.Key,methodName),
                 processAsync: async() => result = await innerProcessAsync(),
-                processFail:(ex)=>/*ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,tracer,module.ThrowException),*/composeAndThrowException(ex,processErrorID,methodName,input),
+                processFail:(ex)=>composeAndThrowException(ex,processErrorID,methodName,input),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>/*ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException)*/composeAndThrowException(e,outerErrorID,methodName,input)
+                finalProcessFail:(e)=>composeAndThrowException(e,outerErrorID,methodName,input)
             );
             sw = null;
             return result;
@@ -65,9 +65,9 @@ namespace StockCore.Aop.Mon
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
                 validate:()=> validate(logger,tracer,module.Key,methodName),
                 process:() => result = innerProcess(),
-                processFail:(ex)=>/*ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,tracer,module.ThrowException),*/composeAndThrowException(ex,processErrorID,methodName,input),
+                processFail:(ex)=>composeAndThrowException(ex,processErrorID,methodName,input),
                 postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>/*ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,tracer,module.ThrowException)*/composeAndThrowException(e,outerErrorID,methodName,input)
+                finalProcessFail:(e)=>composeAndThrowException(e,outerErrorID,methodName,input)
             );
             sw = null;
             return result;
@@ -83,28 +83,20 @@ namespace StockCore.Aop.Mon
         }
         private Stopwatch preProcess<TInput>(TInput input,Stopwatch sw,string methodName,MonitoringModule module)
         {
-            if(module.PerformanceMeasurement)
-            {
-                sw = new Stopwatch();
-                sw.Start();
-            }
-            if(module.LogTrace)
-            {
-                var paramsValue = "";
-                if(input!=null && !(input is Expression))
-                {
-                    paramsValue = JsonConvert.SerializeObject(input);
-                }
-                else
-                {
-                    paramsValue = "Not log expression type or null.";
-                }
-                var callHistory = new CallHistory(methodName,paramsValue);
-                tracer.AddCallHistory(callHistory);
-            }
             if(module.IsActive)
             {
-                logger.TraceBegin($"{module.Key}.{methodName}",input,showParams:module.ShowParams);
+                if(module.PerformanceMeasurement)
+                {
+                    sw = new Stopwatch();
+                    sw.Start();
+                }
+                if(module.LogTrace)
+                {
+                    var paramsValue = JsonHelper.SerializeObject(input);
+                    var callHistory = new CallHistory(methodName,paramsValue);
+                    tracer.AddCallHistory(callHistory);
+                }
+                logger.TraceBegin($"{module.Key}.{methodName}",input,module.ShowParams,module.ShowInputCount);
             }
             return sw;
         }
@@ -118,11 +110,17 @@ namespace StockCore.Aop.Mon
                     showParams:module.ShowParams,
                     returnItem:returnItem,
                     showResult:module.ShowResult);
-            }
-            if(module.PerformanceMeasurement)
-            {
-                sw.Stop();
-                logger.TraceMessage(module.Key,input,msg:$"ElapsedMilliseconds:{sw.ElapsedMilliseconds}",showParams:module.ShowParams);
+                if(module.PerformanceMeasurement)
+                {
+                    sw.Stop();
+                    var msg = $"ElapsedMilliseconds:{sw.ElapsedMilliseconds}";
+                    if(module.ShowParams)
+                    {
+                        var inputText = JsonHelper.SerializeObject(input);
+                        msg = $"[{inputText}] {msg}";
+                    }
+                    logger.TraceMessage(module.Key,msg);
+                }
             }
         }
         

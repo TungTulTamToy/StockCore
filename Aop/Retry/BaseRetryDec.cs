@@ -57,7 +57,7 @@ namespace StockCore.Aop.Retry
                     await innerProcessAsync();
                     await saveStateAsync(items,key,true,operationName);
                 },
-                invalidProcess:()=>logger.TraceMessage(module.Key,key,msg:$"No retry.",showParams:true),
+                invalidProcess:()=>logger.TraceMessage(module.Key,$"[{key}] No retry."),
                 processFailAsync:async(ex)=> {
                     await saveStateAsync(items,key,false,operationName);
                     ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,info:$"Key:[{key}]");

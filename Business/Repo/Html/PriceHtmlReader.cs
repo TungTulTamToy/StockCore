@@ -17,32 +17,33 @@ namespace StockCore.Business.Repo.Html
         {
             var selectedNodes = doc.DocumentNode.SelectNodes("//div[@class='table-responsive']//table//tbody//tr");
             var prices = new List<PriceDE>();
-
-            foreach (var selectedNode in selectedNodes)
+            if(selectedNodes!=null)
             {
-                var splitedText = Regex.Split(selectedNode.InnerText.Trim(), "\r\n");
-                var date = parseDateTime(splitedText[0]);
-                var open = parseDouble(splitedText[1]);
-                var high = parseDouble(splitedText[2]);
-                var low = parseDouble(splitedText[3]);
-                var close = parseDouble(splitedText[5]);
-                var amount = parseDouble(splitedText[8]);
-                var volumn = parseDouble(splitedText[9]);
-
-                prices.Add(new PriceDE
+                foreach (var selectedNode in selectedNodes)
                 {
-                    Quote = keyword,
-                    Date = date,
-                    Open = open,
-                    High = high,
-                    Low = low,
-                    Close = close,
-                    Amount = amount,
-                    Volumn = volumn,
-                    IsValid = true
-                });
-            }
+                    var splitedText = Regex.Split(selectedNode.InnerText.Trim(), "\r\n");
+                    var date = parseDateTime(splitedText[0]);
+                    var open = parseDouble(splitedText[1]);
+                    var high = parseDouble(splitedText[2]);
+                    var low = parseDouble(splitedText[3]);
+                    var close = parseDouble(splitedText[5]);
+                    var amount = parseDouble(splitedText[8]);
+                    var volumn = parseDouble(splitedText[9]);
 
+                    prices.Add(new PriceDE
+                    {
+                        Quote = keyword,
+                        Date = date,
+                        Open = open,
+                        High = high,
+                        Low = low,
+                        Close = close,
+                        Amount = amount,
+                        Volumn = volumn,
+                        IsValid = true
+                    });
+                }
+            }
             return prices;
         }
     }

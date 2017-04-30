@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
 using StockCore.Business.Repo.MongoDB;
+using StockCore.Extension;
 
 namespace StockCore.Aop.Mon
 {
@@ -69,8 +70,7 @@ namespace StockCore.Aop.Mon
                 (logger,tracer,moduleName,methodName)=>validateEntities(items),
                 async ()=>{
                     await inner.BatchUpdateAsync(items);
-                    return true;
-            });
+                    return true;});
         }
 
         public async Task DeleteAsync(T item)

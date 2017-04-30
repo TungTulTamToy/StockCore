@@ -8,7 +8,6 @@ namespace StockCore.Aop.Mon
 {
     public class MonBuilderDec<TInput,TResult> : BaseMonDec, IBuilder<TInput, TResult> where TInput:class where TResult:class
     {
-        private readonly MonitoringModule module;
         private readonly IBuilder<TInput, TResult> inner;
         private readonly Func<ILogger,Tracer,string,string,TInput,bool> validateQuote;
         public MonBuilderDec(
@@ -22,7 +21,6 @@ namespace StockCore.Aop.Mon
         {
             this.inner = inner;
             this.validateQuote = validateQuote;
-            this.module = module;
         }
         public async Task<TResult> BuildAsync(TInput param)
         {

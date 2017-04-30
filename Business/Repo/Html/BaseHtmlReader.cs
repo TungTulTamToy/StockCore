@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
+using StockCore.Extension;
 using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.Html
@@ -23,7 +26,8 @@ namespace StockCore.Business.Repo.Html
         {
             var response = await client.GetStringAsync(string.Format(url,id));
             doc.LoadHtml(response);
-            return extractValues(id);
+            var items = extractValues(id);
+            return items;
         }
 
         protected abstract IEnumerable<T> extractValues(string keyword);

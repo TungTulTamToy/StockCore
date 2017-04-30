@@ -46,6 +46,7 @@ namespace StockCore.Extension
                     IsActive=module.IsActive,
                     ShowParams=module.ShowParams,
                     ShowResult=module.ShowResult,
+                    ShowInputCount=module.ShowInputCount,
                     PerformanceMeasurement=module.PerformanceMeasurement,
                     ThrowException=module.ThrowException,
                     LogTrace=module.LogTrace

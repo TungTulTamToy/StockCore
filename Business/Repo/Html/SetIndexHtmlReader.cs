@@ -17,21 +17,22 @@ namespace StockCore.Business.Repo.Html
         {
             var selectedNodes = doc.DocumentNode.SelectNodes("//div[@class='table-responsive']//table//tbody//tr");
             var setIndex = new List<SetIndexDE>();
-
-            foreach (var selectedNode in selectedNodes)
+            if(selectedNodes!=null)
             {
-                var splitedText = Regex.Split(selectedNode.InnerText.Trim(), "\r\n");
-                var date = parseDateTime(splitedText[0]);
-                var index = parseDouble(splitedText[10]);
+                foreach (var selectedNode in selectedNodes)
+                {
+                    var splitedText = Regex.Split(selectedNode.InnerText.Trim(), "\r\n");
+                    var date = parseDateTime(splitedText[0]);
+                    var index = parseDouble(splitedText[10]);
 
-                setIndex.Add(new SetIndexDE
-                { 
-                    Date = date,
-                    Index = index,
-                    IsValid = true
-                });
+                    setIndex.Add(new SetIndexDE
+                    { 
+                        Date = date,
+                        Index = index,
+                        IsValid = true
+                    });
+                }
             }
-
             return setIndex;
         }
     }
