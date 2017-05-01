@@ -8,6 +8,7 @@ using StockCore.Business.Repo.AppSetting;
 using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
+using System;
 
 namespace StockCore.Factory.Sync
 {
@@ -32,7 +33,7 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<PriceDE>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<PriceDE>> inner = new SyncPrice(dbPriceDEFactory.Build(tracer));
+            IOperation<IEnumerable<PriceDE>> inner = new BaseSyncData<DateTime,PriceDE>(dbPriceDEFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {

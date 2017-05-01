@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace StockCore.DomainEntity
 {
     [DataContract]
-    public class PriceDE:BaseDE,IJoinKeyField<DateTime>,IValidField,IKeyField<string>
+    public class PriceDE:BaseDE,IValidField,IKeyField<string>,ILinqCriteria<DateTime,PriceDE>
     {
         public string Key 
         { 
@@ -33,5 +34,15 @@ namespace StockCore.DomainEntity
         public double? Volumn { get; set; }
         public bool IsValid { get; set; }
         public DateTime JoinKey=>Date;
+        public PriceDE Merge(PriceDE other)
+        {
+            this.Amount = other.Amount;
+            this.Close = other.Close;
+            this.High = other.High;
+            this.Low = other.Low;
+            this.Volumn = other.Volumn;
+            return this;
+        }
+        public bool UpdateCondition(PriceDE other)=>this.IsValid != other.IsValid || this.Amount != other.Amount || this.Close != other.Close || this.High != other.High || this.Low != other.Low || this.Volumn != other.Volumn;
     }
 }

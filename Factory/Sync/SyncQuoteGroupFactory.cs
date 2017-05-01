@@ -32,7 +32,7 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<QuoteGroupDE>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<QuoteGroupDE>> inner = new SyncQuoteGroup(dbQuoteGroupDEFactory.Build(tracer));
+            IOperation<IEnumerable<QuoteGroupDE>> inner = new BaseSyncData<string,QuoteGroupDE>(dbQuoteGroupDEFactory.Build(tracer),true);
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {

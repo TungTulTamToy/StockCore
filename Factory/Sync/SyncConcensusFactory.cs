@@ -32,7 +32,7 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<ConsensusDE>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<ConsensusDE>> inner = new SyncConsensus(dbConsensusFactory.Build(tracer));
+            IOperation<IEnumerable<ConsensusDE>> inner = new BaseSyncData<int,ConsensusDE>(dbConsensusFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {

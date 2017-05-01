@@ -98,11 +98,11 @@ namespace StockCore.Business.Worker.SyncFromWeb
             Tuple<IEnumerable<PriceDE>,IEnumerable<SetIndexDE>,IEnumerable<ConsensusDE>,IEnumerable<ShareDE>,IEnumerable<StatisticDE>> webTuple, 
             Tuple<IEnumerable<PriceDE>,IEnumerable<SetIndexDE>,IEnumerable<ConsensusDE>,IEnumerable<ShareDE>,IEnumerable<StatisticDE>> dbTuple)
         {
-            var priceToInsert = webTuple.Item1.CalculateItemToInsert<PriceDE,DateTime>(dbTuple.Item1);
-            var setIndexToInsert = webTuple.Item2.CalculateItemToInsert<SetIndexDE,DateTime>(dbTuple.Item2);
-            var consensusToInsert = webTuple.Item3.CalculateItemToInsert<ConsensusDE,int>(dbTuple.Item3);
-            var shareToInsert = webTuple.Item4.CalculateItemToInsert<ShareDE,DateTime>(dbTuple.Item4);
-            var statisticToInsert = webTuple.Item5.CalculateItemToInsert<StatisticDE,int>(dbTuple.Item5);
+            var priceToInsert = webTuple.Item1.GetItemToInsert<DateTime,PriceDE>(dbTuple.Item1);
+            var setIndexToInsert = webTuple.Item2.GetItemToInsert<DateTime,SetIndexDE>(dbTuple.Item2);
+            var consensusToInsert = webTuple.Item3.GetItemToInsert<int,ConsensusDE>(dbTuple.Item3);
+            var shareToInsert = webTuple.Item4.GetItemToInsert<DateTime,ShareDE>(dbTuple.Item4);
+            var statisticToInsert = webTuple.Item5.GetItemToInsert<int,StatisticDE>(dbTuple.Item5);
 
             return new Tuple<IEnumerable<PriceDE>,IEnumerable<SetIndexDE>,IEnumerable<ConsensusDE>,IEnumerable<ShareDE>,IEnumerable<StatisticDE>>(priceToInsert, setIndexToInsert,consensusToInsert,shareToInsert,statisticToInsert);
         }
@@ -119,17 +119,17 @@ namespace StockCore.Business.Worker.SyncFromWeb
         }
         private async Task updateConcensus(string quote,IEnumerable<ConsensusDE> webItems, IEnumerable<ConsensusDE> dbItems)
         {
-            var items = webItems.CalculateItemToUpdate(dbItems);
+            var items = webItems.GetItemToUpdate<int,ConsensusDE>(dbItems);
             await dbConsensusRepo.BatchUpdateAsync(items);
         }
         private async Task updateShare(string quote,IEnumerable<ShareDE> webItems, IEnumerable<ShareDE> dbItems)
         {
-            var items = webItems.CalculateItemToUpdate(dbItems);
+            var items = webItems.GetItemToUpdate<DateTime,ShareDE>(dbItems);
             await dbShareRepo.BatchUpdateAsync(items);
         }
         private async Task updateStatistic(string quote,IEnumerable<StatisticDE> webItems, IEnumerable<StatisticDE> dbItems)
         {
-            var items = webItems.CalculateItemToUpdate(dbItems);
+            var items = webItems.GetItemToUpdate<int,StatisticDE>(dbItems);
             await dbStatisticRepo.BatchUpdateAsync(items);
         }
         private async Task operateBatchInsertAsync<T>(string quote,IEnumerable<T> items, IRepo<T> repo) where T:BaseDE
