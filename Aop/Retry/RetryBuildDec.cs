@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockCore.Business.Repo.MongoDB;
-using StockCore.Business.Worker;
+using StockCore.Business.Operation;
 using StockCore.DomainEntity;
 using StockCore.Business.Builder;
 using static StockCore.DomainEntity.Enum.StateOperation;

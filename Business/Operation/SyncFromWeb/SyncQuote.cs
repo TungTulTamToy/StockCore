@@ -7,7 +7,7 @@ using StockCore.Business.Repo;
 using StockCore.Business.Repo.MongoDB;
 using StockCore.Factory;
 
-namespace StockCore.Business.Worker.SyncFromWeb
+namespace StockCore.Business.Operation.SyncFromWeb
 {
     public class SyncQuote:IOperation<string>
     {

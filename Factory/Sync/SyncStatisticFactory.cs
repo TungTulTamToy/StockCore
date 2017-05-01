@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using StockCore.Business.Worker;
+using StockCore.Business.Operation;
 using StockCore.DomainEntity;
 using StockCore.Business.Repo.MongoDB;
-using StockCore.Business.Worker.Sync;
+using StockCore.Business.Operation.Sync;
 using StockCore.Business.Repo.AppSetting;
 using StockCore.Extension;
 using StockCore.Aop.Mon;

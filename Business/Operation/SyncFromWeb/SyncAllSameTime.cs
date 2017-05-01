@@ -6,7 +6,7 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 using StockCore.DomainEntity;
 
-namespace StockCore.Business.Worker.SyncFromWeb
+namespace StockCore.Business.Operation.SyncFromWeb
 {
     public class SyncAllSameTime:IOperation<IEnumerable<string>>
     {

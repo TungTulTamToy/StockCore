@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using StockCore.Business.Worker;
-using StockCore.Business.Worker.SyncFromWeb;
+using StockCore.Business.Operation;
+using StockCore.Business.Operation.SyncFromWeb;
 using StockCore.Business.Repo.AppSetting;
 using StockCore.Extension;
 using System;

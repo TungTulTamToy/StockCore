@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using StockCore.Business.Worker;
+using StockCore.Business.Operation;
 using StockCore.DomainEntity;
 
 namespace StockCore.Aop.Mon

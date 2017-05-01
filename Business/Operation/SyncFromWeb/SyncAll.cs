@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using StockCore.Factory;
 
-namespace StockCore.Business.Worker.SyncFromWeb
+namespace StockCore.Business.Operation.SyncFromWeb
 {
     public class SyncAll:IOperation<IEnumerable<string>>
     {

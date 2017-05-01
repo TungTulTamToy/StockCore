@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace StockCore.Business.Worker
+namespace StockCore.Business.Operation
 {
     public interface IOperation<T>where T:class
     {

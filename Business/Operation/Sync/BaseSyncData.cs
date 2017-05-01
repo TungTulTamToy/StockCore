@@ -6,7 +6,7 @@ using StockCore.Extension;
 using System.Linq;
 using System;
 
-namespace StockCore.Business.Worker.Sync
+namespace StockCore.Business.Operation.Sync
 {
     public class BaseSyncData<TKey,T> : IOperation<IEnumerable<T>> where T:BaseDE,ILinqCriteria<TKey,T>
     {

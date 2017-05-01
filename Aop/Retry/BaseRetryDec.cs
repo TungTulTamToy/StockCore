@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockCore.Factory;
 using StockCore.Business.Repo.MongoDB;
-using StockCore.Business.Worker;
+using StockCore.Business.Operation;
 using StockCore.DomainEntity;
 using StockCore.Extension;
 using StockCore.DomainEntity.Enum;
