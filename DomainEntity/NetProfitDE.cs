@@ -9,7 +9,6 @@ namespace StockCore.DomainEntity
         public int Year { get; set; }
         [DataMember]
         public double Value { get; set; }
-        //[DataMember]
         public bool IsActual { get; set; }
     }
 }

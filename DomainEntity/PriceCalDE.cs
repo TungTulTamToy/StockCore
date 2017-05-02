@@ -8,35 +8,31 @@ namespace StockCore.DomainEntity
     public class PriceCalDE
     {
         [DataMember]
-        public double DiffMax=>calDiff(max);
+        public double DiffMax{get;set;}
         [DataMember]
-        public double DiffMin=>calDiff(min);
+        public double DiffMin{get;set;}
         [DataMember]
-        public double DiffAvg=>calDiff(avg);
+        public double DiffAvg{get;set;}
         [DataMember]
-        public double Last=>last;
+        public double Last{get;set;}
         [DataMember]
-        public double Max=>max;
+        public double Max{get;set;}
         [DataMember]
-        public double Min=>min;
+        public double Min{get;set;}
         [DataMember]
-        public double Avg=>avg;
-
+        public double Avg{get;set;}
         [DataMember]
-        public string Name=>name;
-        private readonly double last;
-        private readonly double max;
-        private readonly double min;
-        private readonly double avg;
-        private readonly string name;
-
+        public string Name{get;set;}
         public PriceCalDE(string name,double avg, double min, double max, double last)
         {
-            this.name = name;
-            this.avg = avg;
-            this.min = min;
-            this.max = max;
-            this.last = last;
+            this.Name = name;
+            this.Avg = avg;
+            this.Min = min;
+            this.Max = max;
+            this.Last = last;
+            this.DiffMax = calDiff(max);
+            this.DiffMin = calDiff(min);
+            this.DiffAvg = calDiff(avg);
         }
         private double calDiff(double price)
         {
