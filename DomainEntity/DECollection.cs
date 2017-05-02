@@ -7,28 +7,26 @@ namespace StockCore.DomainEntity
 {
     public class DECollection<T> : BaseDE, IEnumerable<T> where T:class
     {
-        List<T> stockList = new List<T>();
-
-        public T this[int index]  
-        {  
-            get { return stockList[index]; }  
-            set { stockList.Insert(index, value); }  
-        } 
+        private List<T> list;
+        //TODO:Cannot move logic to Load method. Mongo cannot deserialize it back!!!
         public DECollection(IEnumerable<T> items)
         {
-            if(items!=null)
+            if(items!=null && items.Any())
             {
-                stockList = items.ToList();
+                list = new List<T>();
+                list = items.ToList();
             }
         }
-        public IEnumerator<T> GetEnumerator()
+        /*
+        public void Load(IEnumerable<T> items)
         {
-            return stockList.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.ToList().GetEnumerator();
-        }
+            if(items!=null && items.Any())
+            {
+                list = new List<T>();
+                list = items.ToList();
+            }
+        }*/
+        public IEnumerator<T> GetEnumerator()=>list.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()=>this.ToList().GetEnumerator();
     }
 }

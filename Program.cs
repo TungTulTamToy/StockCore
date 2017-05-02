@@ -14,7 +14,7 @@ using StockCore.Business.Repo.MongoDB;
 using MongoDB.Driver;
 using StockCore.DomainEntity.Data;
 using StockCore.DomainEntity.Enum;
-using StockCore.Business.Worker;
+using StockCore.Business.Operation;
 using StockCore.Factory;
 using StockCore.Factory.DB;
 using StockCore.Factory.Html;
@@ -92,6 +92,10 @@ namespace StockCore
                 var stockInfo = getStockInfo(serviceProvider,"ptt");
                 var groups = getAllQuoteGroup(serviceProvider);
                 var stocks = getStockByGroup(serviceProvider,"Test02");
+
+                stockInfo = getStockInfo(serviceProvider,"ptt");
+                groups = getAllQuoteGroup(serviceProvider);
+                stocks = getStockByGroup(serviceProvider,"Test02");
             }        
             catch(Exception ex)
             {   
@@ -224,7 +228,7 @@ namespace StockCore
                 var operation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<QuoteGroupDE>>>>().Build(tracer);
                 var seedGroup1 = QuoteGroupData.Sample1;
                 var seedGroup2 = QuoteGroupData.Sample2;
-                Task.Run(async()=> await operation.OperateAsync(seedGroup2)).GetAwaiter().GetResult();
+                Task.Run(async()=> await operation.OperateAsync(seedGroup1)).GetAwaiter().GetResult();
             }        
             catch(Exception ex)
             {
