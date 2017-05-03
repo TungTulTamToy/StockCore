@@ -88,14 +88,17 @@ namespace StockCore
 
                 syncWeb(serviceProvider);
                 seedGroup(serviceProvider);
-                //syncBackupData(serviceProvider);
-                var stockInfo = getStockInfo(serviceProvider,"ptt");
-                var groups = getAllQuoteGroup(serviceProvider);
-                var stocks = getStockByGroup(serviceProvider,"Test02");
+                syncBackupData(serviceProvider);
 
-                stockInfo = getStockInfo(serviceProvider,"ptt");
-                groups = getAllQuoteGroup(serviceProvider);
-                stocks = getStockByGroup(serviceProvider,"Test02");
+                //var stockInfo = getStockInfo(serviceProvider,"ptt");
+                //stockInfo = getStockInfo(serviceProvider,"work");
+                //var groups = getAllQuoteGroup(serviceProvider);
+                //var groupName = "Check";
+                //var stocks = getStockByGroup(serviceProvider,groupName);
+
+                //stockInfo = getStockInfo(serviceProvider,"ptt");
+                //groups = getAllQuoteGroup(serviceProvider);
+                //stocks = getStockByGroup(serviceProvider,groupName);
             }        
             catch(Exception ex)
             {   
@@ -209,7 +212,7 @@ namespace StockCore
                     SyncType = FactoryCondition.SyncAllType.AllQuote
                 };
                 var operation = syncAllFactory.Build(tracer);
-                var quotes = Enum.GetNames(typeof(Quotes.QuotesSample2));
+                var quotes = Enum.GetNames(typeof(Quotes.Ready));
                 var sampleData = BackupStockData.Sample1;
                 //var quotes = from backup in sampleData select backup.Quote;
     
@@ -226,9 +229,8 @@ namespace StockCore
             {
                 var tracer=new Tracer(0,null,"Start Seed Group",TraceSourceName.TestConsole);
                 var operation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<QuoteGroupDE>>>>().Build(tracer);
-                var seedGroup1 = QuoteGroupData.Sample1;
-                var seedGroup2 = QuoteGroupData.Sample2;
-                Task.Run(async()=> await operation.OperateAsync(seedGroup1)).GetAwaiter().GetResult();
+                var seedGroup = QuoteGroupData.PrepareData;
+                Task.Run(async()=> await operation.OperateAsync(seedGroup)).GetAwaiter().GetResult();
             }        
             catch(Exception ex)
             {

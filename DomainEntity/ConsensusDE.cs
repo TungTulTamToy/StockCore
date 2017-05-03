@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace StockCore.DomainEntity
 {
     [DataContract]
-    public class ConsensusDE:BaseDE,IValidField,IKeyField<string>,ILinqCriteria<int,ConsensusDE>
+    public class ConsensusDE:BaseDE,IValidField,IKeyField<string>,ILinqCriteria<ConsensusDE>
     {
         public string Key 
         { 
@@ -24,8 +24,8 @@ namespace StockCore.DomainEntity
         [BsonIgnoreIfNullAttribute]
         public double? Median { get; set; }
         public bool IsValid { get; set; }
-        public int JoinKey=>Year;
-
+        public bool Equals(ConsensusDE other)=>this.Quote == other.Quote && this.Year == other.Year;
+        public override int GetHashCode()=>this.Quote.GetHashCode()^this.Year.GetHashCode();
         public ConsensusDE Merge(ConsensusDE other)
         {
             this.Average = other.Average;
@@ -37,4 +37,4 @@ namespace StockCore.DomainEntity
 
         public bool UpdateCondition(ConsensusDE other)=>this.IsValid != other.IsValid || this.Average != other.Average || this.High != other.High || this.Low != other.Low || this.Median != other.Median;
     }
-}
+} 

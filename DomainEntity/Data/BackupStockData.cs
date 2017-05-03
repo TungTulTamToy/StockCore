@@ -16,6 +16,9 @@ namespace StockCore.DomainEntity.Data
                         Quote = "ptt",
                         Prices = new PriceDE[] 
                         { 
+                            new PriceDE {Close=404,Date=new DateTime(2017,1,1)},
+                            new PriceDE {Close=236,Date=new DateTime(2016,1,1)},
+                            new PriceDE {Close=346,Date=new DateTime(2015,1,1)},
                             new PriceDE {Close=276,Date=new DateTime(2014,1,1)},
                             new PriceDE {Close=341,Date=new DateTime(2013,1,1)},
                             new PriceDE {Close=334,Date=new DateTime(2012,1,1)},
@@ -25,6 +28,9 @@ namespace StockCore.DomainEntity.Data
                         },
                         Statistics = new StatisticDE[]
                         {
+                            new StatisticDE{NetProfit=94609.08,Year=2016},
+                            new StatisticDE{NetProfit=19936.42,Year=2015},
+                            new StatisticDE{NetProfit=55794.93,Year=2014},
                             new StatisticDE{NetProfit=94652,Year=2013},
                             new StatisticDE{NetProfit=104666,Year=2012},
                             new StatisticDE{NetProfit=105296.41,Year=2011},
@@ -34,6 +40,9 @@ namespace StockCore.DomainEntity.Data
                         },
                         Shares = new ShareDE[] 
                         {
+                            new ShareDE{Amount=2856299625,Date=new DateTime(2016,1,31)},
+                            new ShareDE{Amount=2856299625,Date=new DateTime(2015,1,31)},
+                            new ShareDE{Amount=2856299625,Date=new DateTime(2014,1,31)},
                             new ShareDE{Amount=2856299625,Date=new DateTime(2013,1,31)},
                             new ShareDE{Amount=2856299625,Date=new DateTime(2012,1,31)},
                             new ShareDE{Amount=2856299625,Date=new DateTime(2011,1,31)},
@@ -47,6 +56,9 @@ namespace StockCore.DomainEntity.Data
                         Quote = "work",
                         Prices = new PriceDE[] 
                         { 
+                            new PriceDE{Close=51.75,Date=new DateTime(2017,1,1)},
+                            new PriceDE{Close=38.5,Date=new DateTime(2016,1,1)},
+                            new PriceDE{Close=38.75,Date=new DateTime(2015,1,1)},
                             new PriceDE{Close=22.2,Date=new DateTime(2014,1,1)},
                             new PriceDE{Close=48.25,Date=new DateTime(2013,1,1)},
                             new PriceDE{Close=13.9,Date=new DateTime(2012,1,1)},
@@ -56,6 +68,9 @@ namespace StockCore.DomainEntity.Data
                         },
                             Statistics = new StatisticDE[]
                         {
+                            new StatisticDE{NetProfit=198.63,Year=2016},
+                            new StatisticDE{NetProfit=163.66,Year=2015},
+                            new StatisticDE{NetProfit=20.82,Year=2014},
                             new StatisticDE{NetProfit=256.78,Year=2013},
                             new StatisticDE{NetProfit=404,Year=2012},
                             new StatisticDE{NetProfit=327.352,Year=2011},
@@ -65,6 +80,9 @@ namespace StockCore.DomainEntity.Data
                         },
                             Shares = new ShareDE[] 
                         {
+                            new ShareDE{Amount=420110717,Date=new DateTime(2016,1,31)},
+                            new ShareDE{Amount=420110717,Date=new DateTime(2015,1,31)},
+                            new ShareDE{Amount=420110717,Date=new DateTime(2014,1,31)},
                             new ShareDE{Amount=257107972,Date=new DateTime(2013,1,31)},
                             new ShareDE{Amount=257107972,Date=new DateTime(2012,1,31)},
                             new ShareDE{Amount=250250000,Date=new DateTime(2011,1,31)},
@@ -78,6 +96,9 @@ namespace StockCore.DomainEntity.Data
                         Quote = "earth",
                         Prices = new PriceDE[] 
                         { 
+                            new PriceDE{Close=4.54,Date=new DateTime(2017,1,1)},
+                            new PriceDE{Close=4.7,Date=new DateTime(2016,1,1)},
+                            new PriceDE{Close=4.56,Date=new DateTime(2015,1,1)},
                             new PriceDE{Close=6.1,Date=new DateTime(2014,1,1)},
                             new PriceDE{Close=8.25,Date=new DateTime(2013,1,1)},
                             new PriceDE{Close=4.2,Date=new DateTime(2012,1,1)},
@@ -85,6 +106,9 @@ namespace StockCore.DomainEntity.Data
                         },
                         Statistics = new StatisticDE[]
                         {
+                            new StatisticDE{NetProfit=871.90,Year=2016},
+                            new StatisticDE{NetProfit=1026.88,Year=2015},
+                            new StatisticDE{NetProfit=1042.03,Year=2014},
                             new StatisticDE{NetProfit=1110.6,Year=2013},
                             new StatisticDE{NetProfit=1280.44,Year=2012},
                             new StatisticDE{NetProfit=395.31,Year=2011},
@@ -92,6 +116,9 @@ namespace StockCore.DomainEntity.Data
                         },
                         Shares = new ShareDE[] 
                         {
+                            new ShareDE{Amount=3536601827,Date=new DateTime(2016,1,31)},
+                            new ShareDE{Amount=3536601827,Date=new DateTime(2015,1,31)},
+                            new ShareDE{Amount=3536601827,Date=new DateTime(2014,1,31)},
                             new ShareDE{Amount=2949088091,Date=new DateTime(2013,1,31)},
                             new ShareDE{Amount=2605495683,Date=new DateTime(2012,1,31)},
                             new ShareDE{Amount=2554299239,Date=new DateTime(2011,1,31)},
@@ -108,8 +135,11 @@ namespace StockCore.DomainEntity.Data
                         Quote = "banpu",
                         Prices = new PriceDE[] 
                         { 
-                            new PriceDE{Close=26.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE{Close=388,Date=new DateTime(2013,1,1)},
+                            new PriceDE{Close=19.4,Date=new DateTime(2017,1,1)},
+                            new PriceDE{Close=12.73,Date=new DateTime(2016,1,1)},
+                            new PriceDE{Close=18.41,Date=new DateTime(2015,1,1)},
+                            new PriceDE{Close=20.08,Date=new DateTime(2014,1,1)},
+                            new PriceDE{Close=29.55,Date=new DateTime(2013,1,1)},
                             new PriceDE{Close=700.7,Date=new DateTime(2012,1,1)},
                             new PriceDE{Close=723.28,Date=new DateTime(2011,1,1)},
                             new PriceDE{Close=509.2,Date=new DateTime(2010,1,1)},
@@ -117,6 +147,9 @@ namespace StockCore.DomainEntity.Data
                         },
                         Statistics = new StatisticDE[]
                         {
+                            new StatisticDE{NetProfit=1677.12,Year=2016},
+                            new StatisticDE{NetProfit=-1534.25,Year=2015},
+                            new StatisticDE{NetProfit=2679.63,Year=2014},
                             new StatisticDE{NetProfit=3151,Year=2013},
                             new StatisticDE{NetProfit=9293.2,Year=2012},
                             new StatisticDE{NetProfit=20059.83,Year=2011},
@@ -126,6 +159,9 @@ namespace StockCore.DomainEntity.Data
                         },
                         Shares = new ShareDE[] 
                         {
+                            new ShareDE{Amount=5060634213,Date=new DateTime(2016,1,31)},
+                            new ShareDE{Amount=5060634213,Date=new DateTime(2015,1,31)},
+                            new ShareDE{Amount=5060634213,Date=new DateTime(2014,1,31)},
                             new ShareDE{Amount=2581878550,Date=new DateTime(2013,1,31)},
                             new ShareDE{Amount=271747855,Date=new DateTime(2012,1,31)},
                             new ShareDE{Amount=271747855,Date=new DateTime(2011,1,31)},
@@ -139,13 +175,19 @@ namespace StockCore.DomainEntity.Data
                         Quote = "gunkul",
                         Prices = new PriceDE[] 
                         { 
-                            new PriceDE {Close=12.3,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=17,Date=new DateTime(2013,1,1)},
+                            new PriceDE {Close=4.84,Date=new DateTime(2017,1,1)},
+                            new PriceDE {Close=4.25,Date=new DateTime(2016,1,1)},
+                            new PriceDE {Close=4.54,Date=new DateTime(2015,1,1)},
+                            new PriceDE {Close=1.35,Date=new DateTime(2014,1,1)},
+                            new PriceDE {Close=1.84,Date=new DateTime(2013,1,1)},
                             new PriceDE {Close=10.91,Date=new DateTime(2012,1,1)},
                             new PriceDE {Close=4.61,Date=new DateTime(2011,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
+                            new StatisticDE{NetProfit=537.72,Year=2016},
+                            new StatisticDE{NetProfit=685.14,Year=2015},
+                            new StatisticDE{NetProfit=545.27,Year=2014},
                             new StatisticDE{NetProfit=882.9,Year=2013},
                             new StatisticDE{NetProfit=779.56,Year=2012},
                             new StatisticDE{NetProfit=89.52,Year=2011},
@@ -153,7 +195,10 @@ namespace StockCore.DomainEntity.Data
                         },
                         Shares = new ShareDE[] 
                         {
-                            new ShareDE{Amount=660000000,Date=new DateTime(2013,1,31)},
+                            new ShareDE{Amount=6358775851,Date=new DateTime(2016,1,31)},
+                            new ShareDE{Amount=6358775851,Date=new DateTime(2015,1,31)},
+                            new ShareDE{Amount=6358775851,Date=new DateTime(2014,1,31)},
+                            new ShareDE{Amount=6358775851,Date=new DateTime(2013,1,31)},
                             new ShareDE{Amount=440000000,Date=new DateTime(2012,1,31)},
                             new ShareDE{Amount=400000000,Date=new DateTime(2011,1,31)},
                             new ShareDE{Amount=400000000,Date=new DateTime(2010,1,31)}

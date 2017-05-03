@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace StockCore.DomainEntity
 {
     [DataContract]
-    public class StatisticDE:BaseDE,IValidField,IKeyField<string>,ILinqCriteria<int,StatisticDE>
+    public class StatisticDE:BaseDE,IValidField,IKeyField<string>,ILinqCriteria<StatisticDE>
     {
         public string Key 
         { 
@@ -41,7 +41,11 @@ namespace StockCore.DomainEntity
         [BsonIgnoreIfNullAttribute]
         public double? Margin { get; set; }
         public bool IsValid { get; set; }
-        public int JoinKey=>Year;
+        public bool Equals(StatisticDE other)
+        {
+            return this.Quote == other.Quote && this.Year == other.Year;
+        }
+        public override int GetHashCode()=>this.Quote.GetHashCode() ^ this.Year.GetHashCode();
         public StatisticDE Merge(StatisticDE other)
         {
             this.Asset = other.Asset;

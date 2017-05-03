@@ -42,5 +42,24 @@ namespace StockCore.DomainEntity.Data
                 };
             }
         }
+        public static IEnumerable<QuoteGroupDE> PrepareData
+        {
+            get{
+                return new List<QuoteGroupDE>(){
+                    new QuoteGroupDE(){
+                        Name = "Ready",
+                        Quotes = new[]{"work","ptt","earth","banpu","gunkul"},
+                        Order = 1,
+                        IsDefault = false
+                        },
+                    new QuoteGroupDE(){
+                        Name = "Check",
+                        Quotes = new[]{"ptt"},
+                        Order = 2,
+                        IsDefault = false
+                        }
+                };
+            }
+        }
     }
 }

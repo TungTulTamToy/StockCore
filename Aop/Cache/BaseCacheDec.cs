@@ -69,13 +69,16 @@ namespace StockCore.Aop.Cache
         }
         private async Task<T> createCacheAsync(string key,T item)
         {
-            var cacheDE = new CacheDE<T>(){
-                Key=key,
-                Group=module.Key,
-                CacheObject=item,
-                ExpireAt=DateTime.Now.AddMinutes(module.MinuteToExpire)
-            };
-            await cacheRepo.InsertAsync(cacheDE);
+            if(item!=null)
+            {
+                var cacheDE = new CacheDE<T>(){
+                    Key=key,
+                    Group=module.Key,
+                    CacheObject=item,
+                    ExpireAt=DateTime.Now.AddMinutes(module.MinuteToExpire)
+                };
+                await cacheRepo.InsertAsync(cacheDE);
+            }
             return item;
         }
     }

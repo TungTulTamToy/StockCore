@@ -20,5 +20,13 @@ namespace StockCore.DomainEntity.Enum
             Makro, Grammy, Mcot, Top, Aav, Nok, Kbank, Bay, Samart, Thcom,
             Gfpt, Lpn, Spali, Robins, Egco, Glow, Ratch, Ktc, Mfec, Aeonts
         }
+        public enum Check
+        {
+            work
+        }
+        public enum Ready
+        {
+            work,ptt,earth,banpu,gunkul
+        }
     }
 }

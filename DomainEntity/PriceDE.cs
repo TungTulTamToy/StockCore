@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace StockCore.DomainEntity
 {
     [DataContract]
-    public class PriceDE:BaseDE,IValidField,IKeyField<string>,ILinqCriteria<DateTime,PriceDE>
+    public class PriceDE:BaseDE,IValidField,IKeyField<string>,ILinqCriteria<PriceDE>
     {
         public string Key 
         { 
@@ -33,7 +33,8 @@ namespace StockCore.DomainEntity
         [DataMember]
         public double? Volumn { get; set; }
         public bool IsValid { get; set; }
-        public DateTime JoinKey=>Date;
+        public bool Equals(PriceDE other)=>this.Quote == other.Quote && this.Date == other.Date;
+        public override int GetHashCode()=>this.Quote.GetHashCode()^this.Date.GetHashCode();
         public PriceDE Merge(PriceDE other)
         {
             this.Amount = other.Amount;

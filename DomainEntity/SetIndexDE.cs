@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace StockCore.DomainEntity
 {
     [DataContract]
-    public class SetIndexDE:BaseDE,IValidField,ILinqCriteria<DateTime,SetIndexDE>
+    public class SetIndexDE:BaseDE,IValidField,ILinqCriteria<SetIndexDE>
     {
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Date { get; set; }
@@ -14,7 +14,8 @@ namespace StockCore.DomainEntity
         [BsonIgnoreIfNullAttribute]
         public double? Index { get; set; }
         public bool IsValid { get; set; }
-        public DateTime JoinKey=>Date;
+        public bool Equals(SetIndexDE other)=>this.Date == other.Date;
+        public override int GetHashCode()=>this.Date.GetHashCode();
         public SetIndexDE Merge(SetIndexDE other)
         {
             this.Index = other.Index;
