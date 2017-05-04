@@ -33,7 +33,7 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<Share>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<Share>> inner = new BaseSyncData<Share>(dbShareDEFactory.Build(tracer));
+            IOperation<IEnumerable<Share>> inner = new SyncDataByKey<string,Share>(dbShareDEFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {

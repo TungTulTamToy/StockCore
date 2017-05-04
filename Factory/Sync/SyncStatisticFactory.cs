@@ -32,7 +32,7 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<Statistic>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<Statistic>> inner = new BaseSyncData<Statistic>(dbStatisticDEFactory.Build(tracer));  
+            IOperation<IEnumerable<Statistic>> inner = new SyncDataByKey<string,Statistic>(dbStatisticDEFactory.Build(tracer));  
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
