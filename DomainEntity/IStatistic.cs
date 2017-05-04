@@ -1,12 +1,23 @@
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace StockCore.DomainEntity
 {
+    public interface IStatistic:IValidField,IKeyField<string>
+    {
+        string Quote { get; set; }
+        int Year { get; set; }
+        double? Asset { get; set; }
+        double? Liability { get; set; }
+        double? Equity { get; set; }
+        double? Revenue { get; set; }
+        double? NetProfit { get; set; }
+        double? Roa { get; set; }
+        double? Roe { get; set; }
+        double? Margin { get; set; }
+    }
     [DataContract]
-    public class StatisticDE:Persistant,IValidField,IKeyField<string>,ILinqCriteria<StatisticDE>
+    public class BaseStatistic:Persistant,IStatistic
     {
         public string Key 
         { 
@@ -41,12 +52,15 @@ namespace StockCore.DomainEntity
         [BsonIgnoreIfNullAttribute]
         public double? Margin { get; set; }
         public bool IsValid { get; set; }
-        public bool Equals(StatisticDE other)
+    }
+    public class Statistic:BaseStatistic,ILinqCriteria<Statistic>
+    {
+        public bool Equals(Statistic other)
         {
             return this.Quote == other.Quote && this.Year == other.Year;
         }
         public override int GetHashCode()=>this.Quote.GetHashCode() ^ this.Year.GetHashCode();
-        public StatisticDE Merge(StatisticDE other)
+        public Statistic Merge(Statistic other)
         {
             this.Asset = other.Asset;
             this.Liability = other.Liability;
@@ -58,6 +72,6 @@ namespace StockCore.DomainEntity
             this.Margin = other.Margin;
             return this;
         }
-        public bool UpdateCondition(StatisticDE other)=>this.IsValid != other.IsValid || this.Asset != other.Asset || this.Liability != other.Liability || this.Equity != other.Equity || this.Revenue != other.Revenue || this.NetProfit != other.NetProfit || this.Roa != other.Roa || this.Roe != other.Roe || this.Margin != other.Margin;
+        public bool UpdateCondition(Statistic other)=>this.IsValid != other.IsValid || this.Asset != other.Asset || this.Liability != other.Liability || this.Equity != other.Equity || this.Revenue != other.Revenue || this.NetProfit != other.NetProfit || this.Roa != other.Roa || this.Roe != other.Roe || this.Margin != other.Margin;
     }
 }

@@ -29,27 +29,27 @@ namespace StockCore.Factory.Sync
         private readonly IFactory<string, IRepo<SetIndex>> dbSetIndexRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<Consensus,string>> dbConsensusRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<Share,string>> dbShareRepoFactory;
-        private readonly IFactory<string, IGetByKeyRepo<StatisticDE,string>> dbStatisticRepoFactory;
+        private readonly IFactory<string, IGetByKeyRepo<Statistic,string>> dbStatisticRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<OperationState,string>> operationStateRepoFactory;
         private readonly IConfigReader configReader;
         private readonly IFactory<string, IGetByKey<IEnumerable<Consensus>,string>> consensusHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<Price>,string>> priceHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<SetIndex>,string>> setIndexHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<Share>,string>> shareHtmlReaderFactory;
-        private readonly IFactory<string, IGetByKey<IEnumerable<StatisticDE>,string>> statisticHtmlReaderFactory;
+        private readonly IFactory<string, IGetByKey<IEnumerable<Statistic>,string>> statisticHtmlReaderFactory;
         public SyncQuoteFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<Price,string>> dbPriceRepoFactory,
             IFactory<string, IRepo<SetIndex>> dbSetIndexRepoFactory,
             IFactory<string, IGetByKeyRepo<Consensus,string>> dbConsensusRepoFactory,
             IFactory<string, IGetByKeyRepo<Share,string>> dbShareRepoFactory,
-            IFactory<string, IGetByKeyRepo<StatisticDE,string>> dbStatisticRepoFactory,
+            IFactory<string, IGetByKeyRepo<Statistic,string>> dbStatisticRepoFactory,
             IFactory<string, IGetByKeyRepo<OperationState,string>> operationStateRepoFactory,
             IConfigReader configReader,
             IFactory<string, IGetByKey<IEnumerable<Consensus>,string>> consensusHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<Price>,string>> priceHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<SetIndex>,string>> setIndexHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<Share>,string>> shareHtmlReaderFactory,
-            IFactory<string, IGetByKey<IEnumerable<StatisticDE>,string>> statisticHtmlReaderFactory
+            IFactory<string, IGetByKey<IEnumerable<Statistic>,string>> statisticHtmlReaderFactory
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbPriceRepoFactory = dbPriceRepoFactory;

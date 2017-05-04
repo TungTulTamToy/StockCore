@@ -10,7 +10,7 @@ using StockCore.Aop.Mon;
 
 namespace StockCore.Factory.DB
 {
-    public class DBStatisticRepoFactory : BaseFactory<string,IGetByKeyRepo<StatisticDE,string>>
+    public class DBStatisticRepoFactory : BaseFactory<string,IGetByKeyRepo<Statistic,string>>
     {
         private const string KEY = "DBStatisticRepo";
         private const string COLLECTIONNAME = "Statistic";
@@ -41,13 +41,13 @@ namespace StockCore.Factory.DB
             this.deleteOneModelBuilder = deleteOneModelBuilder;
             this.configReader = configReader;
         }
-        protected override IGetByKeyRepo<StatisticDE,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKeyRepo<Statistic,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKeyRepo<StatisticDE,string> inner = new BaseKeyDBRepo<StatisticDE>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
+            IGetByKeyRepo<Statistic,string> inner = new BaseKeyDBRepo<Statistic>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByKeyRepoDec<string,StatisticDE>(
+                inner = new MonGetByKeyRepoDec<string,Statistic>(
                     inner,
                     ValidationHelper.ValidateString(1007105,"Quote"),
                     MONPROCESSERRID,

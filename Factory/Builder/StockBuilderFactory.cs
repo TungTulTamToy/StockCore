@@ -22,13 +22,13 @@ namespace StockCore.Factory.Builder
         private const int CACHEOUTERERRID = 1020106;
         private readonly IConfigReader configReader;
         private readonly IFactory<string, IGetByKeyRepo<Share,string>> shareRepoFactory;
-        private readonly IFactory<string, IGetByKeyRepo<StatisticDE,string>> statisticRepoFactory;
+        private readonly IFactory<string, IGetByKeyRepo<Statistic,string>> statisticRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<Consensus,string>> consensusRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<Price,string>> priceRepoFactory;
         private readonly IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>> cacheRepoFactory;
         public StockBuilderFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<Share,string>> shareRepoFactory,
-            IFactory<string, IGetByKeyRepo<StatisticDE,string>> statisticRepoFactory,
+            IFactory<string, IGetByKeyRepo<Statistic,string>> statisticRepoFactory,
             IFactory<string, IGetByKeyRepo<Consensus,string>> consensusRepoFactory,
             IFactory<string, IGetByKeyRepo<Price,string>> priceRepoFactory,
             IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>> cacheRepoFactory,

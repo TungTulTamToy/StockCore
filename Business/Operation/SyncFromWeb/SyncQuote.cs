@@ -15,23 +15,23 @@ namespace StockCore.Business.Operation.SyncFromWeb
         private readonly IRepo<SetIndex> dbSetIndexRepo;
         private readonly IGetByKeyRepo<Consensus,string> dbConsensusRepo;
         private readonly IGetByKeyRepo<Share,string> dbShareRepo;
-        private readonly IGetByKeyRepo<StatisticDE,string> dbStatisticRepo;
+        private readonly IGetByKeyRepo<Statistic,string> dbStatisticRepo;
         private readonly IGetByKey<IEnumerable<Consensus>,string> consensusHtmlReader;
         private readonly IGetByKey<IEnumerable<Price>,string> priceHtmlReader;
         private readonly IGetByKey<IEnumerable<SetIndex>,string> setIndexHtmlReader;
         private readonly IGetByKey<IEnumerable<Share>,string> shareHtmlReader;
-        private readonly IGetByKey<IEnumerable<StatisticDE>,string> statisticHtmlReader;
+        private readonly IGetByKey<IEnumerable<Statistic>,string> statisticHtmlReader;
         public SyncQuote(
             IGetByKeyRepo<Price,string> dbPriceRepoFactory,
             IRepo<SetIndex> dbSetIndexRepoFactory,
             IGetByKeyRepo<Consensus,string> dbConsensusRepoFactory,
             IGetByKeyRepo<Share,string> dbShareRepoFactory,
-            IGetByKeyRepo<StatisticDE,string> dbStatisticRepoFactory,
+            IGetByKeyRepo<Statistic,string> dbStatisticRepoFactory,
             IGetByKey<IEnumerable<Consensus>,string> consensusHtmlReaderFactory,
             IGetByKey<IEnumerable<Price>,string> priceHtmlReaderFactory,
             IGetByKey<IEnumerable<SetIndex>,string> setIndexHtmlReaderFactory,
             IGetByKey<IEnumerable<Share>,string> shareHtmlReaderFactory,
-            IGetByKey<IEnumerable<StatisticDE>,string> statisticHtmlReaderFactory
+            IGetByKey<IEnumerable<Statistic>,string> statisticHtmlReaderFactory
             )
         {
             this.dbPriceRepo = dbPriceRepoFactory;
@@ -61,7 +61,7 @@ namespace StockCore.Business.Operation.SyncFromWeb
 
             await Task.WhenAll(insertTask,updateConsensusTask,updateShareTask,updateStatisticTask);
         }
-        private async Task<Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<StatisticDE>>> readFromWeb(string quote)
+        private async Task<Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<Statistic>>> readFromWeb(string quote)
         {
             var priceTask = priceHtmlReader.GetByKeyAsync(quote);
             var setIndexTask = setIndexHtmlReader.GetByKeyAsync(quote);
@@ -75,9 +75,9 @@ namespace StockCore.Business.Operation.SyncFromWeb
             var share = await shareTask;
             var statistic = await statisticTask;
 
-            return new Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<StatisticDE>>(price, setIndex,consensus,share,statistic);
+            return new Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<Statistic>>(price, setIndex,consensus,share,statistic);
         }
-        private async Task<Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<StatisticDE>>> readFromDB(string quote)
+        private async Task<Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<Statistic>>> readFromDB(string quote)
         {
             var priceTask = dbPriceRepo.GetByKeyAsync(quote);
             var setIndexTask = dbSetIndexRepo.GetAllAsync();
@@ -91,11 +91,11 @@ namespace StockCore.Business.Operation.SyncFromWeb
             var share = await shareTask;
             var statistic = await statisticTask;
 
-            return new Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<StatisticDE>>(price, setIndex,consensus,share,statistic);
+            return new Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<Statistic>>(price, setIndex,consensus,share,statistic);
         }
-        private Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<StatisticDE>> calculateTupleToInsert(
-            Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<StatisticDE>> webTuple, 
-            Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<StatisticDE>> dbTuple)
+        private Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<Statistic>> calculateTupleToInsert(
+            Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<Statistic>> webTuple, 
+            Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<Statistic>> dbTuple)
         {
             var priceToInsert = webTuple.Item1.GetItemToInsert(dbTuple.Item1);
             var setIndexToInsert = webTuple.Item2.GetItemToInsert(dbTuple.Item2);
@@ -103,14 +103,14 @@ namespace StockCore.Business.Operation.SyncFromWeb
             var shareToInsert = webTuple.Item4.GetItemToInsert(dbTuple.Item4);
             var statisticToInsert = webTuple.Item5.GetItemToInsert(dbTuple.Item5);
 
-            return new Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<StatisticDE>>(priceToInsert, setIndexToInsert,consensusToInsert,shareToInsert,statisticToInsert);
+            return new Tuple<IEnumerable<Price>,IEnumerable<SetIndex>,IEnumerable<Consensus>,IEnumerable<Share>,IEnumerable<Statistic>>(priceToInsert, setIndexToInsert,consensusToInsert,shareToInsert,statisticToInsert);
         }
         private async Task insertToDB(
             Tuple<IEnumerable<Price>,
             IEnumerable<SetIndex>,
             IEnumerable<Consensus>,
             IEnumerable<Share>,
-            IEnumerable<StatisticDE>> tupleToInsert)
+            IEnumerable<Statistic>> tupleToInsert)
         {
             var priceInsertTask = operateBatchInsertAsync(tupleToInsert.Item1, dbPriceRepo);
             var setIndexInsertTask = operateBatchInsertAsync(tupleToInsert.Item2, dbSetIndexRepo);
@@ -130,7 +130,7 @@ namespace StockCore.Business.Operation.SyncFromWeb
             var items = webItems.GetItemToUpdate(dbItems);
             await dbShareRepo.BatchUpdateAsync(items);
         }
-        private async Task updateStatistic(IEnumerable<StatisticDE> webItems, IEnumerable<StatisticDE> dbItems)
+        private async Task updateStatistic(IEnumerable<Statistic> webItems, IEnumerable<Statistic> dbItems)
         {
             var items = webItems.GetItemToUpdate(dbItems);
             await dbStatisticRepo.BatchUpdateAsync(items);

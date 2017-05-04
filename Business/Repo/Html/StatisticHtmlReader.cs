@@ -6,7 +6,7 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.Html
 {
-    public class StatisticHtmlReader : BaseHtmlReader<StatisticDE>
+    public class StatisticHtmlReader : BaseHtmlReader<Statistic>
     {
         public StatisticHtmlReader(
             IHttpClientWrapper client, 
@@ -14,7 +14,7 @@ namespace StockCore.Business.Repo.Html
                 client, 
                 doc, 
                 "http://www.settrade.com/C04_03_stock_companyhighlight_p1.jsp?txtSymbol={0}&selectPage=3") { }
-        protected override IEnumerable<StatisticDE> extractValues(string keyword)
+        protected override IEnumerable<Statistic> extractValues(string keyword)
         {
             var firstPattern = "^\\d{2}/\\d{2}/\\d{2}\\s\\**$";
             var secondPattern = "^\\d{2}/\\d{2}/\\d{2}$";
@@ -53,10 +53,10 @@ namespace StockCore.Business.Repo.Html
             }
             return statistics;
         }
-        private List<StatisticDE> loadStatToList(string pattern)
+        private List<Statistic> loadStatToList(string pattern)
         {
             var nodes = findNodes(pattern);
-            var items = new List<StatisticDE>();
+            var items = new List<Statistic>();
             if(nodes != null)
             {
                 foreach (var selectedNode in nodes)
@@ -64,7 +64,7 @@ namespace StockCore.Business.Repo.Html
                     foreach (Match match in Regex.Matches(selectedNode.InnerText.Trim(), pattern))
                     {
                         var year = parseYear(match.Value.TrimEnd(new char[] { ' ', '*' }));
-                        items.Add(new StatisticDE { Year = year });
+                        items.Add(new Statistic { Year = year });
                     }
                 }
             }

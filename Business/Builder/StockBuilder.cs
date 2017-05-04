@@ -15,13 +15,13 @@ namespace StockCore.Business.Builder
     {
         private readonly ILogger logger;
         private readonly IGetByKey<IEnumerable<Share>,string> shareRepo;
-        private readonly IGetByKey<IEnumerable<StatisticDE>,string> statisticRepo;
+        private readonly IGetByKey<IEnumerable<Statistic>,string> statisticRepo;
         private readonly IGetByKey<IEnumerable<Consensus>,string> consensusRepo;
         private readonly IGetByKey<IEnumerable<Price>,string> priceRepo;
         public StockBuilder(
             ILogger logger,
             IGetByKey<IEnumerable<Share>,string> shareRepo,
-            IGetByKey<IEnumerable<StatisticDE>,string> statisticRepo,
+            IGetByKey<IEnumerable<Statistic>,string> statisticRepo,
             IGetByKey<IEnumerable<Consensus>,string> consensusRepo,
             IGetByKey<IEnumerable<Price>,string> priceRepo
             )
@@ -98,7 +98,7 @@ namespace StockCore.Business.Builder
         }
         private IEnumerable<PeDE> calculatePe(
             IEnumerable<Price> price,
-            IEnumerable<StatisticDE> statistic,
+            IEnumerable<Statistic> statistic,
             IEnumerable<Share> shareByYear,
             IEnumerable<Consensus> consensus)
         {
@@ -234,7 +234,7 @@ namespace StockCore.Business.Builder
 
         private IEnumerable<NetProfitDE> calculateNetProfit(
             string quote,
-            IEnumerable<StatisticDE> statistic,
+            IEnumerable<Statistic> statistic,
             IEnumerable<Consensus> consensus,
             IEnumerable<Share> shareByYear)
         {

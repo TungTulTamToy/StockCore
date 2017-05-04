@@ -11,7 +11,7 @@ using StockCore.Helper;
 
 namespace StockCore.Factory.Sync
 {
-    public class SyncStatisticFactory : BaseFactory<string,IOperation<IEnumerable<StatisticDE>>>
+    public class SyncStatisticFactory : BaseFactory<string,IOperation<IEnumerable<Statistic>>>
     {
         private const string KEY = "SyncStatistic";
         private const int ID = 1019100;
@@ -19,26 +19,26 @@ namespace StockCore.Factory.Sync
         private const int OUTERERRID = 1019102;
         private const int MONPROCESSERRID = 1019103;
         private const int MONOUTERERRID = 1019104;
-        private readonly IFactory<string, IGetByKeyRepo<StatisticDE,string>> dbStatisticDEFactory;
+        private readonly IFactory<string, IGetByKeyRepo<Statistic,string>> dbStatisticDEFactory;
         private readonly IConfigReader configReader;
         public SyncStatisticFactory(
             ILogger logger,
-            IFactory<string, IGetByKeyRepo<StatisticDE,string>> dbStatisticDEFactory,
+            IFactory<string, IGetByKeyRepo<Statistic,string>> dbStatisticDEFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbStatisticDEFactory = dbStatisticDEFactory;
             this.configReader = configReader;
         }
-        protected override IOperation<IEnumerable<StatisticDE>> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IOperation<IEnumerable<Statistic>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<StatisticDE>> inner = new BaseSyncData<StatisticDE>(dbStatisticDEFactory.Build(tracer));  
+            IOperation<IEnumerable<Statistic>> inner = new BaseSyncData<Statistic>(dbStatisticDEFactory.Build(tracer));  
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonOperationDec<IEnumerable<StatisticDE>>(
+                inner = new MonOperationDec<IEnumerable<Statistic>>(
                     inner,
-                    ValidationHelper.ValidateItemsWithStringKeyField<StatisticDE>(1019102,"Quote"),    
+                    ValidationHelper.ValidateItemsWithStringKeyField<Statistic>(1019102,"Quote"),    
                     MONPROCESSERRID,
                     MONOUTERERRID,           
                     module.Monitoring,                   

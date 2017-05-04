@@ -50,16 +50,16 @@ namespace StockCore
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Price>>>, SyncPriceFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Consensus>>>, SyncConcensusFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Share>>>, SyncShareFactory>()
-                    .AddScoped<IFactory<string, IOperation<IEnumerable<StatisticDE>>>, SyncStatisticFactory>()
+                    .AddScoped<IFactory<string, IOperation<IEnumerable<Statistic>>>, SyncStatisticFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Consensus>,string>>, ConsensusHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Price>,string>>, PriceHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<SetIndex>,string>>, SetIndexHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Share>,string>>, ShareHtmlReaderFactory>()
-                    .AddScoped<IFactory<string, IGetByKey<IEnumerable<StatisticDE>,string>>, StatisticHtmlReaderFactory>()
+                    .AddScoped<IFactory<string, IGetByKey<IEnumerable<Statistic>,string>>, StatisticHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<OperationState,string>>, DBOperationStateRepoFactory>()                    
                     .AddScoped<IFactory<string, IGetByKeyRepo<Consensus,string>>, DBConcensusRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Share,string>>, DBShareRepoFactory>()
-                    .AddScoped<IFactory<string, IGetByKeyRepo<StatisticDE,string>>, DBStatisticRepoFactory>()
+                    .AddScoped<IFactory<string, IGetByKeyRepo<Statistic,string>>, DBStatisticRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Price,string>>, DBPriceRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>>, DBQuoteGroupRepoFactory>()                                        
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>>, DBCacheRepoFactory<StockDE>>()
@@ -178,7 +178,7 @@ namespace StockCore
                 where backup.Statistics != null
                 from s in backup.Statistics
                 where s!=null
-                select new StatisticDE{Quote=backup.Quote,NetProfit=s.NetProfit,Year=s.Year,IsValid=true};
+                select new Statistic{Quote=backup.Quote,NetProfit=s.NetProfit,Year=s.Year,IsValid=true};
 
             var priceTracer=new Tracer(0,null,"Start Seed Price",TraceSourceName.TestConsole);
             var seedPriceOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<Price>>>>().Build(priceTracer);
@@ -187,7 +187,7 @@ namespace StockCore
             var shareTracer=new Tracer(0,null,"Start Seed Share",TraceSourceName.TestConsole);
             var seedShareOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<Share>>>>().Build(shareTracer);
             var statisticTracer=new Tracer(0,null,"Start Seed Price",TraceSourceName.TestConsole);
-            var seedStatisticOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<StatisticDE>>>>().Build(statisticTracer);            
+            var seedStatisticOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<Statistic>>>>().Build(statisticTracer);            
 
             Task.Run(async()=> {
                 var seedPriceTask = seedPriceOperation.OperateAsync(backupPrice);

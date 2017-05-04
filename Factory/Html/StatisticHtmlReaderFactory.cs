@@ -11,7 +11,7 @@ using StockCore.Helper;
 
 namespace StockCore.Factory.Html
 {
-    public class StatisticHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<StatisticDE>,string>>
+    public class StatisticHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<Statistic>,string>>
     {
         private const string KEY = "HtmlStatisticGetByKey";
         private const int ID = 1012100;
@@ -32,13 +32,13 @@ namespace StockCore.Factory.Html
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<StatisticDE>,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<Statistic>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<StatisticDE>,string> inner = new StatisticHtmlReader(client,doc);
+            IGetByKey<IEnumerable<Statistic>,string> inner = new StatisticHtmlReader(client,doc);
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByKeyDec<StatisticDE>(
+                inner = new MonGetByKeyDec<Statistic>(
                     inner,
                     ValidationHelper.ValidateString(1012105,"Quote"),
                     MONPROCESSERRID,
