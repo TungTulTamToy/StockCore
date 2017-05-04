@@ -38,17 +38,17 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=59547.59,Year=2009},
                             new StatisticDE{NetProfit=51704.8,Year=2008},
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=2856299625,Date=new DateTime(2016,1,31)},
-                            new ShareDE{Amount=2856299625,Date=new DateTime(2015,1,31)},
-                            new ShareDE{Amount=2856299625,Date=new DateTime(2014,1,31)},
-                            new ShareDE{Amount=2856299625,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=2856299625,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=2856299625,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=2849042025,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=2833785000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=2824057000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=2856299625,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=2856299625,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=2856299625,Date=new DateTime(2014,1,31)},
+                            new Share{Amount=2856299625,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=2856299625,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=2856299625,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=2849042025,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=2833785000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=2824057000,Date=new DateTime(2008,1,31)},
                         }
                     },
                     new BackupStockDE()
@@ -78,17 +78,17 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=73.13,Year=2009},
                             new StatisticDE{NetProfit=162.06,Year=2008},
                         },
-                            Shares = new ShareDE[] 
+                            Shares = new Share[] 
                         {
-                            new ShareDE{Amount=420110717,Date=new DateTime(2016,1,31)},
-                            new ShareDE{Amount=420110717,Date=new DateTime(2015,1,31)},
-                            new ShareDE{Amount=420110717,Date=new DateTime(2014,1,31)},
-                            new ShareDE{Amount=257107972,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=257107972,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=250250000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=200000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=200000000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=200000000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=420110717,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=420110717,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=420110717,Date=new DateTime(2014,1,31)},
+                            new Share{Amount=257107972,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=257107972,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=250250000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=200000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=200000000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=200000000,Date=new DateTime(2008,1,31)},
                         }
                     },
                     new BackupStockDE()
@@ -114,15 +114,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=395.31,Year=2011},
                             new StatisticDE{NetProfit=70.78,Year=2010}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=3536601827,Date=new DateTime(2016,1,31)},
-                            new ShareDE{Amount=3536601827,Date=new DateTime(2015,1,31)},
-                            new ShareDE{Amount=3536601827,Date=new DateTime(2014,1,31)},
-                            new ShareDE{Amount=2949088091,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=2605495683,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=2554299239,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=2554299239,Date=new DateTime(2010,1,31)}
+                            new Share{Amount=3536601827,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=3536601827,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=3536601827,Date=new DateTime(2014,1,31)},
+                            new Share{Amount=2949088091,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=2605495683,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=2554299239,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=2554299239,Date=new DateTime(2010,1,31)}
                         },
                         Consensuses = new Consensus[] 
                         { 
@@ -157,17 +157,17 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=14229.13,Year=2009},
                             new StatisticDE{NetProfit=9227.67,Year=2008},
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=5060634213,Date=new DateTime(2016,1,31)},
-                            new ShareDE{Amount=5060634213,Date=new DateTime(2015,1,31)},
-                            new ShareDE{Amount=5060634213,Date=new DateTime(2014,1,31)},
-                            new ShareDE{Amount=2581878550,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=271747855,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=271747855,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=271747855,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=271747855,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=271747855,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=5060634213,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=5060634213,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=5060634213,Date=new DateTime(2014,1,31)},
+                            new Share{Amount=2581878550,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=271747855,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=271747855,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=271747855,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=271747855,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=271747855,Date=new DateTime(2008,1,31)},
                         }
                     },
                     new BackupStockDE()
@@ -193,15 +193,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=89.52,Year=2011},
                             new StatisticDE{NetProfit=123.18,Year=2010}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=6358775851,Date=new DateTime(2016,1,31)},
-                            new ShareDE{Amount=6358775851,Date=new DateTime(2015,1,31)},
-                            new ShareDE{Amount=6358775851,Date=new DateTime(2014,1,31)},
-                            new ShareDE{Amount=6358775851,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=440000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=400000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=400000000,Date=new DateTime(2010,1,31)}
+                            new Share{Amount=6358775851,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=6358775851,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=6358775851,Date=new DateTime(2014,1,31)},
+                            new Share{Amount=6358775851,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=440000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=400000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=400000000,Date=new DateTime(2010,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -223,13 +223,13 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=10560.44,Year=2010},
                             new StatisticDE{NetProfit=4824,Year=2009},
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=4814257245,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=4814257245,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=4814257245,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=4814257245,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=4814257245,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=4814257245,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=4814257245,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=4814257245,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=4814257245,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=4814257245,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -257,16 +257,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=813.55,Year=2007},
                             new StatisticDE{NetProfit=341.84,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=800000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=800000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=800000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=800000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=800000000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=800000000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=800000000,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=800000000,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=800000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=800000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=800000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=800000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=800000000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=800000000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=800000000,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=800000000,Date=new DateTime(2006,1,31)}
                         },
                         Consensuses = new Consensus[] 
                         { 
@@ -297,15 +297,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=160.31,Year=2008},
                             new StatisticDE{NetProfit=129.64,Year=2007}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=399439227,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=399439227,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=399439227,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=399439227,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=399439227,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=399439227,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=399439227,Date=new DateTime(2007,1,31)}
+                            new Share{Amount=399439227,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=399439227,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=399439227,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=399439227,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=399439227,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=399439227,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=399439227,Date=new DateTime(2007,1,31)}
                         },
                         Consensuses = new Consensus[] 
                         { 
@@ -336,15 +336,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=1034.81,Year=2008},
                             new StatisticDE{NetProfit=654.48,Year=2007}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1185193444,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1185193444,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1185193444,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1185193444,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1185193444,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=1185193444,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=1185193444,Date=new DateTime(2007,1,31)}
+                            new Share{Amount=1185193444,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1185193444,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1185193444,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1185193444,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1185193444,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=1185193444,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=1185193444,Date=new DateTime(2007,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -370,15 +370,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=-750.09,Year=2008},
                             new StatisticDE{NetProfit=1763.76,Year=2007}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1376923157,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1376923157,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1376923157,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1372170011,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1372170011,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=1372170011,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=1372170011,Date=new DateTime(2007,1,31)}
+                            new Share{Amount=1376923157,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1376923157,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1376923157,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1372170011,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1372170011,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=1372170011,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=1372170011,Date=new DateTime(2007,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -406,16 +406,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=28455.39,Year=2007},
                             new StatisticDE{NetProfit=28047.27,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=3969985400,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=3969985400,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=3319985400,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=3318433600,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=3312560000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=3307080000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=3297420000,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=3286000000,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=3969985400,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=3969985400,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=3319985400,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=3318433600,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=3312560000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=3307080000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=3297420000,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=3286000000,Date=new DateTime(2006,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -439,14 +439,14 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=9161.56,Year=2009},
                             new StatisticDE{NetProfit=-8464.66,Year=2008}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=4508849117,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=4507624281,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=4506643000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=2979106161,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=2967072148,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=2967072148,Date=new DateTime(2008,1,31)}
+                            new Share{Amount=4508849117,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=4507624281,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=4506643000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=2979106161,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=2967072148,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=2967072148,Date=new DateTime(2008,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -474,16 +474,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=30351.9,Year=2007},
                             new StatisticDE{NetProfit=29450.69,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=1200000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1200000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1200000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1200000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1200000000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=1200000000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=1200000000,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=1200000000,Date=new DateTime(2006,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -511,16 +511,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=257.43,Year=2007},
                             new StatisticDE{NetProfit=-116.35,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=474995769,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=472600769,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=464053000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=471067269,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=462500000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=462500000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=462500000,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=314930000,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=474995769,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=472600769,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=464053000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=471067269,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=462500000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=462500000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=462500000,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=314930000,Date=new DateTime(2006,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -548,16 +548,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=2449.16,Year=2007},
                             new StatisticDE{NetProfit=2216.2,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=804878860,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=804878860,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=804878860,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=804878860,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=804878860,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=804878860,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=804878860,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=804878860,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=804878860,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=804878860,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=804878860,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=804878860,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=804878860,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=804878860,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=804878860,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=804878860,Date=new DateTime(2006,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -585,16 +585,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=3155.42,Year=2007},
                             new StatisticDE{NetProfit=1961.71,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1247381614,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1247381614,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1247381614,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1247381614,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1247381614,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=1247381614,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=1247381614,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=1247381614,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=1247381614,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1247381614,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1247381614,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1247381614,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1247381614,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=1247381614,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=1247381614,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=1247381614,Date=new DateTime(2006,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -622,16 +622,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=16290.47,Year=2007},
                             new StatisticDE{NetProfit=16256.02,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=2973095330,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=2973095330,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=2973095330,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=2968527952,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=2965440000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=2961740000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=2958120000,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=2953550000,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=2973095330,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=2973095330,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=2973095330,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=2968527952,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=2965440000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=2961740000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=2958120000,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=2953550000,Date=new DateTime(2006,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -657,15 +657,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=9329.1,Year=2008},
                             new StatisticDE{NetProfit=5841.42,Year=2007}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=2367811000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=2367811000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=2367811000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=2367811000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=2367811000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=2367811000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=2367811000,Date=new DateTime(2007,1,31)}
+                            new Share{Amount=2367811000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=2367811000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=2367811000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=2367811000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=2367811000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=2367811000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=2367811000,Date=new DateTime(2007,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -689,14 +689,14 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=203.52,Year=2009},
                             new StatisticDE{NetProfit=-1244.92,Year=2008}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=7137394378,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=7137394378,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=7244000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=7244000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=7244000000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=7244000000,Date=new DateTime(2008,1,31)}
+                            new Share{Amount=7137394378,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=7137394378,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=7244000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=7244000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=7244000000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=7244000000,Date=new DateTime(2008,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -720,14 +720,14 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=1746.28,Year=2009},
                             new StatisticDE{NetProfit=6022.72,Year=2008}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=18012968488,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=17795295397,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=17795295397,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=17795295397,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=17795295397,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=17795295397,Date=new DateTime(2008,1,31)}
+                            new Share{Amount=18012968488,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=17795295397,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=17795295397,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=17795295397,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=17795295397,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=17795295397,Date=new DateTime(2008,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -751,14 +751,14 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=764.01,Year=2009},
                             new StatisticDE{NetProfit=650.31,Year=2008}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=3298425000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=658640200,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=658640200,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=658640200,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=658640200,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=658640200,Date=new DateTime(2008,1,31)}
+                            new Share{Amount=3298425000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=658640200,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=658640200,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=658640200,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=658640200,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=658640200,Date=new DateTime(2008,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -780,13 +780,13 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=3971.16,Year=2010},
                             new StatisticDE{NetProfit=3908.47,Year=2009}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=10025921523,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=10025921523,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=10025921523,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=10025921523,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=10025921523,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=10025921523,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=10025921523,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=10025921523,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=10025921523,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=10025921523,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -814,16 +814,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=707.93,Year=2007},
                             new StatisticDE{NetProfit=404.25,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=9099155119,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=8364454765,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=7150071000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1505959692,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1486328692,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=1486328692,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=1486328692,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=1486328692,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=9099155119,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=8364454765,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=7150071000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1505959692,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1486328692,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=1486328692,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=1486328692,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=1486328692,Date=new DateTime(2006,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -851,16 +851,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=77.98,Year=2007},
                             new StatisticDE{NetProfit=447.8,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1219303655,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1219303655,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1216041855,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1105499456,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1005000000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=1005000000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=1005000000,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=670000000,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=1219303655,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1219303655,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1216041855,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1105499456,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1005000000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=1005000000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=1005000000,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=670000000,Date=new DateTime(2006,1,31)}
                         },
                         Consensuses = new Consensus[] 
                         { 
@@ -881,10 +881,10 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=6292.53,Year=2013},
                             new StatisticDE{NetProfit=6188.7,Year=2012}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=4357632000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=2178816000,Date=new DateTime(2012,1,31)}
+                            new Share{Amount=4357632000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=2178816000,Date=new DateTime(2012,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -912,16 +912,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=166.43,Year=2007},
                             new StatisticDE{NetProfit=161.14,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=530000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=530000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=520384000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=526252700,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=526252700,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=526252700,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=526252700,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=526252700,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=530000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=530000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=520384000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=526252700,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=526252700,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=526252700,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=526252700,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=526252700,Date=new DateTime(2006,1,31)}
                         },
                         Consensuses = new Consensus[] 
                         { 
@@ -952,15 +952,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=353.52,Year=2008},
                             new StatisticDE{NetProfit=328.94,Year=2007}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=500000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=500000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=500000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=500000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=500000000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=500000000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=500000000,Date=new DateTime(2007,1,31)}
+                            new Share{Amount=500000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=500000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=500000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=500000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=500000000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=500000000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=500000000,Date=new DateTime(2007,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -986,15 +986,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=98.71,Year=2008},
                             new StatisticDE{NetProfit=206.13,Year=2007}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=287777339,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=287777339,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=287777339,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=287777339,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=287777339,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=287777339,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=287777339,Date=new DateTime(2007,1,31)}
+                            new Share{Amount=287777339,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=287777339,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=287777339,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=287777339,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=287777339,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=287777339,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=287777339,Date=new DateTime(2007,1,31)}
                         },
                         Consensuses = new Consensus[] 
                         { 
@@ -1013,9 +1013,9 @@ namespace StockCore.DomainEntity.Data
                         {
                             new StatisticDE{NetProfit=1206.3,Year=2013}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=320000000,Date=new DateTime(2013,1,31)}
+                            new Share{Amount=320000000,Date=new DateTime(2013,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1041,15 +1041,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=73.65,Year=2008},
                             new StatisticDE{NetProfit=106.86,Year=2007}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=714255819,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=714255819,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=714245000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=640000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=640000000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=640000000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=640000000,Date=new DateTime(2007,1,31)}
+                            new Share{Amount=714255819,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=714255819,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=714245000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=640000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=640000000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=640000000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=640000000,Date=new DateTime(2007,1,31)}
                         },
                         Consensuses = new Consensus[] 
                         { 
@@ -1074,12 +1074,12 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=3530.35,Year=2011},
                             new StatisticDE{NetProfit=3302.29,Year=2010}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=2000000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=2000000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=2000000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=2000000000,Date=new DateTime(2010,1,31)}
+                            new Share{Amount=2000000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=2000000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=2000000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=2000000000,Date=new DateTime(2010,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1107,15 +1107,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=1275.13,Year=2007},
                             new StatisticDE{NetProfit=2510.33,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=7742941932,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=7742941932,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=7742941932,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=7048937826,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=7048937826,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=7048937826,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=7048937826,Date=new DateTime(2007,1,31)}
+                            new Share{Amount=7742941932,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=7742941932,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=7742941932,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=7048937826,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=7048937826,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=7048937826,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=7048937826,Date=new DateTime(2007,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1137,13 +1137,13 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=2796.48,Year=2010},
                             new StatisticDE{NetProfit=1185.69,Year=2009}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1210801300,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1207399800,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1200000000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=1210801300,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1207399800,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1200000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1200000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1200000000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1169,15 +1169,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=21413.7,Year=2008},
                             new StatisticDE{NetProfit=17355.96,Year=2007}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=3393736429,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=3393808197,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=3393348537,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=3392728306,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=3392728306,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=3392728306,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=3392728306,Date=new DateTime(2007,1,31)}
+                            new Share{Amount=3393736429,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=3393808197,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=3393348537,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=3392728306,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=3392728306,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=3392728306,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=3392728306,Date=new DateTime(2007,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1203,15 +1203,15 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=20242.99,Year=2008},
                             new StatisticDE{NetProfit=19217.88,Year=2007}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1908842894,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1908842894,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1908842894,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1908842894,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1908842894,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=1908842894,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=1908842894,Date=new DateTime(2007,1,31)}
+                            new Share{Amount=1908842894,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1908842894,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1908842894,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1908842894,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1908842894,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=1908842894,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=1908842894,Date=new DateTime(2007,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1231,12 +1231,12 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=67.84,Year=2011},
                             new StatisticDE{NetProfit=84.8,Year=2010}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=470000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=470000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=470000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=470000000,Date=new DateTime(2010,1,31)}
+                            new Share{Amount=470000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=470000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=470000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=470000000,Date=new DateTime(2010,1,31)}
                         },
                         Consensuses = new Consensus[] 
                         { 
@@ -1265,14 +1265,14 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=1593.63,Year=2009},
                             new StatisticDE{NetProfit=1358.41,Year=2008}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=3990000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=3990000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=3990000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=3990000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=3990000000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=3990000000,Date=new DateTime(2008,1,31)}
+                            new Share{Amount=3990000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=3990000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=3990000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=3990000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=3990000000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=3990000000,Date=new DateTime(2008,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1294,13 +1294,13 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=89.37,Year=2010},
                             new StatisticDE{NetProfit=36.53,Year=2009}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=270000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=270000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=270000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=270000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=270000000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=270000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=270000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=270000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=270000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=270000000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1328,16 +1328,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=710,Year=2007},
                             new StatisticDE{NetProfit=608,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=7044132922,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=7041430018,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=5836700000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=4355000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=4355000000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=4355000000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=4355000000,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=4355000000,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=7044132922,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=7041430018,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=5836700000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=4355000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=4355000000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=4355000000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=4355000000,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=4355000000,Date=new DateTime(2006,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1361,14 +1361,14 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=2141.99,Year=2009},
                             new StatisticDE{NetProfit=627.26,Year=2008}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1280000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1280000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1280000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1280000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1280000000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=1280000000,Date=new DateTime(2008,1,31)}
+                            new Share{Amount=1280000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1280000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1280000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1280000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1280000000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=1280000000,Date=new DateTime(2008,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1396,16 +1396,16 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=1256.39,Year=2007},
                             new StatisticDE{NetProfit=471.36,Year=2006}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=808610985,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=808610985,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=768753874,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=765404049,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=692500000,Date=new DateTime(2009,1,31)},
-                            new ShareDE{Amount=624510000,Date=new DateTime(2008,1,31)},
-                            new ShareDE{Amount=624510000,Date=new DateTime(2007,1,31)},
-                            new ShareDE{Amount=499610000,Date=new DateTime(2006,1,31)}
+                            new Share{Amount=808610985,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=808610985,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=768753874,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=765404049,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=692500000,Date=new DateTime(2009,1,31)},
+                            new Share{Amount=624510000,Date=new DateTime(2008,1,31)},
+                            new Share{Amount=624510000,Date=new DateTime(2007,1,31)},
+                            new Share{Amount=499610000,Date=new DateTime(2006,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1427,13 +1427,13 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=103.73,Year=2010},
                             new StatisticDE{NetProfit=60.24,Year=2009}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=173300000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=173300000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=172290000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=171120000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=170000000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=173300000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=173300000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=172290000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=171120000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=170000000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1455,13 +1455,13 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=388.37,Year=2010},
                             new StatisticDE{NetProfit=312.21,Year=2009}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=206320897,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=68773630,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=68773630,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=68773630,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=68773630,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=206320897,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=68773630,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=68773630,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=68773630,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=68773630,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1477,10 +1477,10 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=2039.17,Year=2013},
                             new StatisticDE{NetProfit=2041,Year=2012}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=906850000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=906850000,Date=new DateTime(2012,1,31)}
+                            new Share{Amount=906850000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=906850000,Date=new DateTime(2012,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1496,10 +1496,10 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=42.78,Year=2013},
                             new StatisticDE{NetProfit=23.33,Year=2012}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=406000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=406000000,Date=new DateTime(2012,1,31)}
+                            new Share{Amount=406000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=406000000,Date=new DateTime(2012,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1521,13 +1521,13 @@ namespace StockCore.DomainEntity.Data
                             new StatisticDE{NetProfit=2295.06,Year=2010},
                             new StatisticDE{NetProfit=1725.18,Year=2009}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1545458883,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1545460000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1545460000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1246040000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1214500000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=1545458883,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1545460000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1545460000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1246040000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1214500000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1553,13 +1553,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=3.2,Date=new DateTime(2011,1,1)},
                             new Price {Close=2,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=953870000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=882690000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=882650000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=708070000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=708070000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=953870000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=882690000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=882650000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=708070000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=708070000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1573,13 +1573,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=28.5,Date=new DateTime(2011,1,1)},
                             new Price {Close=26.25,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=3206420305,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=3206420305,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=3206420305,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=3201080000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=3201080000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=3206420305,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=3206420305,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=3206420305,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=3201080000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=3201080000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1593,13 +1593,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=19.25,Date=new DateTime(2011,1,1)},
                             new Price {Close=11.4,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=8983101348,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=8983101348,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=4493150000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=4493150000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=4493150000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=8983101348,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=8983101348,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=4493150000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=4493150000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=4493150000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1613,13 +1613,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=7.1,Date=new DateTime(2011,1,1)},
                             new Price {Close=4.3,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=4800000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=4800000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=4800000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=4800000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=4800000000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=4800000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=4800000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=4800000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=4800000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=4800000000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1633,13 +1633,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=13.78,Date=new DateTime(2011,1,1)},
                             new Price {Close=12.75,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=636317936,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=530260000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=530260000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=530260000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=530260000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=636317936,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=530260000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=530260000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=530260000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=530260000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1653,13 +1653,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=29,Date=new DateTime(2011,1,1)},
                             new Price {Close=22.4,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=687099210,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=687099210,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=687099210,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=687099210,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=687099210,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=687099210,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=687099210,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=687099210,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=687099210,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=687099210,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1673,13 +1673,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=69.75,Date=new DateTime(2011,1,1)},
                             new Price {Close=40.75,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=2040027873,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=2040027873,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=2040027873,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=2040027873,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=2040027873,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=2040027873,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=2040027873,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=2040027873,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=2040027873,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=2040027873,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1690,10 +1690,10 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=3.56,Date=new DateTime(2014,1,1)},
                             new Price {Close=6.1,Date=new DateTime(2013,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=4850000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=4850000000,Date=new DateTime(2012,1,31)}
+                            new Share{Amount=4850000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=4850000000,Date=new DateTime(2012,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1703,9 +1703,9 @@ namespace StockCore.DomainEntity.Data
                         { 
                             new Price {Close=17.6,Date=new DateTime(2014,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=625000000,Date=new DateTime(2013,1,31)}
+                            new Share{Amount=625000000,Date=new DateTime(2013,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1719,13 +1719,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=118.5,Date=new DateTime(2011,1,1)},
                             new Price {Close=82.5,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=2393260193,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=2393260193,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=2393260193,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=2393260193,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=2393260193,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=2393260193,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=2393260193,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=2393260193,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=2393260193,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=2393260193,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1739,13 +1739,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=25.5,Date=new DateTime(2011,1,1)},
                             new Price {Close=19.5,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=6074143747,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=6074143747,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=6074143747,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=6074143747,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=6074143747,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=6074143747,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=6074143747,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=6074143747,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=6074143747,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=6074143747,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1759,13 +1759,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=9,Date=new DateTime(2011,1,1)},
                             new Price {Close=5.55,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1006503910,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1002100000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=990650000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=985630000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=980310000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=1006503910,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1002100000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=990650000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=985630000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=980310000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1779,13 +1779,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=5.65,Date=new DateTime(2011,1,1)},
                             new Price {Close=6.75,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1095937540,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1095937540,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1095937540,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1095937540,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1095937540,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=1095937540,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1095937540,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1095937540,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1095937540,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1095937540,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1799,13 +1799,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=8.1,Date=new DateTime(2011,1,1)},
                             new Price {Close=4.08,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1253821000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1253821000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1253821000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1253821000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1253821000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=1253821000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1253821000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1253821000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1253821000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1253821000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1819,13 +1819,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=8.7,Date=new DateTime(2011,1,1)},
                             new Price {Close=6.6,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1475698768,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1475698768,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1475698768,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1475698768,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1475698768,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=1475698768,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1475698768,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1475698768,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1475698768,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1475698768,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1839,13 +1839,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=9.85,Date=new DateTime(2011,1,1)},
                             new Price {Close=6,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1716553249,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1716553249,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1716553249,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1716553249,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1716553249,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=1716553249,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1716553249,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1716553249,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1716553249,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1716553249,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1859,13 +1859,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=20.5,Date=new DateTime(2011,1,1)},
                             new Price {Close=10.3,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1110661133,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1110661133,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1110661133,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1110661133,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1110661133,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=1110661133,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1110661133,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1110661133,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1110661133,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1110661133,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1879,13 +1879,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=108.5,Date=new DateTime(2011,1,1)},
                             new Price {Close=79,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=526465000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=526465000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=526465000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=526465000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=526465000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=526465000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=526465000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=526465000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=526465000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=526465000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1899,13 +1899,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=41.25,Date=new DateTime(2011,1,1)},
                             new Price {Close=31,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1462865035,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1462865035,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1462865035,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1462865035,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1462865035,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=1462865035,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1462865035,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1462865035,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1462865035,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1462865035,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1919,13 +1919,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=40.25,Date=new DateTime(2011,1,1)},
                             new Price {Close=34.5,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=1450000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=1450000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=1450000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=1450000000,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=1450000000,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=1450000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1450000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=1450000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=1450000000,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=1450000000,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1939,13 +1939,13 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=12.2,Date=new DateTime(2011,1,1)},
                             new Price {Close=12.5,Date=new DateTime(2010,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=257833407,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=257833407,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=257833407,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=257833407,Date=new DateTime(2010,1,31)},
-                            new ShareDE{Amount=257833407,Date=new DateTime(2009,1,31)}
+                            new Share{Amount=257833407,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=257833407,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=257833407,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=257833407,Date=new DateTime(2010,1,31)},
+                            new Share{Amount=257833407,Date=new DateTime(2009,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1958,12 +1958,12 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=4.78,Date=new DateTime(2012,1,1)},
                             new Price {Close=4.88,Date=new DateTime(2011,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=441453555,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=440400000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=439350000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=438300000,Date=new DateTime(2010,1,31)}
+                            new Share{Amount=441453555,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=440400000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=439350000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=438300000,Date=new DateTime(2010,1,31)}
                         }
                     },
                     new BackupStockDE()
@@ -1976,12 +1976,12 @@ namespace StockCore.DomainEntity.Data
                             new Price {Close=30,Date=new DateTime(2012,1,1)},
                             new Price {Close=32.75,Date=new DateTime(2011,1,1)}
                         },
-                        Shares = new ShareDE[] 
+                        Shares = new Share[] 
                         {
-                            new ShareDE{Amount=250000000,Date=new DateTime(2013,1,31)},
-                            new ShareDE{Amount=250000000,Date=new DateTime(2012,1,31)},
-                            new ShareDE{Amount=250000000,Date=new DateTime(2011,1,31)},
-                            new ShareDE{Amount=250000000,Date=new DateTime(2010,1,31)}
+                            new Share{Amount=250000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=250000000,Date=new DateTime(2012,1,31)},
+                            new Share{Amount=250000000,Date=new DateTime(2011,1,31)},
+                            new Share{Amount=250000000,Date=new DateTime(2010,1,31)}
                         }
                     }
                 };

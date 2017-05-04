@@ -13,7 +13,7 @@ namespace StockCore.DomainEntity
         public string Quote{get;set;}
         public IEnumerable<Price> Price{get;set;}
         public IEnumerable<StatisticDE> Statistic{get;set;}
-        public IEnumerable<ShareDE> Share{get;set;}
+        public IEnumerable<Share> Share{get;set;}
         public IEnumerable<Consensus> Consensus{get;set;}
         public IEnumerable<NetProfitDE> NetProfit{get;set;}
         public IEnumerable<GrowthDE> Growth{get;set;}
@@ -25,7 +25,7 @@ namespace StockCore.DomainEntity
             string quote,
             IEnumerable<Price> price,
             IEnumerable<StatisticDE> statistic,
-            IEnumerable<ShareDE> share,
+            IEnumerable<Share> share,
             IEnumerable<Consensus> consensus,
             IEnumerable<NetProfitDE> netprofit,
             IEnumerable<GrowthDE> growth,

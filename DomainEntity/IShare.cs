@@ -5,8 +5,14 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace StockCore.DomainEntity
 {
+    public interface IShare:IValidField,IKeyField<string>
+    {
+        string Quote { get; set; }
+        DateTime Date { get; set; }
+        long? Amount { get; set; }
+    }
     [DataContract]
-    public class ShareDE:Persistant,IValidField,IKeyField<string>,ILinqCriteria<ShareDE>
+    public class BaseShare:Persistant,IShare
     {
         public string Key 
         { 
@@ -21,13 +27,16 @@ namespace StockCore.DomainEntity
         [BsonIgnoreIfNullAttribute]
         public long? Amount { get; set; }
         public bool IsValid { get; set; }
-        public bool Equals(ShareDE other)=>this.Quote == other.Quote && this.Date == other.Date;
+    }
+    public class Share:BaseShare,ILinqCriteria<Share>
+    {
+        public bool Equals(Share other)=>this.Quote == other.Quote && this.Date == other.Date;
         public override int GetHashCode()=>this.Quote.GetHashCode()^this.Date.GetHashCode();
-        public ShareDE Merge(ShareDE other)
+        public Share Merge(Share other)
         {
             this.Amount = other.Amount;
             return this;
         }
-        public bool UpdateCondition(ShareDE other)=>this.IsValid != other.IsValid || this.Amount != other.Amount;
+        public bool UpdateCondition(Share other)=>this.IsValid != other.IsValid || this.Amount != other.Amount;
     }
 }

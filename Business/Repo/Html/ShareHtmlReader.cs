@@ -6,7 +6,7 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.Html
 {
-    public class ShareHtmlReader : BaseHtmlReader<ShareDE>
+    public class ShareHtmlReader : BaseHtmlReader<Share>
     {
         public ShareHtmlReader(
             IHttpClientWrapper client,
@@ -14,11 +14,11 @@ namespace StockCore.Business.Repo.Html
                 client, 
                 doc, 
                 "http://www.settrade.com/C04_03_stock_companyhighlight_p1.jsp?txtSymbol={0}&selectPage=3") { }
-        protected override IEnumerable<ShareDE> extractValues(string keyword)
+        protected override IEnumerable<Share> extractValues(string keyword)
         {
             var pattern = "\\d{2}/\\d{2}/\\d{4}:$";
             var nodes = doc.DocumentNode.SelectNodes("//div").Where(node => Regex.IsMatch(node.InnerText.Trim(), pattern)).Take(4).Reverse();
-            var shares = new List<ShareDE>();
+            var shares = new List<Share>();
             if(nodes!=null)
             {
                 foreach (var node in nodes)
@@ -33,7 +33,7 @@ namespace StockCore.Business.Repo.Html
                             var date = parseDateTime(match.Value.TrimEnd(':'), "dd/MM/yyyy", "th-TH");
                             if (!shares.Any(s => s.Date == date))
                             {
-                                shares.Add(new ShareDE
+                                shares.Add(new Share
                                 {
                                     Quote = keyword,
                                     Date = date,

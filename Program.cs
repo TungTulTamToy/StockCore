@@ -49,16 +49,16 @@ namespace StockCore
                     .AddScoped<IFactory<string, IOperation<IEnumerable<QuoteGroupDE>>>, SyncQuoteGroupFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Price>>>, SyncPriceFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Consensus>>>, SyncConcensusFactory>()
-                    .AddScoped<IFactory<string, IOperation<IEnumerable<ShareDE>>>, SyncShareFactory>()
+                    .AddScoped<IFactory<string, IOperation<IEnumerable<Share>>>, SyncShareFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<StatisticDE>>>, SyncStatisticFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Consensus>,string>>, ConsensusHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Price>,string>>, PriceHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<SetIndex>,string>>, SetIndexHtmlReaderFactory>()
-                    .AddScoped<IFactory<string, IGetByKey<IEnumerable<ShareDE>,string>>, ShareHtmlReaderFactory>()
+                    .AddScoped<IFactory<string, IGetByKey<IEnumerable<Share>,string>>, ShareHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<StatisticDE>,string>>, StatisticHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<OperationState,string>>, DBOperationStateRepoFactory>()                    
                     .AddScoped<IFactory<string, IGetByKeyRepo<Consensus,string>>, DBConcensusRepoFactory>()
-                    .AddScoped<IFactory<string, IGetByKeyRepo<ShareDE,string>>, DBShareRepoFactory>()
+                    .AddScoped<IFactory<string, IGetByKeyRepo<Share,string>>, DBShareRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<StatisticDE,string>>, DBStatisticRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Price,string>>, DBPriceRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>>, DBQuoteGroupRepoFactory>()                                        
@@ -172,7 +172,7 @@ namespace StockCore
                 where backup.Shares != null
                 from s in backup.Shares
                 where s!=null
-                select new ShareDE{Quote=backup.Quote,Amount=s.Amount,Date=s.Date,IsValid=true};
+                select new Share{Quote=backup.Quote,Amount=s.Amount,Date=s.Date,IsValid=true};
 
             var backupStatistic = from backup in sampleData
                 where backup.Statistics != null
@@ -185,7 +185,7 @@ namespace StockCore
             var consensusTracer=new Tracer(0,null,"Start Seed Consensus",TraceSourceName.TestConsole);
             var seedConsensusOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<Consensus>>>>().Build(consensusTracer);
             var shareTracer=new Tracer(0,null,"Start Seed Share",TraceSourceName.TestConsole);
-            var seedShareOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<ShareDE>>>>().Build(shareTracer);
+            var seedShareOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<Share>>>>().Build(shareTracer);
             var statisticTracer=new Tracer(0,null,"Start Seed Price",TraceSourceName.TestConsole);
             var seedStatisticOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<StatisticDE>>>>().Build(statisticTracer);            
 

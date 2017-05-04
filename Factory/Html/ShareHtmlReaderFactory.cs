@@ -11,7 +11,7 @@ using StockCore.Helper;
 
 namespace StockCore.Factory.Html
 {
-    public class ShareHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<ShareDE>,string>>
+    public class ShareHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<Share>,string>>
     {
         private const string KEY = "HtmlShareGetByKey";
         private const int ID = 1011100;
@@ -32,13 +32,13 @@ namespace StockCore.Factory.Html
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<ShareDE>,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<Share>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<ShareDE>,string> inner = new ShareHtmlReader(client,doc);  
+            IGetByKey<IEnumerable<Share>,string> inner = new ShareHtmlReader(client,doc);  
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByKeyDec<ShareDE>(
+                inner = new MonGetByKeyDec<Share>(
                     inner,
                     ValidationHelper.ValidateString(1011105,"Quote"),
                     MONPROCESSERRID,

@@ -12,7 +12,7 @@ using System;
 
 namespace StockCore.Factory.Sync
 {
-    public class SyncShareFactory : BaseFactory<string,IOperation<IEnumerable<ShareDE>>>
+    public class SyncShareFactory : BaseFactory<string,IOperation<IEnumerable<Share>>>
     {
         private const string KEY = "SyncShare";
         private const int ID = 1018100;
@@ -20,26 +20,26 @@ namespace StockCore.Factory.Sync
         private const int OUTERERRID = 1018102;
         private const int MONPROCESSERRID = 1018103;
         private const int MONOUTERERRID = 1018104;
-        private readonly IFactory<string, IGetByKeyRepo<ShareDE,string>> dbShareDEFactory;
+        private readonly IFactory<string, IGetByKeyRepo<Share,string>> dbShareDEFactory;
         private readonly IConfigReader configReader;
         public SyncShareFactory(
             ILogger logger,
-            IFactory<string, IGetByKeyRepo<ShareDE,string>> dbShareDEFactory,
+            IFactory<string, IGetByKeyRepo<Share,string>> dbShareDEFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbShareDEFactory = dbShareDEFactory;
             this.configReader = configReader;
         }
-        protected override IOperation<IEnumerable<ShareDE>> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IOperation<IEnumerable<Share>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<ShareDE>> inner = new BaseSyncData<ShareDE>(dbShareDEFactory.Build(tracer));
+            IOperation<IEnumerable<Share>> inner = new BaseSyncData<Share>(dbShareDEFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonOperationDec<IEnumerable<ShareDE>>(
+                inner = new MonOperationDec<IEnumerable<Share>>(
                     inner,
-                    ValidationHelper.ValidateItemsWithStringKeyField<ShareDE>(1018105,"Quote"),  
+                    ValidationHelper.ValidateItemsWithStringKeyField<Share>(1018105,"Quote"),  
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,    

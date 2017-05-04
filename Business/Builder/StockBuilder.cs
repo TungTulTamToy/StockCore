@@ -14,13 +14,13 @@ namespace StockCore.Business.Builder
     public class StockBuilder : IBuilder<string, StockDE>
     {
         private readonly ILogger logger;
-        private readonly IGetByKey<IEnumerable<ShareDE>,string> shareRepo;
+        private readonly IGetByKey<IEnumerable<Share>,string> shareRepo;
         private readonly IGetByKey<IEnumerable<StatisticDE>,string> statisticRepo;
         private readonly IGetByKey<IEnumerable<Consensus>,string> consensusRepo;
         private readonly IGetByKey<IEnumerable<Price>,string> priceRepo;
         public StockBuilder(
             ILogger logger,
-            IGetByKey<IEnumerable<ShareDE>,string> shareRepo,
+            IGetByKey<IEnumerable<Share>,string> shareRepo,
             IGetByKey<IEnumerable<StatisticDE>,string> statisticRepo,
             IGetByKey<IEnumerable<Consensus>,string> consensusRepo,
             IGetByKey<IEnumerable<Price>,string> priceRepo
@@ -99,7 +99,7 @@ namespace StockCore.Business.Builder
         private IEnumerable<PeDE> calculatePe(
             IEnumerable<Price> price,
             IEnumerable<StatisticDE> statistic,
-            IEnumerable<ShareDE> shareByYear,
+            IEnumerable<Share> shareByYear,
             IEnumerable<Consensus> consensus)
         {
             IEnumerable<PeDE> pe = null;
@@ -236,7 +236,7 @@ namespace StockCore.Business.Builder
             string quote,
             IEnumerable<StatisticDE> statistic,
             IEnumerable<Consensus> consensus,
-            IEnumerable<ShareDE> shareByYear)
+            IEnumerable<Share> shareByYear)
         {
             IEnumerable<NetProfitDE> netProfit=null;
             if(shareByYear!=null && shareByYear.Any())
@@ -265,9 +265,9 @@ namespace StockCore.Business.Builder
             return netProfit;
         }
 
-        private IEnumerable<ShareDE> calculateShareByYear(string quote,IEnumerable<ShareDE> share)
+        private IEnumerable<Share> calculateShareByYear(string quote,IEnumerable<Share> share)
         {
-            IEnumerable<ShareDE> shareByYear = null;
+            IEnumerable<Share> shareByYear = null;
             if(share != null && share.Any())
             {
                 shareByYear = from s in share
@@ -275,15 +275,15 @@ namespace StockCore.Business.Builder
                                 select (g.OrderByDescending(s => s.Date).First());
                 var oldestYear = shareByYear.OrderBy(g => g.Date).FirstOrDefault();
                 var newestYear = shareByYear.OrderByDescending(g => g.Date).FirstOrDefault();
-                shareByYear = shareByYear.Concat(new ShareDE[] 
+                shareByYear = shareByYear.Concat(new Share[] 
                 { 
-                    new ShareDE { Date = oldestYear.Date.AddYears(-5), Amount = oldestYear.Amount },
-                    new ShareDE { Date = oldestYear.Date.AddYears(-4), Amount = oldestYear.Amount },
-                    new ShareDE { Date = oldestYear.Date.AddYears(-3), Amount = oldestYear.Amount },
-                    new ShareDE { Date = oldestYear.Date.AddYears(-2), Amount = oldestYear.Amount },
-                    new ShareDE { Date = oldestYear.Date.AddYears(-1), Amount = oldestYear.Amount },
-                    new ShareDE { Date = newestYear.Date.AddYears(1), Amount = newestYear.Amount },
-                    new ShareDE { Date = newestYear.Date.AddYears(2), Amount = newestYear.Amount } 
+                    new Share { Date = oldestYear.Date.AddYears(-5), Amount = oldestYear.Amount },
+                    new Share { Date = oldestYear.Date.AddYears(-4), Amount = oldestYear.Amount },
+                    new Share { Date = oldestYear.Date.AddYears(-3), Amount = oldestYear.Amount },
+                    new Share { Date = oldestYear.Date.AddYears(-2), Amount = oldestYear.Amount },
+                    new Share { Date = oldestYear.Date.AddYears(-1), Amount = oldestYear.Amount },
+                    new Share { Date = newestYear.Date.AddYears(1), Amount = newestYear.Amount },
+                    new Share { Date = newestYear.Date.AddYears(2), Amount = newestYear.Amount } 
                 }).OrderByDescending(s=>s.Date);
             }
             return shareByYear;
