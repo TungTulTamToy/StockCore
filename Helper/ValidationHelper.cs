@@ -43,7 +43,7 @@ namespace StockCore.Helper
                 return true;
             };
         }
-        public static Func<ILogger,Tracer,string,string,IEnumerable<QuoteGroupDE>,bool> ValidateQuoteGroups(int errorID)
+        public static Func<ILogger,Tracer,string,string,IEnumerable<QuoteGroup>,bool> ValidateQuoteGroups(int errorID)
         {
             return (logger,tracer,moduleName,methodName,quoteGroup)=>{
                 if(quoteGroup.Any(s=>string.IsNullOrWhiteSpace(s.Name)))

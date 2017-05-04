@@ -11,7 +11,7 @@ using StockCore.Aop.Cache;
 
 namespace StockCore.Factory.Builder
 {
-    public class AllQuoteGroupBuilderFactory : BaseFactory<string,IBuilder<string, DECollection<QuoteGroupDE>>>
+    public class AllQuoteGroupBuilderFactory : BaseFactory<string,IBuilder<string, DECollection<QuoteGroup>>>
     {
         private const string KEY = "AllQuoteGroupBuilder";
         private const int ID = 1022100;
@@ -22,11 +22,11 @@ namespace StockCore.Factory.Builder
         private const int CACHEPROCESSERRID = 1022105;
         private const int CACHEOUTERERRID = 1022106;
         private readonly IConfigReader configReader;
-        private readonly IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> quoteGroupRepoFactory;
-        private readonly IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroupDE>>>> cacheRepoFactory;
+        private readonly IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory;
+        private readonly IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroup>>>> cacheRepoFactory;
         public AllQuoteGroupBuilderFactory(ILogger logger,
-            IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> quoteGroupRepoFactory,
-            IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroupDE>>>> cacheRepoFactory,
+            IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory,
+            IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroup>>>> cacheRepoFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
@@ -34,16 +34,16 @@ namespace StockCore.Factory.Builder
             this.cacheRepoFactory = cacheRepoFactory;
             this.configReader = configReader;
         }
-        protected override IBuilder<string, DECollection<QuoteGroupDE>> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IBuilder<string, DECollection<QuoteGroup>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IBuilder<string, DECollection<QuoteGroupDE>> inner = new AllQuoteGroupBuilder(
+            IBuilder<string, DECollection<QuoteGroup>> inner = new AllQuoteGroupBuilder(
                 logger,
                 quoteGroupRepoFactory.Build(tracer)
                 );  
             var module = configReader.GetByKey(getAopKey());
             if(module.IsCacheActive())
             {
-                inner = new CacheBuilderDec<string,DECollection<QuoteGroupDE>>(
+                inner = new CacheBuilderDec<string,DECollection<QuoteGroup>>(
                     inner,
                     CacheHelper.GetKeyByString(),
                     cacheRepoFactory.Build(tracer),
@@ -55,7 +55,7 @@ namespace StockCore.Factory.Builder
             }
             if(module.IsMonitoringActive())
             {
-                inner = new MonBuilderDec<string,DECollection<QuoteGroupDE>>(
+                inner = new MonBuilderDec<string,DECollection<QuoteGroup>>(
                     inner,
                     (logger,fakeTracer,moduleName,methodName,value)=>true,
                     MONPROCESSERRID,

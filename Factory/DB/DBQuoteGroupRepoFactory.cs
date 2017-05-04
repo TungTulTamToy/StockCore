@@ -10,7 +10,7 @@ using StockCore.Aop.Mon;
 
 namespace StockCore.Factory.DB
 {
-    public class DBQuoteGroupRepoFactory : BaseFactory<string,IGetByKeyRepo<QuoteGroupDE,string>>
+    public class DBQuoteGroupRepoFactory : BaseFactory<string,IGetByKeyRepo<QuoteGroup,string>>
     {
         private const string KEY = "DBQuoteGroupRepo";
         private const string COLLECTIONNAME = "QuoteGroup";
@@ -41,13 +41,13 @@ namespace StockCore.Factory.DB
             this.deleteOneModelBuilder = deleteOneModelBuilder;
             this.configReader = configReader;
         }
-        protected override IGetByKeyRepo<QuoteGroupDE,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKeyRepo<QuoteGroup,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKeyRepo<QuoteGroupDE,string> inner = new BaseKeyDBRepo<QuoteGroupDE>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME); 
+            IGetByKeyRepo<QuoteGroup,string> inner = new BaseKeyDBRepo<QuoteGroup>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME); 
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByKeyRepoDec<string,QuoteGroupDE>(
+                inner = new MonGetByKeyRepoDec<string,QuoteGroup>(
                     inner,
                     ValidationHelper.ValidateString(1004104,"GroupName"),
                     MONPROCESSERRID,

@@ -22,11 +22,11 @@ namespace StockCore.Factory.Builder
         private const int CACHEPROCESSERRID = 1023105;
         private const int CACHEOUTERERRID = 1023106;
         private readonly IConfigReader configReader;
-        private readonly IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> quoteGroupRepoFactory;
+        private readonly IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory;
         private readonly IFactory<string, IBuilder<string, StockDE>> stockBuilderFactory;
         private readonly IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<StockDE>>>> cacheRepoFactory;
         public StockByGroupBuilderFactory(ILogger logger,
-            IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> quoteGroupRepoFactory,
+            IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory,
             IFactory<string, IBuilder<string, StockDE>> stockBuilderFactory,
             IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<StockDE>>>> cacheRepoFactory,
             IConfigReader configReader

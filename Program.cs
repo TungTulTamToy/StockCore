@@ -46,7 +46,7 @@ namespace StockCore
 
                     .AddScoped<IFactory<FactoryCondition, IOperation<IEnumerable<string>>>, SyncAllFactory>()
                     .AddScoped<IFactory<string, IOperation<string>>, SyncQuoteFactory>()
-                    .AddScoped<IFactory<string, IOperation<IEnumerable<QuoteGroupDE>>>, SyncQuoteGroupFactory>()
+                    .AddScoped<IFactory<string, IOperation<IEnumerable<QuoteGroup>>>, SyncQuoteGroupFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Price>>>, SyncPriceFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Consensus>>>, SyncConcensusFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Share>>>, SyncShareFactory>()
@@ -61,13 +61,13 @@ namespace StockCore
                     .AddScoped<IFactory<string, IGetByKeyRepo<Share,string>>, DBShareRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Statistic,string>>, DBStatisticRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Price,string>>, DBPriceRepoFactory>()
-                    .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>>, DBQuoteGroupRepoFactory>()                                        
+                    .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroup,string>>, DBQuoteGroupRepoFactory>()                                        
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>>, DBCacheRepoFactory<StockDE>>()
-                    .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroupDE>>>>, DBCacheRepoFactory<DECollection<QuoteGroupDE>>>()
+                    .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroup>>>>, DBCacheRepoFactory<DECollection<QuoteGroup>>>()
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<StockDE>>>>, DBCacheRepoFactory<DECollection<StockDE>>>()
                     .AddScoped<IFactory<string, IRepo<SetIndex>>, DBSetIndexRepoFactory>()
                     .AddScoped<IFactory<string, IBuilder<string, StockDE>>, StockBuilderFactory>()
-                    .AddScoped<IFactory<string, IBuilder<string, DECollection<QuoteGroupDE>>>, AllQuoteGroupBuilderFactory>()
+                    .AddScoped<IFactory<string, IBuilder<string, DECollection<QuoteGroup>>>, AllQuoteGroupBuilderFactory>()
                     .AddScoped<IFactory<string, IBuilder<string, DECollection<StockDE>>>, StockByGroupBuilderFactory>()
                     .AddScoped<IMongoDatabaseWrapper,MongoDatabaseWrapper>()
                     .AddScoped<IMongoClient>(ctx => new MongoClient(ctx.GetService<IConfigurationRoot>().GetSection("MongoConnection:ConnectionString").Value))    
@@ -121,13 +121,13 @@ namespace StockCore
             }        
             return stocks;
         }
-        private static DECollection<QuoteGroupDE> getAllQuoteGroup(IServiceProvider serviceProvider)
+        private static DECollection<QuoteGroup> getAllQuoteGroup(IServiceProvider serviceProvider)
         {
-            DECollection<QuoteGroupDE> groups = null;
+            DECollection<QuoteGroup> groups = null;
             try
             {
                 var tracer=new Tracer(0,null,"Get All Quote Group.",TraceSourceName.TestConsole);
-                var allQuoteGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, DECollection<QuoteGroupDE>>>>();
+                var allQuoteGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, DECollection<QuoteGroup>>>>();
                 var builder = allQuoteGroupBuilderFactory.Build(tracer);
                 Task.Run(async()=>groups = await builder.BuildAsync()).GetAwaiter().GetResult();
             }         
@@ -228,7 +228,7 @@ namespace StockCore
             try
             {
                 var tracer=new Tracer(0,null,"Start Seed Group",TraceSourceName.TestConsole);
-                var operation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<QuoteGroupDE>>>>().Build(tracer);
+                var operation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<QuoteGroup>>>>().Build(tracer);
                 var seedGroup = QuoteGroupData.PrepareData;
                 Task.Run(async()=> await operation.OperateAsync(seedGroup)).GetAwaiter().GetResult();
             }        

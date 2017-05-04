@@ -11,11 +11,11 @@ namespace StockCore.Business.Builder
     public class StockByGroupBuilder : IBuilder<string, DECollection<StockDE>>
     {
         private readonly ILogger logger;
-        private readonly IGetByKey<IEnumerable<QuoteGroupDE>,string> quoteGroupProvider;
+        private readonly IGetByKey<IEnumerable<QuoteGroup>,string> quoteGroupProvider;
         private readonly  IBuilder<string,StockDE> stockBuilder;
         public StockByGroupBuilder(
             ILogger logger,
-            IGetByKey<IEnumerable<QuoteGroupDE>,string> quoteGroupProvider,
+            IGetByKey<IEnumerable<QuoteGroup>,string> quoteGroupProvider,
             IBuilder<string,StockDE> stockBuilder)
         {
             this.logger = logger;

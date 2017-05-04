@@ -11,7 +11,7 @@ using StockCore.Helper;
 
 namespace StockCore.Factory.Sync
 {
-    public class SyncQuoteGroupFactory : BaseFactory<string,IOperation<IEnumerable<QuoteGroupDE>>>
+    public class SyncQuoteGroupFactory : BaseFactory<string,IOperation<IEnumerable<QuoteGroup>>>
     {
         private const string KEY = "SyncQuoteGroup";
         private const int ID = 1017100;
@@ -20,23 +20,23 @@ namespace StockCore.Factory.Sync
         private const int MONPROCESSERRID = 1017103;
         private const int MONOUTERERRID = 1017104;
         private readonly IConfigReader configReader;
-        private readonly IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> dbQuoteGroupDEFactory;
+        private readonly IFactory<string, IGetByKeyRepo<QuoteGroup,string>> dbQuoteGroupDEFactory;
         public SyncQuoteGroupFactory(
             ILogger logger,
-            IFactory<string, IGetByKeyRepo<QuoteGroupDE,string>> dbQuoteGroupDEFactory,
+            IFactory<string, IGetByKeyRepo<QuoteGroup,string>> dbQuoteGroupDEFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbQuoteGroupDEFactory = dbQuoteGroupDEFactory;
             this.configReader = configReader;
         }
-        protected override IOperation<IEnumerable<QuoteGroupDE>> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IOperation<IEnumerable<QuoteGroup>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<QuoteGroupDE>> inner = new BaseSyncData<QuoteGroupDE>(dbQuoteGroupDEFactory.Build(tracer),true);
+            IOperation<IEnumerable<QuoteGroup>> inner = new BaseSyncData<QuoteGroup>(dbQuoteGroupDEFactory.Build(tracer),true);
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonOperationDec<IEnumerable<QuoteGroupDE>>(
+                inner = new MonOperationDec<IEnumerable<QuoteGroup>>(
                     inner,
                     ValidationHelper.ValidateQuoteGroups(1017105),    
                     MONPROCESSERRID,
