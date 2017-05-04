@@ -5,7 +5,7 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.Html
 {
-    public class ConsensusHtmlReader : BaseHtmlReader<ConsensusDE>
+    public class ConsensusHtmlReader : BaseHtmlReader<Consensus>
     {
         public ConsensusHtmlReader(
             IHttpClientWrapper client,
@@ -13,15 +13,15 @@ namespace StockCore.Business.Repo.Html
                 client, 
                 doc, 
                 "http://www.settrade.com/AnalystConsensus/C04_10_stock_saa_p1.jsp?txtSymbol={0}&selectPage=10") { }
-        protected override IEnumerable<ConsensusDE> extractValues(string keyword)
+        protected override IEnumerable<Consensus> extractValues(string keyword)
         {
-            var consensuses = new List<ConsensusDE>();
+            var consensuses = new List<Consensus>();
             var matchedNode = doc.DocumentNode.SelectNodes("//th").SingleOrDefault(node => node.InnerText == "EPS (Baht)");
             if (matchedNode != null)
             {
                     var dataNodes = doc.DocumentNode.SelectNodes("//div[@class='table-responsive']//table//tfoot//tr");
                     consensuses.Add(
-                        new ConsensusDE 
+                        new Consensus 
                         { 
                             Quote = keyword, 
                             Year = extractYear(1),
@@ -33,7 +33,7 @@ namespace StockCore.Business.Repo.Html
                         });
 
                     consensuses.Add(
-                        new ConsensusDE 
+                        new Consensus 
                         { 
                             Quote = keyword, 
                             Year = extractYear(5),

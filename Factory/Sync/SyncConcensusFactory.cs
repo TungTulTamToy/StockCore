@@ -11,7 +11,7 @@ using StockCore.Helper;
 
 namespace StockCore.Factory.Sync
 {
-    public class SyncConcensusFactory : BaseFactory<string,IOperation<IEnumerable<ConsensusDE>>>
+    public class SyncConcensusFactory : BaseFactory<string,IOperation<IEnumerable<Consensus>>>
     {
         private const string KEY = "SyncConsensus";
         private const int ID = 1014100;
@@ -19,26 +19,26 @@ namespace StockCore.Factory.Sync
         private const int OUTERERRID = 1014102;
         private const int MONPROCESSERRID = 1014103;
         private const int MONOUTERERRID = 1014104;
-        private readonly IFactory<string, IGetByKeyRepo<ConsensusDE,string>> dbConsensusFactory;
+        private readonly IFactory<string, IGetByKeyRepo<Consensus,string>> dbConsensusFactory;
         private readonly IConfigReader configReader;
         public SyncConcensusFactory(
             ILogger logger,
-            IFactory<string, IGetByKeyRepo<ConsensusDE,string>> dbConsensusFactory,
+            IFactory<string, IGetByKeyRepo<Consensus,string>> dbConsensusFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbConsensusFactory = dbConsensusFactory;
             this.configReader = configReader;
         }
-        protected override IOperation<IEnumerable<ConsensusDE>> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IOperation<IEnumerable<Consensus>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<ConsensusDE>> inner = new BaseSyncData<ConsensusDE>(dbConsensusFactory.Build(tracer));
+            IOperation<IEnumerable<Consensus>> inner = new BaseSyncData<Consensus>(dbConsensusFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonOperationDec<IEnumerable<ConsensusDE>>(
+                inner = new MonOperationDec<IEnumerable<Consensus>>(
                     inner,
-                    ValidationHelper.ValidateItemsWithStringKeyField<ConsensusDE>(1014102,"Quote"),
+                    ValidationHelper.ValidateItemsWithStringKeyField<Consensus>(1014102,"Quote"),
                     MONPROCESSERRID,
                     OUTERERRID,
                     module.Monitoring,

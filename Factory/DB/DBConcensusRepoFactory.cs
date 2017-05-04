@@ -10,7 +10,7 @@ using StockCore.Aop.Mon;
 
 namespace StockCore.Factory.DB
 {
-    public class DBConcensusRepoFactory : BaseFactory<string,IGetByKeyRepo<ConsensusDE,string>>
+    public class DBConcensusRepoFactory : BaseFactory<string,IGetByKeyRepo<Consensus,string>>
     {
         private const string KEY = "DBConsensusRepo";
         private const string COLLECTIONNAME = "Consensus";
@@ -41,13 +41,13 @@ namespace StockCore.Factory.DB
             this.deleteOneModelBuilder = deleteOneModelBuilder;
             this.configReader = configReader;
         }
-        protected override IGetByKeyRepo<ConsensusDE,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKeyRepo<Consensus,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKeyRepo<ConsensusDE,string> inner = new BaseKeyDBRepo<ConsensusDE>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
+            IGetByKeyRepo<Consensus,string> inner = new BaseKeyDBRepo<Consensus>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByKeyRepoDec<string,ConsensusDE>(
+                inner = new MonGetByKeyRepoDec<string,Consensus>(
                     inner,
                     ValidationHelper.ValidateString(1001105,"Quote"),
                     MONPROCESSERRID,

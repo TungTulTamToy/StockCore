@@ -124,10 +124,10 @@ namespace StockCore.DomainEntity.Data
                             new ShareDE{Amount=2554299239,Date=new DateTime(2011,1,31)},
                             new ShareDE{Amount=2554299239,Date=new DateTime(2010,1,31)}
                         },
-                        Consensuses = new ConsensusDE[] 
+                        Consensuses = new Consensus[] 
                         { 
-                            new ConsensusDE{Average=0.49,Median=0.49,Year=2015},
-                            new ConsensusDE{Average=0.52,Median=0.52,Year=2014} 
+                            new Consensus{Average=0.49,Median=0.49,Year=2015},
+                            new Consensus{Average=0.52,Median=0.52,Year=2014} 
                         }
                     },
                     new BackupStockDE()
@@ -268,10 +268,10 @@ namespace StockCore.DomainEntity.Data
                             new ShareDE{Amount=800000000,Date=new DateTime(2007,1,31)},
                             new ShareDE{Amount=800000000,Date=new DateTime(2006,1,31)}
                         },
-                        Consensuses = new ConsensusDE[] 
+                        Consensuses = new Consensus[] 
                         { 
-                            new ConsensusDE{Average=0.4125,Median=0.4125,Year=2015},
-                            new ConsensusDE{Average=0.375,Median=0.375,Year=2014} 
+                            new Consensus{Average=0.4125,Median=0.4125,Year=2015},
+                            new Consensus{Average=0.375,Median=0.375,Year=2014} 
                         }
                     },
                     new BackupStockDE()
@@ -307,10 +307,10 @@ namespace StockCore.DomainEntity.Data
                             new ShareDE{Amount=399439227,Date=new DateTime(2008,1,31)},
                             new ShareDE{Amount=399439227,Date=new DateTime(2007,1,31)}
                         },
-                        Consensuses = new ConsensusDE[] 
+                        Consensuses = new Consensus[] 
                         { 
-                            new ConsensusDE{Average=0.52573705,Median=0.52573705,Year=2015},
-                            new ConsensusDE{Average=0.47566685,Median=0.47566685,Year=2014} 
+                            new Consensus{Average=0.52573705,Median=0.52573705,Year=2015},
+                            new Consensus{Average=0.47566685,Median=0.47566685,Year=2014} 
                         }
                     },
                     new BackupStockDE()
@@ -862,10 +862,10 @@ namespace StockCore.DomainEntity.Data
                             new ShareDE{Amount=1005000000,Date=new DateTime(2007,1,31)},
                             new ShareDE{Amount=670000000,Date=new DateTime(2006,1,31)}
                         },
-                        Consensuses = new ConsensusDE[] 
+                        Consensuses = new Consensus[] 
                         { 
-                            new ConsensusDE{Average=0.17,Median=0.17,Year=2015},
-                            new ConsensusDE{Average=0.07,Median=0.07,Year=2014} 
+                            new Consensus{Average=0.17,Median=0.17,Year=2015},
+                            new Consensus{Average=0.07,Median=0.07,Year=2014} 
                         }
                     },
                     new BackupStockDE()
@@ -923,10 +923,10 @@ namespace StockCore.DomainEntity.Data
                             new ShareDE{Amount=526252700,Date=new DateTime(2007,1,31)},
                             new ShareDE{Amount=526252700,Date=new DateTime(2006,1,31)}
                         },
-                        Consensuses = new ConsensusDE[] 
+                        Consensuses = new Consensus[] 
                         { 
-                            new ConsensusDE{Average=0.54,Median=0.54,Year=2015},
-                            new ConsensusDE{Average=0.46,Median=0.46,Year=2014} 
+                            new Consensus{Average=0.54,Median=0.54,Year=2015},
+                            new Consensus{Average=0.46,Median=0.46,Year=2014} 
                         }
                     },
                     new BackupStockDE()
@@ -996,10 +996,10 @@ namespace StockCore.DomainEntity.Data
                             new ShareDE{Amount=287777339,Date=new DateTime(2008,1,31)},
                             new ShareDE{Amount=287777339,Date=new DateTime(2007,1,31)}
                         },
-                        Consensuses = new ConsensusDE[] 
+                        Consensuses = new Consensus[] 
                         { 
-                            new ConsensusDE{Average=1.44,Median=1.44,Year=2015},
-                            new ConsensusDE{Average=1.21,Median=1.21,Year=2014} 
+                            new Consensus{Average=1.44,Median=1.44,Year=2015},
+                            new Consensus{Average=1.21,Median=1.21,Year=2014} 
                         }
                     },
                     new BackupStockDE()
@@ -1051,10 +1051,10 @@ namespace StockCore.DomainEntity.Data
                             new ShareDE{Amount=640000000,Date=new DateTime(2008,1,31)},
                             new ShareDE{Amount=640000000,Date=new DateTime(2007,1,31)}
                         },
-                        Consensuses = new ConsensusDE[] 
+                        Consensuses = new Consensus[] 
                         { 
-                            new ConsensusDE{Average=0.41,Median=0.41,Year=2015},
-                            new ConsensusDE{Average=0.36,Median=0.36,Year=2014} 
+                            new Consensus{Average=0.41,Median=0.41,Year=2015},
+                            new Consensus{Average=0.36,Median=0.36,Year=2014} 
                         }
                     },
                     new BackupStockDE()
@@ -1238,10 +1238,10 @@ namespace StockCore.DomainEntity.Data
                             new ShareDE{Amount=470000000,Date=new DateTime(2011,1,31)},
                             new ShareDE{Amount=470000000,Date=new DateTime(2010,1,31)}
                         },
-                        Consensuses = new ConsensusDE[] 
+                        Consensuses = new Consensus[] 
                         { 
-                            new ConsensusDE{Average=0.33,Median=0.33,Year=2015},
-                            new ConsensusDE{Average=0.29,Median=0.29,Year=2014} 
+                            new Consensus{Average=0.33,Median=0.33,Year=2015},
+                            new Consensus{Average=0.29,Median=0.29,Year=2014} 
                         }
                     },
                     new BackupStockDE()

@@ -11,7 +11,7 @@ using StockCore.Helper;
 
 namespace StockCore.Factory.Html
 {
-    public class ConsensusHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<ConsensusDE>,string>>
+    public class ConsensusHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<Consensus>,string>>
     {
         private const string KEY = "ConsensusHtmlReader";
         private const int ID = 1000100;
@@ -32,13 +32,13 @@ namespace StockCore.Factory.Html
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<ConsensusDE>,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<Consensus>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<ConsensusDE>,string> inner = new ConsensusHtmlReader(client,doc);
+            IGetByKey<IEnumerable<Consensus>,string> inner = new ConsensusHtmlReader(client,doc);
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByKeyDec<ConsensusDE>(
+                inner = new MonGetByKeyDec<Consensus>(
                     inner,
                     ValidationHelper.ValidateString(1000105,"Quote"),
                     MONPROCESSERRID,

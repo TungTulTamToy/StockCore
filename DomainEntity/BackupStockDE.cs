@@ -13,6 +13,6 @@ namespace StockCore.DomainEntity
         public IEnumerable<PriceDE> Prices{get;set;}
         public IEnumerable<StatisticDE> Statistics{get;set;}
         public IEnumerable<ShareDE> Shares{get;set;}
-        public IEnumerable<ConsensusDE> Consensuses{get;set;}
+        public IEnumerable<Consensus> Consensuses{get;set;}
     }
 }

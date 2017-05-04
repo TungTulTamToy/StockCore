@@ -5,8 +5,17 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace StockCore.DomainEntity
 {
+    public interface IConsensus:IValidField,IKeyField<string>
+    {
+        string Quote { get; set; }
+        int Year { get; set; }
+        double? Average { get; set; }
+        double? High { get; set; }
+        double? Low { get; set; }
+        double? Median { get; set; }
+    }
     [DataContract]
-    public class ConsensusDE:Persistant,IValidField,IKeyField<string>,ILinqCriteria<ConsensusDE>
+    public class BaseConsensus:Persistant,IConsensus
     {
         public string Key 
         { 
@@ -24,9 +33,13 @@ namespace StockCore.DomainEntity
         [BsonIgnoreIfNullAttribute]
         public double? Median { get; set; }
         public bool IsValid { get; set; }
-        public bool Equals(ConsensusDE other)=>this.Quote == other.Quote && this.Year == other.Year;
+    }
+    [DataContract]
+    public class Consensus:BaseConsensus,ILinqCriteria<Consensus>
+    {
+        public bool Equals(Consensus other)=>this.Quote == other.Quote && this.Year == other.Year;
         public override int GetHashCode()=>this.Quote.GetHashCode()^this.Year.GetHashCode();
-        public ConsensusDE Merge(ConsensusDE other)
+        public Consensus Merge(Consensus other)
         {
             this.Average = other.Average;
             this.High = other.High;
@@ -35,6 +48,6 @@ namespace StockCore.DomainEntity
             return this;
         }
 
-        public bool UpdateCondition(ConsensusDE other)=>this.IsValid != other.IsValid || this.Average != other.Average || this.High != other.High || this.Low != other.Low || this.Median != other.Median;
+        public bool UpdateCondition(Consensus other)=>this.IsValid != other.IsValid || this.Average != other.Average || this.High != other.High || this.Low != other.Low || this.Median != other.Median;
     }
 } 

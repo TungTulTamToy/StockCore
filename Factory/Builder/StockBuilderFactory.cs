@@ -23,13 +23,13 @@ namespace StockCore.Factory.Builder
         private readonly IConfigReader configReader;
         private readonly IFactory<string, IGetByKeyRepo<ShareDE,string>> shareRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<StatisticDE,string>> statisticRepoFactory;
-        private readonly IFactory<string, IGetByKeyRepo<ConsensusDE,string>> consensusRepoFactory;
+        private readonly IFactory<string, IGetByKeyRepo<Consensus,string>> consensusRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<PriceDE,string>> priceRepoFactory;
         private readonly IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>> cacheRepoFactory;
         public StockBuilderFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<ShareDE,string>> shareRepoFactory,
             IFactory<string, IGetByKeyRepo<StatisticDE,string>> statisticRepoFactory,
-            IFactory<string, IGetByKeyRepo<ConsensusDE,string>> consensusRepoFactory,
+            IFactory<string, IGetByKeyRepo<Consensus,string>> consensusRepoFactory,
             IFactory<string, IGetByKeyRepo<PriceDE,string>> priceRepoFactory,
             IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>> cacheRepoFactory,
             IConfigReader configReader
