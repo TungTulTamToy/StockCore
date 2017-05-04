@@ -68,6 +68,11 @@ namespace StockCore.Helper
             };
         }
 
+        public static Func<ILogger,Tracer,string,string,IEnumerable<T>,bool> ValidateItemsWithStringKeyField<T>() where T:IKeyField<string>
+        {
+            return (logger,tracer,moduleName,methodName,items)=>items==null || !items.Any() || items.Any(i=>i==null) || items.Any(i=>string.IsNullOrWhiteSpace(i.Key));
+        }
+
         public static Func<ILogger,Tracer,string,string,IEnumerable<T>,bool> ValidateItems<T>(int errorID,string paramName)
         {
             return (logger,tracer,moduleName,methodName,items)=>{

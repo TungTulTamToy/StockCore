@@ -8,6 +8,7 @@ using StockCore.Business.Repo.AppSetting;
 using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
+using System;
 
 namespace StockCore.Factory.Sync
 {
@@ -36,9 +37,18 @@ namespace StockCore.Factory.Sync
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
+                Func<ILogger,Tracer,string,string,IEnumerable<Consensus>,bool> validate = null;
+                if(tracer.Caller.ID==1016100)//Call from SyncQuoteFactory
+                {
+                    validate = ValidationHelper.ValidateItemsWithStringKeyField<Consensus>();
+                }
+                else
+                {
+                    validate = ValidationHelper.ValidateItemsWithStringKeyField<Consensus>(1014102,"Quote");
+                }
                 inner = new MonOperationDec<IEnumerable<Consensus>>(
                     inner,
-                    ValidationHelper.ValidateItemsWithStringKeyField<Consensus>(1014102,"Quote"),
+                    validate,
                     MONPROCESSERRID,
                     OUTERERRID,
                     module.Monitoring,

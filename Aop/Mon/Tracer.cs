@@ -21,7 +21,10 @@ namespace StockCore.Aop.Mon
         }
         public void AddCallHistory(CallHistory callHistory)
         {
-            CallHistories.Add(callHistory);
+            lock(CallHistories)
+            {
+                CallHistories.Add(callHistory);
+            }
         }
     }
     public class CallHistory

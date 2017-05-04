@@ -55,9 +55,9 @@ namespace StockCore.Business.Operation.SyncFromWeb
             var tupleToInsert = calculateTupleToInsert(webTuple,dbTuple);
 
             var insertTask = insertToDB(tupleToInsert);
-            var updateConsensusTask = updateConcensus(webTuple.Item3,dbTuple.Item3);
-            var updateShareTask = updateShare(webTuple.Item4,dbTuple.Item4);
-            var updateStatisticTask = updateStatistic(webTuple.Item5,dbTuple.Item5);
+            var updateConsensusTask = update(webTuple.Item3,dbTuple.Item3,dbConsensusRepo);
+            var updateShareTask = update(webTuple.Item4,dbTuple.Item4,dbShareRepo);
+            var updateStatisticTask = update(webTuple.Item5,dbTuple.Item5,dbStatisticRepo);
 
             await Task.WhenAll(insertTask,updateConsensusTask,updateShareTask,updateStatisticTask);
         }
@@ -120,20 +120,10 @@ namespace StockCore.Business.Operation.SyncFromWeb
 
             await Task.WhenAll(priceInsertTask,setIndexInsertTask,consensusInsertTask,shareInsertTask,statisticInsertTask);
         }
-        private async Task updateConcensus(IEnumerable<Consensus> webItems, IEnumerable<Consensus> dbItems)
+        private async Task update<T>(IEnumerable<T> webItems, IEnumerable<T> dbItems,IRepo<T> repo) where T:IPersistant,ILinqCriteria<T>
         {
             var items = webItems.GetItemToUpdate(dbItems);
-            await dbConsensusRepo.BatchUpdateAsync(items);
-        }
-        private async Task updateShare(IEnumerable<Share> webItems, IEnumerable<Share> dbItems)
-        {
-            var items = webItems.GetItemToUpdate(dbItems);
-            await dbShareRepo.BatchUpdateAsync(items);
-        }
-        private async Task updateStatistic(IEnumerable<Statistic> webItems, IEnumerable<Statistic> dbItems)
-        {
-            var items = webItems.GetItemToUpdate(dbItems);
-            await dbStatisticRepo.BatchUpdateAsync(items);
+            await repo.BatchUpdateAsync(items);
         }
         private async Task operateBatchInsertAsync<T>(IEnumerable<T> items, IRepo<T> repo) where T:IPersistant
         {
