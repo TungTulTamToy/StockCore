@@ -25,7 +25,7 @@ namespace StockCore.Factory.Sync
         private const int RETRYOUTERERRID = 1016104;
         private const int MONPROCESSERRID = 1016105;
         private const int MONOUTERERRID = 1016106;
-        private readonly IFactory<string, IGetByKeyRepo<PriceDE,string>> dbPriceRepoFactory;
+        private readonly IFactory<string, IGetByKeyRepo<Price,string>> dbPriceRepoFactory;
         private readonly IFactory<string, IRepo<SetIndexDE>> dbSetIndexRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<Consensus,string>> dbConsensusRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<ShareDE,string>> dbShareRepoFactory;
@@ -33,12 +33,12 @@ namespace StockCore.Factory.Sync
         private readonly IFactory<string, IGetByKeyRepo<OperationState,string>> operationStateRepoFactory;
         private readonly IConfigReader configReader;
         private readonly IFactory<string, IGetByKey<IEnumerable<Consensus>,string>> consensusHtmlReaderFactory;
-        private readonly IFactory<string, IGetByKey<IEnumerable<PriceDE>,string>> priceHtmlReaderFactory;
+        private readonly IFactory<string, IGetByKey<IEnumerable<Price>,string>> priceHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<SetIndexDE>,string>> setIndexHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<ShareDE>,string>> shareHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<StatisticDE>,string>> statisticHtmlReaderFactory;
         public SyncQuoteFactory(ILogger logger,
-            IFactory<string, IGetByKeyRepo<PriceDE,string>> dbPriceRepoFactory,
+            IFactory<string, IGetByKeyRepo<Price,string>> dbPriceRepoFactory,
             IFactory<string, IRepo<SetIndexDE>> dbSetIndexRepoFactory,
             IFactory<string, IGetByKeyRepo<Consensus,string>> dbConsensusRepoFactory,
             IFactory<string, IGetByKeyRepo<ShareDE,string>> dbShareRepoFactory,
@@ -46,7 +46,7 @@ namespace StockCore.Factory.Sync
             IFactory<string, IGetByKeyRepo<OperationState,string>> operationStateRepoFactory,
             IConfigReader configReader,
             IFactory<string, IGetByKey<IEnumerable<Consensus>,string>> consensusHtmlReaderFactory,
-            IFactory<string, IGetByKey<IEnumerable<PriceDE>,string>> priceHtmlReaderFactory,
+            IFactory<string, IGetByKey<IEnumerable<Price>,string>> priceHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<SetIndexDE>,string>> setIndexHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<ShareDE>,string>> shareHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<StatisticDE>,string>> statisticHtmlReaderFactory

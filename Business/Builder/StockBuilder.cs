@@ -17,13 +17,13 @@ namespace StockCore.Business.Builder
         private readonly IGetByKey<IEnumerable<ShareDE>,string> shareRepo;
         private readonly IGetByKey<IEnumerable<StatisticDE>,string> statisticRepo;
         private readonly IGetByKey<IEnumerable<Consensus>,string> consensusRepo;
-        private readonly IGetByKey<IEnumerable<PriceDE>,string> priceRepo;
+        private readonly IGetByKey<IEnumerable<Price>,string> priceRepo;
         public StockBuilder(
             ILogger logger,
             IGetByKey<IEnumerable<ShareDE>,string> shareRepo,
             IGetByKey<IEnumerable<StatisticDE>,string> statisticRepo,
             IGetByKey<IEnumerable<Consensus>,string> consensusRepo,
-            IGetByKey<IEnumerable<PriceDE>,string> priceRepo
+            IGetByKey<IEnumerable<Price>,string> priceRepo
             )
         {
             this.logger = logger;
@@ -97,7 +97,7 @@ namespace StockCore.Business.Builder
             return peg;
         }
         private IEnumerable<PeDE> calculatePe(
-            IEnumerable<PriceDE> price,
+            IEnumerable<Price> price,
             IEnumerable<StatisticDE> statistic,
             IEnumerable<ShareDE> shareByYear,
             IEnumerable<Consensus> consensus)
@@ -108,7 +108,7 @@ namespace StockCore.Business.Builder
                 var avgPriceOfEachJan = from p in price
                     where p.Date.Month == 1
                     group p by p.Date.Year into g
-                    select new PriceDE
+                    select new Price
                     {
                         Close = g.WeightedAverage(p => p.Close.Value, p => p.Date.Day),
                         Date = new DateTime(g.Key, 1, 1)
@@ -139,7 +139,7 @@ namespace StockCore.Business.Builder
             }
             return pe;
         }
-        private IEnumerable<PriceCalDE> calculatePriceCalDE(IEnumerable<PriceDE> price)
+        private IEnumerable<PriceCalDE> calculatePriceCalDE(IEnumerable<Price> price)
         {
             var price1Y = price.Where(p => p.Date > DateTime.Now.AddYears(-1));
             var price6M = price.Where(p => p.Date > DateTime.Now.AddMonths(-6));
@@ -174,7 +174,7 @@ namespace StockCore.Business.Builder
             var avgPriceCals = new[] { avgPrice1YCal, avgPrice6MCal, avgPrice3MCal, avgPrice1MCal };
             return avgPriceCals;
         }
-        private double calculateLast(IEnumerable<PriceDE> price)
+        private double calculateLast(IEnumerable<Price> price)
         {
             var last = (from p in price
                 where p.Close.HasValue
@@ -182,7 +182,7 @@ namespace StockCore.Business.Builder
                 select p.Close.Value).FirstOrDefault();
             return last;
         }
-        private double calculateMax(IEnumerable<PriceDE> price)
+        private double calculateMax(IEnumerable<Price> price)
         {
             var max = (from p in price
                 where p.Close.HasValue
@@ -190,7 +190,7 @@ namespace StockCore.Business.Builder
                 select p.Close.Value).FirstOrDefault();
             return max;
         }
-        private double calculateMin(IEnumerable<PriceDE> price)
+        private double calculateMin(IEnumerable<Price> price)
         {
             var min = (from p in price
                 where p.Close.HasValue
@@ -198,7 +198,7 @@ namespace StockCore.Business.Builder
                 select p.Close.Value).FirstOrDefault();
             return min;
         }
-        private double calculateAverage(IEnumerable<PriceDE> price)
+        private double calculateAverage(IEnumerable<Price> price)
         {
             double amountVolumnAcc = 0;
             double amountAcc = 0;

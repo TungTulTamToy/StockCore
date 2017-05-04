@@ -14,17 +14,17 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "ptt",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=404,Date=new DateTime(2017,1,1)},
-                            new PriceDE {Close=236,Date=new DateTime(2016,1,1)},
-                            new PriceDE {Close=346,Date=new DateTime(2015,1,1)},
-                            new PriceDE {Close=276,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=341,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=334,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=335,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=223,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=160,Date=new DateTime(2009,1,1)}
+                            new Price {Close=404,Date=new DateTime(2017,1,1)},
+                            new Price {Close=236,Date=new DateTime(2016,1,1)},
+                            new Price {Close=346,Date=new DateTime(2015,1,1)},
+                            new Price {Close=276,Date=new DateTime(2014,1,1)},
+                            new Price {Close=341,Date=new DateTime(2013,1,1)},
+                            new Price {Close=334,Date=new DateTime(2012,1,1)},
+                            new Price {Close=335,Date=new DateTime(2011,1,1)},
+                            new Price {Close=223,Date=new DateTime(2010,1,1)},
+                            new Price {Close=160,Date=new DateTime(2009,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -54,17 +54,17 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "work",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE{Close=51.75,Date=new DateTime(2017,1,1)},
-                            new PriceDE{Close=38.5,Date=new DateTime(2016,1,1)},
-                            new PriceDE{Close=38.75,Date=new DateTime(2015,1,1)},
-                            new PriceDE{Close=22.2,Date=new DateTime(2014,1,1)},
-                            new PriceDE{Close=48.25,Date=new DateTime(2013,1,1)},
-                            new PriceDE{Close=13.9,Date=new DateTime(2012,1,1)},
-                            new PriceDE{Close=12.1,Date=new DateTime(2011,1,1)},
-                            new PriceDE{Close=6.8,Date=new DateTime(2010,1,1)},
-                            new PriceDE{Close=4.7,Date=new DateTime(2009,1,1)}
+                            new Price{Close=51.75,Date=new DateTime(2017,1,1)},
+                            new Price{Close=38.5,Date=new DateTime(2016,1,1)},
+                            new Price{Close=38.75,Date=new DateTime(2015,1,1)},
+                            new Price{Close=22.2,Date=new DateTime(2014,1,1)},
+                            new Price{Close=48.25,Date=new DateTime(2013,1,1)},
+                            new Price{Close=13.9,Date=new DateTime(2012,1,1)},
+                            new Price{Close=12.1,Date=new DateTime(2011,1,1)},
+                            new Price{Close=6.8,Date=new DateTime(2010,1,1)},
+                            new Price{Close=4.7,Date=new DateTime(2009,1,1)}
                         },
                             Statistics = new StatisticDE[]
                         {
@@ -94,15 +94,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "earth",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE{Close=4.54,Date=new DateTime(2017,1,1)},
-                            new PriceDE{Close=4.7,Date=new DateTime(2016,1,1)},
-                            new PriceDE{Close=4.56,Date=new DateTime(2015,1,1)},
-                            new PriceDE{Close=6.1,Date=new DateTime(2014,1,1)},
-                            new PriceDE{Close=8.25,Date=new DateTime(2013,1,1)},
-                            new PriceDE{Close=4.2,Date=new DateTime(2012,1,1)},
-                            new PriceDE{Close=2.04,Date=new DateTime(2011,1,1)}
+                            new Price{Close=4.54,Date=new DateTime(2017,1,1)},
+                            new Price{Close=4.7,Date=new DateTime(2016,1,1)},
+                            new Price{Close=4.56,Date=new DateTime(2015,1,1)},
+                            new Price{Close=6.1,Date=new DateTime(2014,1,1)},
+                            new Price{Close=8.25,Date=new DateTime(2013,1,1)},
+                            new Price{Close=4.2,Date=new DateTime(2012,1,1)},
+                            new Price{Close=2.04,Date=new DateTime(2011,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -133,17 +133,17 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "banpu",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE{Close=19.4,Date=new DateTime(2017,1,1)},
-                            new PriceDE{Close=12.73,Date=new DateTime(2016,1,1)},
-                            new PriceDE{Close=18.41,Date=new DateTime(2015,1,1)},
-                            new PriceDE{Close=20.08,Date=new DateTime(2014,1,1)},
-                            new PriceDE{Close=29.55,Date=new DateTime(2013,1,1)},
-                            new PriceDE{Close=700.7,Date=new DateTime(2012,1,1)},
-                            new PriceDE{Close=723.28,Date=new DateTime(2011,1,1)},
-                            new PriceDE{Close=509.2,Date=new DateTime(2010,1,1)},
-                            new PriceDE{Close=207.14,Date=new DateTime(2009,1,1)}
+                            new Price{Close=19.4,Date=new DateTime(2017,1,1)},
+                            new Price{Close=12.73,Date=new DateTime(2016,1,1)},
+                            new Price{Close=18.41,Date=new DateTime(2015,1,1)},
+                            new Price{Close=20.08,Date=new DateTime(2014,1,1)},
+                            new Price{Close=29.55,Date=new DateTime(2013,1,1)},
+                            new Price{Close=700.7,Date=new DateTime(2012,1,1)},
+                            new Price{Close=723.28,Date=new DateTime(2011,1,1)},
+                            new Price{Close=509.2,Date=new DateTime(2010,1,1)},
+                            new Price{Close=207.14,Date=new DateTime(2009,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -173,15 +173,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "gunkul",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=4.84,Date=new DateTime(2017,1,1)},
-                            new PriceDE {Close=4.25,Date=new DateTime(2016,1,1)},
-                            new PriceDE {Close=4.54,Date=new DateTime(2015,1,1)},
-                            new PriceDE {Close=1.35,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=1.84,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=10.91,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=4.61,Date=new DateTime(2011,1,1)}
+                            new Price {Close=4.84,Date=new DateTime(2017,1,1)},
+                            new Price {Close=4.25,Date=new DateTime(2016,1,1)},
+                            new Price {Close=4.54,Date=new DateTime(2015,1,1)},
+                            new Price {Close=1.35,Date=new DateTime(2014,1,1)},
+                            new Price {Close=1.84,Date=new DateTime(2013,1,1)},
+                            new Price {Close=10.91,Date=new DateTime(2012,1,1)},
+                            new Price {Close=4.61,Date=new DateTime(2011,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -207,13 +207,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "ivl",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=20.7,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=26.25,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=32,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=39,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=9.43,Date=new DateTime(2010,1,1)},
+                            new Price {Close=20.7,Date=new DateTime(2014,1,1)},
+                            new Price {Close=26.25,Date=new DateTime(2013,1,1)},
+                            new Price {Close=32,Date=new DateTime(2012,1,1)},
+                            new Price {Close=39,Date=new DateTime(2011,1,1)},
+                            new Price {Close=9.43,Date=new DateTime(2010,1,1)},
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -235,16 +235,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "ptl",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=8.8,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=12.1,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=15.9,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=22.8,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=6.85,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=3.98,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=3.72,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=5.96,Date=new DateTime(2007,1,1)}
+                            new Price {Close=8.8,Date=new DateTime(2014,1,1)},
+                            new Price {Close=12.1,Date=new DateTime(2013,1,1)},
+                            new Price {Close=15.9,Date=new DateTime(2012,1,1)},
+                            new Price {Close=22.8,Date=new DateTime(2011,1,1)},
+                            new Price {Close=6.85,Date=new DateTime(2010,1,1)},
+                            new Price {Close=3.98,Date=new DateTime(2009,1,1)},
+                            new Price {Close=3.72,Date=new DateTime(2008,1,1)},
+                            new Price {Close=5.96,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -277,15 +277,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "aj",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=8.85,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=16.6,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=16.6,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=25.68,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=3.41,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=2.53,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=1.87,Date=new DateTime(2008,1,1)}
+                            new Price {Close=8.85,Date=new DateTime(2014,1,1)},
+                            new Price {Close=16.6,Date=new DateTime(2013,1,1)},
+                            new Price {Close=16.6,Date=new DateTime(2012,1,1)},
+                            new Price {Close=25.68,Date=new DateTime(2011,1,1)},
+                            new Price {Close=3.41,Date=new DateTime(2010,1,1)},
+                            new Price {Close=2.53,Date=new DateTime(2009,1,1)},
+                            new Price {Close=1.87,Date=new DateTime(2008,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -316,15 +316,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "vnt",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=10.7,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=20.4,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=17.61,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=11.55,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=6.05,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=3.16,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=5.77,Date=new DateTime(2008,1,1)}
+                            new Price {Close=10.7,Date=new DateTime(2014,1,1)},
+                            new Price {Close=20.4,Date=new DateTime(2013,1,1)},
+                            new Price {Close=17.61,Date=new DateTime(2012,1,1)},
+                            new Price {Close=11.55,Date=new DateTime(2011,1,1)},
+                            new Price {Close=6.05,Date=new DateTime(2010,1,1)},
+                            new Price {Close=3.16,Date=new DateTime(2009,1,1)},
+                            new Price {Close=5.77,Date=new DateTime(2008,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -350,15 +350,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "bcp",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=26.75,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=36,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=19.64,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=16.84,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=12.76,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=5.81,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=10.19,Date=new DateTime(2008,1,1)}
+                            new Price {Close=26.75,Date=new DateTime(2014,1,1)},
+                            new Price {Close=36,Date=new DateTime(2013,1,1)},
+                            new Price {Close=19.64,Date=new DateTime(2012,1,1)},
+                            new Price {Close=16.84,Date=new DateTime(2011,1,1)},
+                            new Price {Close=12.76,Date=new DateTime(2010,1,1)},
+                            new Price {Close=5.81,Date=new DateTime(2009,1,1)},
+                            new Price {Close=10.19,Date=new DateTime(2008,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -384,16 +384,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "pttep",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=153,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=166,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=174.51,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=160.5,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=132,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=99,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=147,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=93,Date=new DateTime(2007,1,1)}
+                            new Price {Close=153,Date=new DateTime(2014,1,1)},
+                            new Price {Close=166,Date=new DateTime(2013,1,1)},
+                            new Price {Close=174.51,Date=new DateTime(2012,1,1)},
+                            new Price {Close=160.5,Date=new DateTime(2011,1,1)},
+                            new Price {Close=132,Date=new DateTime(2010,1,1)},
+                            new Price {Close=99,Date=new DateTime(2009,1,1)},
+                            new Price {Close=147,Date=new DateTime(2008,1,1)},
+                            new Price {Close=93,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -421,14 +421,14 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "pttgc",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=71.25,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=80,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=65.45,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=37,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=24.7,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=9.8,Date=new DateTime(2009,1,1)}
+                            new Price {Close=71.25,Date=new DateTime(2014,1,1)},
+                            new Price {Close=80,Date=new DateTime(2013,1,1)},
+                            new Price {Close=65.45,Date=new DateTime(2012,1,1)},
+                            new Price {Close=37,Date=new DateTime(2011,1,1)},
+                            new Price {Close=24.7,Date=new DateTime(2010,1,1)},
+                            new Price {Close=9.8,Date=new DateTime(2009,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -452,16 +452,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "scc",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=406,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=444,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=339.93,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=312,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=217,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=102,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=204,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=232,Date=new DateTime(2007,1,1)}
+                            new Price {Close=406,Date=new DateTime(2014,1,1)},
+                            new Price {Close=444,Date=new DateTime(2013,1,1)},
+                            new Price {Close=339.93,Date=new DateTime(2012,1,1)},
+                            new Price {Close=312,Date=new DateTime(2011,1,1)},
+                            new Price {Close=217,Date=new DateTime(2010,1,1)},
+                            new Price {Close=102,Date=new DateTime(2009,1,1)},
+                            new Price {Close=204,Date=new DateTime(2008,1,1)},
+                            new Price {Close=232,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -489,16 +489,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "kce",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=22.8,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=10.4,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=4.84,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=7.4,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=5.25,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=0.91,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=3.36,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=2.79,Date=new DateTime(2007,1,1)}
+                            new Price {Close=22.8,Date=new DateTime(2014,1,1)},
+                            new Price {Close=10.4,Date=new DateTime(2013,1,1)},
+                            new Price {Close=4.84,Date=new DateTime(2012,1,1)},
+                            new Price {Close=7.4,Date=new DateTime(2011,1,1)},
+                            new Price {Close=5.25,Date=new DateTime(2010,1,1)},
+                            new Price {Close=0.91,Date=new DateTime(2009,1,1)},
+                            new Price {Close=3.36,Date=new DateTime(2008,1,1)},
+                            new Price {Close=2.79,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -526,16 +526,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "hana",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=24.8,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=24.5,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=17.5,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=25.25,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=21,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=11,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=19,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=24.4,Date=new DateTime(2007,1,1)}
+                            new Price {Close=24.8,Date=new DateTime(2014,1,1)},
+                            new Price {Close=24.5,Date=new DateTime(2013,1,1)},
+                            new Price {Close=17.5,Date=new DateTime(2012,1,1)},
+                            new Price {Close=25.25,Date=new DateTime(2011,1,1)},
+                            new Price {Close=21,Date=new DateTime(2010,1,1)},
+                            new Price {Close=11,Date=new DateTime(2009,1,1)},
+                            new Price {Close=19,Date=new DateTime(2008,1,1)},
+                            new Price {Close=24.4,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -563,16 +563,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "delta",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=53,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=35.5,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=20.33,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=28.5,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=15.17,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=7.41,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=15.14,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=11.69,Date=new DateTime(2007,1,1)}
+                            new Price {Close=53,Date=new DateTime(2014,1,1)},
+                            new Price {Close=35.5,Date=new DateTime(2013,1,1)},
+                            new Price {Close=20.33,Date=new DateTime(2012,1,1)},
+                            new Price {Close=28.5,Date=new DateTime(2011,1,1)},
+                            new Price {Close=15.17,Date=new DateTime(2010,1,1)},
+                            new Price {Close=7.41,Date=new DateTime(2009,1,1)},
+                            new Price {Close=15.14,Date=new DateTime(2008,1,1)},
+                            new Price {Close=11.69,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -600,16 +600,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "advanc",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=209,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=210,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=147.85,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=80,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=83,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=75,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=93.5,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=73,Date=new DateTime(2007,1,1)}
+                            new Price {Close=209,Date=new DateTime(2014,1,1)},
+                            new Price {Close=210,Date=new DateTime(2013,1,1)},
+                            new Price {Close=147.85,Date=new DateTime(2012,1,1)},
+                            new Price {Close=80,Date=new DateTime(2011,1,1)},
+                            new Price {Close=83,Date=new DateTime(2010,1,1)},
+                            new Price {Close=75,Date=new DateTime(2009,1,1)},
+                            new Price {Close=93.5,Date=new DateTime(2008,1,1)},
+                            new Price {Close=73,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -637,15 +637,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "dtac",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=95.75,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=86.5,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=66,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=40.25,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=32.25,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=29.5,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=39.25,Date=new DateTime(2008,1,1)}
+                            new Price {Close=95.75,Date=new DateTime(2014,1,1)},
+                            new Price {Close=86.5,Date=new DateTime(2013,1,1)},
+                            new Price {Close=66,Date=new DateTime(2012,1,1)},
+                            new Price {Close=40.25,Date=new DateTime(2011,1,1)},
+                            new Price {Close=32.25,Date=new DateTime(2010,1,1)},
+                            new Price {Close=29.5,Date=new DateTime(2009,1,1)},
+                            new Price {Close=39.25,Date=new DateTime(2008,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -671,14 +671,14 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "jas",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=7.05,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=6,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=2.02,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=1.8,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=0.45,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=0.36,Date=new DateTime(2009,1,1)}
+                            new Price {Close=7.05,Date=new DateTime(2014,1,1)},
+                            new Price {Close=6,Date=new DateTime(2013,1,1)},
+                            new Price {Close=2.02,Date=new DateTime(2012,1,1)},
+                            new Price {Close=1.8,Date=new DateTime(2011,1,1)},
+                            new Price {Close=0.45,Date=new DateTime(2010,1,1)},
+                            new Price {Close=0.36,Date=new DateTime(2009,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -702,14 +702,14 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "bland",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=1.43,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=1.7,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=0.71,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=0.62,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=0.52,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=0.23,Date=new DateTime(2009,1,1)}
+                            new Price {Close=1.43,Date=new DateTime(2014,1,1)},
+                            new Price {Close=1.7,Date=new DateTime(2013,1,1)},
+                            new Price {Close=0.71,Date=new DateTime(2012,1,1)},
+                            new Price {Close=0.62,Date=new DateTime(2011,1,1)},
+                            new Price {Close=0.52,Date=new DateTime(2010,1,1)},
+                            new Price {Close=0.23,Date=new DateTime(2009,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -733,14 +733,14 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "sc",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=2.98,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=30.25,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=14.5,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=8.5,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=5.25,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=3.05,Date=new DateTime(2009,1,1)}
+                            new Price {Close=2.98,Date=new DateTime(2014,1,1)},
+                            new Price {Close=30.25,Date=new DateTime(2013,1,1)},
+                            new Price {Close=14.5,Date=new DateTime(2012,1,1)},
+                            new Price {Close=8.5,Date=new DateTime(2011,1,1)},
+                            new Price {Close=5.25,Date=new DateTime(2010,1,1)},
+                            new Price {Close=3.05,Date=new DateTime(2009,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -764,13 +764,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "lh",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=8.6,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=11.3,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=6.4,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=5.55,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=5.45,Date=new DateTime(2010,1,1)}
+                            new Price {Close=8.6,Date=new DateTime(2014,1,1)},
+                            new Price {Close=11.3,Date=new DateTime(2013,1,1)},
+                            new Price {Close=6.4,Date=new DateTime(2012,1,1)},
+                            new Price {Close=5.55,Date=new DateTime(2011,1,1)},
+                            new Price {Close=5.45,Date=new DateTime(2010,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -792,16 +792,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "siri",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=1.81,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=4.14,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=1.85,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=5.4,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=4.36,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=1.78,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=3.48,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=2.96,Date=new DateTime(2007,1,1)}
+                            new Price {Close=1.81,Date=new DateTime(2014,1,1)},
+                            new Price {Close=4.14,Date=new DateTime(2013,1,1)},
+                            new Price {Close=1.85,Date=new DateTime(2012,1,1)},
+                            new Price {Close=5.4,Date=new DateTime(2011,1,1)},
+                            new Price {Close=4.36,Date=new DateTime(2010,1,1)},
+                            new Price {Close=1.78,Date=new DateTime(2009,1,1)},
+                            new Price {Close=3.48,Date=new DateTime(2008,1,1)},
+                            new Price {Close=2.96,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -829,16 +829,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "prin",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=1.34,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=2.22,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=1.39,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=2,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=1.85,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=0.71,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=2.73,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=2.94,Date=new DateTime(2007,1,1)}
+                            new Price {Close=1.34,Date=new DateTime(2014,1,1)},
+                            new Price {Close=2.22,Date=new DateTime(2013,1,1)},
+                            new Price {Close=1.39,Date=new DateTime(2012,1,1)},
+                            new Price {Close=2,Date=new DateTime(2011,1,1)},
+                            new Price {Close=1.85,Date=new DateTime(2010,1,1)},
+                            new Price {Close=0.71,Date=new DateTime(2009,1,1)},
+                            new Price {Close=2.73,Date=new DateTime(2008,1,1)},
+                            new Price {Close=2.94,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -871,10 +871,10 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "cpn",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=37.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=86,Date=new DateTime(2013,1,1)}
+                            new Price {Close=37.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=86,Date=new DateTime(2013,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -890,16 +890,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "smit",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=4.72,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=5.1,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=3.44,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=2.66,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=1.44,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=1.36,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=2.06,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=1.88,Date=new DateTime(2007,1,1)}
+                            new Price {Close=4.72,Date=new DateTime(2014,1,1)},
+                            new Price {Close=5.1,Date=new DateTime(2013,1,1)},
+                            new Price {Close=3.44,Date=new DateTime(2012,1,1)},
+                            new Price {Close=2.66,Date=new DateTime(2011,1,1)},
+                            new Price {Close=1.44,Date=new DateTime(2010,1,1)},
+                            new Price {Close=1.36,Date=new DateTime(2009,1,1)},
+                            new Price {Close=2.06,Date=new DateTime(2008,1,1)},
+                            new Price {Close=1.88,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -932,15 +932,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "mcs",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=4.14,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=6.95,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=9.16,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=9.68,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=3.7,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=1.51,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=2.49,Date=new DateTime(2008,1,1)}
+                            new Price {Close=4.14,Date=new DateTime(2014,1,1)},
+                            new Price {Close=6.95,Date=new DateTime(2013,1,1)},
+                            new Price {Close=9.16,Date=new DateTime(2012,1,1)},
+                            new Price {Close=9.68,Date=new DateTime(2011,1,1)},
+                            new Price {Close=3.7,Date=new DateTime(2010,1,1)},
+                            new Price {Close=1.51,Date=new DateTime(2009,1,1)},
+                            new Price {Close=2.49,Date=new DateTime(2008,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -966,15 +966,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "snc",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=15,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=24.8,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=23.45,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=19.11,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=4.94,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=3.04,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=7.88,Date=new DateTime(2008,1,1)}
+                            new Price {Close=15,Date=new DateTime(2014,1,1)},
+                            new Price {Close=24.8,Date=new DateTime(2013,1,1)},
+                            new Price {Close=23.45,Date=new DateTime(2012,1,1)},
+                            new Price {Close=19.11,Date=new DateTime(2011,1,1)},
+                            new Price {Close=4.94,Date=new DateTime(2010,1,1)},
+                            new Price {Close=3.04,Date=new DateTime(2009,1,1)},
+                            new Price {Close=7.88,Date=new DateTime(2008,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1005,9 +1005,9 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "bjchi",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=37.75,Date=new DateTime(2014,1,1)}
+                            new Price {Close=37.75,Date=new DateTime(2014,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1021,15 +1021,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "bwg",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=2.2,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=1.98,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=1.65,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=1.22,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=1.08,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=1.36,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=4.29,Date=new DateTime(2008,1,1)}
+                            new Price {Close=2.2,Date=new DateTime(2014,1,1)},
+                            new Price {Close=1.98,Date=new DateTime(2013,1,1)},
+                            new Price {Close=1.65,Date=new DateTime(2012,1,1)},
+                            new Price {Close=1.22,Date=new DateTime(2011,1,1)},
+                            new Price {Close=1.08,Date=new DateTime(2010,1,1)},
+                            new Price {Close=1.36,Date=new DateTime(2009,1,1)},
+                            new Price {Close=4.29,Date=new DateTime(2008,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1060,12 +1060,12 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "bec",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=46.75,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=73.75,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=43.25,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=31.5,Date=new DateTime(2011,1,1)}
+                            new Price {Close=46.75,Date=new DateTime(2014,1,1)},
+                            new Price {Close=73.75,Date=new DateTime(2013,1,1)},
+                            new Price {Close=43.25,Date=new DateTime(2012,1,1)},
+                            new Price {Close=31.5,Date=new DateTime(2011,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1085,16 +1085,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "cpf",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=28.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=35.5,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=35,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=21.9,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=11.5,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=24.18,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=24.08,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=5.45,Date=new DateTime(2007,1,1)}
+                            new Price {Close=28.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=35.5,Date=new DateTime(2013,1,1)},
+                            new Price {Close=35,Date=new DateTime(2012,1,1)},
+                            new Price {Close=21.9,Date=new DateTime(2011,1,1)},
+                            new Price {Close=11.5,Date=new DateTime(2010,1,1)},
+                            new Price {Close=24.18,Date=new DateTime(2009,1,1)},
+                            new Price {Close=24.08,Date=new DateTime(2008,1,1)},
+                            new Price {Close=5.45,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1121,13 +1121,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "bla",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=61.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=69.75,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=49,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=28.21,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=21.93,Date=new DateTime(2010,1,1)}
+                            new Price {Close=61.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=69.75,Date=new DateTime(2013,1,1)},
+                            new Price {Close=49,Date=new DateTime(2012,1,1)},
+                            new Price {Close=28.21,Date=new DateTime(2011,1,1)},
+                            new Price {Close=21.93,Date=new DateTime(2010,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1149,15 +1149,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "scb",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=149,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=179,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=119,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=94,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=79.75,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=52,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=76,Date=new DateTime(2008,1,1)}
+                            new Price {Close=149,Date=new DateTime(2014,1,1)},
+                            new Price {Close=179,Date=new DateTime(2013,1,1)},
+                            new Price {Close=119,Date=new DateTime(2012,1,1)},
+                            new Price {Close=94,Date=new DateTime(2011,1,1)},
+                            new Price {Close=79.75,Date=new DateTime(2010,1,1)},
+                            new Price {Close=52,Date=new DateTime(2009,1,1)},
+                            new Price {Close=76,Date=new DateTime(2008,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1183,15 +1183,15 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "bbl",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=171.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=209,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=153.5,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=150.75,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=106.62,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=66.7,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=106.07,Date=new DateTime(2008,1,1)}
+                            new Price {Close=171.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=209,Date=new DateTime(2013,1,1)},
+                            new Price {Close=153.5,Date=new DateTime(2012,1,1)},
+                            new Price {Close=150.75,Date=new DateTime(2011,1,1)},
+                            new Price {Close=106.62,Date=new DateTime(2010,1,1)},
+                            new Price {Close=66.7,Date=new DateTime(2009,1,1)},
+                            new Price {Close=106.07,Date=new DateTime(2008,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1217,12 +1217,12 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "ifs",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=2.54,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=2.96,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=1.25,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=1.32,Date=new DateTime(2011,1,1)}
+                            new Price {Close=2.54,Date=new DateTime(2014,1,1)},
+                            new Price {Close=2.96,Date=new DateTime(2013,1,1)},
+                            new Price {Close=1.25,Date=new DateTime(2012,1,1)},
+                            new Price {Close=1.32,Date=new DateTime(2011,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1247,14 +1247,14 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "ttw",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=9.65,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=10.3,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=5.36,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=6.15,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=4.34,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=4.32,Date=new DateTime(2009,1,1)}
+                            new Price {Close=9.65,Date=new DateTime(2014,1,1)},
+                            new Price {Close=10.3,Date=new DateTime(2013,1,1)},
+                            new Price {Close=5.36,Date=new DateTime(2012,1,1)},
+                            new Price {Close=6.15,Date=new DateTime(2011,1,1)},
+                            new Price {Close=4.34,Date=new DateTime(2010,1,1)},
+                            new Price {Close=4.32,Date=new DateTime(2009,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1278,13 +1278,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "singer",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=16.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=19.8,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=6.7,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=3.44,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=1.54,Date=new DateTime(2010,1,1)}
+                            new Price {Close=16.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=19.8,Date=new DateTime(2013,1,1)},
+                            new Price {Close=6.7,Date=new DateTime(2012,1,1)},
+                            new Price {Close=3.44,Date=new DateTime(2011,1,1)},
+                            new Price {Close=1.54,Date=new DateTime(2010,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1306,16 +1306,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "hmpro",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=7.48,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=13.8,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=11.2,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=7.02,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=2.93,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=1.17,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=1.51,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=1.77,Date=new DateTime(2007,1,1)}
+                            new Price {Close=7.48,Date=new DateTime(2014,1,1)},
+                            new Price {Close=13.8,Date=new DateTime(2013,1,1)},
+                            new Price {Close=11.2,Date=new DateTime(2012,1,1)},
+                            new Price {Close=7.02,Date=new DateTime(2011,1,1)},
+                            new Price {Close=2.93,Date=new DateTime(2010,1,1)},
+                            new Price {Close=1.17,Date=new DateTime(2009,1,1)},
+                            new Price {Close=1.51,Date=new DateTime(2008,1,1)},
+                            new Price {Close=1.77,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1343,14 +1343,14 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "sta",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=12.3,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=18.6,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=21.5,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=31.79,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=4.42,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=1.41,Date=new DateTime(2009,1,1)}
+                            new Price {Close=12.3,Date=new DateTime(2014,1,1)},
+                            new Price {Close=18.6,Date=new DateTime(2013,1,1)},
+                            new Price {Close=21.5,Date=new DateTime(2012,1,1)},
+                            new Price {Close=31.79,Date=new DateTime(2011,1,1)},
+                            new Price {Close=4.42,Date=new DateTime(2010,1,1)},
+                            new Price {Close=1.41,Date=new DateTime(2009,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1374,16 +1374,16 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "tvo",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=19.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=25.75,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=19.4,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=28,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=16.8,Date=new DateTime(2010,1,1)},
-                            new PriceDE {Close=9.85,Date=new DateTime(2009,1,1)},
-                            new PriceDE {Close=15.7,Date=new DateTime(2008,1,1)},
-                            new PriceDE {Close=6.44,Date=new DateTime(2007,1,1)}
+                            new Price {Close=19.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=25.75,Date=new DateTime(2013,1,1)},
+                            new Price {Close=19.4,Date=new DateTime(2012,1,1)},
+                            new Price {Close=28,Date=new DateTime(2011,1,1)},
+                            new Price {Close=16.8,Date=new DateTime(2010,1,1)},
+                            new Price {Close=9.85,Date=new DateTime(2009,1,1)},
+                            new Price {Close=15.7,Date=new DateTime(2008,1,1)},
+                            new Price {Close=6.44,Date=new DateTime(2007,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1411,13 +1411,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "jubile",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=22.6,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=23,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=11.1,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=6.9,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=2.8,Date=new DateTime(2010,1,1)}
+                            new Price {Close=22.6,Date=new DateTime(2014,1,1)},
+                            new Price {Close=23,Date=new DateTime(2013,1,1)},
+                            new Price {Close=11.1,Date=new DateTime(2012,1,1)},
+                            new Price {Close=6.9,Date=new DateTime(2011,1,1)},
+                            new Price {Close=2.8,Date=new DateTime(2010,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1439,13 +1439,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "ait",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=25.25,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=67.5,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=52,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=43,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=25.5,Date=new DateTime(2010,1,1)}
+                            new Price {Close=25.25,Date=new DateTime(2014,1,1)},
+                            new Price {Close=67.5,Date=new DateTime(2013,1,1)},
+                            new Price {Close=52,Date=new DateTime(2012,1,1)},
+                            new Price {Close=43,Date=new DateTime(2011,1,1)},
+                            new Price {Close=25.5,Date=new DateTime(2010,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1467,10 +1467,10 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "m",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=48.75,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=47,Date=new DateTime(2013,1,1)}
+                            new Price {Close=48.75,Date=new DateTime(2014,1,1)},
+                            new Price {Close=47,Date=new DateTime(2013,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1486,10 +1486,10 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "hotpot",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=3.16,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=3.92,Date=new DateTime(2013,1,1)}
+                            new Price {Close=3.16,Date=new DateTime(2014,1,1)},
+                            new Price {Close=3.92,Date=new DateTime(2013,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1505,13 +1505,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "bdms",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=118,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=133,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=76.75,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=48,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=23.8,Date=new DateTime(2010,1,1)}
+                            new Price {Close=118,Date=new DateTime(2014,1,1)},
+                            new Price {Close=133,Date=new DateTime(2013,1,1)},
+                            new Price {Close=76.75,Date=new DateTime(2012,1,1)},
+                            new Price {Close=48,Date=new DateTime(2011,1,1)},
+                            new Price {Close=23.8,Date=new DateTime(2010,1,1)}
                         },
                         Statistics = new StatisticDE[]
                         {
@@ -1533,25 +1533,25 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "true",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=6.37,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=5.84,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=2.85,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=3.92,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=1.71,Date=new DateTime(2010,1,1)}
+                            new Price {Close=6.37,Date=new DateTime(2014,1,1)},
+                            new Price {Close=5.84,Date=new DateTime(2013,1,1)},
+                            new Price {Close=2.85,Date=new DateTime(2012,1,1)},
+                            new Price {Close=3.92,Date=new DateTime(2011,1,1)},
+                            new Price {Close=1.71,Date=new DateTime(2010,1,1)}
                         }
                     },
                     new BackupStockDE()
                     {
                         Quote = "rs",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=7.35,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=7.35,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=2.74,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=3.2,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=2,Date=new DateTime(2010,1,1)}
+                            new Price {Close=7.35,Date=new DateTime(2014,1,1)},
+                            new Price {Close=7.35,Date=new DateTime(2013,1,1)},
+                            new Price {Close=2.74,Date=new DateTime(2012,1,1)},
+                            new Price {Close=3.2,Date=new DateTime(2011,1,1)},
+                            new Price {Close=2,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1565,13 +1565,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "intuch",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=70.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=68.25,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=50,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=28.5,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=26.25,Date=new DateTime(2010,1,1)}
+                            new Price {Close=70.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=68.25,Date=new DateTime(2013,1,1)},
+                            new Price {Close=50,Date=new DateTime(2012,1,1)},
+                            new Price {Close=28.5,Date=new DateTime(2011,1,1)},
+                            new Price {Close=26.25,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1585,13 +1585,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "cpall",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=39.25,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=47.25,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=28.25,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=19.25,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=11.4,Date=new DateTime(2010,1,1)}
+                            new Price {Close=39.25,Date=new DateTime(2014,1,1)},
+                            new Price {Close=47.25,Date=new DateTime(2013,1,1)},
+                            new Price {Close=28.25,Date=new DateTime(2012,1,1)},
+                            new Price {Close=19.25,Date=new DateTime(2011,1,1)},
+                            new Price {Close=11.4,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1605,13 +1605,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "makro",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=31.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=22.3,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=12.8,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=7.1,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=4.3,Date=new DateTime(2010,1,1)}
+                            new Price {Close=31.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=22.3,Date=new DateTime(2013,1,1)},
+                            new Price {Close=12.8,Date=new DateTime(2012,1,1)},
+                            new Price {Close=7.1,Date=new DateTime(2011,1,1)},
+                            new Price {Close=4.3,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1625,13 +1625,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "grammy",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=16.6,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=16.59,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=16.97,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=13.78,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=12.75,Date=new DateTime(2010,1,1)}
+                            new Price {Close=16.6,Date=new DateTime(2014,1,1)},
+                            new Price {Close=16.59,Date=new DateTime(2013,1,1)},
+                            new Price {Close=16.97,Date=new DateTime(2012,1,1)},
+                            new Price {Close=13.78,Date=new DateTime(2011,1,1)},
+                            new Price {Close=12.75,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1645,13 +1645,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "mcot",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=28.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=46.25,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=27.75,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=29,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=22.4,Date=new DateTime(2010,1,1)}
+                            new Price {Close=28.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=46.25,Date=new DateTime(2013,1,1)},
+                            new Price {Close=27.75,Date=new DateTime(2012,1,1)},
+                            new Price {Close=29,Date=new DateTime(2011,1,1)},
+                            new Price {Close=22.4,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1665,13 +1665,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "top",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=52,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=75.25,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=64.25,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=69.75,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=40.75,Date=new DateTime(2010,1,1)}
+                            new Price {Close=52,Date=new DateTime(2014,1,1)},
+                            new Price {Close=75.25,Date=new DateTime(2013,1,1)},
+                            new Price {Close=64.25,Date=new DateTime(2012,1,1)},
+                            new Price {Close=69.75,Date=new DateTime(2011,1,1)},
+                            new Price {Close=40.75,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1685,10 +1685,10 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "aav",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=3.56,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=6.1,Date=new DateTime(2013,1,1)}
+                            new Price {Close=3.56,Date=new DateTime(2014,1,1)},
+                            new Price {Close=6.1,Date=new DateTime(2013,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1699,9 +1699,9 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "nok",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=17.6,Date=new DateTime(2014,1,1)}
+                            new Price {Close=17.6,Date=new DateTime(2014,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1711,13 +1711,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "kbank",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=171,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=197.5,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=129,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=118.5,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=82.5,Date=new DateTime(2010,1,1)}
+                            new Price {Close=171,Date=new DateTime(2014,1,1)},
+                            new Price {Close=197.5,Date=new DateTime(2013,1,1)},
+                            new Price {Close=129,Date=new DateTime(2012,1,1)},
+                            new Price {Close=118.5,Date=new DateTime(2011,1,1)},
+                            new Price {Close=82.5,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1731,13 +1731,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "bay",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=32.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=33.5,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=22.2,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=25.5,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=19.5,Date=new DateTime(2010,1,1)}
+                            new Price {Close=32.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=33.5,Date=new DateTime(2013,1,1)},
+                            new Price {Close=22.2,Date=new DateTime(2012,1,1)},
+                            new Price {Close=25.5,Date=new DateTime(2011,1,1)},
+                            new Price {Close=19.5,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1751,13 +1751,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "samart",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=14.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=13.7,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=8.05,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=9,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=5.55,Date=new DateTime(2010,1,1)}
+                            new Price {Close=14.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=13.7,Date=new DateTime(2013,1,1)},
+                            new Price {Close=8.05,Date=new DateTime(2012,1,1)},
+                            new Price {Close=9,Date=new DateTime(2011,1,1)},
+                            new Price {Close=5.55,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1771,13 +1771,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "thcom",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=37.25,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=23.8,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=12.5,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=5.65,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=6.75,Date=new DateTime(2010,1,1)}
+                            new Price {Close=37.25,Date=new DateTime(2014,1,1)},
+                            new Price {Close=23.8,Date=new DateTime(2013,1,1)},
+                            new Price {Close=12.5,Date=new DateTime(2012,1,1)},
+                            new Price {Close=5.65,Date=new DateTime(2011,1,1)},
+                            new Price {Close=6.75,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1791,13 +1791,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "gfpt",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=13.1,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=8.4,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=10.9,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=8.1,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=4.08,Date=new DateTime(2010,1,1)}
+                            new Price {Close=13.1,Date=new DateTime(2014,1,1)},
+                            new Price {Close=8.4,Date=new DateTime(2013,1,1)},
+                            new Price {Close=10.9,Date=new DateTime(2012,1,1)},
+                            new Price {Close=8.1,Date=new DateTime(2011,1,1)},
+                            new Price {Close=4.08,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1811,13 +1811,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "lpn",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=14.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=22,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=13.9,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=8.7,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=6.6,Date=new DateTime(2010,1,1)}
+                            new Price {Close=14.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=22,Date=new DateTime(2013,1,1)},
+                            new Price {Close=13.9,Date=new DateTime(2012,1,1)},
+                            new Price {Close=8.7,Date=new DateTime(2011,1,1)},
+                            new Price {Close=6.6,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1831,13 +1831,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "spali",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=15.9,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=19.6,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=14.1,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=9.85,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=6,Date=new DateTime(2010,1,1)}
+                            new Price {Close=15.9,Date=new DateTime(2014,1,1)},
+                            new Price {Close=19.6,Date=new DateTime(2013,1,1)},
+                            new Price {Close=14.1,Date=new DateTime(2012,1,1)},
+                            new Price {Close=9.85,Date=new DateTime(2011,1,1)},
+                            new Price {Close=6,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1851,13 +1851,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "robins",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=44.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=70.25,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=42,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=20.5,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=10.3,Date=new DateTime(2010,1,1)}
+                            new Price {Close=44.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=70.25,Date=new DateTime(2013,1,1)},
+                            new Price {Close=42,Date=new DateTime(2012,1,1)},
+                            new Price {Close=20.5,Date=new DateTime(2011,1,1)},
+                            new Price {Close=10.3,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1871,13 +1871,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "egco",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=126.5,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=152,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=91.5,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=108.5,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=79,Date=new DateTime(2010,1,1)}
+                            new Price {Close=126.5,Date=new DateTime(2014,1,1)},
+                            new Price {Close=152,Date=new DateTime(2013,1,1)},
+                            new Price {Close=91.5,Date=new DateTime(2012,1,1)},
+                            new Price {Close=108.5,Date=new DateTime(2011,1,1)},
+                            new Price {Close=79,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1891,13 +1891,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "glow",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=67.25,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=79.5,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=55.75,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=41.25,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=31,Date=new DateTime(2010,1,1)}
+                            new Price {Close=67.25,Date=new DateTime(2014,1,1)},
+                            new Price {Close=79.5,Date=new DateTime(2013,1,1)},
+                            new Price {Close=55.75,Date=new DateTime(2012,1,1)},
+                            new Price {Close=41.25,Date=new DateTime(2011,1,1)},
+                            new Price {Close=31,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1911,13 +1911,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "ratch",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=48,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=60.5,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=44,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=40.25,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=34.5,Date=new DateTime(2010,1,1)}
+                            new Price {Close=48,Date=new DateTime(2014,1,1)},
+                            new Price {Close=60.5,Date=new DateTime(2013,1,1)},
+                            new Price {Close=44,Date=new DateTime(2012,1,1)},
+                            new Price {Close=40.25,Date=new DateTime(2011,1,1)},
+                            new Price {Close=34.5,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1931,13 +1931,13 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "ktc",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=28.75,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=41.5,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=14.8,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=12.2,Date=new DateTime(2011,1,1)},
-                            new PriceDE {Close=12.5,Date=new DateTime(2010,1,1)}
+                            new Price {Close=28.75,Date=new DateTime(2014,1,1)},
+                            new Price {Close=41.5,Date=new DateTime(2013,1,1)},
+                            new Price {Close=14.8,Date=new DateTime(2012,1,1)},
+                            new Price {Close=12.2,Date=new DateTime(2011,1,1)},
+                            new Price {Close=12.5,Date=new DateTime(2010,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1951,12 +1951,12 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "mfec",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=6.1,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=6.3,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=4.78,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=4.88,Date=new DateTime(2011,1,1)}
+                            new Price {Close=6.1,Date=new DateTime(2014,1,1)},
+                            new Price {Close=6.3,Date=new DateTime(2013,1,1)},
+                            new Price {Close=4.78,Date=new DateTime(2012,1,1)},
+                            new Price {Close=4.88,Date=new DateTime(2011,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {
@@ -1969,12 +1969,12 @@ namespace StockCore.DomainEntity.Data
                     new BackupStockDE()
                     {
                         Quote = "aeonts",
-                        Prices = new PriceDE[] 
+                        Prices = new Price[] 
                         { 
-                            new PriceDE {Close=87.25,Date=new DateTime(2014,1,1)},
-                            new PriceDE {Close=92,Date=new DateTime(2013,1,1)},
-                            new PriceDE {Close=30,Date=new DateTime(2012,1,1)},
-                            new PriceDE {Close=32.75,Date=new DateTime(2011,1,1)}
+                            new Price {Close=87.25,Date=new DateTime(2014,1,1)},
+                            new Price {Close=92,Date=new DateTime(2013,1,1)},
+                            new Price {Close=30,Date=new DateTime(2012,1,1)},
+                            new Price {Close=32.75,Date=new DateTime(2011,1,1)}
                         },
                         Shares = new ShareDE[] 
                         {

@@ -12,7 +12,7 @@ using System;
 
 namespace StockCore.Factory.Sync
 {
-    public class SyncPriceFactory : BaseFactory<string,IOperation<IEnumerable<PriceDE>>>
+    public class SyncPriceFactory : BaseFactory<string,IOperation<IEnumerable<Price>>>
     {
         private const string KEY = "SyncPrice";
         private const int ID = 1015100;
@@ -20,26 +20,26 @@ namespace StockCore.Factory.Sync
         private const int OUTERERRID = 1015102;
         private const int MONPROCESSERRID = 1015103;
         private const int MONOUTERERRID = 1015104;
-        private readonly IFactory<string, IGetByKeyRepo<PriceDE,string>> dbPriceDEFactory;
+        private readonly IFactory<string, IGetByKeyRepo<Price,string>> dbPriceDEFactory;
         private readonly IConfigReader configReader;
         public SyncPriceFactory(
             ILogger logger,
-            IFactory<string, IGetByKeyRepo<PriceDE,string>> dbPriceDEFactory,
+            IFactory<string, IGetByKeyRepo<Price,string>> dbPriceDEFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbPriceDEFactory = dbPriceDEFactory;
             this.configReader = configReader;
         }
-        protected override IOperation<IEnumerable<PriceDE>> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IOperation<IEnumerable<Price>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<PriceDE>> inner = new BaseSyncData<PriceDE>(dbPriceDEFactory.Build(tracer));
+            IOperation<IEnumerable<Price>> inner = new BaseSyncData<Price>(dbPriceDEFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonOperationDec<IEnumerable<PriceDE>>(
+                inner = new MonOperationDec<IEnumerable<Price>>(
                     inner,
-                    ValidationHelper.ValidateItemsWithStringKeyField<PriceDE>(1015105,"Quote"),
+                    ValidationHelper.ValidateItemsWithStringKeyField<Price>(1015105,"Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

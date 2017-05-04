@@ -5,8 +5,19 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace StockCore.DomainEntity
 {
+    public interface IPrice:IValidField,IKeyField<string>
+    {
+        string Quote { get; set; }
+        DateTime Date { get; set; }
+        double? Open { get; set; }
+        double? High { get; set; }
+        double? Low { get; set; }
+        double? Close { get; set; }
+        double? Amount { get; set; }
+        double? Volumn { get; set; }
+    }
     [DataContract]
-    public class PriceDE:Persistant,IValidField,IKeyField<string>,ILinqCriteria<PriceDE>
+    public class BasePrice:Persistant,IPrice
     {
         public string Key 
         { 
@@ -33,9 +44,12 @@ namespace StockCore.DomainEntity
         [DataMember]
         public double? Volumn { get; set; }
         public bool IsValid { get; set; }
-        public bool Equals(PriceDE other)=>this.Quote == other.Quote && this.Date == other.Date;
+    }
+    public class Price:BasePrice,IPrice,ILinqCriteria<Price>
+    {
+        public bool Equals(Price other)=>this.Quote == other.Quote && this.Date == other.Date;
         public override int GetHashCode()=>this.Quote.GetHashCode()^this.Date.GetHashCode();
-        public PriceDE Merge(PriceDE other)
+        public Price Merge(Price other)
         {
             this.Amount = other.Amount;
             this.Close = other.Close;
@@ -44,6 +58,6 @@ namespace StockCore.DomainEntity
             this.Volumn = other.Volumn;
             return this;
         }
-        public bool UpdateCondition(PriceDE other)=>this.IsValid != other.IsValid || this.Amount != other.Amount || this.Close != other.Close || this.High != other.High || this.Low != other.Low || this.Volumn != other.Volumn;
+        public bool UpdateCondition(Price other)=>this.IsValid != other.IsValid || this.Amount != other.Amount || this.Close != other.Close || this.High != other.High || this.Low != other.Low || this.Volumn != other.Volumn;
     }
 }

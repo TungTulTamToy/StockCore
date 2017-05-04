@@ -11,7 +11,7 @@ using StockCore.Helper;
 
 namespace StockCore.Factory.Html
 {
-    public class PriceHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<PriceDE>,string>>
+    public class PriceHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<Price>,string>>
     {
         private const string KEY = "HtmlPriceGetByKey";
         private const int ID = 1009100;
@@ -32,13 +32,13 @@ namespace StockCore.Factory.Html
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<PriceDE>,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<Price>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<PriceDE>,string> inner = new PriceHtmlReader(client,doc);  
+            IGetByKey<IEnumerable<Price>,string> inner = new PriceHtmlReader(client,doc);  
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByKeyDec<PriceDE>(
+                inner = new MonGetByKeyDec<Price>(
                     inner,
                     ValidationHelper.ValidateString(1009105,"Quote"),
                     MONPROCESSERRID,

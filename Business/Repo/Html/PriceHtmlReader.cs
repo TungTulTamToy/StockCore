@@ -5,7 +5,7 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.Html
 {
-    public class PriceHtmlReader : BaseHtmlReader<PriceDE>
+    public class PriceHtmlReader : BaseHtmlReader<Price>
     {
         public PriceHtmlReader(
             IHttpClientWrapper client,
@@ -13,10 +13,10 @@ namespace StockCore.Business.Repo.Html
                 client, 
                 doc, 
                 "http://www.settrade.com/C04_02_stock_historical_p1.jsp?txtSymbol={0}&selectPage=null&max=50&offset=0") { }
-        protected override IEnumerable<PriceDE> extractValues(string keyword)
+        protected override IEnumerable<Price> extractValues(string keyword)
         {
             var selectedNodes = doc.DocumentNode.SelectNodes("//div[@class='table-responsive']//table//tbody//tr");
-            var prices = new List<PriceDE>();
+            var prices = new List<Price>();
             if(selectedNodes!=null)
             {
                 foreach (var selectedNode in selectedNodes)
@@ -30,7 +30,7 @@ namespace StockCore.Business.Repo.Html
                     var amount = parseDouble(splitedText[8]);
                     var volumn = parseDouble(splitedText[9]);
 
-                    prices.Add(new PriceDE
+                    prices.Add(new Price
                     {
                         Quote = keyword,
                         Date = date,
