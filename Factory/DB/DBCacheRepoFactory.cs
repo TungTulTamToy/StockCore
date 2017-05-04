@@ -10,7 +10,7 @@ using StockCore.Aop.Mon;
 
 namespace StockCore.Factory.DB
 {
-    public class DBCacheRepoFactory<T> : BaseFactory<string,IGetByFuncRepo<string,CacheDE<T>>> where T:IPersistant
+    public class DBCacheRepoFactory<T> : BaseFactory<string,IGetByFuncRepo<string,StockCoreCache<T>>> where T:IPersistant
     {
         private const string KEY = "DBCacheRepo";
         private const string COLLECTIONNAME = "Cache";
@@ -41,9 +41,9 @@ namespace StockCore.Factory.DB
             this.deleteOneModelBuilder = deleteOneModelBuilder;
             this.configReader = configReader;
         }
-        protected override IGetByFuncRepo<string,CacheDE<T>> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByFuncRepo<string,StockCoreCache<T>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByFuncRepo<string,CacheDE<T>> inner = new BaseFuncDBRepo<CacheDE<T>>(
+            IGetByFuncRepo<string,StockCoreCache<T>> inner = new BaseFuncDBRepo<StockCoreCache<T>>(
                 config,
                 db,
                 filterBuilder,
@@ -53,9 +53,9 @@ namespace StockCore.Factory.DB
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByFuncRepoDec<string,CacheDE<T>>(
+                inner = new MonGetByFuncRepoDec<string,StockCoreCache<T>>(
                     inner,
-                    ValidationHelper.ValidateExpression<CacheDE<T>>(1021106,"Criteria"),
+                    ValidationHelper.ValidateExpression<StockCoreCache<T>>(1021106,"Criteria"),
                     ValidationHelper.ValidateString(1021105,"Key"),
                     MONPROCESSERRID,
                     MONOUTERERRID,

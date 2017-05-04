@@ -11,7 +11,7 @@ using StockCore.Extension;
 
 namespace StockCore.Business.Builder
 {
-    public class StockBuilder : IBuilder<string, StockDE>
+    public class StockBuilder : IBuilder<string, Stock>
     {
         private readonly ILogger logger;
         private readonly IGetByKey<IEnumerable<Share>,string> shareRepo;
@@ -32,7 +32,7 @@ namespace StockCore.Business.Builder
             this.consensusRepo = consensusRepo;
             this.priceRepo = priceRepo;
         }
-        public async Task<StockDE> BuildAsync(string quote)
+        public async Task<Stock> BuildAsync(string quote)
         {
             var shareTask = shareRepo.GetByKeyAsync(quote);
             var statisticTask = statisticRepo.GetByKeyAsync(quote);
@@ -52,7 +52,7 @@ namespace StockCore.Business.Builder
             var peg = calculatePeg(pe,growth);
             var ped = calculatePeDiffPercent(pe);
 
-            var stock = new StockDE(quote,price,statistic,share,consensus,netProfit,growth,priceCal,pe,peg,ped);         
+            var stock = new Stock().Load(quote,price,statistic,share,consensus,netProfit,growth,priceCal,pe,peg,ped);         
 
             return stock;
         }
@@ -139,7 +139,7 @@ namespace StockCore.Business.Builder
             }
             return pe;
         }
-        private IEnumerable<PriceCalDE> calculatePriceCalDE(IEnumerable<Price> price)
+        private IEnumerable<PriceCal> calculatePriceCalDE(IEnumerable<Price> price)
         {
             var price1Y = price.Where(p => p.Date > DateTime.Now.AddYears(-1));
             var price6M = price.Where(p => p.Date > DateTime.Now.AddMonths(-6));
@@ -166,10 +166,10 @@ namespace StockCore.Business.Builder
             var last3M = calculateLast(price3M);
             var last1M = calculateLast(price1M);
 
-            var avgPrice1YCal = new PriceCalDE("1Y", avg1Y, min1Y, max1Y, last1Y);
-            var avgPrice6MCal = new PriceCalDE("6M", avg6M, min6M, max6M, last6M);
-            var avgPrice3MCal = new PriceCalDE("3M", avg3M, min3M, max3M, last3M);
-            var avgPrice1MCal = new PriceCalDE("1M", avg1M, min1M, max1M, last1M);
+            var avgPrice1YCal = new PriceCal().Load("1Y", avg1Y, min1Y, max1Y, last1Y);
+            var avgPrice6MCal = new PriceCal().Load("6M", avg6M, min6M, max6M, last6M);
+            var avgPrice3MCal = new PriceCal().Load("3M", avg3M, min3M, max3M, last3M);
+            var avgPrice1MCal = new PriceCal().Load("1M", avg1M, min1M, max1M, last1M);
 
             var avgPriceCals = new[] { avgPrice1YCal, avgPrice6MCal, avgPrice3MCal, avgPrice1MCal };
             return avgPriceCals;

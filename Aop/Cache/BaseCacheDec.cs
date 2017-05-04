@@ -12,13 +12,13 @@ namespace StockCore.Aop.Cache
 {
     public class BaseCacheDec<T>:BaseDec where T:IPersistant
     {
-        private readonly IGetByFuncRepo<string,CacheDE<T>> cacheRepo;
+        private readonly IGetByFuncRepo<string,StockCoreCache<T>> cacheRepo;
         private readonly CacheModule module;
         private readonly int processErrorID;
         private readonly int outerErrorID;
         private readonly ILogger logger;
         public BaseCacheDec(
-            IGetByFuncRepo<string,CacheDE<T>> cacheRepo,        
+            IGetByFuncRepo<string,StockCoreCache<T>> cacheRepo,        
             CacheModule module,
             int processErrorID,            
             int outerErrorID,
@@ -71,7 +71,7 @@ namespace StockCore.Aop.Cache
         {
             if(item!=null)
             {
-                var cacheDE = new CacheDE<T>(){
+                var cacheDE = new StockCoreCache<T>(){
                     Key=key,
                     Group=module.Key,
                     CacheObject=item,

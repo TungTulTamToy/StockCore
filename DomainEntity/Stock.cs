@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace StockCore.DomainEntity
 {
-    public class StockDE:Persistant,IKeyField<string>
+    public class Stock:Persistant,IKeyField<string>
     {
         public string Key
         {
@@ -17,11 +17,15 @@ namespace StockCore.DomainEntity
         public IEnumerable<Consensus> Consensus{get;set;}
         public IEnumerable<NetProfitDE> NetProfit{get;set;}
         public IEnumerable<GrowthDE> Growth{get;set;}
-        public IEnumerable<PriceCalDE> PriceCal{get;set;}
+        public IEnumerable<PriceCal> PriceCal{get;set;}
         public IEnumerable<PeDE> Pe{get;set;}
         public IEnumerable<PegDE> Peg{get;set;}
         public IEnumerable<PeDiffPercentDE> PeDiffPercent{get;set;}
-        public StockDE(
+    }
+    public static class StockExtention
+    {
+        public static Stock Load(
+            this Stock item,
             string quote,
             IEnumerable<Price> price,
             IEnumerable<Statistic> statistic,
@@ -29,22 +33,23 @@ namespace StockCore.DomainEntity
             IEnumerable<Consensus> consensus,
             IEnumerable<NetProfitDE> netprofit,
             IEnumerable<GrowthDE> growth,
-            IEnumerable<PriceCalDE> pricecal,
+            IEnumerable<PriceCal> pricecal,
             IEnumerable<PeDE> pe,
             IEnumerable<PegDE> peg,
             IEnumerable<PeDiffPercentDE> pediffpercent)
         {
-            this.Quote = quote;
-            this.Price = price;
-            this.Statistic = statistic;
-            this.Share = share;
-            this.Consensus = consensus;
-            this.NetProfit = netprofit;
-            this.Growth = growth;
-            this.PriceCal = pricecal;
-            this.Pe = pe;
-            this.Peg = peg;
-            this.PeDiffPercent = pediffpercent;
+            item.Quote = quote;
+            item.Price = price;
+            item.Statistic = statistic;
+            item.Share = share;
+            item.Consensus = consensus;
+            item.NetProfit = netprofit;
+            item.Growth = growth;
+            item.PriceCal = pricecal;
+            item.Pe = pe;
+            item.Peg = peg;
+            item.PeDiffPercent = pediffpercent;
+            return item;
         }
     }
 }

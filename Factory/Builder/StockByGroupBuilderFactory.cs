@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace StockCore.Factory.Builder
 {
-    public class StockByGroupBuilderFactory : BaseFactory<string,IBuilder<string, DECollection<StockDE>>>
+    public class StockByGroupBuilderFactory : BaseFactory<string,IBuilder<string, DECollection<Stock>>>
     {
         private const string KEY = "StockByGroupBuilder";
         private const int ID = 1023100;
@@ -23,12 +23,12 @@ namespace StockCore.Factory.Builder
         private const int CACHEOUTERERRID = 1023106;
         private readonly IConfigReader configReader;
         private readonly IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory;
-        private readonly IFactory<string, IBuilder<string, StockDE>> stockBuilderFactory;
-        private readonly IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<StockDE>>>> cacheRepoFactory;
+        private readonly IFactory<string, IBuilder<string, Stock>> stockBuilderFactory;
+        private readonly IFactory<string, IGetByFuncRepo<string,StockCoreCache<DECollection<Stock>>>> cacheRepoFactory;
         public StockByGroupBuilderFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory,
-            IFactory<string, IBuilder<string, StockDE>> stockBuilderFactory,
-            IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<StockDE>>>> cacheRepoFactory,
+            IFactory<string, IBuilder<string, Stock>> stockBuilderFactory,
+            IFactory<string, IGetByFuncRepo<string,StockCoreCache<DECollection<Stock>>>> cacheRepoFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
@@ -37,9 +37,9 @@ namespace StockCore.Factory.Builder
             this.cacheRepoFactory = cacheRepoFactory;
             this.configReader = configReader;
         }
-        protected override IBuilder<string, DECollection<StockDE>> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IBuilder<string, DECollection<Stock>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IBuilder<string, DECollection<StockDE>> inner = new StockByGroupBuilder(
+            IBuilder<string, DECollection<Stock>> inner = new StockByGroupBuilder(
                 logger,
                 quoteGroupRepoFactory.Build(tracer),
                 stockBuilderFactory.Build(tracer)
@@ -47,7 +47,7 @@ namespace StockCore.Factory.Builder
             var module = configReader.GetByKey(getAopKey());
             if(module.IsCacheActive())
             {
-                inner = new CacheBuilderDec<string,DECollection<StockDE>>(
+                inner = new CacheBuilderDec<string,DECollection<Stock>>(
                     inner,
                     CacheHelper.GetKeyByString(),
                     cacheRepoFactory.Build(tracer),
@@ -59,7 +59,7 @@ namespace StockCore.Factory.Builder
             }
             if(module.IsMonitoringActive())
             {
-                inner = new MonBuilderDec<string,DECollection<StockDE>>(
+                inner = new MonBuilderDec<string,DECollection<Stock>>(
                     inner,
                     ValidationHelper.ValidateString(1023107,"GroupName"),
                     MONPROCESSERRID,

@@ -14,7 +14,7 @@ namespace StockCore.Aop.Cache
         public CacheBuilderDec(
             IBuilder<TInput, TResult> inner,
             Func<string,string,TInput,string> getKey,
-            IGetByFuncRepo<string,CacheDE<TResult>> cacheRepo,            
+            IGetByFuncRepo<string,StockCoreCache<TResult>> cacheRepo,            
             CacheModule module,
             int processErrorID,            
             int outerErrorID,

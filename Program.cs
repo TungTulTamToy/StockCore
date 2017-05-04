@@ -62,13 +62,13 @@ namespace StockCore
                     .AddScoped<IFactory<string, IGetByKeyRepo<Statistic,string>>, DBStatisticRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Price,string>>, DBPriceRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroup,string>>, DBQuoteGroupRepoFactory>()                                        
-                    .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<StockDE>>>, DBCacheRepoFactory<StockDE>>()
-                    .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroup>>>>, DBCacheRepoFactory<DECollection<QuoteGroup>>>()
-                    .AddScoped<IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<StockDE>>>>, DBCacheRepoFactory<DECollection<StockDE>>>()
+                    .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<Stock>>>, DBCacheRepoFactory<Stock>>()
+                    .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<DECollection<QuoteGroup>>>>, DBCacheRepoFactory<DECollection<QuoteGroup>>>()
+                    .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<DECollection<Stock>>>>, DBCacheRepoFactory<DECollection<Stock>>>()
                     .AddScoped<IFactory<string, IRepo<SetIndex>>, DBSetIndexRepoFactory>()
-                    .AddScoped<IFactory<string, IBuilder<string, StockDE>>, StockBuilderFactory>()
+                    .AddScoped<IFactory<string, IBuilder<string, Stock>>, StockBuilderFactory>()
                     .AddScoped<IFactory<string, IBuilder<string, DECollection<QuoteGroup>>>, AllQuoteGroupBuilderFactory>()
-                    .AddScoped<IFactory<string, IBuilder<string, DECollection<StockDE>>>, StockByGroupBuilderFactory>()
+                    .AddScoped<IFactory<string, IBuilder<string, DECollection<Stock>>>, StockByGroupBuilderFactory>()
                     .AddScoped<IMongoDatabaseWrapper,MongoDatabaseWrapper>()
                     .AddScoped<IMongoClient>(ctx => new MongoClient(ctx.GetService<IConfigurationRoot>().GetSection("MongoConnection:ConnectionString").Value))    
 
@@ -105,13 +105,13 @@ namespace StockCore
                 Console.WriteLine(ex);
             }
         }
-        private static DECollection<StockDE> getStockByGroup(IServiceProvider serviceProvider,string quoteGroupName)
+        private static DECollection<Stock> getStockByGroup(IServiceProvider serviceProvider,string quoteGroupName)
         {
-            DECollection<StockDE> stocks = null;
+            DECollection<Stock> stocks = null;
             try
             {
                 var tracer=new Tracer(0,null,"Get Stock by Quote Group.",TraceSourceName.TestConsole);
-                var stockByGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, DECollection<StockDE>>>>();
+                var stockByGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, DECollection<Stock>>>>();
                 var builder = stockByGroupBuilderFactory.Build(tracer);
                 Task.Run(async()=>stocks = await builder.BuildAsync(quoteGroupName)).GetAwaiter().GetResult();
             }         
@@ -137,13 +137,13 @@ namespace StockCore
             }        
             return groups;
         }
-        private static StockDE getStockInfo(IServiceProvider serviceProvider,string quote)
+        private static Stock getStockInfo(IServiceProvider serviceProvider,string quote)
         {
-            StockDE stockInfo = null;
+            Stock stockInfo = null;
             try
             {
                 var tracer=new Tracer(0,null,"Get Stock Info.",TraceSourceName.TestConsole);
-                var stockBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, StockDE>>>();
+                var stockBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, Stock>>>();
                 var builder = stockBuilderFactory.Build(tracer);
                 Task.Run(async()=>stockInfo = await builder.BuildAsync(quote)).GetAwaiter().GetResult();
             }         

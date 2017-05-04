@@ -23,10 +23,10 @@ namespace StockCore.Factory.Builder
         private const int CACHEOUTERERRID = 1022106;
         private readonly IConfigReader configReader;
         private readonly IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory;
-        private readonly IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroup>>>> cacheRepoFactory;
+        private readonly IFactory<string, IGetByFuncRepo<string,StockCoreCache<DECollection<QuoteGroup>>>> cacheRepoFactory;
         public AllQuoteGroupBuilderFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory,
-            IFactory<string, IGetByFuncRepo<string,CacheDE<DECollection<QuoteGroup>>>> cacheRepoFactory,
+            IFactory<string, IGetByFuncRepo<string,StockCoreCache<DECollection<QuoteGroup>>>> cacheRepoFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
