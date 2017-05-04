@@ -5,8 +5,16 @@ using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace StockCore.DomainEntity
 {
+    public interface IBaseDE
+    {
+        string Id { get; set; }
+        DateTime? UpdatedOn { get; set; }
+        DateTime? CreatedOn { get; set; }
+        string CreateBy { get; set; }
+        string UpdateBy { get; set; }
+    }
     [Serializable]
-    public class BaseDE
+    public class BaseDE:IBaseDE
     {
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public string Id { get; set; }

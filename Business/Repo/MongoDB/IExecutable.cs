@@ -4,7 +4,7 @@ using StockCore.DomainEntity;
 
 namespace StockCore.Business.Repo.MongoDB
 {
-    public interface IExecutable<T> where T:BaseDE
+    public interface IExecutable<T> where T:IBaseDE
     {
         Task InsertAsync(T item);
         Task BatchInsertAsync(IEnumerable<T> items);

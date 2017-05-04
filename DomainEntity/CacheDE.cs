@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace StockCore.DomainEntity
 {
-    public class CacheDE<T>:BaseDE,IKeyField<string> where T:BaseDE
+    public class CacheDE<T>:BaseDE,IKeyField<string> where T:IBaseDE
     {
         public string Key { get; set; }
         public string Group { get; set; }

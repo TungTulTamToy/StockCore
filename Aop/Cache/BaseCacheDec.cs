@@ -10,7 +10,7 @@ using StockCore.Helper;
 
 namespace StockCore.Aop.Cache
 {
-    public class BaseCacheDec<T>:BaseDec where T:BaseDE
+    public class BaseCacheDec<T>:BaseDec where T:IBaseDE
     {
         private readonly IGetByFuncRepo<string,CacheDE<T>> cacheRepo;
         private readonly CacheModule module;
@@ -37,7 +37,7 @@ namespace StockCore.Aop.Cache
             [CallerMemberName]string methodName=""
             )
         {
-            T item = null;
+            T item = default(T);
             string key = "";
             await baseDecOperateAsync(
                 validateAsync:async()=> {
@@ -55,7 +55,7 @@ namespace StockCore.Aop.Cache
         private async Task<T> getItemFromCacheAsync(string key)
         {
             var cache = await cacheRepo.GetByFuncAsync(i=>i.Key==key&&i.ExpireAt>DateTime.Now);
-            T item = null;            
+            T item = default(T);            
             if(cache!=null && cache.Any())
             {
                 logger.TraceMessage(module.Key,$"[{key}] Cache hit.");                

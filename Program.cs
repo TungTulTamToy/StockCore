@@ -90,15 +90,15 @@ namespace StockCore
                 seedGroup(serviceProvider);
                 syncBackupData(serviceProvider);
 
-                //var stockInfo = getStockInfo(serviceProvider,"ptt");
-                //stockInfo = getStockInfo(serviceProvider,"work");
-                //var groups = getAllQuoteGroup(serviceProvider);
-                //var groupName = "Check";
-                //var stocks = getStockByGroup(serviceProvider,groupName);
+                var stockInfo = getStockInfo(serviceProvider,"ptt");
+                stockInfo = getStockInfo(serviceProvider,"work");
+                var groups = getAllQuoteGroup(serviceProvider);
+                var groupName = "Check";
+                var stocks = getStockByGroup(serviceProvider,groupName);
 
-                //stockInfo = getStockInfo(serviceProvider,"ptt");
-                //groups = getAllQuoteGroup(serviceProvider);
-                //stocks = getStockByGroup(serviceProvider,groupName);
+                stockInfo = getStockInfo(serviceProvider,"ptt");
+                groups = getAllQuoteGroup(serviceProvider);
+                stocks = getStockByGroup(serviceProvider,groupName);
             }        
             catch(Exception ex)
             {   

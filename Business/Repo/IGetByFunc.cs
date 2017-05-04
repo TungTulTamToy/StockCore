@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StockCore.Business.Repo
 {
-    public interface IGetByFunc<T> where T:class
+    public interface IGetByFunc<T>
     {
         Task<IEnumerable<T>> GetByFuncAsync(Expression<Func<T, bool>> func);
     }

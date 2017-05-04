@@ -135,7 +135,7 @@ namespace StockCore.Business.Operation.SyncFromWeb
             var items = webItems.GetItemToUpdate(dbItems);
             await dbStatisticRepo.BatchUpdateAsync(items);
         }
-        private async Task operateBatchInsertAsync<T>(IEnumerable<T> items, IRepo<T> repo) where T:BaseDE
+        private async Task operateBatchInsertAsync<T>(IEnumerable<T> items, IRepo<T> repo) where T:IBaseDE
         {
             await repo.BatchInsertAsync(items);
         }

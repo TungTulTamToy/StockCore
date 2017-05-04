@@ -7,7 +7,7 @@ using System;
 
 namespace StockCore.Aop.Mon
 {
-    public class MonGetByKeyRepoDec<TInput,TResult> : MonRepoDec<TResult>, IGetByKeyRepo<TResult,TInput> where TInput:class where TResult:BaseDE,IKeyField<string>
+    public class MonGetByKeyRepoDec<TInput,TResult> : MonRepoDec<TResult>, IGetByKeyRepo<TResult,TInput> where TInput:class where TResult:IBaseDE,IKeyField<string>
     {
         private readonly Func<ILogger,Tracer,string,string,TInput,bool> validateQuote;
         public MonGetByKeyRepoDec(
