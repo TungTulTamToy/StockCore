@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace StockCore.DomainEntity
 {
     [DataContract]
-    public class PriceDE:BaseDE,IValidField,IKeyField<string>,ILinqCriteria<PriceDE>
+    public class PriceDE:Persistant,IValidField,IKeyField<string>,ILinqCriteria<PriceDE>
     {
         public string Key 
         { 

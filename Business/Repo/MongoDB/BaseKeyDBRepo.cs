@@ -6,7 +6,7 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.MongoDB
 {
-    public class BaseKeyDBRepo<T> : BaseAllDBRepo<T>, IGetByKeyRepo<T,string> where T:IBaseDE,IKeyField<string>
+    public class BaseKeyDBRepo<T> : BaseAllDBRepo<T>, IGetByKeyRepo<T,string> where T:IPersistant,IKeyField<string>
     {
         public BaseKeyDBRepo(
             IConfigProvider config, 

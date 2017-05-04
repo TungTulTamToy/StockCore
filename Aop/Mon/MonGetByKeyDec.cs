@@ -8,7 +8,7 @@ using StockCore.Extension;
 
 namespace StockCore.Aop.Mon
 {
-    public class MonGetByKeyDec<T> : BaseMonDec,IGetByKey<IEnumerable<T>,string> where T:IBaseDE
+    public class MonGetByKeyDec<T> : BaseMonDec,IGetByKey<IEnumerable<T>,string> where T:IPersistant
     {
         private readonly IGetByKey<IEnumerable<T>,string> inner; 
         private readonly Func<ILogger,Tracer,string,string,string,bool> validateQuote;

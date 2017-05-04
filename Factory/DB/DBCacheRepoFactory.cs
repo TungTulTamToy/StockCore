@@ -10,7 +10,7 @@ using StockCore.Aop.Mon;
 
 namespace StockCore.Factory.DB
 {
-    public class DBCacheRepoFactory<T> : BaseFactory<string,IGetByFuncRepo<string,CacheDE<T>>> where T:IBaseDE
+    public class DBCacheRepoFactory<T> : BaseFactory<string,IGetByFuncRepo<string,CacheDE<T>>> where T:IPersistant
     {
         private const string KEY = "DBCacheRepo";
         private const string COLLECTIONNAME = "Cache";

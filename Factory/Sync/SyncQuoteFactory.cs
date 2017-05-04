@@ -30,7 +30,7 @@ namespace StockCore.Factory.Sync
         private readonly IFactory<string, IGetByKeyRepo<ConsensusDE,string>> dbConsensusRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<ShareDE,string>> dbShareRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<StatisticDE,string>> dbStatisticRepoFactory;
-        private readonly IFactory<string, IGetByKeyRepo<OperationStateDE,string>> operationStateRepoFactory;
+        private readonly IFactory<string, IGetByKeyRepo<OperationState,string>> operationStateRepoFactory;
         private readonly IConfigReader configReader;
         private readonly IFactory<string, IGetByKey<IEnumerable<ConsensusDE>,string>> consensusHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<PriceDE>,string>> priceHtmlReaderFactory;
@@ -43,7 +43,7 @@ namespace StockCore.Factory.Sync
             IFactory<string, IGetByKeyRepo<ConsensusDE,string>> dbConsensusRepoFactory,
             IFactory<string, IGetByKeyRepo<ShareDE,string>> dbShareRepoFactory,
             IFactory<string, IGetByKeyRepo<StatisticDE,string>> dbStatisticRepoFactory,
-            IFactory<string, IGetByKeyRepo<OperationStateDE,string>> operationStateRepoFactory,
+            IFactory<string, IGetByKeyRepo<OperationState,string>> operationStateRepoFactory,
             IConfigReader configReader,
             IFactory<string, IGetByKey<IEnumerable<ConsensusDE>,string>> consensusHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<PriceDE>,string>> priceHtmlReaderFactory,

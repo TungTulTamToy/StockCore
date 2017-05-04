@@ -8,7 +8,7 @@ using System;
 
 namespace StockCore.Business.Operation.Sync
 {
-    public class BaseSyncData<T> : IOperation<IEnumerable<T>> where T:IBaseDE,ILinqCriteria<T>,IKeyField<string>
+    public class BaseSyncData<T> : IOperation<IEnumerable<T>> where T:IPersistant,ILinqCriteria<T>,IKeyField<string>
     {
         private readonly IGetByKeyRepo<T,string> repo;
         private readonly bool inCludeRemove;

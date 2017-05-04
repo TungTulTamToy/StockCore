@@ -56,7 +56,7 @@ namespace StockCore
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<SetIndexDE>,string>>, SetIndexHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<ShareDE>,string>>, ShareHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<StatisticDE>,string>>, StatisticHtmlReaderFactory>()
-                    .AddScoped<IFactory<string, IGetByKeyRepo<OperationStateDE,string>>, DBOperationStateRepoFactory>()                    
+                    .AddScoped<IFactory<string, IGetByKeyRepo<OperationState,string>>, DBOperationStateRepoFactory>()                    
                     .AddScoped<IFactory<string, IGetByKeyRepo<ConsensusDE,string>>, DBConcensusRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<ShareDE,string>>, DBShareRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<StatisticDE,string>>, DBStatisticRepoFactory>()

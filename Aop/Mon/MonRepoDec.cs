@@ -8,7 +8,7 @@ using StockCore.Extension;
 
 namespace StockCore.Aop.Mon
 {
-    public class MonRepoDec<T> : BaseMonDec,IRepo<T> where T:IBaseDE
+    public class MonRepoDec<T> : BaseMonDec,IRepo<T> where T:IPersistant
     {
         protected readonly IRepo<T> inner; 
         public MonRepoDec(

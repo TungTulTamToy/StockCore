@@ -18,7 +18,7 @@ namespace StockCore.Aop.Retry
 {
     public class BaseRetryDec : BaseDec
     {
-        private readonly IGetByKeyRepo<OperationStateDE,string> operationStateRepo;
+        private readonly IGetByKeyRepo<OperationState,string> operationStateRepo;
         private readonly StockCore.DomainEntity.RetryModule module;
         private readonly int processErrorID;
         private readonly ILogger logger;
@@ -26,7 +26,7 @@ namespace StockCore.Aop.Retry
         private readonly OperationName operationName;
         public BaseRetryDec(
             OperationName operationName,
-            IGetByKeyRepo<OperationStateDE,string> operationStateRepo,            
+            IGetByKeyRepo<OperationState,string> operationStateRepo,            
             StockCore.DomainEntity.RetryModule module,
             int outerErrorID,
             int processErrorID,            
@@ -45,7 +45,7 @@ namespace StockCore.Aop.Retry
             Func<Task> innerProcessAsync,
             [CallerMemberName]string methodName="")
         {
-            IEnumerable<OperationStateDE> items = null;
+            IEnumerable<OperationState> items = null;
             string key = "";
             await baseDecOperateAsync(
                 validateAsync:async()=>{
@@ -65,28 +65,28 @@ namespace StockCore.Aop.Retry
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,info:$"Key:[{key}]")
             );
         }
-        private bool shouldRetryAsync(IEnumerable<OperationStateDE> items,string key,OperationName operationName)
+        private bool shouldRetryAsync(IEnumerable<OperationState> items,string key,OperationName operationName)
         {
             var selectedItems = from i in items where 
                 i.OperationName==operationName && 
-                i.OperationState==true &&
+                i.Activated==true &&
                 i.Date == DateTime.Now.Date
                 select i;
             return !selectedItems.Any();
         }
 
-        private async Task saveStateAsync(IEnumerable<OperationStateDE> items,string key,bool state,OperationName operationName)
+        private async Task saveStateAsync(IEnumerable<OperationState> items,string key,bool state,OperationName operationName)
         {
             var selectedItems = from i in items where i.OperationName==operationName select i;
             if(selectedItems.Any())
             {
                 await operationStateRepo.BatchDeleteAsync(selectedItems);
             }
-            var newItem = new OperationStateDE()
+            var newItem = new OperationState()
             {
                 Quote=key,
                 Date=DateTime.Now.Date,
-                OperationState = state,
+                Activated = state,
                 OperationName = OperationName.RetrySyncQuoteDec
             };
             await operationStateRepo.InsertAsync(newItem);                

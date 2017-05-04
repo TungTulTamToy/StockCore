@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace StockCore.Aop.Mon
 {
-    public class MonGetByFuncRepoDec<TInput,TResult> : MonGetByKeyRepoDec<TInput,TResult>, IGetByFuncRepo<TInput,TResult> where TInput:class where TResult:IBaseDE,IKeyField<string>
+    public class MonGetByFuncRepoDec<TInput,TResult> : MonGetByKeyRepoDec<TInput,TResult>, IGetByFuncRepo<TInput,TResult> where TInput:class where TResult:IPersistant,IKeyField<string>
     {
         private readonly Func<ILogger,Tracer,string,string,Expression<Func<TResult,bool>>,bool> validateExpression;
         public MonGetByFuncRepoDec(

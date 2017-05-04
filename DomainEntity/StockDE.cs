@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace StockCore.DomainEntity
 {
-    public class StockDE:BaseDE,IKeyField<string>
+    public class StockDE:Persistant,IKeyField<string>
     {
         public string Key
         {

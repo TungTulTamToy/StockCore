@@ -7,7 +7,7 @@ using StockCore.DomainEntity;
 
 namespace StockCore.Aop.Cache
 {
-    public class CacheBuilderDec<TInput,TResult>:BaseCacheDec<TResult>,IBuilder<TInput, TResult> where TInput:class where TResult:IBaseDE
+    public class CacheBuilderDec<TInput,TResult>:BaseCacheDec<TResult>,IBuilder<TInput, TResult> where TInput:class where TResult:IPersistant
     {
         private readonly IBuilder<TInput, TResult> inner; 
         private readonly Func<string,string,TInput, string> getKey;

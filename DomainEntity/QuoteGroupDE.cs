@@ -6,7 +6,7 @@ using StockCore.Helper;
 namespace StockCore.DomainEntity
 {
     [Serializable]
-    public class QuoteGroupDE:BaseDE,IKeyField<string>,ILinqCriteria<QuoteGroupDE>
+    public class QuoteGroupDE:Persistant,IKeyField<string>,ILinqCriteria<QuoteGroupDE>
     {
         public string Name { get; set; }
         public IEnumerable<string> Quotes{get;set;}

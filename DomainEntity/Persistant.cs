@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace StockCore.DomainEntity
 {
-    public interface IBaseDE
+    public interface IPersistant
     {
         string Id { get; set; }
         DateTime? UpdatedOn { get; set; }
@@ -14,7 +14,7 @@ namespace StockCore.DomainEntity
         string UpdateBy { get; set; }
     }
     [Serializable]
-    public class BaseDE:IBaseDE
+    public class Persistant:IPersistant
     {
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public string Id { get; set; }

@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace StockCore.DomainEntity
 {
     [DataContract]
-    public class SetIndexDE:BaseDE,IValidField,ILinqCriteria<SetIndexDE>
+    public class SetIndexDE:Persistant,IValidField,ILinqCriteria<SetIndexDE>
     {
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Date { get; set; }

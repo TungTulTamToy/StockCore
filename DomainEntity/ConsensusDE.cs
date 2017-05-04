@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace StockCore.DomainEntity
 {
     [DataContract]
-    public class ConsensusDE:BaseDE,IValidField,IKeyField<string>,ILinqCriteria<ConsensusDE>
+    public class ConsensusDE:Persistant,IValidField,IKeyField<string>,ILinqCriteria<ConsensusDE>
     {
         public string Key 
         { 

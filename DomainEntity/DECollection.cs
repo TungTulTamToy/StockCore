@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace StockCore.DomainEntity
 {
-    public class DECollection<T> : BaseDE, IEnumerable<T> where T:class
+    public class DECollection<T> : Persistant, IEnumerable<T> where T:class
     {
         private List<T> list;
         //TODO:Cannot move logic to Load method. Mongo cannot deserialize it back!!!

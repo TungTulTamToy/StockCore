@@ -10,7 +10,7 @@ using StockCore.Helper;
 
 namespace StockCore.Aop.Cache
 {
-    public class BaseCacheDec<T>:BaseDec where T:IBaseDE
+    public class BaseCacheDec<T>:BaseDec where T:IPersistant
     {
         private readonly IGetByFuncRepo<string,CacheDE<T>> cacheRepo;
         private readonly CacheModule module;

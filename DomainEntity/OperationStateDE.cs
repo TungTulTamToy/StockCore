@@ -6,8 +6,15 @@ using static StockCore.DomainEntity.Enum.StateOperation;
 
 namespace StockCore.DomainEntity
 {
+    public interface IOperationState:IKeyField<string>
+    {
+        string Quote { get; set; }
+        DateTime Date { get; set; }
+        bool Activated{get;set;}
+        OperationName OperationName{get;set;}
+    }
     [Serializable]
-    public class OperationStateDE:BaseDE,IKeyField<string>
+    public class OperationState:Persistant,IOperationState
     {
         public string Key 
         { 
@@ -17,7 +24,7 @@ namespace StockCore.DomainEntity
         public string Quote { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Date { get; set; }
-        public bool OperationState{get;set;}
+        public bool Activated{get;set;}
         [BsonRepresentation(BsonType.String)]
         public OperationName OperationName{get;set;}
     }

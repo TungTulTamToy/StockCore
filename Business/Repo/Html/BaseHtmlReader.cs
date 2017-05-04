@@ -10,7 +10,7 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.Html
 {
-    public abstract class BaseHtmlReader<T> : IGetByKey<IEnumerable<T>,string> where T:IBaseDE
+    public abstract class BaseHtmlReader<T> : IGetByKey<IEnumerable<T>,string> where T:IPersistant
     {
         protected readonly IHtmlDocumentWrapper doc;
         private readonly string url;

@@ -8,7 +8,7 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.MongoDB
 {
-    public class BaseAllDBRepo<T> : IRepo<T> where T:IBaseDE
+    public class BaseAllDBRepo<T> : IRepo<T> where T:IPersistant
     {
         private const string ID = "Id";
         private readonly string collectionName;
