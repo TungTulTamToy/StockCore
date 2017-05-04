@@ -5,8 +5,13 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace StockCore.DomainEntity
 {
+    public interface ISetIndex:IValidField
+    {
+        DateTime Date { get; set; }
+        double? Index { get; set; }
+    }
     [DataContract]
-    public class SetIndexDE:Persistant,IValidField,ILinqCriteria<SetIndexDE>
+    public class BaseSetIndex:Persistant,ISetIndex
     {
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Date { get; set; }
@@ -14,13 +19,16 @@ namespace StockCore.DomainEntity
         [BsonIgnoreIfNullAttribute]
         public double? Index { get; set; }
         public bool IsValid { get; set; }
-        public bool Equals(SetIndexDE other)=>this.Date == other.Date;
+    }
+    public class SetIndex:BaseSetIndex,ILinqCriteria<SetIndex>
+    {
+        public bool Equals(SetIndex other)=>this.Date == other.Date;
         public override int GetHashCode()=>this.Date.GetHashCode();
-        public SetIndexDE Merge(SetIndexDE other)
+        public SetIndex Merge(SetIndex other)
         {
             this.Index = other.Index;
             return this;
         }
-        public bool UpdateCondition(SetIndexDE other)=>this.IsValid != other.IsValid || this.Index != other.Index;
+        public bool UpdateCondition(SetIndex other)=>this.IsValid != other.IsValid || this.Index != other.Index;
     }
 }

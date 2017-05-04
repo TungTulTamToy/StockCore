@@ -45,7 +45,7 @@ namespace StockCore.DomainEntity
         public double? Volumn { get; set; }
         public bool IsValid { get; set; }
     }
-    public class Price:BasePrice,IPrice,ILinqCriteria<Price>
+    public class Price:BasePrice,ILinqCriteria<Price>
     {
         public bool Equals(Price other)=>this.Quote == other.Quote && this.Date == other.Date;
         public override int GetHashCode()=>this.Quote.GetHashCode()^this.Date.GetHashCode();

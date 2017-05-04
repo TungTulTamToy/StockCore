@@ -5,7 +5,7 @@ using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.Html
 {
-    public class SetIndexHtmlReader : BaseHtmlReader<SetIndexDE>
+    public class SetIndexHtmlReader : BaseHtmlReader<SetIndex>
     {
         public SetIndexHtmlReader(
             IHttpClientWrapper client, 
@@ -13,10 +13,10 @@ namespace StockCore.Business.Repo.Html
                 client, 
                 doc, 
                 "http://www.settrade.com/C04_02_stock_historical_p1.jsp?txtSymbol={0}&selectPage=2&ssoPageId=9") { }
-        protected override IEnumerable<SetIndexDE> extractValues(string keyword)
+        protected override IEnumerable<SetIndex> extractValues(string keyword)
         {
             var selectedNodes = doc.DocumentNode.SelectNodes("//div[@class='table-responsive']//table//tbody//tr");
-            var setIndex = new List<SetIndexDE>();
+            var setIndex = new List<SetIndex>();
             if(selectedNodes!=null)
             {
                 foreach (var selectedNode in selectedNodes)
@@ -25,7 +25,7 @@ namespace StockCore.Business.Repo.Html
                     var date = parseDateTime(splitedText[0]);
                     var index = parseDouble(splitedText[10]);
 
-                    setIndex.Add(new SetIndexDE
+                    setIndex.Add(new SetIndex
                     { 
                         Date = date,
                         Index = index,

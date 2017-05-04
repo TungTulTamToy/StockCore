@@ -9,7 +9,7 @@ using StockCore.Aop.Mon;
 
 namespace StockCore.Factory.DB
 {
-    public class DBSetIndexRepoFactory : BaseFactory<string,IRepo<SetIndexDE>>
+    public class DBSetIndexRepoFactory : BaseFactory<string,IRepo<SetIndex>>
     {
         private const string KEY = "DBSetIndexRepo";
         private const string COLLECTIONNAME = "SetIndex";
@@ -40,13 +40,13 @@ namespace StockCore.Factory.DB
             this.deleteOneModelBuilder = deleteOneModelBuilder;
             this.configReader = configReader;
         }
-        protected override IRepo<SetIndexDE> baseFactoryBuild(Tracer trace,string t="")
+        protected override IRepo<SetIndex> baseFactoryBuild(Tracer trace,string t="")
         {
-            IRepo<SetIndexDE> inner = new BaseAllDBRepo<SetIndexDE>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
+            IRepo<SetIndex> inner = new BaseAllDBRepo<SetIndex>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonRepoDec<SetIndexDE>(inner,MONPROCESSERRID,MONOUTERERRID,module.Monitoring,logger,trace);
+                inner = new MonRepoDec<SetIndex>(inner,MONPROCESSERRID,MONOUTERERRID,module.Monitoring,logger,trace);
             }
             return inner;
         }

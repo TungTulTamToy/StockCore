@@ -11,7 +11,7 @@ using StockCore.Helper;
 
 namespace StockCore.Factory.Html
 {
-    public class SetIndexHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<SetIndexDE>,string>>
+    public class SetIndexHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<SetIndex>,string>>
     {
         private const string KEY = "HtmlSetIndexGetByKey";
         private const int ID = 1010100;
@@ -32,13 +32,13 @@ namespace StockCore.Factory.Html
             this.doc = doc;
             this.configReader = configReader;
         }
-        protected override IGetByKey<IEnumerable<SetIndexDE>,string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IGetByKey<IEnumerable<SetIndex>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<SetIndexDE>,string> inner = new SetIndexHtmlReader(client,doc);   
+            IGetByKey<IEnumerable<SetIndex>,string> inner = new SetIndexHtmlReader(client,doc);   
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                inner = new MonGetByKeyDec<SetIndexDE>(
+                inner = new MonGetByKeyDec<SetIndex>(
                     inner,
                     ValidationHelper.ValidateString(1010105,"Quote"),
                     MONPROCESSERRID,
