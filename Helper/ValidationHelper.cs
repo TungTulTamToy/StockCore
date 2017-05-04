@@ -26,7 +26,7 @@ namespace StockCore.Helper
         public static Func<ILogger,Tracer,string,string,IEnumerable<string>,bool> ValidateStringItems(int errorID,string paramName)
         {
             return (logger,tracer,moduleName,methodName,item)=>{
-                if(item.Any(i=>string.IsNullOrWhiteSpace(i)))
+                if(item==null || !item.Any() || item.Any(i=>string.IsNullOrWhiteSpace(i)))
                 {
                     throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
                 }
@@ -60,7 +60,18 @@ namespace StockCore.Helper
         public static Func<ILogger,Tracer,string,string,IEnumerable<T>,bool> ValidateItemsWithStringKeyField<T>(int errorID,string paramName) where T:IKeyField<string>
         {
             return (logger,tracer,moduleName,methodName,items)=>{
-                if(items.Any(i=>string.IsNullOrWhiteSpace(i.Key)))
+                if(items==null || !items.Any() || items.Any(i=>i==null) || items.Any(i=>string.IsNullOrWhiteSpace(i.Key)))
+                {
+                    throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
+                }
+                return true;
+            };
+        }
+
+        public static Func<ILogger,Tracer,string,string,IEnumerable<T>,bool> ValidateItems<T>(int errorID,string paramName)
+        {
+            return (logger,tracer,moduleName,methodName,items)=>{
+                if(items==null || !items.Any() || items.Any(i=>i==null))
                 {
                     throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
                 }

@@ -19,8 +19,7 @@ namespace StockCore.Extension
         public static IEnumerable<T> GetItemToInsert<T> (this IEnumerable<T> source, IEnumerable<T> destination) where T:ILinqCriteria<T>
         {
             var joinItems = source.GetInnerJoinItem(destination);
-            var xxx = source.Except(joinItems);
-            return  xxx;
+            return  source.Except(joinItems);
         }
         public static IEnumerable<T> GetItemToDelete<T>  (this IEnumerable<T> source, IEnumerable<T> destination) where T:ILinqCriteria<T>
         {

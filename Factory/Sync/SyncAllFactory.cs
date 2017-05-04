@@ -12,7 +12,7 @@ using StockCore.DomainEntity;
 
 namespace StockCore.Factory.Sync
 {
-    public class SyncAllFactory : BaseFactory<FactoryCondition,IOperation<IEnumerable<string>>>
+    public class SyncAllFactory : BaseFactory<SyncAllFactoryCondition,IOperation<IEnumerable<string>>>
     {
         private const string KEY = "SyncAll";
         private const int ID = 1013100;
@@ -22,9 +22,9 @@ namespace StockCore.Factory.Sync
         private const int MONOUTERERRID = 1013104;
         private readonly IConfigReader configReader;
         private readonly IServiceProvider serviceProvider;
-        private readonly IFactory<string,IOperation<string>> syncQuoteFactory;
+        private readonly IFactory<SyncQuoteFactoryCondition,IOperation<string>> syncQuoteFactory;
         public SyncAllFactory(
-            IFactory<string,IOperation<string>> syncQuoteFactory,
+            IFactory<SyncQuoteFactoryCondition,IOperation<string>> syncQuoteFactory,
             ILogger logger,
             IConfigReader configReader,
             IServiceProvider serviceProvider
@@ -34,17 +34,21 @@ namespace StockCore.Factory.Sync
             this.configReader = configReader;
             this.serviceProvider = serviceProvider;
         }
-        protected override IOperation<IEnumerable<string>> baseFactoryBuild(Tracer tracer,FactoryCondition condition=null)
+        protected override IOperation<IEnumerable<string>> baseFactoryBuild(Tracer tracer,SyncAllFactoryCondition condition=null)
         {
             var module = configReader.GetByKey(getAopKey());            
             IOperation<IEnumerable<string>> inner = null;
-            if(condition!=null && condition.SyncType==FactoryCondition.SyncAllType.AllQuote)
+            if(condition!=null && condition.Type==SyncAllFactoryCondition.SyncType.AllQuote)
             {
                 inner = new SyncAllSameTime(serviceProvider);                 
             }
             else
             {
-                inner = new SyncAll(syncQuoteFactory.Build(tracer));                
+                var cond = new SyncQuoteFactoryCondition()
+                {
+                    Type = SyncQuoteFactoryCondition.SyncType.MethodTwo
+                };
+                inner = new SyncAll(syncQuoteFactory.Build(tracer,cond));                
             }
             if(module.IsMonitoringActive())
             {

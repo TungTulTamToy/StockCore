@@ -10,13 +10,14 @@ namespace StockCore.Aop.Mon
         public Tracer Caller{get;set;}
         public TraceSourceName TraceSourceName{get;set;}
         public string Descripton{get;set;}
-        public List<CallHistory> CallHistories=new List<CallHistory>();
+        public List<CallHistory> CallHistories{get;set;}
         public Tracer(int id, Tracer tracer, string description, TraceSourceName traceSourceName)
         {
             this.ID = id;
             this.Caller = tracer;
             this.Descripton = description;
             this.TraceSourceName = traceSourceName;
+            this.CallHistories=new List<CallHistory>();
         }
         public void AddCallHistory(CallHistory callHistory)
         {

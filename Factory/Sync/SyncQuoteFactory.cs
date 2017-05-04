@@ -15,7 +15,7 @@ using static StockCore.DomainEntity.Enum.StateOperation;
 
 namespace StockCore.Factory.Sync
 {
-    public class SyncQuoteFactory : BaseFactory<string,IOperation<string>>
+    public class SyncQuoteFactory : BaseFactory<SyncQuoteFactoryCondition,IOperation<string>>
     {
         private const string KEY = "SyncQuote";
         private const int ID = 1016100;
@@ -37,6 +37,11 @@ namespace StockCore.Factory.Sync
         private readonly IFactory<string, IGetByKey<IEnumerable<SetIndex>,string>> setIndexHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<Share>,string>> shareHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<Statistic>,string>> statisticHtmlReaderFactory;
+        private readonly IFactory<string, IOperation<IEnumerable<Price>>> syncPriceFactory;
+        private readonly IFactory<string, IOperation<IEnumerable<SetIndex>>> syncSetIndexFactory;
+        private readonly IFactory<string, IOperation<IEnumerable<Consensus>>> syncConsensusFactory;
+        private readonly IFactory<string, IOperation<IEnumerable<Share>>> syncShareFactory;
+        private readonly IFactory<string, IOperation<IEnumerable<Statistic>>> syncStatisticFactory;
         public SyncQuoteFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<Price,string>> dbPriceRepoFactory,
             IFactory<string, IRepo<SetIndex>> dbSetIndexRepoFactory,
@@ -49,7 +54,12 @@ namespace StockCore.Factory.Sync
             IFactory<string, IGetByKey<IEnumerable<Price>,string>> priceHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<SetIndex>,string>> setIndexHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<Share>,string>> shareHtmlReaderFactory,
-            IFactory<string, IGetByKey<IEnumerable<Statistic>,string>> statisticHtmlReaderFactory
+            IFactory<string, IGetByKey<IEnumerable<Statistic>,string>> statisticHtmlReaderFactory,
+            IFactory<string, IOperation<IEnumerable<Price>>> syncPriceFactory,
+            IFactory<string, IOperation<IEnumerable<SetIndex>>> syncSetIndexFactory,
+            IFactory<string, IOperation<IEnumerable<Consensus>>> syncConsensusFactory,
+            IFactory<string, IOperation<IEnumerable<Share>>> syncShareFactory,
+            IFactory<string, IOperation<IEnumerable<Statistic>>> syncStatisticFactory
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbPriceRepoFactory = dbPriceRepoFactory;
@@ -64,21 +74,43 @@ namespace StockCore.Factory.Sync
             this.setIndexHtmlReaderFactory = setIndexHtmlReaderFactory;
             this.shareHtmlReaderFactory = shareHtmlReaderFactory;
             this.statisticHtmlReaderFactory = statisticHtmlReaderFactory;
+            this.syncPriceFactory = syncPriceFactory;
+            this.syncSetIndexFactory = syncSetIndexFactory;
+            this.syncConsensusFactory = syncConsensusFactory;
+            this.syncShareFactory = syncShareFactory;
+            this.syncStatisticFactory = syncStatisticFactory;
         }
-        protected override IOperation<string> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IOperation<string> baseFactoryBuild(Tracer tracer,SyncQuoteFactoryCondition condition=null)
         {
-            IOperation<string> inner = new SyncQuote(
-                dbPriceRepoFactory.Build(tracer),
-                dbSetIndexRepoFactory.Build(tracer),
-                dbConsensusRepoFactory.Build(tracer),
-                dbShareRepoFactory.Build(tracer),
-                dbStatisticRepoFactory.Build(tracer),
-                consensusHtmlReaderFactory.Build(tracer),
-                priceHtmlReaderFactory.Build(tracer),
-                setIndexHtmlReaderFactory.Build(tracer),
-                shareHtmlReaderFactory.Build(tracer),
-                statisticHtmlReaderFactory.Build(tracer)
-            ); 
+            IOperation<string> inner = null;
+            if(condition != null && condition.Type == SyncQuoteFactoryCondition.SyncType.MethodTwo)
+            {
+                inner = new SyncQuoteByKey(
+                    syncPriceFactory.Build(tracer),
+                    syncSetIndexFactory.Build(tracer),
+                    syncConsensusFactory.Build(tracer),
+                    syncShareFactory.Build(tracer),
+                    syncStatisticFactory.Build(tracer),
+                    consensusHtmlReaderFactory.Build(tracer),
+                    priceHtmlReaderFactory.Build(tracer),
+                    setIndexHtmlReaderFactory.Build(tracer),
+                    shareHtmlReaderFactory.Build(tracer),
+                    statisticHtmlReaderFactory.Build(tracer));
+            }
+            else
+            {
+                inner = new SyncQuote(
+                    dbPriceRepoFactory.Build(tracer),
+                    dbSetIndexRepoFactory.Build(tracer),
+                    dbConsensusRepoFactory.Build(tracer),
+                    dbShareRepoFactory.Build(tracer),
+                    dbStatisticRepoFactory.Build(tracer),
+                    consensusHtmlReaderFactory.Build(tracer),
+                    priceHtmlReaderFactory.Build(tracer),
+                    setIndexHtmlReaderFactory.Build(tracer),
+                    shareHtmlReaderFactory.Build(tracer),
+                    statisticHtmlReaderFactory.Build(tracer)); 
+            }
             var module = configReader.GetByKey(getAopKey());
             if(module.IsRetryActive())
             {

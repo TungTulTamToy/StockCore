@@ -25,6 +25,7 @@ using StockCore.Business.Repo.AppSetting;
 using StockCore.Business.Builder;
 using StockCore.Aop.Mon;
 using static StockCore.DomainEntity.Enum.TraceSource;
+using StockCore.Business.Operation.Sync;
 
 namespace StockCore
 {
@@ -44,13 +45,14 @@ namespace StockCore
                     .AddSingleton<IConfigProvider,StockCore.Provider.ConfigurationProvider>()
                     .AddSingleton<IConfigReader,ModuleConfigReader>()
 
-                    .AddScoped<IFactory<FactoryCondition, IOperation<IEnumerable<string>>>, SyncAllFactory>()
-                    .AddScoped<IFactory<string, IOperation<string>>, SyncQuoteFactory>()
+                    .AddScoped<IFactory<SyncAllFactoryCondition, IOperation<IEnumerable<string>>>, SyncAllFactory>()
+                    .AddScoped<IFactory<SyncQuoteFactoryCondition, IOperation<string>>, SyncQuoteFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<QuoteGroup>>>, SyncQuoteGroupFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Price>>>, SyncPriceFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Consensus>>>, SyncConcensusFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Share>>>, SyncShareFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Statistic>>>, SyncStatisticFactory>()
+                    .AddScoped<IFactory<string, IOperation<IEnumerable<SetIndex>>>, SyncSetIndexFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Consensus>,string>>, ConsensusHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Price>,string>>, PriceHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<SetIndex>,string>>, SetIndexHtmlReaderFactory>()
@@ -69,6 +71,7 @@ namespace StockCore
                     .AddScoped<IFactory<string, IBuilder<string, Stock>>, StockBuilderFactory>()
                     .AddScoped<IFactory<string, IBuilder<string, DECollection<QuoteGroup>>>, AllQuoteGroupBuilderFactory>()
                     .AddScoped<IFactory<string, IBuilder<string, DECollection<Stock>>>, StockByGroupBuilderFactory>()
+
                     .AddScoped<IMongoDatabaseWrapper,MongoDatabaseWrapper>()
                     .AddScoped<IMongoClient>(ctx => new MongoClient(ctx.GetService<IConfigurationRoot>().GetSection("MongoConnection:ConnectionString").Value))    
 
@@ -206,10 +209,10 @@ namespace StockCore
             try
             {
                 var tracer=new Tracer(0,null,"Start Sync Web",TraceSourceName.TestConsole);
-                var syncAllFactory = serviceProvider.GetService<IFactory<FactoryCondition,IOperation<IEnumerable<string>>>>();
-                var condition = new FactoryCondition()
+                var syncAllFactory = serviceProvider.GetService<IFactory<SyncAllFactoryCondition,IOperation<IEnumerable<string>>>>();
+                var condition = new SyncAllFactoryCondition()
                 {
-                    SyncType = FactoryCondition.SyncAllType.AllQuote
+                    Type = SyncAllFactoryCondition.SyncType.AllQuote
                 };
                 var operation = syncAllFactory.Build(tracer);
                 var quotes = Enum.GetNames(typeof(Quotes.Ready));

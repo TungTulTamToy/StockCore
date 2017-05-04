@@ -1,11 +1,20 @@
 namespace StockCore.DomainEntity.Enum
 {
-    public class FactoryCondition
+    public class SyncAllFactoryCondition
     {
-        public enum SyncAllType
+        public enum SyncType
         {
             PerQuote,AllQuote
         }
-        public SyncAllType SyncType;
+        public SyncType Type;
+    }
+
+    public class SyncQuoteFactoryCondition
+    {
+        public enum SyncType
+        {
+            MethodOne,MethodTwo
+        }
+        public SyncType Type;
     }
 }
