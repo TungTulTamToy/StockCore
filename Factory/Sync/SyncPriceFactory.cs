@@ -33,7 +33,7 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<Price>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<Price>> inner = new SyncDataByKey<string,Price>(dbPriceDEFactory.Build(tracer));
+            IOperation<IEnumerable<Price>> inner = new SyncDataByKey<string,Price>(dbPriceDEFactory.Build(tracer),false);
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {

@@ -33,7 +33,7 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<SetIndex>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<SetIndex>> inner = new SyncAllData<SetIndex>(setIndexRepoFactory.Build(tracer));
+            IOperation<IEnumerable<SetIndex>> inner = new SyncAllData<SetIndex>(setIndexRepoFactory.Build(tracer),false);
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {

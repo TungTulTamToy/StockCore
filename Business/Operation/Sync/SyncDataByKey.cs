@@ -8,7 +8,7 @@ namespace StockCore.Business.Operation.Sync
 {
     public class SyncDataByKey<TKey,T> : BaseSyncData<T>,IOperation<IEnumerable<T>> where TKey: class where T:IPersistant,IKeyField<TKey>,ILinqCriteria<T>
     {
-        public SyncDataByKey(IGetByKeyRepo<T,TKey> repo, bool inCludeRemove=false):base(repo,inCludeRemove){}
+        public SyncDataByKey(IGetByKeyRepo<T,TKey> repo, bool inCludeUpdate=true, bool inCludeRemove=false):base(repo,inCludeUpdate,inCludeRemove){}
         public async Task OperateAsync(IEnumerable<T> source)
         {
             var keys = source.GroupBy(item=>item.Key).Select(i=>i.First().Key);

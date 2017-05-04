@@ -9,23 +9,37 @@ namespace StockCore.Business.Operation.Sync
     public class BaseSyncData<T> : IOperation<SyncEntity<T>> where T:IPersistant,ILinqCriteria<T>
     {
         protected readonly IRepo<T> repo;
+        private readonly bool inCludeUpdate;
         private readonly bool inCludeRemove;
-        public BaseSyncData(IRepo<T> repo, bool inCludeRemove=false)
+        public BaseSyncData(IRepo<T> repo, bool inCludeUpdate=true, bool inCludeRemove=false)
         {
             this.repo = repo;
+            this.inCludeUpdate = inCludeUpdate;
             this.inCludeRemove = inCludeRemove;
         }
         public async Task OperateAsync(SyncEntity<T> items)
         {
             var insertTask = insert(items.source,items.destination);
-            var updateTask = update(items.source,items.destination);
+            Task updateTask = null;
+            if(inCludeUpdate)
+            {
+                updateTask = update(items.source,items.destination);
+            }
+            Task removeTask = null;
             if(inCludeRemove)
             {
-                var removeTask = remove(items.source,items.destination);
-                await removeTask;                
+                removeTask = remove(items.source,items.destination);
             }
+            
             await insertTask;
-            await updateTask;
+            if(updateTask!=null)
+            {
+                await updateTask;
+            }
+            if(removeTask!=null)
+            {
+                await removeTask;      
+            }                      
         }
         private async Task insert(IEnumerable<T> source, IEnumerable<T> destination)
         {
