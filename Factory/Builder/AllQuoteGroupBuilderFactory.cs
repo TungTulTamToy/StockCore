@@ -11,7 +11,7 @@ using StockCore.Aop.Cache;
 
 namespace StockCore.Factory.Builder
 {
-    public class AllQuoteGroupBuilderFactory : BaseFactory<string,IBuilder<string, DECollection<QuoteGroup>>>
+    public class AllQuoteGroupBuilderFactory : BaseFactory<string,IBuilder<string, IEnumerable<QuoteGroup>>>
     {
         private const string KEY = "AllQuoteGroupBuilder";
         private const int ID = 1022100;
@@ -23,10 +23,10 @@ namespace StockCore.Factory.Builder
         private const int CACHEOUTERERRID = 1022106;
         private readonly IConfigReader configReader;
         private readonly IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory;
-        private readonly IFactory<string, IGetByFuncRepo<string,StockCoreCache<DECollection<QuoteGroup>>>> cacheRepoFactory;
+        private readonly IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<QuoteGroup>>>> cacheRepoFactory;
         public AllQuoteGroupBuilderFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory,
-            IFactory<string, IGetByFuncRepo<string,StockCoreCache<DECollection<QuoteGroup>>>> cacheRepoFactory,
+            IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<QuoteGroup>>>> cacheRepoFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
@@ -34,9 +34,9 @@ namespace StockCore.Factory.Builder
             this.cacheRepoFactory = cacheRepoFactory;
             this.configReader = configReader;
         }
-        protected override IBuilder<string, DECollection<QuoteGroup>> baseFactoryBuild(Tracer tracer,string t="")
+        protected override IBuilder<string, IEnumerable<QuoteGroup>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IBuilder<string, DECollection<QuoteGroup>> inner = new AllQuoteGroupBuilder(
+            IBuilder<string, IEnumerable<QuoteGroup>> inner = new AllQuoteGroupBuilder(
                 logger,
                 quoteGroupRepoFactory.Build(tracer)
                 );
@@ -45,11 +45,11 @@ namespace StockCore.Factory.Builder
             inner = loadMonitoringDecorator(tracer, inner, module);
             return inner;
         }
-        private IBuilder<string, DECollection<QuoteGroup>> loadCachingDecorator(Tracer tracer, IBuilder<string, DECollection<QuoteGroup>> inner, Module module)
+        private IBuilder<string, IEnumerable<QuoteGroup>> loadCachingDecorator(Tracer tracer, IBuilder<string, IEnumerable<QuoteGroup>> inner, Module module)
         {
             if (module.IsCacheActive())
             {
-                inner = new CacheBuilderDec<string, DECollection<QuoteGroup>>(
+                inner = new CacheBuilderDec<string, IEnumerable<QuoteGroup>>(
                     inner,
                     CacheHelper.GetKeyByString(),
                     cacheRepoFactory.Build(tracer),
@@ -60,11 +60,11 @@ namespace StockCore.Factory.Builder
             }
             return inner;
         }
-        private IBuilder<string, DECollection<QuoteGroup>> loadMonitoringDecorator(Tracer tracer, IBuilder<string, DECollection<QuoteGroup>> inner, Module module)
+        private IBuilder<string, IEnumerable<QuoteGroup>> loadMonitoringDecorator(Tracer tracer, IBuilder<string, IEnumerable<QuoteGroup>> inner, Module module)
         {
             if (module.IsMonitoringActive())
             {
-                inner = new MonBuilderDec<string, DECollection<QuoteGroup>>(
+                inner = new MonBuilderDec<string, IEnumerable<QuoteGroup>>(
                     inner,
                     (logger, fakeTracer, moduleName, methodName, value) => true,
                     MONPROCESSERRID,

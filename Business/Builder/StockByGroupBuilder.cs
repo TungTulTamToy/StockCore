@@ -8,7 +8,7 @@ using StockCore.DomainEntity;
 
 namespace StockCore.Business.Builder
 {
-    public class StockByGroupBuilder : IBuilder<string, DECollection<Stock>>
+    public class StockByGroupBuilder : IBuilder<string, IEnumerable<Stock>>
     {
         private readonly ILogger logger;
         private readonly IGetByKey<IEnumerable<QuoteGroup>,string> quoteGroupProvider;
@@ -22,28 +22,29 @@ namespace StockCore.Business.Builder
             this.quoteGroupProvider = quoteGroupProvider;
             this.stockBuilder = stockBuilder;
         }
-        public async Task<DECollection<Stock>> BuildAsync(string quoteGroupName)
+        public async Task<IEnumerable<Stock>> BuildAsync(string quoteGroupName)
         {
-            DECollection<Stock> collection = null;
+            List<Stock> stocks = null;
             var groups = await quoteGroupProvider.GetByKeyAsync(quoteGroupName);
             if(groups != null && groups.Any())
             {
                 var group = groups.First();
-                List<Stock> stocks = new List<Stock>();
-                foreach (var quote in group.Quotes)
+                stocks = await getStocks(group);
+            }
+            return stocks;
+        }
+        private async Task<List<Stock>> getStocks(QuoteGroup group)
+        {
+            List<Stock> stocks = new List<Stock>();
+            foreach (var quote in group.Quotes)
+            {
+                var stock = await stockBuilder.BuildAsync(quote);
+                if (stock != null)
                 {
-                    var stock = await stockBuilder.BuildAsync(quote);
-                    if(stock!=null)
-                    {
-                        stocks.Add(stock);  
-                    }                      
-                }
-                if(stocks!=null)
-                {
-                    collection = new DECollection<Stock>(stocks);
+                    stocks.Add(stock);
                 }
             }
-            return collection;
+            return stocks;
         }
     }
 }

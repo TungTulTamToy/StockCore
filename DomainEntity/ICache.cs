@@ -3,13 +3,13 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace StockCore.DomainEntity
 {
-    public interface ICache<T>:IKeyField<string> where T:IPersistant
+    public interface ICache<T>:IKeyField<string>
     {
         string Group { get; set; }
         T CacheObject { get; set; }
         DateTime ExpireAt { get; set; }
     }
-    public class StockCoreCache<T>:Persistant,ICache<T> where T:IPersistant
+    public class StockCoreCache<T>:Persistant,ICache<T>
     {
         public string Key { get; set; }
         public string Group { get; set; }

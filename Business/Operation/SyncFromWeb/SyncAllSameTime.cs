@@ -17,11 +17,12 @@ namespace StockCore.Business.Operation.SyncFromWeb
         }
         public async Task OperateAsync(IEnumerable<string> quotes)
         {
-            var tasks = quotes.Select(async q=>{
-                var factory = serviceProvider.GetService<IFactory<string,IOperation<string>>>();
-                var o = factory.Build(null);                   
-                await o.OperateAsync(q);
-                });
+            var tasks = quotes.Select(
+                async q=>{
+                    var factory = serviceProvider.GetService<IFactory<string,IOperation<string>>>();
+                    var o = factory.Build(null);                   
+                    await o.OperateAsync(q);
+                    });
             await Task.WhenAll(tasks);
         }
     }

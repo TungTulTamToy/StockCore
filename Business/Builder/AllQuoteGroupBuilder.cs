@@ -8,7 +8,7 @@ using StockCore.DomainEntity;
 
 namespace StockCore.Business.Builder
 {
-    public class AllQuoteGroupBuilder : IBuilder<string, DECollection<QuoteGroup>>
+    public class AllQuoteGroupBuilder : IBuilder<string, IEnumerable<QuoteGroup>>
     {
         private readonly ILogger logger;
         private readonly IGetAll<QuoteGroup> allGroupProvider;
@@ -19,12 +19,11 @@ namespace StockCore.Business.Builder
             this.logger = logger;
             this.allGroupProvider = allGroupProvider;
         }
-        public async Task<DECollection<QuoteGroup>> BuildAsync(string t="")
+        public async Task<IEnumerable<QuoteGroup>> BuildAsync(string t="")
         {
             var items = await allGroupProvider.GetAllAsync();
             var sortedItems = items.OrderBy(g=>g.Order);
-            var collection = new DECollection<QuoteGroup>(sortedItems);
-            return collection;
+            return sortedItems;
         }
     }
 }

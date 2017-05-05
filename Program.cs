@@ -66,12 +66,12 @@ namespace StockCore
                     .AddScoped<IFactory<string, IGetByKeyRepo<Price,string>>, DBPriceRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroup,string>>, DBQuoteGroupRepoFactory>()                                        
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<Stock>>>, DBCacheRepoFactory<Stock>>()
-                    .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<DECollection<QuoteGroup>>>>, DBCacheRepoFactory<DECollection<QuoteGroup>>>()
-                    .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<DECollection<Stock>>>>, DBCacheRepoFactory<DECollection<Stock>>>()
+                    .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<QuoteGroup>>>>, DBCacheRepoFactory<IEnumerable<QuoteGroup>>>()
+                    .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<Stock>>>>, DBCacheRepoFactory<IEnumerable<Stock>>>()
                     .AddScoped<IFactory<string, IRepo<SetIndex>>, DBSetIndexRepoFactory>()
                     .AddScoped<IFactory<string, IBuilder<string, Stock>>, StockBuilderFactory>()
-                    .AddScoped<IFactory<string, IBuilder<string, DECollection<QuoteGroup>>>, AllQuoteGroupBuilderFactory>()
-                    .AddScoped<IFactory<string, IBuilder<string, DECollection<Stock>>>, StockByGroupBuilderFactory>()
+                    .AddScoped<IFactory<string, IBuilder<string, IEnumerable<QuoteGroup>>>, AllQuoteGroupBuilderFactory>()
+                    .AddScoped<IFactory<string, IBuilder<string, IEnumerable<Stock>>>, StockByGroupBuilderFactory>()
 
                     .AddScoped<IMongoDatabaseWrapper,MongoDatabaseWrapper>()
                     .AddTransient<IDeleteOneModelBuilder,DeleteOneModelBuilder>()
@@ -107,13 +107,13 @@ namespace StockCore
                 Console.WriteLine(ex);
             }
         }
-        private static DECollection<Stock> getStockByGroup(IServiceProvider serviceProvider,string quoteGroupName)
+        private static IEnumerable<Stock> getStockByGroup(IServiceProvider serviceProvider,string quoteGroupName)
         {
-            DECollection<Stock> stocks = null;
+            IEnumerable<Stock> stocks = null;
             try
             {
                 var tracer=new Tracer().Load(0,null,"Get Stock by Quote Group.",TraceSourceName.TestConsole);
-                var stockByGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, DECollection<Stock>>>>();
+                var stockByGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, IEnumerable<Stock>>>>();
                 var builder = stockByGroupBuilderFactory.Build(tracer);
                 Task.Run(async()=>stocks = await builder.BuildAsync(quoteGroupName)).GetAwaiter().GetResult();
             }         
@@ -123,13 +123,13 @@ namespace StockCore
             }        
             return stocks;
         }
-        private static DECollection<QuoteGroup> getAllQuoteGroup(IServiceProvider serviceProvider)
+        private static IEnumerable<QuoteGroup> getAllQuoteGroup(IServiceProvider serviceProvider)
         {
-            DECollection<QuoteGroup> groups = null;
+            IEnumerable<QuoteGroup> groups = null;
             try
             {
                 var tracer=new Tracer().Load(0,null,"Get All Quote Group.",TraceSourceName.TestConsole);
-                var allQuoteGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, DECollection<QuoteGroup>>>>();
+                var allQuoteGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, IEnumerable<QuoteGroup>>>>();
                 var builder = allQuoteGroupBuilderFactory.Build(tracer);
                 Task.Run(async()=>groups = await builder.BuildAsync()).GetAwaiter().GetResult();
             }         
