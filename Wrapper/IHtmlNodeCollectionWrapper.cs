@@ -1,50 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using HtmlAgilityPack;
 using System.Linq;
+using HtmlAgilityPack;
 
 namespace StockCore.Wrapper
 {
-    public class HtmlDocumentWrapper : IHtmlDocumentWrapper
-    {
-        private readonly HtmlDocument doc;
-        public HtmlDocumentWrapper()
-        {
-            this.doc = new HtmlDocument();
-        }
-        public IHtmlNodeWrapper DocumentNode => new HtmlNodeWrapper(doc.DocumentNode);
-
-        public void LoadHtml(string html)
-        {
-            doc.LoadHtml(html);
-        }
-    }
-
-    public class HtmlNodeWrapper : IHtmlNodeWrapper
-    {
-        private readonly HtmlNode node;
-        public HtmlNodeWrapper(HtmlNode node)
-        {
-            this.node = node;
-        }
-        public string InnerText => node.InnerText;
-        public IHtmlNodeCollectionWrapper ChildNodes => new HtmlNodeCollectionWrapper(node.ChildNodes);
-        public IHtmlNodeWrapper NextSibling => new HtmlNodeWrapper(node.NextSibling);
-        public IHtmlNodeWrapper ParentNode => new HtmlNodeWrapper(node.ParentNode);
-
-        public IHtmlNodeCollectionWrapper SelectNodes(string xpath)
-        {
-            HtmlNodeCollectionWrapper wrapper = null;
-            var nodes = node.SelectNodes(xpath);
-            if(nodes!=null)
-            {
-                wrapper = new HtmlNodeCollectionWrapper(node.SelectNodes(xpath));
-            }
-            return wrapper;
-        }
-    }
-
+    public interface IHtmlNodeCollectionWrapper : IList<IHtmlNodeWrapper>, ICollection<IHtmlNodeWrapper>, IEnumerable<IHtmlNodeWrapper>, IEnumerable{}
     public class HtmlNodeCollectionWrapper : IHtmlNodeCollectionWrapper
     {
         private readonly HtmlNodeCollection nodes;

@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using StockCore.DomainEntity;
-using StockCore.Extension;
 using StockCore.Wrapper;
 
 namespace StockCore.Business.Repo.Html

@@ -8,10 +8,11 @@ using StockCore.Business.Repo.AppSetting;
 using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
+using System;
 
 namespace StockCore.Factory.Html
 {
-    public class PriceHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<Price>,string>>
+    public class PriceHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<Price>,string>>, IDisposable
     {
         private const string KEY = "HtmlPriceGetByKey";
         private const int ID = 1009100;
@@ -49,6 +50,30 @@ namespace StockCore.Factory.Html
                     );
             }
             return inner;
+        }
+        private bool disposed = false;
+        public new void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if(!this.disposed)
+            {
+                if(disposing)
+                {
+                    if(client!=null)
+                    {
+                        client.Dispose();
+                    }
+                }
+                disposed = true;
+            }
+        }
+        ~PriceHtmlReaderFactory()
+        {
+            Dispose(false);
         }
     }
 }

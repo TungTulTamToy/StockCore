@@ -44,6 +44,7 @@ namespace StockCore
                     .AddSingleton<ILogger>(ctx=>ctx.GetService<ILogger<Program>>())
                     .AddSingleton<IConfigProvider,StockCore.Provider.ConfigurationProvider>()
                     .AddSingleton<IConfigReader,ModuleConfigReader>()
+                    .AddSingleton<IMongoClient>(ctx => new MongoClient(ctx.GetService<IConfigurationRoot>().GetSection("MongoConnection:ConnectionString").Value))                       
 
                     .AddScoped<IFactory<SyncAllFactoryCondition, IOperation<IEnumerable<string>>>, SyncAllFactory>()
                     .AddScoped<IFactory<SyncQuoteFactoryCondition, IOperation<string>>, SyncQuoteFactory>()
@@ -73,8 +74,6 @@ namespace StockCore
                     .AddScoped<IFactory<string, IBuilder<string, DECollection<Stock>>>, StockByGroupBuilderFactory>()
 
                     .AddScoped<IMongoDatabaseWrapper,MongoDatabaseWrapper>()
-                    .AddScoped<IMongoClient>(ctx => new MongoClient(ctx.GetService<IConfigurationRoot>().GetSection("MongoConnection:ConnectionString").Value))    
-
                     .AddTransient<IDeleteOneModelBuilder,DeleteOneModelBuilder>()
                     .AddTransient<IReplaceOneModelBuilder,ReplaceOneModelBuilder>()
                     .AddTransient<IFilterDefinitionBuilderWrapper,FilterDefinitionBuilderWrapper>()
@@ -208,18 +207,20 @@ namespace StockCore
         {
             try
             {
-                var tracer=new Tracer(0,null,"Start Sync Web",TraceSourceName.TestConsole);
-                var syncAllFactory = serviceProvider.GetService<IFactory<SyncAllFactoryCondition,IOperation<IEnumerable<string>>>>();
-                var condition = new SyncAllFactoryCondition()
+                using(var syncAllFactory = serviceProvider.GetService<IFactory<SyncAllFactoryCondition,IOperation<IEnumerable<string>>>>())
                 {
-                    Type = SyncAllFactoryCondition.SyncType.AllQuote
-                };
-                var operation = syncAllFactory.Build(tracer);
-                var quotes = Enum.GetNames(typeof(Quotes.Ready));
-                var sampleData = BackupStockData.Sample1;
-                //var quotes = from backup in sampleData select backup.Quote;
-    
-                Task.Run(async()=>await operation.OperateAsync(quotes)).GetAwaiter().GetResult();
+                    var tracer=new Tracer(0,null,"Start Sync Web",TraceSourceName.TestConsole);                    
+                    var condition = new SyncAllFactoryCondition()
+                    {
+                        Type = SyncAllFactoryCondition.SyncType.AllQuote
+                    };
+                    var operation = syncAllFactory.Build(tracer);
+                    var quotes = Enum.GetNames(typeof(Quotes.Ready));
+                    var sampleData = BackupStockData.Sample1;
+                    //var quotes = from backup in sampleData select backup.Quote;
+        
+                    Task.Run(async()=>await operation.OperateAsync(quotes)).GetAwaiter().GetResult();
+                }
             }        
             catch(Exception ex)
             {

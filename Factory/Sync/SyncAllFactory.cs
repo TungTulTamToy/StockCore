@@ -12,7 +12,7 @@ using StockCore.DomainEntity;
 
 namespace StockCore.Factory.Sync
 {
-    public class SyncAllFactory : BaseFactory<SyncAllFactoryCondition,IOperation<IEnumerable<string>>>
+    public class SyncAllFactory : BaseFactory<SyncAllFactoryCondition,IOperation<IEnumerable<string>>>, IDisposable
     {
         private const string KEY = "SyncAll";
         private const int ID = 1013100;
@@ -62,6 +62,30 @@ namespace StockCore.Factory.Sync
                     tracer);       
             }
             return inner;
+        }
+        private bool disposed = false;
+        public new void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if(!this.disposed)
+            {
+                if(disposing)
+                {
+                    if(syncQuoteFactory!=null)
+                    {
+                        ((IDisposable)syncQuoteFactory).Dispose();
+                    }
+                }
+                disposed = true;
+            }
+        }
+        ~SyncAllFactory()
+        {
+            Dispose(false);
         }
     }
 }

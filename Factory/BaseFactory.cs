@@ -54,5 +54,6 @@ namespace StockCore.Factory
         { 
             ProcessFailHelper.ComposeAndThrowException(logger,ex,errorID,$"Factory.{keyName}",methodName,tracer:tracer);
         }
+        public void Dispose(){}
     }
 }

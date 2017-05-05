@@ -12,10 +12,11 @@ using StockCore.Helper;
 using StockCore.Aop.Retry;
 using StockCore.DomainEntity.Enum;
 using static StockCore.DomainEntity.Enum.StateOperation;
+using System;
 
 namespace StockCore.Factory.Sync
 {
-    public class SyncQuoteFactory : BaseFactory<SyncQuoteFactoryCondition,IOperation<string>>
+    public class SyncQuoteFactory : BaseFactory<SyncQuoteFactoryCondition,IOperation<string>>, IDisposable
     {
         private const string KEY = "SyncQuote";
         private const int ID = 1016100;
@@ -137,6 +138,46 @@ namespace StockCore.Factory.Sync
                     );
             }
             return inner;
+        }
+        private bool disposed = false;
+        public new void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if(!this.disposed)
+            {
+                if(disposing)
+                {
+                    if(consensusHtmlReaderFactory!=null)
+                    {
+                        ((IDisposable)consensusHtmlReaderFactory).Dispose();
+                    }
+                    if(priceHtmlReaderFactory!=null)
+                    {
+                        ((IDisposable)priceHtmlReaderFactory).Dispose();
+                    }
+                    if(setIndexHtmlReaderFactory!=null)
+                    {
+                        ((IDisposable)setIndexHtmlReaderFactory).Dispose();
+                    }
+                    if(shareHtmlReaderFactory!=null)
+                    {
+                        ((IDisposable)shareHtmlReaderFactory).Dispose();
+                    }
+                    if(statisticHtmlReaderFactory!=null)
+                    {
+                        ((IDisposable)statisticHtmlReaderFactory).Dispose();
+                    }
+                }
+                disposed = true;
+            }
+        }
+        ~SyncQuoteFactory()
+        {
+            Dispose(false);
         }
     }
 }

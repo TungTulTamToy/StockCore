@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 using MongoDB.Driver;
+using StockCore.Provider;
 
 namespace StockCore.Wrapper
 {
@@ -10,27 +7,19 @@ namespace StockCore.Wrapper
     {
         IMongoCollectionWrapper<T> GetCollection<T>(string name);
     }
-    public interface IMongoCollectionWrapper<T>
+    public class MongoDatabaseWrapper : IMongoDatabaseWrapper
     {
-        Task<List<T>> ToListAsync(Expression<Func<T, bool>> filter);
-        Task<T> FirstOrDefaultAsync(FilterDefinition<T> filter);
-        Task InsertManyAsync(IEnumerable<T> items);
-        Task<ReplaceOneResult> ReplaceOneAsync(FilterDefinition<T> filter, T replacement);
-        Task<BulkWriteResult<T>> BulkWriteAsync(IEnumerable<WriteModel<T>> requests);
-        Task<DeleteResult> DeleteOneAsync(FilterDefinition<T> filter);
-        Task InsertOneAsync(T item);
-    }
-    public interface IFilterDefinitionBuilderWrapper
-    {
-        FilterDefinition<T> Build<T>(string filedName, string value);
-    }
-    public interface IReplaceOneModelBuilder
-    {
-        ReplaceOneModel<T> Build<T>(string filedName, string value, T item);
-    }
-
-    public interface IDeleteOneModelBuilder
-    {
-        DeleteOneModel<T> Build<T>(string filedName, string value);
+        private readonly IMongoClient client;
+        private readonly IConfigProvider config;
+        public MongoDatabaseWrapper(IMongoClient client, IConfigProvider config)
+        {
+            this.client = client;
+            this.config = config;
+        }
+        public IMongoCollectionWrapper<T> GetCollection<T>(string name)
+        {
+            var db = client.GetDatabase(config.MongoDBDatabase);
+            return new MongoCollectionWrapper<T>(db.GetCollection<T>(name));
+        }
     }
 }

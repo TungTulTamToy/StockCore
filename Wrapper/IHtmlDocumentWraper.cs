@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using HtmlAgilityPack;
 
 namespace StockCore.Wrapper
 {
@@ -8,17 +9,18 @@ namespace StockCore.Wrapper
         void LoadHtml(string html);
         IHtmlNodeWrapper DocumentNode { get; }
     }
-
-    public interface IHtmlNodeWrapper
+    public class HtmlDocumentWrapper : IHtmlDocumentWrapper
     {
-        IHtmlNodeCollectionWrapper SelectNodes(string xpath);
-        string InnerText { get; }
-        IHtmlNodeCollectionWrapper ChildNodes { get; }
-        IHtmlNodeWrapper NextSibling { get; }
-        IHtmlNodeWrapper ParentNode { get; }
-    }
+        private readonly HtmlDocument doc;
+        public HtmlDocumentWrapper()
+        {
+            this.doc = new HtmlDocument();
+        }
+        public IHtmlNodeWrapper DocumentNode => new HtmlNodeWrapper(doc.DocumentNode);
 
-    public interface IHtmlNodeCollectionWrapper : IList<IHtmlNodeWrapper>, ICollection<IHtmlNodeWrapper>, IEnumerable<IHtmlNodeWrapper>, IEnumerable
-    {
+        public void LoadHtml(string html)
+        {
+            doc.LoadHtml(html);
+        }
     }
 }
