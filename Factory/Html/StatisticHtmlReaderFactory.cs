@@ -12,7 +12,7 @@ using System;
 
 namespace StockCore.Factory.Html
 {
-    public class StatisticHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<Statistic>,string>>, IDisposable
+    public class StatisticHtmlReaderFactory : BaseHtmlReaderFactory<Statistic>
     {
         private const string KEY = "HtmlStatisticGetByKey";
         private const int ID = 1012100;
@@ -20,19 +20,11 @@ namespace StockCore.Factory.Html
         private const int OUTERERRID = 1012102;
         private const int MONPROCESSERRID = 1012103;
         private const int MONOUTERERRID = 1012104;
-        private readonly IConfigReader configReader;
-        private readonly IHttpClientWrapper client;
-        private readonly IHtmlDocumentWrapper doc;
         public StatisticHtmlReaderFactory(ILogger logger,
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
             IConfigReader configReader
-            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
-        {
-            this.client = client;
-            this.doc = doc;
-            this.configReader = configReader;
-        }
+            ):base(client,doc,configReader,PROCESSERRID,OUTERERRID,ID,KEY,logger){}
         protected override IGetByKey<IEnumerable<Statistic>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
             IGetByKey<IEnumerable<Statistic>,string> inner = new StatisticHtmlReader(client,doc);
@@ -50,30 +42,6 @@ namespace StockCore.Factory.Html
                     );
             }
             return inner;
-        }
-        private bool disposed = false;
-        public new void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if(!this.disposed)
-            {
-                if(disposing)
-                {
-                    if(client!=null)
-                    {
-                        client.Dispose();
-                    }
-                }
-                disposed = true;
-            }
-        }
-        ~StatisticHtmlReaderFactory()
-        {
-            Dispose(false);
         }
     }
 }

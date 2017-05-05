@@ -12,7 +12,7 @@ using System;
 
 namespace StockCore.Factory.Html
 {
-    public class ConsensusHtmlReaderFactory : BaseFactory<string,IGetByKey<IEnumerable<Consensus>,string>>, IDisposable
+    public class ConsensusHtmlReaderFactory : BaseHtmlReaderFactory<Consensus>
     {
         private const string KEY = "ConsensusHtmlReader";
         private const int ID = 1000100;
@@ -20,19 +20,12 @@ namespace StockCore.Factory.Html
         private const int OUTERERRID = 1000102;
         private const int MONPROCESSERRID = 1000103;
         private const int MONOUTERERRID = 1000104;
-        private readonly IHttpClientWrapper client;
-        private readonly IHtmlDocumentWrapper doc;
-        private readonly IConfigReader configReader;
-        public ConsensusHtmlReaderFactory(ILogger logger,
+        public ConsensusHtmlReaderFactory(
+            ILogger logger,
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
             IConfigReader configReader
-            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
-        {
-            this.client = client;
-            this.doc = doc;
-            this.configReader = configReader;
-        }
+            ):base(client,doc,configReader,PROCESSERRID,OUTERERRID,ID,KEY,logger){}
         protected override IGetByKey<IEnumerable<Consensus>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
             IGetByKey<IEnumerable<Consensus>,string> inner = new ConsensusHtmlReader(client,doc);
@@ -50,30 +43,6 @@ namespace StockCore.Factory.Html
                     );
             }
             return inner;
-        }
-        private bool disposed = false;
-        public new void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if(!this.disposed)
-            {
-                if(disposing)
-                {
-                    if(client!=null)
-                    {
-                        client.Dispose();
-                    }
-                }
-                disposed = true;
-            }
-        }
-        ~ConsensusHtmlReaderFactory()
-        {
-            Dispose(false);
         }
     }
 }

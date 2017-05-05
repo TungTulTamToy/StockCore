@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 
 namespace StockCore.Wrapper
 {
+    public interface IHttpClientWrapper:IDisposable
+    {
+        Task<string> GetStringAsync(string requestUri);
+    }
     public class HttpClientWrapper : IHttpClientWrapper
     {
         private readonly HttpClient httpClient;
