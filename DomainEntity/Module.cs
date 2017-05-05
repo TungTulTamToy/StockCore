@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace StockCore.DomainEntity
 {
-    public class ModuleDE:IKeyField<string>
+    public class Module:IKeyField<string>
     {
         public string Key{get;set;}
         public bool IsActive {get;set;}

@@ -56,9 +56,9 @@ namespace StockCore.Business.Builder
 
             return stock;
         }
-        private IEnumerable<PeDiffPercentDE> calculatePeDiffPercent(IEnumerable<PeDE> pe)
+        private IEnumerable<PeDiffPercent> calculatePeDiffPercent(IEnumerable<Pe> pe)
         {
-            IEnumerable<PeDiffPercentDE> ped = null;
+            IEnumerable<PeDiffPercent> ped = null;
             if(pe!=null && pe.Any())
             {
                 int limit = 7;
@@ -71,7 +71,7 @@ namespace StockCore.Business.Builder
                 ped = from p in pe
                     where p.Value > 0
                     orderby p.Year descending
-                    select new PeDiffPercentDE
+                    select new PeDiffPercent
                     {
                         Year = p.Year,
                         Value = (minPE-p.Value)/minPE
@@ -79,15 +79,15 @@ namespace StockCore.Business.Builder
             }
             return ped;
         }
-        private IEnumerable<PegDE> calculatePeg(IEnumerable<PeDE> pe, IEnumerable<GrowthDE> growth)
+        private IEnumerable<Peg> calculatePeg(IEnumerable<Pe> pe, IEnumerable<GrowthDE> growth)
         {
-            IEnumerable<PegDE> peg=null;
+            IEnumerable<Peg> peg=null;
             if(pe!=null && pe.Any() && growth!=null && growth.Any())
             {
                 peg = from p in pe
                 join g in growth on p.Year equals g.Year
                 orderby p.Year descending
-                select new PegDE
+                select new Peg
                 {
                     Year = p.Year,
                     Value = p.Value/g.Value,
@@ -96,13 +96,13 @@ namespace StockCore.Business.Builder
             }
             return peg;
         }
-        private IEnumerable<PeDE> calculatePe(
+        private IEnumerable<Pe> calculatePe(
             IEnumerable<Price> price,
             IEnumerable<Statistic> statistic,
             IEnumerable<Share> shareByYear,
             IEnumerable<Consensus> consensus)
         {
-            IEnumerable<PeDE> pe = null;
+            IEnumerable<Pe> pe = null;
             if(shareByYear != null && shareByYear.Any())
             {
                 var avgPriceOfEachJan = from p in price
@@ -118,7 +118,7 @@ namespace StockCore.Business.Builder
                     join stat in statistic on (p.Date.Year-1) equals stat.Year
                     join s in shareByYear on stat.Year equals s.Date.Year
                     where stat.Year < DateTime.Now.Year
-                    select new PeDE
+                    select new Pe
                     {
                         Year = stat.Year,
                         Value = p.Close.Value / (stat.NetProfit.Value/((double)s.Amount.Value/1000000)),
@@ -130,7 +130,7 @@ namespace StockCore.Business.Builder
                 //Forward PE
                 pe = pe.Union(from c in consensus
                     where c.Year >= DateTime.Now.Year
-                    select new PeDE
+                    select new Pe
                     {
                         Year = c.Year,
                         Value = c.Average < c.Median ? lastPrice.Close.Value / c.Average.Value : lastPrice.Close.Value / c.Median.Value,
@@ -214,7 +214,7 @@ namespace StockCore.Business.Builder
             return avg;
         }
 
-        private IEnumerable<GrowthDE> calculateGrowth(IEnumerable<NetProfitDE> netProfit)
+        private IEnumerable<GrowthDE> calculateGrowth(IEnumerable<NetProfit> netProfit)
         {
             IEnumerable<GrowthDE> growth = null;
             if(netProfit != null && netProfit.Any())
@@ -232,19 +232,19 @@ namespace StockCore.Business.Builder
             return growth;
         }
 
-        private IEnumerable<NetProfitDE> calculateNetProfit(
+        private IEnumerable<NetProfit> calculateNetProfit(
             string quote,
             IEnumerable<Statistic> statistic,
             IEnumerable<Consensus> consensus,
             IEnumerable<Share> shareByYear)
         {
-            IEnumerable<NetProfitDE> netProfit=null;
+            IEnumerable<NetProfit> netProfit=null;
             if(shareByYear!=null && shareByYear.Any())
             {
                 //actual
                 netProfit = from stat in statistic
                     where stat.Year < DateTime.Now.Year
-                    select new NetProfitDE
+                    select new NetProfit
                     {
                         Year = stat.Year,
                         Value = stat.NetProfit.Value,
@@ -255,7 +255,7 @@ namespace StockCore.Business.Builder
                 netProfit = netProfit.Union(from c in consensus
                     join s in shareByYear on c.Year equals s.Date.Year
                     where c.Year >= DateTime.Now.Year
-                    select new NetProfitDE
+                    select new NetProfit
                     {
                         Year = c.Year,
                         Value = c.Average < c.Median ? ((c.Average * s.Amount) / 1000000).Value : ((c.Median * s.Amount) / 1000000).Value,

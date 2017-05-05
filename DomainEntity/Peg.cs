@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace StockCore.DomainEntity
 {
-    public class PeDE
+    public class Peg
     {
         public int Year { get; set; }
         public double Value { get; set; }

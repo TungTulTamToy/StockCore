@@ -4,6 +4,6 @@ namespace StockCore.Business.Repo.AppSetting
 {
     public interface IConfigReader
     {
-        ModuleDE GetByKey(string key);
+        Module GetByKey(string key);
     }
 }

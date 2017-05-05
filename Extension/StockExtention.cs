@@ -12,12 +12,12 @@ namespace StockCore.DomainEntity
             IEnumerable<Statistic> statistic,
             IEnumerable<Share> share,
             IEnumerable<Consensus> consensus,
-            IEnumerable<NetProfitDE> netprofit,
+            IEnumerable<NetProfit> netprofit,
             IEnumerable<GrowthDE> growth,
             IEnumerable<PriceCal> pricecal,
-            IEnumerable<PeDE> pe,
-            IEnumerable<PegDE> peg,
-            IEnumerable<PeDiffPercentDE> pediffpercent)
+            IEnumerable<Pe> pe,
+            IEnumerable<Peg> peg,
+            IEnumerable<PeDiffPercent> pediffpercent)
         {
             item.Quote = quote;
             item.Price = price;

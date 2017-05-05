@@ -15,11 +15,11 @@ namespace StockCore.DomainEntity
         public IEnumerable<Statistic> Statistic{get;set;}
         public IEnumerable<Share> Share{get;set;}
         public IEnumerable<Consensus> Consensus{get;set;}
-        public IEnumerable<NetProfitDE> NetProfit{get;set;}
+        public IEnumerable<NetProfit> NetProfit{get;set;}
         public IEnumerable<GrowthDE> Growth{get;set;}
         public IEnumerable<PriceCal> PriceCal{get;set;}
-        public IEnumerable<PeDE> Pe{get;set;}
-        public IEnumerable<PegDE> Peg{get;set;}
-        public IEnumerable<PeDiffPercentDE> PeDiffPercent{get;set;}
+        public IEnumerable<Pe> Pe{get;set;}
+        public IEnumerable<Peg> Peg{get;set;}
+        public IEnumerable<PeDiffPercent> PeDiffPercent{get;set;}
     }
 }

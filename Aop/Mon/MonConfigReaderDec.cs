@@ -22,7 +22,7 @@ namespace StockCore.Aop.Mon
             this.inner = inner;
             this.validateKey = validateKey;
         }
-        public ModuleDE GetByKey(string key)
+        public Module GetByKey(string key)
         {
             var m = baseMonDecBuild(
                 key,

@@ -9,18 +9,18 @@ namespace StockCore.Business.Repo.AppSetting
     {
         private static readonly object padlock = new object();
         private IConfigurationRoot configRoot;
-        private Dictionary<string,ModuleDE> modules;
+        private Dictionary<string,Module> modules;
         public ModuleConfigReader(IConfigurationRoot configRoot)
         {
             this.configRoot = configRoot;
         }
-        public ModuleDE GetByKey(string key)
+        public Module GetByKey(string key)
         {
             lock(padlock)//Cause this factory is Singleton!!!   
             {
                 if(modules == null)
                 {
-                    var configs = configRoot.GetSection("Modules").Get<List<ModuleDE>>();
+                    var configs = configRoot.GetSection("Modules").Get<List<Module>>();
                     modules = configs.ToDictionary(c=>$"{c.Key}",c=>c);   
                 }       
             }  
