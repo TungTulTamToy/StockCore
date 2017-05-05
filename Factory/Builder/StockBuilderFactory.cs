@@ -49,31 +49,39 @@ namespace StockCore.Factory.Builder
                 shareRepoFactory.Build(tracer),
                 statisticRepoFactory.Build(tracer),
                 consensusRepoFactory.Build(tracer),
-                priceRepoFactory.Build(tracer));  
+                priceRepoFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsCacheActive())
+            inner = loadCachingDecorator(tracer, inner, module);
+            inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IBuilder<string, Stock> loadCachingDecorator(Tracer tracer, IBuilder<string, Stock> inner, Module module)
+        {
+            if (module.IsCacheActive())
             {
-                inner = new CacheBuilderDec<string,Stock>(
+                inner = new CacheBuilderDec<string, Stock>(
                     inner,
                     CacheHelper.GetKeyByString(),
                     cacheRepoFactory.Build(tracer),
                     module.Cache,
                     CACHEPROCESSERRID,
                     CACHEOUTERERRID,
-                    logger
-                );
+                    logger);
             }
-            if(module.IsMonitoringActive())
+            return inner;
+        }
+        private IBuilder<string, Stock> loadMonitoringDecorator(Tracer tracer, IBuilder<string, Stock> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
-                inner = new MonBuilderDec<string,Stock>(
+                inner = new MonBuilderDec<string, Stock>(
                     inner,
-                    ValidationHelper.ValidateString(1020105,"Quote"),
+                    ValidationHelper.ValidateString(1020105, "Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
                     logger,
-                    tracer
-                    );
+                    tracer);
             }
             return inner;
         }

@@ -42,12 +42,9 @@ namespace StockCore.Factory.Html
         {
             if(!this.disposed)
             {
-                if(disposing)
+                if(disposing && client!=null)
                 {
-                    if(client!=null)
-                    {
-                        client.Dispose();
-                    }
+                    client.Dispose();
                 }
                 disposed = true;
             }

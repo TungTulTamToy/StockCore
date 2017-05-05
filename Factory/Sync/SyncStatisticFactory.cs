@@ -32,19 +32,23 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<Statistic>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<Statistic>> inner = new SyncDataByKey<string,Statistic>(dbStatisticDEFactory.Build(tracer));  
+            IOperation<IEnumerable<Statistic>> inner = new SyncDataByKey<string, Statistic>(dbStatisticDEFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsMonitoringActive())
+            inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IOperation<IEnumerable<Statistic>> loadMonitoringDecorator(Tracer tracer, IOperation<IEnumerable<Statistic>> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
                 inner = new MonOperationDec<IEnumerable<Statistic>>(
                     inner,
-                    ValidationHelper.ValidateItemsWithStringKeyField<Statistic>(1019102,"Quote"),    
+                    ValidationHelper.ValidateItemsWithStringKeyField<Statistic>(1019102, "Quote"),
                     MONPROCESSERRID,
-                    MONOUTERERRID,           
-                    module.Monitoring,                   
+                    MONOUTERERRID,
+                    module.Monitoring,
                     logger,
-                    tracer
-                    );  
+                    tracer);
             }
             return inner;
         }

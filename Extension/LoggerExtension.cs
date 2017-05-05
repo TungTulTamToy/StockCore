@@ -23,18 +23,10 @@ namespace StockCore.Extension
             var sb = new StringBuilder();
             sb.AppendLine();
             traceParam(inputItem, showParams, sb);
-            traceCount(inputItem, showCount, sb,"Input Count");
-            if(showResult)
-            {
-                sb.Append($"Result: {JsonHelper.SerializeObject(returnItem)}");
-                sb.AppendLine();
-            }
-            traceCount(returnItem, showCount, sb,"Output Count");
-            if(!string.IsNullOrEmpty(perfMsg))
-            {
-                sb.Append($"ElapsedMilliseconds: {perfMsg}");
-                sb.AppendLine();
-            }
+            traceCount(inputItem, showCount, sb, "Input Count");
+            traceResult(returnItem, showResult, sb);
+            traceCount(returnItem, showCount, sb, "Output Count");
+            tracePerformanceMeasurement(perfMsg, sb);
             logger.traceDebug("<---", keyName, sb.ToString());
         }
         public static void TraceMessage(this ILogger logger,string keyName,string msg)
@@ -52,21 +44,45 @@ namespace StockCore.Extension
                 sb.AppendLine();
                 sb.Append($"Info: [{ex.Info}] ");
                 sb.AppendLine();
-                if(ex!=null)
-                {
-                    sb.Append($"Exception: {ex.Message} ");
-                    sb.AppendLine();
-                    sb.Append($"Stack: {ex.StackTrace} ");
-                    sb.AppendLine();
-                    if(ex.InnerException!=null)
-                    {
-                        sb.Append($"Inner Exception: {ex.InnerException.Message} ");
-                        sb.AppendLine();
-                        sb.Append($"Inner Stack: {ex.InnerException.StackTrace} ");
-                        sb.AppendLine();
-                    }
-                }
+                traceException(ex, sb);
                 logger.LogError(sb.ToString());
+            }
+        }
+        private static void tracePerformanceMeasurement(string perfMsg, StringBuilder sb)
+        {
+            if (!string.IsNullOrEmpty(perfMsg))
+            {
+                sb.Append($"ElapsedMilliseconds: {perfMsg}");
+                sb.AppendLine();
+            }
+        }
+        private static void traceResult<TOut>(TOut returnItem, bool showResult, StringBuilder sb)
+        {
+            if (showResult)
+            {
+                sb.Append($"Result: {JsonHelper.SerializeObject(returnItem)}");
+                sb.AppendLine();
+            }
+        }
+        private static void traceException(StockCoreException ex, StringBuilder sb)
+        {
+            if (ex != null)
+            {
+                sb.Append($"Exception: {ex.Message} ");
+                sb.AppendLine();
+                sb.Append($"Stack: {ex.StackTrace} ");
+                sb.AppendLine();
+                traceInnerException(ex, sb);
+            }
+        }
+        private static void traceInnerException(StockCoreException ex, StringBuilder sb)
+        {
+            if (ex.InnerException != null)
+            {
+                sb.Append($"Inner Exception: {ex.InnerException.Message} ");
+                sb.AppendLine();
+                sb.Append($"Inner Stack: {ex.InnerException.StackTrace} ");
+                sb.AppendLine();
             }
         }
         private static int? getCount<T>(T items)
@@ -96,39 +112,47 @@ namespace StockCore.Extension
             }
             else if (inputItem != null && (inputItem is IKeyField<string> || inputItem is IEnumerable))
             {
-                if (inputItem is IKeyField<string>)
+                traceParamKey(inputItem, sb);
+            }
+        }
+        private static void traceParamKey<T>(T inputItem, StringBuilder sb)
+        {
+            if (inputItem is IKeyField<string>)
+            {
+                var key = inputItem as IKeyField<string>;
+                sb.Append($"Parameter Key: {key.Key}");
+            }
+            else if (inputItem is IEnumerable)
+            {
+                var items = inputItem as IEnumerable;
+                var index = 0;
+                var keyList = new List<string>();
+                foreach (var item in items)
                 {
-                    var key = inputItem as IKeyField<string>;
-                    sb.Append($"Parameter Key: {key.Key}");
+                    traceSubParamKey(sb, index, keyList, item);
+                    index++;
                 }
-                else if (inputItem is IEnumerable)
+            }
+            sb.AppendLine();
+        }
+        private static void traceSubParamKey(StringBuilder sb, int index, List<string> keyList, object item)
+        {
+            if (item is IKeyField<string>)
+            {
+                var key = item as IKeyField<string>;
+                if (!(keyList.Contains(key.Key)))
                 {
-                    var items = inputItem as IEnumerable;
-                    var index = 0;
-                    var keyList = new List<string>();
-                    foreach (var item in items)
+                    if (index == 0)
                     {
-                        if (item is IKeyField<string>)
-                        {
-                            var key = item as IKeyField<string>;
-                            if (!(keyList.Contains(key.Key)))
-                            {
-                                if(index==0)
-                                {
-                                    sb.Append($"Parameter Keys : ");
-                                }
-                                else
-                                {
-                                    sb.Append($", ");
-                                }
-                                sb.Append($"[{key.Key}]");
-                                keyList.Add(key.Key);
-                            }
-                        }
-                        index++;
+                        sb.Append($"Parameter Keys : ");
                     }
+                    else
+                    {
+                        sb.Append($", ");
+                    }
+                    sb.Append($"[{key.Key}]");
+                    keyList.Add(key.Key);
                 }
-                sb.AppendLine();
             }
         }
         private static void traceCount<T>(T inputItem, bool showCount, StringBuilder sb, string prefix)

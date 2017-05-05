@@ -36,11 +36,10 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<string>> baseFactoryBuild(Tracer tracer,SyncAllFactoryCondition condition=null)
         {
-            var module = configReader.GetByKey(getAopKey());            
             IOperation<IEnumerable<string>> inner = null;
-            if(condition!=null && condition.Type==SyncAllFactoryCondition.SyncType.AllQuote)
+            if (condition != null && condition.Type == SyncAllFactoryCondition.SyncType.AllQuote)
             {
-                inner = new SyncAllSameTime(serviceProvider);                 
+                inner = new SyncAllSameTime(serviceProvider);
             }
             else
             {
@@ -48,21 +47,28 @@ namespace StockCore.Factory.Sync
                 {
                     Type = SyncQuoteFactoryCondition.SyncType.MethodTwo
                 };
-                inner = new SyncAll(syncQuoteFactory.Build(tracer,cond));                
+                inner = new SyncAll(syncQuoteFactory.Build(tracer, cond));
             }
-            if(module.IsMonitoringActive())
+            var module = configReader.GetByKey(getAopKey());            
+            inner = loadMonitoringDecorator(tracer, module, inner);
+            return inner;
+        }
+        private IOperation<IEnumerable<string>> loadMonitoringDecorator(Tracer tracer, Module module, IOperation<IEnumerable<string>> inner)
+        {
+            if (module.IsMonitoringActive())
             {
                 inner = new MonOperationDec<IEnumerable<string>>(
                     inner,
-                    ValidationHelper.ValidateStringItems(1013105,"Quotes"),
+                    ValidationHelper.ValidateStringItems(1013105, "Quotes"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
                     logger,
-                    tracer);       
+                    tracer);
             }
             return inner;
         }
+
         private bool disposed = false;
         public new void Dispose()
         {
@@ -73,12 +79,9 @@ namespace StockCore.Factory.Sync
         {
             if(!this.disposed)
             {
-                if(disposing)
+                if(disposing && syncQuoteFactory!=null)
                 {
-                    if(syncQuoteFactory!=null)
-                    {
-                        ((IDisposable)syncQuoteFactory).Dispose();
-                    }
+                    syncQuoteFactory.Dispose();
                 }
                 disposed = true;
             }

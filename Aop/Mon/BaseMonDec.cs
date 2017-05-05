@@ -85,41 +85,48 @@ namespace StockCore.Aop.Mon
         {
             if(module.IsActive)
             {
-                if(module.PerformanceMeasurement)
-                {
-                    sw = new Stopwatch();
-                    sw.Start();
-                }
-                if(module.LogTrace)
-                {
-                    var paramsValue = JsonHelper.SerializeObject(input);
-                    var callHistory = new CallHistory(methodName,paramsValue);
-                    tracer.AddCallHistory(callHistory);
-                }
-                logger.TraceBegin($"{module.Key}.{methodName}",input,module.ShowParams,module.ShowCount);
+                sw = startMeasurePerformance(sw, module);
+                logTrace(input, methodName, module);
             }
             return sw;
         }
+        private static Stopwatch startMeasurePerformance(Stopwatch sw, MonitoringModule module)
+        {
+            if (module.PerformanceMeasurement)
+            {
+                sw = new Stopwatch();
+                sw.Start();
+            }
+            return sw;
+        }
+        private void logTrace<TInput>(TInput input, string methodName, MonitoringModule module)
+        {
+            if (module.LogTrace)
+            {
+                var paramsValue = JsonHelper.SerializeObject(input);
+                var callHistory = new CallHistory().Load(methodName, paramsValue);
+                tracer.AddCallHistory(callHistory);
+            }
+            logger.TraceBegin($"{module.Key}.{methodName}", input, module.ShowParams, module.ShowCount);
+        }
+
         private void postProcess<TInput,TResult>(TInput input,TResult returnItem,Stopwatch sw,string methodName,MonitoringModule module)
         {
             if(module.IsActive)
             {
-                var perfMsg = "";
-                if(module.PerformanceMeasurement)
-                {
-                    sw.Stop();
-                    perfMsg = sw.ElapsedMilliseconds.ToString();
-                }
-                logger.TraceEnd(
-                    $"{module.Key}.{methodName}",
-                    input,
-                    returnItem,
-                    perfMsg,
-                    module.ShowParams,
-                    module.ShowResult,
-                    module.ShowCount);
+                var perfMsg = stopMeasurePerformance(sw, module);
+                logger.TraceEnd($"{module.Key}.{methodName}",input,returnItem,perfMsg,module.ShowParams,module.ShowResult,module.ShowCount);
             }
         }
-        
+        private static string stopMeasurePerformance(Stopwatch sw, MonitoringModule module)
+        {
+            var perfMsg = "";
+            if (module.PerformanceMeasurement)
+            {
+                sw.Stop();
+                perfMsg = sw.ElapsedMilliseconds.ToString();
+            }
+            return perfMsg;
+        }
     }
 }

@@ -43,19 +43,24 @@ namespace StockCore.Factory.DB
         }
         protected override IGetByKeyRepo<Share,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKeyRepo<Share,string> inner = new BaseKeyDBRepo<Share>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);    
+            IGetByKeyRepo<Share, string> inner = new BaseKeyDBRepo<Share>(config, db, filterBuilder, replaceOneModelBuilder, deleteOneModelBuilder, COLLECTIONNAME);
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsMonitoringActive())
+            inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+
+        private IGetByKeyRepo<Share, string> loadMonitoringDecorator(Tracer tracer, IGetByKeyRepo<Share, string> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
-                inner = new MonGetByKeyRepoDec<string,Share>(
+                inner = new MonGetByKeyRepoDec<string, Share>(
                     inner,
-                    ValidationHelper.ValidateString(1006105,"Quote"),
+                    ValidationHelper.ValidateString(1006105, "Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
                     logger,
-                    tracer
-                    );
+                    tracer);
             }
             return inner;
         }

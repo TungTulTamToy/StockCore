@@ -2,13 +2,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using StockCore.Factory;
 using StockCore.Business.Repo.MongoDB;
-using StockCore.Business.Operation;
 using StockCore.DomainEntity;
 using StockCore.Extension;
-using StockCore.DomainEntity.Enum;
-using StockCore.Aop.Mon;
 using static StockCore.DomainEntity.Enum.StateOperation;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -77,19 +73,27 @@ namespace StockCore.Aop.Retry
 
         private async Task saveStateAsync(IEnumerable<OperationState> items,string key,bool state,OperationName operationName)
         {
-            var selectedItems = from i in items where i.OperationName==operationName select i;
-            if(selectedItems.Any())
-            {
-                await operationStateRepo.BatchDeleteAsync(selectedItems);
-            }
+            await deleteIfAny(items, operationName);
+            await add(key, state);
+        }
+        private async Task add(string key, bool state)
+        {
             var newItem = new OperationState()
             {
-                Quote=key,
-                Date=DateTime.Now.Date,
+                Quote = key,
+                Date = DateTime.Now.Date,
                 Activated = state,
                 OperationName = OperationName.RetrySyncQuoteDec
             };
-            await operationStateRepo.InsertAsync(newItem);                
+            await operationStateRepo.InsertAsync(newItem);
+        }
+        private async Task deleteIfAny(IEnumerable<OperationState> items, OperationName operationName)
+        {
+            var selectedItems = from i in items where i.OperationName == operationName select i;
+            if (selectedItems.Any())
+            {
+                await operationStateRepo.BatchDeleteAsync(selectedItems);
+            }
         }
     }
 }

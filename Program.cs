@@ -112,7 +112,7 @@ namespace StockCore
             DECollection<Stock> stocks = null;
             try
             {
-                var tracer=new Tracer(0,null,"Get Stock by Quote Group.",TraceSourceName.TestConsole);
+                var tracer=new Tracer().Load(0,null,"Get Stock by Quote Group.",TraceSourceName.TestConsole);
                 var stockByGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, DECollection<Stock>>>>();
                 var builder = stockByGroupBuilderFactory.Build(tracer);
                 Task.Run(async()=>stocks = await builder.BuildAsync(quoteGroupName)).GetAwaiter().GetResult();
@@ -128,7 +128,7 @@ namespace StockCore
             DECollection<QuoteGroup> groups = null;
             try
             {
-                var tracer=new Tracer(0,null,"Get All Quote Group.",TraceSourceName.TestConsole);
+                var tracer=new Tracer().Load(0,null,"Get All Quote Group.",TraceSourceName.TestConsole);
                 var allQuoteGroupBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, DECollection<QuoteGroup>>>>();
                 var builder = allQuoteGroupBuilderFactory.Build(tracer);
                 Task.Run(async()=>groups = await builder.BuildAsync()).GetAwaiter().GetResult();
@@ -144,7 +144,7 @@ namespace StockCore
             Stock stockInfo = null;
             try
             {
-                var tracer=new Tracer(0,null,"Get Stock Info.",TraceSourceName.TestConsole);
+                var tracer=new Tracer().Load(0,null,"Get Stock Info.",TraceSourceName.TestConsole);
                 var stockBuilderFactory = serviceProvider.GetService<IFactory<string, IBuilder<string, Stock>>>();
                 var builder = stockBuilderFactory.Build(tracer);
                 Task.Run(async()=>stockInfo = await builder.BuildAsync(quote)).GetAwaiter().GetResult();
@@ -182,13 +182,13 @@ namespace StockCore
                 where s!=null
                 select new Statistic{Quote=backup.Quote,NetProfit=s.NetProfit,Year=s.Year,IsValid=true};
 
-            var priceTracer=new Tracer(0,null,"Start Seed Price",TraceSourceName.TestConsole);
+            var priceTracer=new Tracer().Load(0,null,"Start Seed Price",TraceSourceName.TestConsole);
             var seedPriceOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<Price>>>>().Build(priceTracer);
-            var consensusTracer=new Tracer(0,null,"Start Seed Consensus",TraceSourceName.TestConsole);
+            var consensusTracer=new Tracer().Load(0,null,"Start Seed Consensus",TraceSourceName.TestConsole);
             var seedConsensusOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<Consensus>>>>().Build(consensusTracer);
-            var shareTracer=new Tracer(0,null,"Start Seed Share",TraceSourceName.TestConsole);
+            var shareTracer=new Tracer().Load(0,null,"Start Seed Share",TraceSourceName.TestConsole);
             var seedShareOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<Share>>>>().Build(shareTracer);
-            var statisticTracer=new Tracer(0,null,"Start Seed Price",TraceSourceName.TestConsole);
+            var statisticTracer=new Tracer().Load(0,null,"Start Seed Price",TraceSourceName.TestConsole);
             var seedStatisticOperation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<Statistic>>>>().Build(statisticTracer);            
 
             Task.Run(async()=> {
@@ -209,7 +209,7 @@ namespace StockCore
             {
                 using(var syncAllFactory = serviceProvider.GetService<IFactory<SyncAllFactoryCondition,IOperation<IEnumerable<string>>>>())
                 {
-                    var tracer=new Tracer(0,null,"Start Sync Web",TraceSourceName.TestConsole);                    
+                    var tracer=new Tracer().Load(0,null,"Start Sync Web",TraceSourceName.TestConsole);                    
                     var condition = new SyncAllFactoryCondition()
                     {
                         Type = SyncAllFactoryCondition.SyncType.AllQuote
@@ -231,7 +231,7 @@ namespace StockCore
         {
             try
             {
-                var tracer=new Tracer(0,null,"Start Seed Group",TraceSourceName.TestConsole);
+                var tracer=new Tracer().Load(0,null,"Start Seed Group",TraceSourceName.TestConsole);
                 var operation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<QuoteGroup>>>>().Build(tracer);
                 var seedGroup = QuoteGroupData.PrepareData;
                 Task.Run(async()=> await operation.OperateAsync(seedGroup)).GetAwaiter().GetResult();

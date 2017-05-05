@@ -42,11 +42,16 @@ namespace StockCore.Factory.DB
         }
         protected override IRepo<SetIndex> baseFactoryBuild(Tracer trace,string t="")
         {
-            IRepo<SetIndex> inner = new BaseAllDBRepo<SetIndex>(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,COLLECTIONNAME);   
+            IRepo<SetIndex> inner = new BaseAllDBRepo<SetIndex>(config, db, filterBuilder, replaceOneModelBuilder, deleteOneModelBuilder, COLLECTIONNAME);
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsMonitoringActive())
+            inner = loadMonitoringDecorator(trace, inner, module);
+            return inner;
+        }
+        private IRepo<SetIndex> loadMonitoringDecorator(Tracer trace, IRepo<SetIndex> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
-                inner = new MonRepoDec<SetIndex>(inner,MONPROCESSERRID,MONOUTERERRID,module.Monitoring,logger,trace);
+                inner = new MonRepoDec<SetIndex>(inner, MONPROCESSERRID, MONOUTERERRID, module.Monitoring, logger, trace);
             }
             return inner;
         }

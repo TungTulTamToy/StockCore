@@ -12,13 +12,13 @@ namespace StockCore.Business.Repo.Html
         protected readonly IHtmlDocumentWrapper doc;
         private readonly string url;
         private readonly IHttpClientWrapper client;
+        protected abstract IEnumerable<T> extractValues(string keyword);        
         public BaseHtmlReader(IHttpClientWrapper client, IHtmlDocumentWrapper doc, string url)
         {
             this.doc = doc;
             this.url = url;
             this.client = client;
         }
-
         public async Task<IEnumerable<T>> GetByKeyAsync(string id)
         {
             var response = await client.GetStringAsync(string.Format(url,id));
@@ -26,9 +26,6 @@ namespace StockCore.Business.Repo.Html
             var items = extractValues(id);
             return items;
         }
-
-        protected abstract IEnumerable<T> extractValues(string keyword);
-
         protected double? parseDouble(string value)
         {
             double temp;

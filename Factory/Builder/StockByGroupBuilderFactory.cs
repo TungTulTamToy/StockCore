@@ -43,31 +43,40 @@ namespace StockCore.Factory.Builder
                 logger,
                 quoteGroupRepoFactory.Build(tracer),
                 stockBuilderFactory.Build(tracer)
-                );  
+                );
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsCacheActive())
+            inner = loadCachingDecorator(tracer, inner, module);
+            inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IBuilder<string, DECollection<Stock>> loadCachingDecorator(Tracer tracer, IBuilder<string, DECollection<Stock>> inner, Module module)
+        {
+            if (module.IsCacheActive())
             {
-                inner = new CacheBuilderDec<string,DECollection<Stock>>(
+                inner = new CacheBuilderDec<string, DECollection<Stock>>(
                     inner,
                     CacheHelper.GetKeyByString(),
                     cacheRepoFactory.Build(tracer),
                     module.Cache,
                     CACHEPROCESSERRID,
                     CACHEOUTERERRID,
-                    logger
-                );
+                    logger);
             }
-            if(module.IsMonitoringActive())
+            return inner;
+        }
+
+        private IBuilder<string, DECollection<Stock>> loadMonitoringDecorator(Tracer tracer, IBuilder<string, DECollection<Stock>> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
-                inner = new MonBuilderDec<string,DECollection<Stock>>(
+                inner = new MonBuilderDec<string, DECollection<Stock>>(
                     inner,
-                    ValidationHelper.ValidateString(1023107,"GroupName"),
+                    ValidationHelper.ValidateString(1023107, "GroupName"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
                     logger,
-                    tracer
-                    );
+                    tracer);
             }
             return inner;
         }

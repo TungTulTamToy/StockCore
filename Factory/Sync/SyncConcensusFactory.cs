@@ -33,18 +33,23 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<Consensus>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<Consensus>> inner = new SyncDataByKey<string,Consensus>(dbConsensusFactory.Build(tracer));
+            IOperation<IEnumerable<Consensus>> inner = new SyncDataByKey<string, Consensus>(dbConsensusFactory.Build(tracer));
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsMonitoringActive())
+            inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IOperation<IEnumerable<Consensus>> loadMonitoringDecorator(Tracer tracer, IOperation<IEnumerable<Consensus>> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
-                Func<ILogger,Tracer,string,string,IEnumerable<Consensus>,bool> validate = null;
-                if(tracer.Caller.ID==1016100)//Call from SyncQuoteFactory
+                Func<ILogger, Tracer, string, string, IEnumerable<Consensus>, bool> validate = null;
+                if (tracer.Caller.ID == 1016100)//Call from SyncQuoteFactory
                 {
                     validate = ValidationHelper.ValidateItemsWithStringKeyField<Consensus>();
                 }
                 else
                 {
-                    validate = ValidationHelper.ValidateItemsWithStringKeyField<Consensus>(1014102,"Quote");
+                    validate = ValidationHelper.ValidateItemsWithStringKeyField<Consensus>(1014102, "Quote");
                 }
                 inner = new MonOperationDec<IEnumerable<Consensus>>(
                     inner,
@@ -53,8 +58,7 @@ namespace StockCore.Factory.Sync
                     OUTERERRID,
                     module.Monitoring,
                     logger,
-                    tracer
-                    );     
+                    tracer);
             }
             return inner;
         }

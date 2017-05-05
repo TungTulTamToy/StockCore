@@ -46,7 +46,6 @@ namespace StockCore.Business.Repo.Html
             }
             return consensuses;
         }
-
         private int extractYear(int elementAt)
         {
             var y = doc.DocumentNode.SelectNodes("//div[@class='table-responsive']//table//thead//tr").ElementAt(1).ChildNodes.ElementAt(elementAt).InnerText.Trim();

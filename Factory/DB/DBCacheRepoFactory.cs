@@ -43,26 +43,30 @@ namespace StockCore.Factory.DB
         }
         protected override IGetByFuncRepo<string,StockCoreCache<T>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByFuncRepo<string,StockCoreCache<T>> inner = new BaseFuncDBRepo<StockCoreCache<T>>(
+            IGetByFuncRepo<string, StockCoreCache<T>> inner = new BaseFuncDBRepo<StockCoreCache<T>>(
                 config,
                 db,
                 filterBuilder,
                 replaceOneModelBuilder,
                 deleteOneModelBuilder,
-                COLLECTIONNAME);   
+                COLLECTIONNAME);
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsMonitoringActive())
+            inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IGetByFuncRepo<string, StockCoreCache<T>> loadMonitoringDecorator(Tracer tracer, IGetByFuncRepo<string, StockCoreCache<T>> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
-                inner = new MonGetByFuncRepoDec<string,StockCoreCache<T>>(
+                inner = new MonGetByFuncRepoDec<string, StockCoreCache<T>>(
                     inner,
-                    ValidationHelper.ValidateExpression<StockCoreCache<T>>(1021106,"Criteria"),
-                    ValidationHelper.ValidateString(1021105,"Key"),
+                    ValidationHelper.ValidateExpression<StockCoreCache<T>>(1021106, "Criteria"),
+                    ValidationHelper.ValidateString(1021105, "Key"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
                     logger,
-                    tracer
-                    );
+                    tracer);
             }
             return inner;
         }

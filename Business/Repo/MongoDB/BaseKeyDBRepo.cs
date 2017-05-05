@@ -15,9 +15,6 @@ namespace StockCore.Business.Repo.MongoDB
             IReplaceOneModelBuilder replaceOneModelBuilder,  
             IDeleteOneModelBuilder deleteOneModelBuilder,
             string collectionName):base(config,db,filterBuilder,replaceOneModelBuilder,deleteOneModelBuilder,collectionName){}
-        public async Task<IEnumerable<T>> GetByKeyAsync(string keyName)
-        {
-            return await collection.ToListAsync(i=>i.Key == keyName);
-        }
+        public async Task<IEnumerable<T>> GetByKeyAsync(string keyName)=>await collection.ToListAsync(i=>i.Key == keyName);
     }
 }

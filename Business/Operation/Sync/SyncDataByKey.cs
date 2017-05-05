@@ -16,13 +16,11 @@ namespace StockCore.Business.Operation.Sync
             {
                 var dbItems = await ((IGetByKeyRepo<T,TKey>)repo).GetByKeyAsync(key);
                 var itemsPerKey = source.Where(item=>item.Key==key);
-
                 var syncEntity = new SyncEntity<T>()
                 {
                     source = itemsPerKey,
                     destination = dbItems
                 };
-
                 await base.OperateAsync(syncEntity);
             });
             await Task.WhenAll(tasks);

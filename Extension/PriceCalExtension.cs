@@ -18,9 +18,6 @@ namespace StockCore.DomainEntity
             item.DiffAvg = calDiff(avg,last);
             return item;
         }
-        private static double calDiff(double price,double last)
-        {
-            return ((price - last) / last) * 100; ;
-        }
+        private static double calDiff(double price,double last)=>((price - last) / last) * 100;
     }
 }

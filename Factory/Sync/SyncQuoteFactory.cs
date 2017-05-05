@@ -84,7 +84,7 @@ namespace StockCore.Factory.Sync
         protected override IOperation<string> baseFactoryBuild(Tracer tracer,SyncQuoteFactoryCondition condition=null)
         {
             IOperation<string> inner = null;
-            if(condition != null && condition.Type == SyncQuoteFactoryCondition.SyncType.MethodTwo)
+            if (condition != null && condition.Type == SyncQuoteFactoryCondition.SyncType.MethodTwo)
             {
                 inner = new SyncQuoteByKey(
                     syncPriceFactory.Build(tracer),
@@ -110,10 +110,16 @@ namespace StockCore.Factory.Sync
                     priceHtmlReaderFactory.Build(tracer),
                     setIndexHtmlReaderFactory.Build(tracer),
                     shareHtmlReaderFactory.Build(tracer),
-                    statisticHtmlReaderFactory.Build(tracer)); 
+                    statisticHtmlReaderFactory.Build(tracer));
             }
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsRetryActive())
+            inner = loadRetryDecorator(tracer, inner, module);
+            inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IOperation<string> loadRetryDecorator(Tracer tracer, IOperation<string> inner, Module module)
+        {
+            if (module.IsRetryActive())
             {
                 inner = new RetryOperationDec<string>(
                     inner,
@@ -125,14 +131,18 @@ namespace StockCore.Factory.Sync
                     RETRYPROCESSERRID,
                     logger);
             }
-            if(module.IsMonitoringActive())
+            return inner;
+        }
+        private IOperation<string> loadMonitoringDecorator(Tracer tracer, IOperation<string> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
                 inner = new MonOperationDec<string>(
                     inner,
-                    ValidationHelper.ValidateString(1016107,"Quote"),   
-                    MONPROCESSERRID, 
-                    MONOUTERERRID,        
-                    module.Monitoring,     
+                    ValidationHelper.ValidateString(1016107, "Quote"),
+                    MONPROCESSERRID,
+                    MONOUTERERRID,
+                    module.Monitoring,
                     logger,
                     tracer
                     );
@@ -153,23 +163,23 @@ namespace StockCore.Factory.Sync
                 {
                     if(consensusHtmlReaderFactory!=null)
                     {
-                        ((IDisposable)consensusHtmlReaderFactory).Dispose();
+                        consensusHtmlReaderFactory.Dispose();
                     }
                     if(priceHtmlReaderFactory!=null)
                     {
-                        ((IDisposable)priceHtmlReaderFactory).Dispose();
+                        priceHtmlReaderFactory.Dispose();
                     }
                     if(setIndexHtmlReaderFactory!=null)
                     {
-                        ((IDisposable)setIndexHtmlReaderFactory).Dispose();
+                        setIndexHtmlReaderFactory.Dispose();
                     }
                     if(shareHtmlReaderFactory!=null)
                     {
-                        ((IDisposable)shareHtmlReaderFactory).Dispose();
+                        shareHtmlReaderFactory.Dispose();
                     }
                     if(statisticHtmlReaderFactory!=null)
                     {
-                        ((IDisposable)statisticHtmlReaderFactory).Dispose();
+                        statisticHtmlReaderFactory.Dispose();
                     }
                 }
                 disposed = true;

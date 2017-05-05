@@ -28,19 +28,23 @@ namespace StockCore.Factory.Html
             ):base(client,doc,configReader,PROCESSERRID,OUTERERRID,ID,KEY,logger){}
         protected override IGetByKey<IEnumerable<Consensus>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IGetByKey<IEnumerable<Consensus>,string> inner = new ConsensusHtmlReader(client,doc);
+            IGetByKey<IEnumerable<Consensus>, string> inner = new ConsensusHtmlReader(client, doc);
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsMonitoringActive())
+            inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IGetByKey<IEnumerable<Consensus>, string> loadMonitoringDecorator(Tracer tracer, IGetByKey<IEnumerable<Consensus>, string> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
                 inner = new MonGetByKeyDec<Consensus>(
                     inner,
-                    ValidationHelper.ValidateString(1000105,"Quote"),
+                    ValidationHelper.ValidateString(1000105, "Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
                     logger,
-                    tracer
-                    );
+                    tracer);
             }
             return inner;
         }

@@ -33,14 +33,8 @@ namespace StockCore.Business.Repo.MongoDB
             this.replaceOneModelBuilder = replaceOneModelBuilder;
             this.deleteOneModelBuilder = deleteOneModelBuilder;
         }
-        public async Task<IEnumerable<T>> GetAllAsync()
-        {
-            return await collection.ToListAsync(_=>true);
-        }
-        public async Task InsertAsync(T item)
-        {
-            await collection.InsertOneAsync(stampInsertItem(item));
-        }
+        public async Task<IEnumerable<T>> GetAllAsync()=>await collection.ToListAsync(_=>true);
+        public async Task InsertAsync(T item)=>await collection.InsertOneAsync(stampInsertItem(item));
         public async Task BatchInsertAsync(IEnumerable<T> items)
         {
             var stampItems = items.Select(i=>stampInsertItem(i));

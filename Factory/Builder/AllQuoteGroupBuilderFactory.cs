@@ -39,31 +39,39 @@ namespace StockCore.Factory.Builder
             IBuilder<string, DECollection<QuoteGroup>> inner = new AllQuoteGroupBuilder(
                 logger,
                 quoteGroupRepoFactory.Build(tracer)
-                );  
+                );
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsCacheActive())
+            inner = loadCachingDecorator(tracer, inner, module);
+            inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IBuilder<string, DECollection<QuoteGroup>> loadCachingDecorator(Tracer tracer, IBuilder<string, DECollection<QuoteGroup>> inner, Module module)
+        {
+            if (module.IsCacheActive())
             {
-                inner = new CacheBuilderDec<string,DECollection<QuoteGroup>>(
+                inner = new CacheBuilderDec<string, DECollection<QuoteGroup>>(
                     inner,
                     CacheHelper.GetKeyByString(),
                     cacheRepoFactory.Build(tracer),
                     module.Cache,
                     CACHEPROCESSERRID,
                     CACHEOUTERERRID,
-                    logger
-                );
+                    logger);
             }
-            if(module.IsMonitoringActive())
+            return inner;
+        }
+        private IBuilder<string, DECollection<QuoteGroup>> loadMonitoringDecorator(Tracer tracer, IBuilder<string, DECollection<QuoteGroup>> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
-                inner = new MonBuilderDec<string,DECollection<QuoteGroup>>(
+                inner = new MonBuilderDec<string, DECollection<QuoteGroup>>(
                     inner,
-                    (logger,fakeTracer,moduleName,methodName,value)=>true,
+                    (logger, fakeTracer, moduleName, methodName, value) => true,
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
                     logger,
-                    tracer
-                    );
+                    tracer);
             }
             return inner;
         }

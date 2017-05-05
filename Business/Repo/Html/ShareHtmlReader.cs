@@ -3,11 +3,13 @@ using System.Text.RegularExpressions;
 using StockCore.DomainEntity;
 using System.Linq;
 using StockCore.Wrapper;
+using System;
 
 namespace StockCore.Business.Repo.Html
 {
     public class ShareHtmlReader : BaseHtmlReader<Share>
     {
+        public const string PATTERN = "\\d{2}/\\d{2}/\\d{4}:$";
         public ShareHtmlReader(
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc) : base(
@@ -16,8 +18,7 @@ namespace StockCore.Business.Repo.Html
                 "http://www.settrade.com/C04_03_stock_companyhighlight_p1.jsp?txtSymbol={0}&selectPage=3") { }
         protected override IEnumerable<Share> extractValues(string keyword)
         {
-            var pattern = "\\d{2}/\\d{2}/\\d{4}:$";
-            var nodes = doc.DocumentNode.SelectNodes("//div").Where(node => Regex.IsMatch(node.InnerText.Trim(), pattern)).Take(4).Reverse();
+            var nodes = doc.DocumentNode.SelectNodes("//div").Where(node => Regex.IsMatch(node.InnerText.Trim(), PATTERN)).Take(4).Reverse();
             var shares = new List<Share>();
             if(nodes!=null)
             {
@@ -26,26 +27,34 @@ namespace StockCore.Business.Repo.Html
                     var selectedValue = node.NextSibling.NextSibling.InnerText.Trim();
                     var splitedValue = selectedValue.Split(' ');
                     var amount = parselong(splitedValue[0]);
-                    if (amount != null)
-                    {
-                        foreach (Match match in Regex.Matches(node.InnerText.Trim(), pattern))
-                        {
-                            var date = parseDateTime(match.Value.TrimEnd(':'), "dd/MM/yyyy", "th-TH");
-                            if (!shares.Any(s => s.Date == date))
-                            {
-                                shares.Add(new Share
-                                {
-                                    Quote = keyword,
-                                    Date = date,
-                                    Amount = amount,
-                                    IsValid = true
-                                });
-                            }
-                        }
-                    }
+                    addShares(keyword, shares, node, amount);
                 }
             }
             return shares;
+        }
+        private void addShares(string keyword, List<Share> shares, IHtmlNodeWrapper node, long? amount)
+        {
+            if (amount != null)
+            {
+                foreach (Match match in Regex.Matches(node.InnerText.Trim(), PATTERN))
+                {
+                    var date = parseDateTime(match.Value.TrimEnd(':'), "dd/MM/yyyy", "th-TH");                    
+                    addShare(keyword, shares, amount, date);
+                }
+            }
+        }
+        private void addShare(string keyword, List<Share> shares, long? amount, DateTime date)
+        {
+            if (!shares.Any(s => s.Date == date))
+            {
+                shares.Add(new Share
+                {
+                    Quote = keyword,
+                    Date = date,
+                    Amount = amount,
+                    IsValid = true
+                });
+            }
         }
         private long? parselong(string value)
         {

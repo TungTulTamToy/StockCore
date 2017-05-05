@@ -70,10 +70,7 @@ namespace StockCore.Business.Repo.Html
             }
             return items;
         }
-        private IEnumerable<IHtmlNodeWrapper> findNodes(string pattern)
-        {
-            return doc.DocumentNode.SelectNodes("//th").Where(node => Regex.IsMatch(node.InnerText.Trim(), pattern));
-        }
+        private IEnumerable<IHtmlNodeWrapper> findNodes(string pattern)=>doc.DocumentNode.SelectNodes("//th").Where(node => Regex.IsMatch(node.InnerText.Trim(), pattern));
         private IEnumerable<double> parseDouble(IHtmlNodeCollectionWrapper nodes)
         {
             double temp;
@@ -82,9 +79,6 @@ namespace StockCore.Business.Repo.Html
                                select double.Parse(n.InnerText.Trim());
             return doubleValues;
         }
-        private int parseYear(string value)
-        {
-            return parseDateTime(value).Year;
-        }
+        private int parseYear(string value)=>parseDateTime(value).Year;
     }
 }

@@ -18,24 +18,34 @@ namespace StockCore.Helper
             string info=null)
         {
             StockCoreException e = null;
-            if(ex is StockCoreException)
+            if (ex is StockCoreException)
             {
                 e = (StockCoreException)ex;
-                if(e.Tracer==null && tracer!=null)
+                if (e.Tracer == null && tracer != null)
                 {
-                    e.Tracer=tracer;
+                    e.Tracer = tracer;
                 }
             }
             else
             {
-                e = new StockCoreException(errorID,moduleName,ex,tracer,false,info);
+                e = new StockCoreException(errorID, moduleName, ex, tracer, false, info);
             }
-            if(!e.IsLogged)
+            traceError(logger, e);
+            determineError(throwError, e);
+        }
+
+        private static void traceError(ILogger logger, StockCoreException e)
+        {
+            if (!e.IsLogged)
             {
                 logger.TraceError(e);
                 e.IsLogged = true;
             }
-            if(throwError)
+        }
+
+        private static void determineError(bool throwError, StockCoreException e)
+        {
+            if (throwError)
             {
                 throw e;
             }

@@ -25,35 +25,26 @@ namespace StockCore.Factory
         }
         public TResult Build(
             Tracer caller,
-            TCondition intput=default(TCondition)
-            )
+            TCondition intput=default(TCondition))
         {
             TResult t = default(TResult);
             var tracer = getTracer(caller);
             baseDecOperate(
                 process:()=>t=baseFactoryBuild(tracer,intput),
                 processFail:(ex)=>processFail(ex,processErrID,tracer,"Build"),    
-                finalProcessFail:(e)=>processFail(e,outerErrID,tracer,"Build")
-                );
+                finalProcessFail:(e)=>processFail(e,outerErrID,tracer,"Build"));
             return t;
         }
-        protected string getAopKey()
-        {
-            return $"Aop.{keyName}";
-        }
-        
+        protected string getAopKey()=>$"Aop.{keyName}";
         private Tracer getTracer(Tracer caller,string description="")
         {
             if(string.IsNullOrEmpty(description))
             {
                 description = keyName;
             }
-            return new Tracer(ID,caller,description,TraceSourceName.Dll);
+            return new Tracer().Load(ID,caller,description,TraceSourceName.Dll);
         }
-        private void processFail(Exception ex,int errorID,Tracer tracer,string methodName) 
-        { 
-            ProcessFailHelper.ComposeAndThrowException(logger,ex,errorID,$"Factory.{keyName}",methodName,tracer:tracer);
-        }
+        private void processFail(Exception ex,int errorID,Tracer tracer,string methodName)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,errorID,$"Factory.{keyName}",methodName,tracer:tracer);
         public void Dispose(){}
     }
 }

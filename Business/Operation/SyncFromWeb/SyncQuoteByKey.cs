@@ -48,7 +48,6 @@ namespace StockCore.Business.Operation.SyncFromWeb
             var consensusTask = subOperateAsync(quote,consensusHtmlReader,syncConsensus);
             var shareTask = subOperateAsync(quote,shareHtmlReader,syncShare);
             var statisticTask = subOperateAsync(quote,statisticHtmlReader,syncStatistic);
-
             await Task.WhenAll(priceTask,setIndexTask,consensusTask,shareTask,statisticTask);
         }
         private async Task subOperateAsync<T>(string quote, IGetByKey<IEnumerable<T>,string> webReader, IOperation<IEnumerable<T>> syncOperaton)

@@ -11,13 +11,11 @@ namespace StockCore.Business.Operation.Sync
         public async Task OperateAsync(IEnumerable<T> items)
         {
             var dbItems = await repo.GetAllAsync();
-        
             var syncEntity = new SyncEntity<T>()
             {
                 source = items,
                 destination = dbItems
             };
-
             await base.OperateAsync(syncEntity);
         }
     }   

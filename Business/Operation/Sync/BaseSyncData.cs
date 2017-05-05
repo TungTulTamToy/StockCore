@@ -19,27 +19,10 @@ namespace StockCore.Business.Operation.Sync
         }
         public async Task OperateAsync(SyncEntity<T> items)
         {
-            var insertTask = insert(items.source,items.destination);
-            Task updateTask = null;
-            if(inCludeUpdate)
-            {
-                updateTask = update(items.source,items.destination);
-            }
-            Task removeTask = null;
-            if(inCludeRemove)
-            {
-                removeTask = remove(items.source,items.destination);
-            }
-            
-            await insertTask;
-            if(updateTask!=null)
-            {
-                await updateTask;
-            }
-            if(removeTask!=null)
-            {
-                await removeTask;      
-            }                      
+            var insertTask = insert(items.source, items.destination);
+            var updateTask = update(items.source, items.destination);
+            var removeTask = remove(items.source, items.destination);
+            await Task.WhenAll(insertTask,updateTask,removeTask);
         }
         private async Task insert(IEnumerable<T> source, IEnumerable<T> destination)
         {
@@ -48,13 +31,19 @@ namespace StockCore.Business.Operation.Sync
         }
         private async Task update(IEnumerable<T> source, IEnumerable<T> destination)
         {
-            var itemToUpdate = source.GetItemToUpdate(destination);
-            await repo.BatchUpdateAsync(itemToUpdate);   
+            if(inCludeUpdate)
+            {
+                var itemToUpdate = source.GetItemToUpdate(destination);
+                await repo.BatchUpdateAsync(itemToUpdate);   
+            }
         }
         private async Task remove(IEnumerable<T> source, IEnumerable<T> destination)
         {
-            var itemToRemove = source.GetItemToDelete(destination);
-            await repo.BatchDeleteAsync(itemToRemove);
+            if(inCludeRemove)
+            {
+                var itemToRemove = source.GetItemToDelete(destination);
+                await repo.BatchDeleteAsync(itemToRemove);
+            }
         }
     }   
 }   

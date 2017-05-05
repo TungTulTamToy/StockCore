@@ -32,16 +32,21 @@ namespace StockCore.Factory.Sync
         }
         protected override IOperation<IEnumerable<QuoteGroup>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IOperation<IEnumerable<QuoteGroup>> inner = new SyncDataByKey<string,QuoteGroup>(dbQuoteGroupDEFactory.Build(tracer),true);
+            IOperation<IEnumerable<QuoteGroup>> inner = new SyncDataByKey<string, QuoteGroup>(dbQuoteGroupDEFactory.Build(tracer), true);
             var module = configReader.GetByKey(getAopKey());
-            if(module.IsMonitoringActive())
+            inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IOperation<IEnumerable<QuoteGroup>> loadMonitoringDecorator(Tracer tracer, IOperation<IEnumerable<QuoteGroup>> inner, Module module)
+        {
+            if (module.IsMonitoringActive())
             {
                 inner = new MonOperationDec<IEnumerable<QuoteGroup>>(
                     inner,
-                    ValidationHelper.ValidateQuoteGroups(1017105),    
+                    ValidationHelper.ValidateQuoteGroups(1017105),
                     MONPROCESSERRID,
-                    MONOUTERERRID,      
-                    module.Monitoring,   
+                    MONOUTERERRID,
+                    module.Monitoring,
                     logger,
                     tracer
                     );
