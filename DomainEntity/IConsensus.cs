@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -14,7 +12,6 @@ namespace StockCore.DomainEntity
         double? Low { get; set; }
         double? Median { get; set; }
     }
-    [DataContract]
     public class BaseConsensus:Persistant,IConsensus
     {
         public string Key 
@@ -34,7 +31,6 @@ namespace StockCore.DomainEntity
         public double? Median { get; set; }
         public bool IsValid { get; set; }
     }
-    [DataContract]
     public class Consensus:BaseConsensus,ILinqCriteria<Consensus>
     {
         public bool Equals(Consensus other)=>this.Quote == other.Quote && this.Year == other.Year;
@@ -47,7 +43,6 @@ namespace StockCore.DomainEntity
             this.Median = other.Median;
             return this;
         }
-
         public bool UpdateCondition(Consensus other)=>this.IsValid != other.IsValid || this.Average != other.Average || this.High != other.High || this.Low != other.Low || this.Median != other.Median;
     }
 } 

@@ -15,7 +15,6 @@ namespace StockCore.DomainEntity
         double? Amount { get; set; }
         double? Volumn { get; set; }
     }
-    [DataContract]
     public class BasePrice:Persistant,IPrice
     {
         public string Key 
@@ -24,7 +23,6 @@ namespace StockCore.DomainEntity
             set => Quote=value; 
         }
         public string Quote { get; set; }
-        [DataMember]
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Date { get; set; }
         [BsonIgnoreIfNullAttribute]
@@ -34,13 +32,10 @@ namespace StockCore.DomainEntity
         [BsonIgnoreIfNullAttribute]
         public double? Low { get; set; }
         [BsonIgnoreIfNullAttribute]
-        [DataMember]
         public double? Close { get; set; }
         [BsonIgnoreIfNullAttribute]
-        [DataMember]
         public double? Amount { get; set; }
         [BsonIgnoreIfNullAttribute]
-        [DataMember]
         public double? Volumn { get; set; }
         public bool IsValid { get; set; }
     }

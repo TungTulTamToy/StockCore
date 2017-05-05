@@ -16,7 +16,6 @@ namespace StockCore.DomainEntity
         double? Roe { get; set; }
         double? Margin { get; set; }
     }
-    [DataContract]
     public class BaseStatistic:Persistant,IStatistic
     {
         public string Key 
@@ -25,30 +24,21 @@ namespace StockCore.DomainEntity
             set => Quote=value; 
         }
         public string Quote { get; set; }
-        [DataMember]
         public int Year { get; set; }
-        [DataMember]
         [BsonIgnoreIfNullAttribute]
         public double? Asset { get; set; }
-        [DataMember]
         [BsonIgnoreIfNullAttribute]
         public double? Liability { get; set; }
-        [DataMember]
         [BsonIgnoreIfNullAttribute]
         public double? Equity { get; set; }
-        [DataMember]
         [BsonIgnoreIfNullAttribute]
         public double? Revenue { get; set; }
-        [DataMember]
         [BsonIgnoreIfNullAttribute]
         public double? NetProfit { get; set; }
-        [DataMember]
         [BsonIgnoreIfNullAttribute]
         public double? Roa { get; set; }
-        [DataMember]
         [BsonIgnoreIfNullAttribute]
         public double? Roe { get; set; }
-        [DataMember]
         [BsonIgnoreIfNullAttribute]
         public double? Margin { get; set; }
         public bool IsValid { get; set; }

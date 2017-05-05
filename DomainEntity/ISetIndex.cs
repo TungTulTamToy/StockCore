@@ -10,12 +10,10 @@ namespace StockCore.DomainEntity
         DateTime Date { get; set; }
         double? Index { get; set; }
     }
-    [DataContract]
     public class BaseSetIndex:Persistant,ISetIndex
     {
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Date { get; set; }
-        [DataMember]
         [BsonIgnoreIfNullAttribute]
         public double? Index { get; set; }
         public bool IsValid { get; set; }
