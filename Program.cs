@@ -50,7 +50,7 @@ namespace StockCore
                     .AddScoped<IFactory<SyncQuoteFactoryCondition, IOperation<string>>, SyncQuoteFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<QuoteGroup>>>, SyncQuoteGroupFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Price>>>, SyncPriceFactory>()
-                    .AddScoped<IFactory<string, IOperation<IEnumerable<Consensus>>>, SyncConcensusFactory>()
+                    .AddScoped<IFactory<string, IOperation<IEnumerable<Consensus>>>, SyncConsensusFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Share>>>, SyncShareFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Statistic>>>, SyncStatisticFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<SetIndex>>>, SyncSetIndexFactory>()
@@ -60,7 +60,7 @@ namespace StockCore
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Share>,string>>, ShareHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Statistic>,string>>, StatisticHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<OperationState,string>>, DBOperationStateRepoFactory>()                    
-                    .AddScoped<IFactory<string, IGetByKeyRepo<Consensus,string>>, DBConcensusRepoFactory>()
+                    .AddScoped<IFactory<string, IGetByKeyRepo<Consensus,string>>, DBConsensusRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Share,string>>, DBShareRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Statistic,string>>, DBStatisticRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Price,string>>, DBPriceRepoFactory>()
@@ -212,7 +212,7 @@ namespace StockCore
                     var tracer=new Tracer().Load(0,null,"Start Sync Web",TraceSourceName.TestConsole);                    
                     var condition = new SyncAllFactoryCondition()
                     {
-                        Type = SyncAllFactoryCondition.SyncType.AllQuote
+                        Type = SyncAllFactoryCondition.SyncType.PerQuote
                     };
                     var operation = syncAllFactory.Build(tracer);
                     var quotes = Enum.GetNames(typeof(Quotes.Ready));

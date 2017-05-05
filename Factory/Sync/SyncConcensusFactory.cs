@@ -12,7 +12,7 @@ using System;
 
 namespace StockCore.Factory.Sync
 {
-    public class SyncConcensusFactory : BaseFactory<string,IOperation<IEnumerable<Consensus>>>
+    public class SyncConsensusFactory : BaseFactory<string,IOperation<IEnumerable<Consensus>>>
     {
         private const string KEY = "SyncConsensus";
         private const int ID = 1014100;
@@ -22,7 +22,7 @@ namespace StockCore.Factory.Sync
         private const int MONOUTERERRID = 1014104;
         private readonly IFactory<string, IGetByKeyRepo<Consensus,string>> dbConsensusFactory;
         private readonly IConfigReader configReader;
-        public SyncConcensusFactory(
+        public SyncConsensusFactory(
             ILogger logger,
             IFactory<string, IGetByKeyRepo<Consensus,string>> dbConsensusFactory,
             IConfigReader configReader

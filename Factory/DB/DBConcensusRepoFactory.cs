@@ -10,7 +10,7 @@ using StockCore.Aop.Mon;
 
 namespace StockCore.Factory.DB
 {
-    public class DBConcensusRepoFactory : BaseFactory<string,IGetByKeyRepo<Consensus,string>>
+    public class DBConsensusRepoFactory : BaseFactory<string,IGetByKeyRepo<Consensus,string>>
     {
         private const string KEY = "DBConsensusRepo";
         private const string COLLECTIONNAME = "Consensus";
@@ -25,7 +25,7 @@ namespace StockCore.Factory.DB
         private readonly IReplaceOneModelBuilder replaceOneModelBuilder;
         private readonly IDeleteOneModelBuilder deleteOneModelBuilder;
         private readonly IConfigReader configReader;
-        public DBConcensusRepoFactory(IConfigProvider config, 
+        public DBConsensusRepoFactory(IConfigProvider config, 
             ILogger logger,
             IMongoDatabaseWrapper db, 
             IFilterDefinitionBuilderWrapper filterBuilder,
