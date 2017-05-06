@@ -51,13 +51,14 @@ namespace StockCore.DomainEntity.Data
                         Quotes = new[]{
                             "work","ptt","earth","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
                             "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
-                            "sc","lh","siri"},
+                            "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
+                            "bec"},
                         Order = 1,
                         IsDefault = false
                         },
                     new QuoteGroup(){
                         Name = "Check",
-                        Quotes = new[]{"prin","cpn","smit"},
+                        Quotes = new[]{""},
                         Order = 2,
                         IsDefault = false
                         }
