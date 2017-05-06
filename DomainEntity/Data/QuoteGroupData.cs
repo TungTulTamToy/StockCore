@@ -48,13 +48,16 @@ namespace StockCore.DomainEntity.Data
                 return new List<QuoteGroup>(){
                     new QuoteGroup(){
                         Name = "Ready",
-                        Quotes = new[]{"work","ptt","earth","banpu","gunkul"},
+                        Quotes = new[]{
+                            "work","ptt","earth","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
+                            "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
+                            "sc","lh","siri"},
                         Order = 1,
                         IsDefault = false
                         },
                     new QuoteGroup(){
                         Name = "Check",
-                        Quotes = new[]{"ptt"},
+                        Quotes = new[]{"prin","cpn","smit"},
                         Order = 2,
                         IsDefault = false
                         }

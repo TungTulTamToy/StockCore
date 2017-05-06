@@ -26,7 +26,9 @@ namespace StockCore.DomainEntity.Enum
         }
         public enum Ready
         {
-            work,ptt,earth,banpu,gunkul
+            work,ptt,earth,banpu,gunkul,ivl,ptl,aj,vnt,bcp,
+            pttep,pttgc,scc,kce,hana,delta,advanc,dtac,jas,bland,
+            sc,lh,siri,prin,cpn,smit
         }
     }
 }

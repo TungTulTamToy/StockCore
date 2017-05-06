@@ -44,7 +44,7 @@ namespace StockCore.Factory.Sync
             {
                 inner = new MonOperationDec<IEnumerable<SetIndex>>(
                     inner,
-                    ValidationHelper.ValidateItems<SetIndex>(1024105, "Quote"),
+                    ValidationHelper.ValidateItemsNotThrowException<SetIndex>(),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

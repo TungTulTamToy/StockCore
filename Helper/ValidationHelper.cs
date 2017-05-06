@@ -23,6 +23,17 @@ namespace StockCore.Helper
                 return true;
             };
         }
+        public static Func<ILogger,Tracer,string,string,string,bool> ValidateStringAndContinueOnlyPtt(int errorID,string paramName)
+        {
+            return (logger,tracer,moduleName,methodName,value)=>
+            {
+                if(string.IsNullOrWhiteSpace(value))
+                {
+                    throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
+                }
+                return value=="ptt";
+            };
+        }
         public static Func<ILogger,Tracer,string,string,IEnumerable<string>,bool> ValidateStringItems(int errorID,string paramName)
         {
             return (logger,tracer,moduleName,methodName,item)=>{
@@ -82,6 +93,11 @@ namespace StockCore.Helper
                 }
                 return true;
             };
+        }
+
+        public static Func<ILogger,Tracer,string,string,IEnumerable<T>,bool> ValidateItemsNotThrowException<T>()
+        {
+            return (logger,tracer,moduleName,methodName,items)=> items!=null && items.Any() && !items.Any(i=>i==null);
         }
 
         private static void throwArgumentNullException(int errorID,string moduleName,string methodName,string paramName,ILogger logger, Tracer tracer)
