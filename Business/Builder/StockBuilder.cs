@@ -19,28 +19,21 @@ namespace StockCore.Business.Builder
         private readonly IGetByKey<IEnumerable<Statistic>,string> statisticRepo;
         private readonly IGetByKey<IEnumerable<Consensus>,string> consensusRepo;
         private readonly IGetByKey<IEnumerable<Price>,string> priceRepo;
-        private readonly DateTime specificDate;
+        private readonly DateTime asOfDate;
         public StockBuilder(
             ILogger logger,
             IGetByKey<IEnumerable<Share>,string> shareRepo,
             IGetByKey<IEnumerable<Statistic>,string> statisticRepo,
             IGetByKey<IEnumerable<Consensus>,string> consensusRepo,
             IGetByKey<IEnumerable<Price>,string> priceRepo,
-            DateTime? specificDate=null)
+            DateTime asOfDate)
         {
             this.logger = logger;
             this.shareRepo = shareRepo;
             this.statisticRepo = statisticRepo;
             this.consensusRepo = consensusRepo;
             this.priceRepo = priceRepo;
-            if(specificDate==null)
-            {
-                this.specificDate = DateTime.Now;
-            }
-            else
-            {
-                this.specificDate = specificDate.Value;                
-            }
+            this.asOfDate = asOfDate;
         }
         public async Task<Stock> BuildAsync(string quote)
         {
@@ -128,7 +121,7 @@ namespace StockCore.Business.Builder
                 pe = from p in avgPriceOfEachJan
                     join stat in statistic on (p.Date.Year-1) equals stat.Year
                     join s in shareByYear on stat.Year equals s.Date.Year
-                    where stat.Year < specificDate.Year
+                    where stat.Year < asOfDate.Year
                     select new Pe
                     {
                         Year = stat.Year,
@@ -140,7 +133,7 @@ namespace StockCore.Business.Builder
 
                 //Forward PE
                 pe = pe.Union(from c in consensus
-                    where c.Year >= specificDate.Year && c.Average!=null && c.Median!=null
+                    where c.Year >= asOfDate.Year && c.Average!=null && c.Median!=null
                     select new Pe
                     {
                         Year = c.Year,
@@ -152,10 +145,10 @@ namespace StockCore.Business.Builder
         }
         private IEnumerable<PriceCal> calculatePriceCalDE(IEnumerable<Price> price)
         {
-            var price1Y = price.Where(p => p.Date > specificDate.AddYears(-1));
-            var price6M = price.Where(p => p.Date > specificDate.AddMonths(-6));
-            var price3M = price.Where(p => p.Date > specificDate.AddMonths(-3));
-            var price1M = price.Where(p => p.Date > specificDate.AddMonths(-1));
+            var price1Y = price.Where(p => p.Date > asOfDate.AddYears(-1));
+            var price6M = price.Where(p => p.Date > asOfDate.AddMonths(-6));
+            var price3M = price.Where(p => p.Date > asOfDate.AddMonths(-3));
+            var price1M = price.Where(p => p.Date > asOfDate.AddMonths(-1));
 
             var avg1Y = calculateAverage(price1Y);
             var avg6M = calculateAverage(price6M);
@@ -254,7 +247,7 @@ namespace StockCore.Business.Builder
             {
                 //actual
                 netProfit = from stat in statistic
-                    where stat.Year < specificDate.Year
+                    where stat.Year < asOfDate.Year
                     select new NetProfit
                     {
                         Year = stat.Year,
@@ -265,7 +258,7 @@ namespace StockCore.Business.Builder
                 //forecast
                 netProfit = netProfit.Union(from c in consensus
                     join s in shareByYear on c.Year equals s.Date.Year
-                    where c.Year >= specificDate.Year && c.Average!=null && c.Median!=null
+                    where c.Year >= asOfDate.Year && c.Average!=null && c.Median!=null
                     select new NetProfit
                     {
                         Year = c.Year,
@@ -304,7 +297,7 @@ namespace StockCore.Business.Builder
             MovingAverage item = null;
             if(prices != null && prices.Any())
             {
-                var sortedPrices = prices.Where(p => p.Close.HasValue && p .Date > specificDate.AddMonths(-3)).OrderByDescending(p => p.Date).Take(60).OrderBy(p => p.Date).ToList();
+                var sortedPrices = prices.Where(p => p.Close.HasValue && p .Date > asOfDate.AddMonths(-3)).OrderByDescending(p => p.Date).Take(60).OrderBy(p => p.Date).ToList();
                 var macd = new MovingAverageHelper(12, 26, 9);
                 var count = 0;
                 foreach (var price in sortedPrices)

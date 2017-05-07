@@ -89,18 +89,18 @@ namespace StockCore
                 logger.LogDebug("Start application");
 
                 syncBackupData(serviceProvider);
-                syncWeb(serviceProvider);
                 seedGroup(serviceProvider);
+                syncWeb(serviceProvider);                
 
-                var stockInfo = getStockInfo(serviceProvider,"gunkul");
-                stockInfo = getStockInfo(serviceProvider,"ptt");
-                var groups = getAllQuoteGroup(serviceProvider);
-                var groupName = "Check";
-                var stocks = getStockByGroup(serviceProvider,groupName);
+                //var stockInfo = getStockInfo(serviceProvider,"ttw");
+                //stockInfo = getStockInfo(serviceProvider,"ptt");
+                //var groups = getAllQuoteGroup(serviceProvider);
+                //var groupName = "Check";
+                //var stocks = getStockByGroup(serviceProvider,groupName);
 
-                stockInfo = getStockInfo(serviceProvider,"ptt");
-                groups = getAllQuoteGroup(serviceProvider);
-                stocks = getStockByGroup(serviceProvider,groupName);
+                //stockInfo = getStockInfo(serviceProvider,"ptt");
+                //groups = getAllQuoteGroup(serviceProvider);
+                //stocks = getStockByGroup(serviceProvider,groupName);
             }        
             catch(Exception ex)
             {   

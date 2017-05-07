@@ -7,6 +7,7 @@ using StockCore.Helper;
 using StockCore.Business.Builder;
 using StockCore.Business.Repo.MongoDB;
 using StockCore.Aop.Cache;
+using System;
 
 namespace StockCore.Factory.Builder
 {
@@ -49,7 +50,8 @@ namespace StockCore.Factory.Builder
                 shareRepoFactory.Build(tracer),
                 statisticRepoFactory.Build(tracer),
                 consensusRepoFactory.Build(tracer),
-                priceRepoFactory.Build(tracer));
+                priceRepoFactory.Build(tracer),
+                DateTime.Now);
             var module = configReader.GetByKey(getAopKey());
             inner = loadCachingDecorator(tracer, inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
