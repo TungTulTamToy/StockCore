@@ -20,17 +20,5 @@ namespace StockCore.DomainEntity.Enum
             Makro, Grammy, Mcot, Top, Aav, Nok, Kbank, Bay, Samart, Thcom,
             Gfpt, Lpn, Spali, Robins, Egco, Glow, Ratch, Ktc, Mfec, Aeonts
         }
-        public enum Check
-        {
-            singer
-        }
-        public enum Ready
-        {
-            work,ptt,earth,banpu,gunkul,ivl,ptl,aj,vnt,bcp,
-            pttep,pttgc,scc,kce,hana,delta,advanc,dtac,jas,bland,
-            sc,lh,siri,prin,cpn,smit,mcs,snc,bjchi,bwg,
-            bec,cpf,bla,scb,bbl,ifs,ttw,singer,hmpro,sta,
-            tvo,jubile
-        }
     }
 }

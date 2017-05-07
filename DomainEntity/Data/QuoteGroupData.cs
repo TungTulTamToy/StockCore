@@ -52,13 +52,14 @@ namespace StockCore.DomainEntity.Data
                             "work","ptt","earth","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
                             "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
                             "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
-                            "bec","cpf","bla","scb","bbl","ifs","ttw"},
+                            "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
+                            "tvo","jubile","m","hotpot","bdms","true"},
                         Order = 1,
                         IsDefault = false
                         },
                     new QuoteGroup(){
                         Name = "Check",
-                        Quotes = new[]{"singer","hmpro","sta","tvo","jubile"},
+                        Quotes = new[]{"ait"},
                         Order = 2,
                         IsDefault = false
                         }
