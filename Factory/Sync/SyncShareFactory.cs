@@ -37,18 +37,9 @@ namespace StockCore.Factory.Sync
             var module = configReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
-                Func<ILogger,Tracer,string,string,IEnumerable<Share>,bool> validation = null;
-                //if(tracer.Caller.ID==1016100)
-                //{
-                //    validation = ValidationHelper.ValidateItemsWithStringKeyField<Share>(1018105,"Quote","scb");
-                //}
-                //else
-                //{
-                    validation = ValidationHelper.ValidateItemsWithStringKeyField<Share>(1018105,"Quote");
-                //}
                 inner = new MonOperationDec<IEnumerable<Share>>(
                     inner,
-                    validation,  
+                    ValidationHelper.ValidateItemsWithStringKeyField<Share>(1018105,"Quote"),  
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,    

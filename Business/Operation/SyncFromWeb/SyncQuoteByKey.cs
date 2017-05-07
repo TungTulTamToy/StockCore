@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using StockCore.DomainEntity;
 using StockCore.Business.Repo;
+using System.Linq;
 
 namespace StockCore.Business.Operation.SyncFromWeb
 {
@@ -53,7 +54,10 @@ namespace StockCore.Business.Operation.SyncFromWeb
         private async Task subOperateAsync<T>(string quote, IGetByKey<IEnumerable<T>,string> webReader, IOperation<IEnumerable<T>> syncOperaton)
         {
             var source = await webReader.GetByKeyAsync(quote);
-            await syncOperaton.OperateAsync(source);
+            if(source!=null && source.Any())
+            {
+                await syncOperaton.OperateAsync(source);                
+            }
         }
     }
 }

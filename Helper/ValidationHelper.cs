@@ -20,11 +20,12 @@ namespace StockCore.Helper
         {
             return (logger,tracer,moduleName,methodName,value)=>
             {
-                if(string.IsNullOrWhiteSpace(value))
+                var filter = (string.IsNullOrEmpty(activateOnly) || value==activateOnly) && (string.IsNullOrEmpty(notActivateOnly) || value!=notActivateOnly);
+                if(filter && string.IsNullOrWhiteSpace(value))
                 {
                     throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
                 }
-                return (string.IsNullOrEmpty(activateOnly) || value==activateOnly) && (string.IsNullOrEmpty(notActivateOnly) || value!=notActivateOnly);
+                return filter;
             };
         }
         public static Func<ILogger,Tracer,string,string,IEnumerable<string>,bool> ValidateStringItems(int errorID,string paramName)
@@ -61,14 +62,14 @@ namespace StockCore.Helper
                 return true;
             };
         }
-        public static Func<ILogger,Tracer,string,string,IEnumerable<T>,bool> ValidateItemsWithStringKeyField<T>(int errorID,string paramName, string notActivateOnly="") where T:IKeyField<string>
+        public static Func<ILogger,Tracer,string,string,IEnumerable<T>,bool> ValidateItemsWithStringKeyField<T>(int errorID,string paramName) where T:IKeyField<string>
         {
             return (logger,tracer,moduleName,methodName,items)=>{
                 if(items==null || !items.Any() || items.Any(i=>i==null) || items.Any(i=>string.IsNullOrWhiteSpace(i.Key)))
                 {
                     throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
                 }
-                return string.IsNullOrEmpty(notActivateOnly) || items.All(i=>i.Key!=notActivateOnly);
+                return true;
             };
         }
 
