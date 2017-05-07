@@ -12,7 +12,7 @@ namespace StockCore.Helper
 {
     public static class ValidationHelper
     {
-        public static Func<ILogger,Tracer,string,string,string,bool> ValidateString(int errorID,string paramName)
+        public static Func<ILogger,Tracer,string,string,string,bool> ValidateStringWithNotActivateOnly(int errorID,string paramName, string notActivateOnly="")
         {
             return (logger,tracer,moduleName,methodName,value)=>
             {
@@ -20,10 +20,10 @@ namespace StockCore.Helper
                 {
                     throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
                 }
-                return true;
+                return string.IsNullOrEmpty(notActivateOnly) || value!=notActivateOnly;
             };
         }
-        public static Func<ILogger,Tracer,string,string,string,bool> ValidateStringAndContinueOnlyPtt(int errorID,string paramName)
+        public static Func<ILogger,Tracer,string,string,string,bool> ValidateStringWithActivateOnly(int errorID,string paramName, string activateOnly="")
         {
             return (logger,tracer,moduleName,methodName,value)=>
             {
@@ -31,7 +31,7 @@ namespace StockCore.Helper
                 {
                     throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
                 }
-                return value=="ptt";
+                return string.IsNullOrEmpty(activateOnly) || value==activateOnly;
             };
         }
         public static Func<ILogger,Tracer,string,string,IEnumerable<string>,bool> ValidateStringItems(int errorID,string paramName)
@@ -68,14 +68,14 @@ namespace StockCore.Helper
                 return true;
             };
         }
-        public static Func<ILogger,Tracer,string,string,IEnumerable<T>,bool> ValidateItemsWithStringKeyField<T>(int errorID,string paramName) where T:IKeyField<string>
+        public static Func<ILogger,Tracer,string,string,IEnumerable<T>,bool> ValidateItemsWithStringKeyField<T>(int errorID,string paramName, string notActivateOnly="") where T:IKeyField<string>
         {
             return (logger,tracer,moduleName,methodName,items)=>{
                 if(items==null || !items.Any() || items.Any(i=>i==null) || items.Any(i=>string.IsNullOrWhiteSpace(i.Key)))
                 {
                     throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
                 }
-                return true;
+                return string.IsNullOrEmpty(notActivateOnly) || items.All(i=>i.Key!=notActivateOnly);
             };
         }
 

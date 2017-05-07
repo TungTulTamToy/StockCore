@@ -76,7 +76,7 @@ namespace StockCore.Factory.Builder
             {
                 inner = new MonBuilderDec<string, Stock>(
                     inner,
-                    ValidationHelper.ValidateString(1020105, "Quote"),
+                    ValidationHelper.ValidateStringWithNotActivateOnly(1020105, "Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

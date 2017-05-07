@@ -88,12 +88,12 @@ namespace StockCore
                 var logger = loggerFactory.CreateLogger<Program>();
                 logger.LogDebug("Start application");
 
+                syncBackupData(serviceProvider);
                 syncWeb(serviceProvider);
                 seedGroup(serviceProvider);
-                syncBackupData(serviceProvider);
 
-                var stockInfo = getStockInfo(serviceProvider,"ptt");
-                stockInfo = getStockInfo(serviceProvider,"work");
+                var stockInfo = getStockInfo(serviceProvider,"gunkul");
+                stockInfo = getStockInfo(serviceProvider,"ptt");
                 var groups = getAllQuoteGroup(serviceProvider);
                 var groupName = "Check";
                 var stocks = getStockByGroup(serviceProvider,groupName);
@@ -215,8 +215,8 @@ namespace StockCore
                         Type = SyncAllFactoryCondition.SyncType.PerQuote
                     };
                     var operation = syncAllFactory.Build(tracer);
-                    var quotes = Enum.GetNames(typeof(Quotes.Ready));
-                    var sampleData = BackupStockData.Sample1;
+                    var quotes = Enum.GetNames(typeof(Quotes.Ready)).Concat(Enum.GetNames(typeof(Quotes.Check)));
+                    //var sampleData = BackupStockData.Sample1;
                     //var quotes = from backup in sampleData select backup.Quote;
         
                     Task.Run(async()=>await operation.OperateAsync(quotes)).GetAwaiter().GetResult();

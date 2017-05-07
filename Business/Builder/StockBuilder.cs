@@ -8,6 +8,7 @@ using StockCore.DomainEntity;
 using StockCore.Factory;
 using System;
 using StockCore.Extension;
+using StockCore.Helper;
 
 namespace StockCore.Business.Builder
 {
@@ -18,19 +19,28 @@ namespace StockCore.Business.Builder
         private readonly IGetByKey<IEnumerable<Statistic>,string> statisticRepo;
         private readonly IGetByKey<IEnumerable<Consensus>,string> consensusRepo;
         private readonly IGetByKey<IEnumerable<Price>,string> priceRepo;
+        private readonly DateTime specificDate;
         public StockBuilder(
             ILogger logger,
             IGetByKey<IEnumerable<Share>,string> shareRepo,
             IGetByKey<IEnumerable<Statistic>,string> statisticRepo,
             IGetByKey<IEnumerable<Consensus>,string> consensusRepo,
-            IGetByKey<IEnumerable<Price>,string> priceRepo
-            )
+            IGetByKey<IEnumerable<Price>,string> priceRepo,
+            DateTime? specificDate=null)
         {
             this.logger = logger;
             this.shareRepo = shareRepo;
             this.statisticRepo = statisticRepo;
             this.consensusRepo = consensusRepo;
             this.priceRepo = priceRepo;
+            if(specificDate==null)
+            {
+                this.specificDate = DateTime.Now;
+            }
+            else
+            {
+                this.specificDate = specificDate.Value;                
+            }
         }
         public async Task<Stock> BuildAsync(string quote)
         {
@@ -51,8 +61,9 @@ namespace StockCore.Business.Builder
             var pe = calculatePe(price,statistic,shareByYear,consensus);
             var peg = calculatePeg(pe,growth);
             var ped = calculatePeDiffPercent(pe);
+            var movingAverage = calculateMACD(price);
 
-            var stock = new Stock().Load(quote,price,statistic,share,consensus,netProfit,growth,priceCal,pe,peg,ped);         
+            var stock = new Stock().Load(quote,netProfit,growth,priceCal,pe,peg,ped,movingAverage);         
 
             return stock;
         }
@@ -117,7 +128,7 @@ namespace StockCore.Business.Builder
                 pe = from p in avgPriceOfEachJan
                     join stat in statistic on (p.Date.Year-1) equals stat.Year
                     join s in shareByYear on stat.Year equals s.Date.Year
-                    where stat.Year < DateTime.Now.Year
+                    where stat.Year < specificDate.Year
                     select new Pe
                     {
                         Year = stat.Year,
@@ -129,7 +140,7 @@ namespace StockCore.Business.Builder
 
                 //Forward PE
                 pe = pe.Union(from c in consensus
-                    where c.Year >= DateTime.Now.Year
+                    where c.Year >= specificDate.Year && c.Average!=null && c.Median!=null
                     select new Pe
                     {
                         Year = c.Year,
@@ -141,10 +152,10 @@ namespace StockCore.Business.Builder
         }
         private IEnumerable<PriceCal> calculatePriceCalDE(IEnumerable<Price> price)
         {
-            var price1Y = price.Where(p => p.Date > DateTime.Now.AddYears(-1));
-            var price6M = price.Where(p => p.Date > DateTime.Now.AddMonths(-6));
-            var price3M = price.Where(p => p.Date > DateTime.Now.AddMonths(-3));
-            var price1M = price.Where(p => p.Date > DateTime.Now.AddMonths(-1));
+            var price1Y = price.Where(p => p.Date > specificDate.AddYears(-1));
+            var price6M = price.Where(p => p.Date > specificDate.AddMonths(-6));
+            var price3M = price.Where(p => p.Date > specificDate.AddMonths(-3));
+            var price1M = price.Where(p => p.Date > specificDate.AddMonths(-1));
 
             var avg1Y = calculateAverage(price1Y);
             var avg6M = calculateAverage(price6M);
@@ -243,7 +254,7 @@ namespace StockCore.Business.Builder
             {
                 //actual
                 netProfit = from stat in statistic
-                    where stat.Year < DateTime.Now.Year
+                    where stat.Year < specificDate.Year
                     select new NetProfit
                     {
                         Year = stat.Year,
@@ -254,7 +265,7 @@ namespace StockCore.Business.Builder
                 //forecast
                 netProfit = netProfit.Union(from c in consensus
                     join s in shareByYear on c.Year equals s.Date.Year
-                    where c.Year >= DateTime.Now.Year
+                    where c.Year >= specificDate.Year && c.Average!=null && c.Median!=null
                     select new NetProfit
                     {
                         Year = c.Year,
@@ -287,6 +298,36 @@ namespace StockCore.Business.Builder
                 }).OrderByDescending(s=>s.Date);
             }
             return shareByYear;
+        }
+        private MovingAverage calculateMACD(IEnumerable<Price> prices,bool isLog=false)
+        {
+            MovingAverage item = null;
+            if(prices != null && prices.Any())
+            {
+                var sortedPrices = prices.Where(p => p.Close.HasValue && p .Date > specificDate.AddMonths(-3)).OrderByDescending(p => p.Date).Take(60).OrderBy(p => p.Date).ToList();
+                var macd = new MovingAverageHelper(12, 26, 9);
+                var count = 0;
+                foreach (var price in sortedPrices)
+                {
+                    macd.ReceiveTick(price.Close.Value);
+                    if(isLog)
+                    {
+                        var check = macd.Value();
+                        if(check==null)
+                        {
+                            check = new MovingAverage()
+                            {
+                                MACD=0,
+                                Signal=0,
+                                Hist=0
+                            };
+                        }
+                        Console.WriteLine($"No:{++count}:Price:{price.Close.Value}:MACD:{check.MACD}:Signal:{check.Signal}:Hist:{check.Hist}");
+                    }
+                }
+                item = macd.Value();
+            };
+            return item;
         }
     }
 }

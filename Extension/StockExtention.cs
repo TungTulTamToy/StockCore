@@ -8,28 +8,22 @@ namespace StockCore.DomainEntity
         public static Stock Load(
             this Stock item,
             string quote,
-            IEnumerable<Price> price,
-            IEnumerable<Statistic> statistic,
-            IEnumerable<Share> share,
-            IEnumerable<Consensus> consensus,
             IEnumerable<NetProfit> netprofit,
             IEnumerable<GrowthDE> growth,
             IEnumerable<PriceCal> pricecal,
             IEnumerable<Pe> pe,
             IEnumerable<Peg> peg,
-            IEnumerable<PeDiffPercent> pediffpercent)
+            IEnumerable<PeDiffPercent> pediffpercent,
+            MovingAverage movingAverage)
         {
             item.Quote = quote;
-            item.Price = price;
-            item.Statistic = statistic;
-            item.Share = share;
-            item.Consensus = consensus;
             item.NetProfit = netprofit;
             item.Growth = growth;
             item.PriceCal = pricecal;
             item.Pe = pe;
             item.Peg = peg;
             item.PeDiffPercent = pediffpercent;
+            item.MovingAverage = movingAverage;
             return item;
         }
     }

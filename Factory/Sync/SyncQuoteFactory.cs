@@ -139,7 +139,7 @@ namespace StockCore.Factory.Sync
             {
                 inner = new MonOperationDec<string>(
                     inner,
-                    ValidationHelper.ValidateString(1016107, "Quote"),
+                    ValidationHelper.ValidateStringWithNotActivateOnly(1016107, "Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

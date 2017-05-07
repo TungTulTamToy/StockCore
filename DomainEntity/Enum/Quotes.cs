@@ -22,14 +22,14 @@ namespace StockCore.DomainEntity.Enum
         }
         public enum Check
         {
-            work
+            bla,scb,bbl,ifs,ttw
         }
         public enum Ready
         {
             work,ptt,earth,banpu,gunkul,ivl,ptl,aj,vnt,bcp,
             pttep,pttgc,scc,kce,hana,delta,advanc,dtac,jas,bland,
             sc,lh,siri,prin,cpn,smit,mcs,snc,bjchi,bwg,
-            bec
+            bec,cpf
         }
     }
 }

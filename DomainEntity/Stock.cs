@@ -11,15 +11,12 @@ namespace StockCore.DomainEntity
             set=>Quote=value;
         }
         public string Quote{get;set;}
-        public IEnumerable<Price> Price{get;set;}
-        public IEnumerable<Statistic> Statistic{get;set;}
-        public IEnumerable<Share> Share{get;set;}
-        public IEnumerable<Consensus> Consensus{get;set;}
         public IEnumerable<NetProfit> NetProfit{get;set;}
         public IEnumerable<GrowthDE> Growth{get;set;}
         public IEnumerable<PriceCal> PriceCal{get;set;}
         public IEnumerable<Pe> Pe{get;set;}
         public IEnumerable<Peg> Peg{get;set;}
         public IEnumerable<PeDiffPercent> PeDiffPercent{get;set;}
+        public MovingAverage MovingAverage{get;set;}
     }
 }
