@@ -39,7 +39,7 @@ namespace StockCore.Factory.Html
             {
                 inner = new MonGetByKeyDec<SetIndex>(
                     inner,
-                    ValidationHelper.ValidateStringWithActivateOnly(1010105, "Quote","ptt"),
+                    ValidationHelper.ValidateString(1010105, "Quote",activateOnly:"ptt"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

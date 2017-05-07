@@ -54,7 +54,7 @@ namespace StockCore.Factory.DB
             {
                 inner = new MonGetByKeyRepoDec<string, Price>(
                     inner,
-                    ValidationHelper.ValidateStringWithNotActivateOnly(1003105, "Quote"),
+                    ValidationHelper.ValidateString(1003105, "Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

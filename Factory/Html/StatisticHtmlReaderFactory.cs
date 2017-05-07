@@ -38,7 +38,7 @@ namespace StockCore.Factory.Html
             {
                 inner = new MonGetByKeyDec<Statistic>(
                     inner,
-                    ValidationHelper.ValidateStringWithNotActivateOnly(1012105, "Quote"),
+                    ValidationHelper.ValidateString(1012105, "Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

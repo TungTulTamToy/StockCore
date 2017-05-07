@@ -61,7 +61,7 @@ namespace StockCore.Factory.DB
                 inner = new MonGetByFuncRepoDec<string, StockCoreCache<T>>(
                     inner,
                     ValidationHelper.ValidateExpression<StockCoreCache<T>>(1021106, "Criteria"),
-                    ValidationHelper.ValidateStringWithNotActivateOnly(1021105, "Key"),
+                    ValidationHelper.ValidateString(1021105, "Key"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

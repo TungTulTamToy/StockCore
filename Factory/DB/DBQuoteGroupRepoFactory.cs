@@ -54,7 +54,7 @@ namespace StockCore.Factory.DB
             {
                 inner = new MonGetByKeyRepoDec<string, QuoteGroup>(
                     inner,
-                    ValidationHelper.ValidateStringWithNotActivateOnly(1004104, "GroupName"),
+                    ValidationHelper.ValidateString(1004104, "GroupName"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

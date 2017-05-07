@@ -12,7 +12,11 @@ namespace StockCore.Helper
 {
     public static class ValidationHelper
     {
-        public static Func<ILogger,Tracer,string,string,string,bool> ValidateStringWithNotActivateOnly(int errorID,string paramName, string notActivateOnly="")
+        public static Func<ILogger,Tracer,string,string,string,bool> ValidateString(
+            int errorID,
+            string paramName, 
+            string activateOnly="", 
+            string notActivateOnly="")
         {
             return (logger,tracer,moduleName,methodName,value)=>
             {
@@ -20,18 +24,7 @@ namespace StockCore.Helper
                 {
                     throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
                 }
-                return string.IsNullOrEmpty(notActivateOnly) || value!=notActivateOnly;
-            };
-        }
-        public static Func<ILogger,Tracer,string,string,string,bool> ValidateStringWithActivateOnly(int errorID,string paramName, string activateOnly="")
-        {
-            return (logger,tracer,moduleName,methodName,value)=>
-            {
-                if(string.IsNullOrWhiteSpace(value))
-                {
-                    throwArgumentNullException(errorID,moduleName,methodName,paramName,logger,tracer);
-                }
-                return string.IsNullOrEmpty(activateOnly) || value==activateOnly;
+                return (string.IsNullOrEmpty(activateOnly) || value==activateOnly) && (string.IsNullOrEmpty(notActivateOnly) || value!=notActivateOnly);
             };
         }
         public static Func<ILogger,Tracer,string,string,IEnumerable<string>,bool> ValidateStringItems(int errorID,string paramName)
