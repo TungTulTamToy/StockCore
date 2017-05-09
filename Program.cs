@@ -88,11 +88,12 @@ namespace StockCore
                 var logger = loggerFactory.CreateLogger<Program>();
                 logger.LogDebug("Start application");
 
-                syncBackupData(serviceProvider);
-                seedGroup(serviceProvider);
-                syncWeb(serviceProvider);                
+                //syncBackupData(serviceProvider);
+                //seedGroup(serviceProvider);
+                //syncWeb(serviceProvider);                
 
-                //var stockInfo = getStockInfo(serviceProvider,"ttw");
+                var stockInfo = getStockInfo(serviceProvider,"ttw");
+                stockInfo = getStockInfo(serviceProvider,"grammy");
                 //stockInfo = getStockInfo(serviceProvider,"ptt");
                 //var groups = getAllQuoteGroup(serviceProvider);
                 //var groupName = "Check";
@@ -158,6 +159,7 @@ namespace StockCore
         private static void syncBackupData(IServiceProvider serviceProvider)
         {
             var sampleData = BackupStockData.Sample1;
+            //var sampleData = BackupStockData.Sample1.Where(b=>b.Key=="ait");
 
             var backupPrice = from backup in sampleData
                 where backup.Prices != null
@@ -215,10 +217,8 @@ namespace StockCore
                         Type = SyncAllFactoryCondition.SyncType.PerQuote
                     };
                     var operation = syncAllFactory.Build(tracer);
-                    var quotes = Enum.GetNames(typeof(Quotes.Ready)).Concat(Enum.GetNames(typeof(Quotes.Check)));
-                    //var sampleData = BackupStockData.Sample1;
-                    //var quotes = from backup in sampleData select backup.Quote;
-        
+                    var quotes = QuoteGroupData.DataV2.SelectMany(g=>g.Quotes);
+                    //var quotes = QuoteGroupData.PrepareData.SelectMany(g=>g.Quotes);//.Where(g=>g.Name=="Check").SelectMany(g=>g.Quotes);
                     Task.Run(async()=>await operation.OperateAsync(quotes)).GetAwaiter().GetResult();
                 }
             }        
@@ -233,7 +233,8 @@ namespace StockCore
             {
                 var tracer=new Tracer().Load(0,null,"Start Seed Group",TraceSourceName.TestConsole);
                 var operation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<QuoteGroup>>>>().Build(tracer);
-                var seedGroup = QuoteGroupData.PrepareData;
+                var seedGroup = QuoteGroupData.DataV2;
+                //var seedGroup = QuoteGroupData.PrepareData;//.Where(g=>g.Name=="Check");
                 Task.Run(async()=> await operation.OperateAsync(seedGroup)).GetAwaiter().GetResult();
             }        
             catch(Exception ex)

@@ -9,6 +9,7 @@ namespace StockCore.DomainEntity
         public MonitoringModule Monitoring {get;set;}
         public RetryModule Retry {get;set;}
         public CacheModule Cache{get;set;}
+        public FilterModule Filter{get;set;}
     }
     public class MonitoringModule
     {
@@ -32,5 +33,11 @@ namespace StockCore.DomainEntity
         public string Key{get;set;}
         public bool IsActive {get;set;}
         public int MinuteToExpire{get;set;}
+    }
+    public class FilterModule
+    {
+        public string Key{get;set;}
+        public bool IsActive {get;set;}
+        public string Criteria{get;set;}
     }
 }

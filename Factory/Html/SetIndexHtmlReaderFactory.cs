@@ -9,6 +9,7 @@ using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 using System;
+using StockCore.Aop.Filter;
 
 namespace StockCore.Factory.Html
 {
@@ -20,6 +21,8 @@ namespace StockCore.Factory.Html
         private const int OUTERERRID = 1010102;
         private const int MONPROCESSERRID = 1010103;
         private const int MONOUTERERRID = 1010104;
+        private const int FILTERPROCESSERRID = 1010106;
+        private const int FILTEROUTERERRID = 1010107;
         public SetIndexHtmlReaderFactory(
             ILogger logger,
             IHttpClientWrapper client,
@@ -30,7 +33,22 @@ namespace StockCore.Factory.Html
         {
             IGetByKey<IEnumerable<SetIndex>, string> inner = new SetIndexHtmlReader(client, doc);
             var module = configReader.GetByKey(getAopKey());
+            inner = loadFilterDecorator(inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IGetByKey<IEnumerable<SetIndex>, string> loadFilterDecorator(IGetByKey<IEnumerable<SetIndex>, string> inner, Module module)
+        {
+            if (module.IsFilterActive())
+            {
+                inner = new FilterGetByKeyDec<SetIndex>(
+                    inner,
+                    FilterHelper.FilterActiveOnly(module.Filter.Criteria),//ptt
+                    FILTERPROCESSERRID,
+                    FILTEROUTERERRID,
+                    module.Filter,
+                    logger);
+            }
             return inner;
         }
         private IGetByKey<IEnumerable<SetIndex>, string> loadMonitoringDecorator(Tracer tracer, IGetByKey<IEnumerable<SetIndex>, string> inner, Module module)
@@ -39,7 +57,7 @@ namespace StockCore.Factory.Html
             {
                 inner = new MonGetByKeyDec<SetIndex>(
                     inner,
-                    ValidationHelper.ValidateString(1010105, "Quote",activateOnly:"ptt"),
+                    ValidationHelper.ValidateString(1010105, "Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

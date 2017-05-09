@@ -9,6 +9,7 @@ using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 using System;
+using StockCore.Aop.Filter;
 
 namespace StockCore.Factory.Html
 {
@@ -20,6 +21,8 @@ namespace StockCore.Factory.Html
         private const int OUTERERRID = 1011102;
         private const int MONPROCESSERRID = 1011103;
         private const int MONOUTERERRID = 1011104;
+        private const int FILTERPROCESSERRID = 1011106;
+        private const int FILTEROUTERERRID = 1011107;
         public ShareHtmlReaderFactory(
             ILogger logger,
             IHttpClientWrapper client,
@@ -30,7 +33,22 @@ namespace StockCore.Factory.Html
         {
             IGetByKey<IEnumerable<Share>, string> inner = new ShareHtmlReader(client, doc);
             var module = configReader.GetByKey(getAopKey());
+            inner = loadFilterDecorator(inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IGetByKey<IEnumerable<Share>, string> loadFilterDecorator(IGetByKey<IEnumerable<Share>, string> inner, Module module)
+        {
+            if (module.IsFilterActive())
+            {
+                inner = new FilterGetByKeyDec<Share>(
+                    inner,
+                    FilterHelper.FilterNotActiveOnly(module.Filter.Criteria),//scb
+                    FILTERPROCESSERRID,
+                    FILTEROUTERERRID,
+                    module.Filter,
+                    logger);
+            }
             return inner;
         }
         private IGetByKey<IEnumerable<Share>, string> loadMonitoringDecorator(Tracer tracer, IGetByKey<IEnumerable<Share>, string> inner, Module module)
@@ -39,7 +57,7 @@ namespace StockCore.Factory.Html
             {
                 inner = new MonGetByKeyDec<Share>(
                     inner,
-                    ValidationHelper.ValidateString(1011105, "Quote",notActivateOnly:"scb"),
+                    ValidationHelper.ValidateString(1011105, "Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,

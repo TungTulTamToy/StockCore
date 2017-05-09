@@ -9,6 +9,7 @@ using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 using System;
+using StockCore.Aop.Filter;
 
 namespace StockCore.Factory.Html
 {
@@ -20,6 +21,8 @@ namespace StockCore.Factory.Html
         private const int OUTERERRID = 1012102;
         private const int MONPROCESSERRID = 1012103;
         private const int MONOUTERERRID = 1012104;
+        private const int FILTERPROCESSERRID = 1012106;
+        private const int FILTEROUTERERRID = 1012107;
         public StatisticHtmlReaderFactory(ILogger logger,
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
@@ -29,7 +32,22 @@ namespace StockCore.Factory.Html
         {
             IGetByKey<IEnumerable<Statistic>, string> inner = new StatisticHtmlReader(client, doc);
             var module = configReader.GetByKey(getAopKey());
+            inner = loadFilterDecorator(inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IGetByKey<IEnumerable<Statistic>, string> loadFilterDecorator(IGetByKey<IEnumerable<Statistic>, string> inner, Module module)
+        {
+            if (module.IsFilterActive())
+            {
+                inner = new FilterGetByKeyDec<Statistic>(
+                    inner,
+                    FilterHelper.FilterNotActiveOnly(module.Filter.Criteria),//ait
+                    FILTERPROCESSERRID,
+                    FILTEROUTERERRID,
+                    module.Filter,
+                    logger);
+            }
             return inner;
         }
         private IGetByKey<IEnumerable<Statistic>, string> loadMonitoringDecorator(Tracer tracer, IGetByKey<IEnumerable<Statistic>, string> inner, Module module)
@@ -38,7 +56,7 @@ namespace StockCore.Factory.Html
             {
                 inner = new MonGetByKeyDec<Statistic>(
                     inner,
-                    ValidationHelper.ValidateString(1012105, "Quote",notActivateOnly:"ait"),
+                    ValidationHelper.ValidateString(1012105, "Quote"),
                     MONPROCESSERRID,
                     MONOUTERERRID,
                     module.Monitoring,
