@@ -40,7 +40,7 @@ namespace StockCore.Factory.Html
         {
             if (module.IsPreFilterActive())
             {
-                inner = new PreFilterGetByKeyDec<Statistic>(
+                inner = new PreFilterGetByKeyDec<string,Statistic>(
                     inner,
                     FilterHelper.FilterNotActiveOnly(module.PreFilter.Criteria),//ait
                     FILTERPROCESSERRID,

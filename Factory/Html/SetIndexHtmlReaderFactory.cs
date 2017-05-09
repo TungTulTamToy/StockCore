@@ -41,7 +41,7 @@ namespace StockCore.Factory.Html
         {
             if (module.IsPreFilterActive())
             {
-                inner = new PreFilterGetByKeyDec<SetIndex>(
+                inner = new PreFilterGetByKeyDec<string,SetIndex>(
                     inner,
                     FilterHelper.FilterActiveOnly(module.PreFilter.Criteria),//ptt
                     FILTERPROCESSERRID,

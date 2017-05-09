@@ -7,13 +7,13 @@ using StockCore.Business.Builder;
 
 namespace StockCore.Aop.PostFilter
 {
-    public class PostFilterBuilderDec<T> : BasePostFilterDec<IEnumerable<T>>,IBuilder<string,IEnumerable<T>>
+    public class PostFilterBuilderDec<TInput,TOutput> : BasePostFilterDec<IEnumerable<TOutput>>,IBuilder<TInput,IEnumerable<TOutput>> where TInput:class
     {
-        private readonly IBuilder<string,IEnumerable<T>> inner; 
-        private readonly Func<string,IEnumerable<T>,IEnumerable<T>> filter;
+        private readonly IBuilder<TInput,IEnumerable<TOutput>> inner; 
+        private readonly Func<TInput,IEnumerable<TOutput>,IEnumerable<TOutput>> filter;
         public PostFilterBuilderDec(
-            IBuilder<string,IEnumerable<T>> inner,
-            Func<string,IEnumerable<T>,IEnumerable<T>> filter,
+            IBuilder<TInput,IEnumerable<TOutput>> inner,
+            Func<TInput,IEnumerable<TOutput>,IEnumerable<TOutput>> filter,
             int processErrorID,
             int outerErrorID,
             PostFilterModule module,
@@ -24,11 +24,11 @@ namespace StockCore.Aop.PostFilter
             this.filter = filter;
         }
 
-        public async Task<IEnumerable<T>> BuildAsync(string item = null)
+        public async Task<IEnumerable<TOutput>> BuildAsync(TInput item = default(TInput))
         {
             var returnItems = await basePostFilterDecBuildAsync(
                 async ()=> await inner.BuildAsync(item),             
-                (postItem)=>filter(item,postItem));
+                (postItems)=>filter(item,postItems));
             return returnItems;
         }
     }

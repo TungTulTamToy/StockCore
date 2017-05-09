@@ -41,7 +41,7 @@ namespace StockCore.Factory.Html
         {
             if (module.IsPreFilterActive())
             {
-                inner = new PreFilterGetByKeyDec<Share>(
+                inner = new PreFilterGetByKeyDec<string,Share>(
                     inner,
                     FilterHelper.FilterNotActiveOnly(module.PreFilter.Criteria),//scb
                     FILTERPROCESSERRID,

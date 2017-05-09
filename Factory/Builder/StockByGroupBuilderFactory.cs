@@ -57,7 +57,7 @@ namespace StockCore.Factory.Builder
         {
             if (module.IsPostFilterActive())
             {
-                inner = new PostFilterBuilderDec<Stock>(
+                inner = new PostFilterBuilderDec<string,Stock>(
                     inner,
                     QuoteGroupHelper.DetermineFilter(),
                     POSTFILTERPROCESSERRID,

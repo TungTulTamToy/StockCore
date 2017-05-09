@@ -9,13 +9,13 @@ using StockCore.Aop.Mon;
 
 namespace StockCore.Aop.PreFilter
 {
-    public class PreFilterGetByKeyDec<T> : BasePreFilterDec,IGetByKey<IEnumerable<T>,string> where T:IPersistant
+    public class PreFilterGetByKeyDec<TKey,T> : BasePreFilterDec,IGetByKey<IEnumerable<T>,TKey> where TKey:class where T:IPersistant
     {
-        private readonly IGetByKey<IEnumerable<T>,string> inner; 
-        private readonly Func<string,bool> filter;
+        private readonly IGetByKey<IEnumerable<T>,TKey> inner; 
+        private readonly Func<TKey,bool> filter;
         public PreFilterGetByKeyDec(
-            IGetByKey<IEnumerable<T>,string> inner,
-            Func<string,bool> filter,
+            IGetByKey<IEnumerable<T>,TKey> inner,
+            Func<TKey,bool> filter,
             int processErrorID,
             int outerErrorID,
             PreFilterModule module,
@@ -25,7 +25,7 @@ namespace StockCore.Aop.PreFilter
             this.inner = inner;
             this.filter = filter;
         }
-        public async Task<IEnumerable<T>> GetByKeyAsync(string quote)
+        public async Task<IEnumerable<T>> GetByKeyAsync(TKey quote)
         {
             IEnumerable<T> returnItems = null;
             await basePreFilterDecBuildAsync(
