@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockCore.Business.Repo;
 using StockCore.DomainEntity;
+using StockCore.DomainEntity.Data;
 
 namespace StockCore.Business.Builder
 {
@@ -23,6 +24,8 @@ namespace StockCore.Business.Builder
         {
             var items = await allGroupProvider.GetAllAsync();
             var sortedItems = items.OrderBy(g=>g.Order);
+            //Add dynamic groups
+            sortedItems.ToList().AddRange(DynamicQuoteGroupData.DataV2.Select(s=>(QuoteGroup)s));
             return sortedItems;
         }
     }

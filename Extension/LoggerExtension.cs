@@ -14,7 +14,7 @@ namespace StockCore.Extension
         {
             var sb = new StringBuilder();
             sb.AppendLine();
-            traceParam(inputItem, showParams, sb);
+            traceParam(logger, inputItem, showParams, sb, keyName);
             traceCount(inputItem, showCount, sb,"Input Count");
             logger.traceDebug("--->", keyName, sb.ToString());
         }
@@ -22,9 +22,9 @@ namespace StockCore.Extension
         {
             var sb = new StringBuilder();
             sb.AppendLine();
-            traceParam(inputItem, showParams, sb);
+            traceParam(logger, inputItem, showParams, sb, keyName);
             traceCount(inputItem, showCount, sb, "Input Count");
-            traceResult(returnItem, showResult, sb);
+            traceResult(logger, returnItem, showResult, sb, keyName);
             traceCount(returnItem, showCount, sb, "Output Count");
             tracePerformanceMeasurement(perfMsg, sb);
             logger.traceDebug("<---", keyName, sb.ToString());
@@ -56,11 +56,11 @@ namespace StockCore.Extension
                 sb.AppendLine();
             }
         }
-        private static void traceResult<TOut>(TOut returnItem, bool showResult, StringBuilder sb)
+        private static void traceResult<TOut>(ILogger logger, TOut returnItem, bool showResult, StringBuilder sb,string keyName)
         {
             if (showResult)
             {
-                sb.Append($"Result: {JsonHelper.SerializeObject(returnItem)}");
+                sb.Append($"Result: {JsonHelper.SerializeObject(returnItem,logger,keyName)}");
                 sb.AppendLine();
             }
         }
@@ -103,11 +103,11 @@ namespace StockCore.Extension
         {
             logger.LogDebug($"{prefix} {keyName} {msg} {suffix}");
         }
-        private static void traceParam<T>(T inputItem, bool showParams, StringBuilder sb)
+        private static void traceParam<T>(ILogger logger, T inputItem, bool showParams, StringBuilder sb,string keyName)
         {
             if (showParams)
             {
-                sb.Append($"Parameter: {JsonHelper.SerializeObject(inputItem)}");
+                sb.Append($"Parameter: {JsonHelper.SerializeObject(inputItem,logger,keyName)}");
                 sb.AppendLine();
             }
             else if (inputItem != null && (inputItem is IKeyField<string> || inputItem is IEnumerable))

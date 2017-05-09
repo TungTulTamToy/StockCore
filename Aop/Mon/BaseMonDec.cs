@@ -103,7 +103,7 @@ namespace StockCore.Aop.Mon
         {
             if (module.LogTrace)
             {
-                var paramsValue = JsonHelper.SerializeObject(input);
+                var paramsValue = JsonHelper.SerializeObject(input,logger,$"{module.Key}.{methodName}");
                 var callHistory = new CallHistory().Load(methodName, paramsValue);
                 tracer.AddCallHistory(callHistory);
             }

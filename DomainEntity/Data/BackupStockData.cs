@@ -1396,6 +1396,11 @@ namespace StockCore.DomainEntity.Data
                             new Share{Amount=1200000000,Date=new DateTime(2011,1,31)},
                             new Share{Amount=1200000000,Date=new DateTime(2010,1,31)},
                             new Share{Amount=1200000000,Date=new DateTime(2009,1,31)}
+                        },
+                        Consensuses = new Consensus[] 
+                        { 
+                            new Consensus{Average=4.23,Median=4.23,Year=2018},
+                            new Consensus{Average=3.53,Median=3.53,Year=2017} 
                         }
                     },
                     new BackupStockDE()
@@ -2099,14 +2104,28 @@ namespace StockCore.DomainEntity.Data
                         Quote = "mcot",
                         Prices = new Price[] 
                         { 
+                            new Price {Close=15.2,Date=new DateTime(2017,1,1)},
+                            new Price {Close=8.75,Date=new DateTime(2016,1,1)},
+                            new Price {Close=15.8,Date=new DateTime(2015,1,1)},
                             new Price {Close=28.5,Date=new DateTime(2014,1,1)},
                             new Price {Close=46.25,Date=new DateTime(2013,1,1)},
                             new Price {Close=27.75,Date=new DateTime(2012,1,1)},
                             new Price {Close=29,Date=new DateTime(2011,1,1)},
                             new Price {Close=22.4,Date=new DateTime(2010,1,1)}
                         },
+                        Statistics = new Statistic[]
+                        {
+                            new Statistic{NetProfit=-734.89,Year=2016},
+                            new Statistic{NetProfit=57.81,Year=2015},
+                            new Statistic{NetProfit=503.79,Year=2014},
+                            new Statistic{NetProfit=1526.93,Year=2013},
+                            new Statistic{NetProfit=1758.87,Year=2012}
+                        },
                         Shares = new Share[] 
                         {
+                            new Share{Amount=687099210,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=687099210,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=687099210,Date=new DateTime(2014,1,31)},
                             new Share{Amount=687099210,Date=new DateTime(2013,1,31)},
                             new Share{Amount=687099210,Date=new DateTime(2012,1,31)},
                             new Share{Amount=687099210,Date=new DateTime(2011,1,31)},
@@ -2119,14 +2138,28 @@ namespace StockCore.DomainEntity.Data
                         Quote = "top",
                         Prices = new Price[] 
                         { 
+                            new Price {Close=71.75,Date=new DateTime(2017,1,1)},
+                            new Price {Close=64.25,Date=new DateTime(2016,1,1)},
+                            new Price {Close=51.25,Date=new DateTime(2015,1,1)},
                             new Price {Close=52,Date=new DateTime(2014,1,1)},
                             new Price {Close=75.25,Date=new DateTime(2013,1,1)},
                             new Price {Close=64.25,Date=new DateTime(2012,1,1)},
                             new Price {Close=69.75,Date=new DateTime(2011,1,1)},
                             new Price {Close=40.75,Date=new DateTime(2010,1,1)}
                         },
+                        Statistics = new Statistic[]
+                        {
+                            new Statistic{NetProfit=21221.91,Year=2016},
+                            new Statistic{NetProfit=12181.37,Year=2015},
+                            new Statistic{NetProfit=-4025.89,Year=2014},
+                            new Statistic{NetProfit=10393.53,Year=2013},
+                            new Statistic{NetProfit=12319.79,Year=2012}
+                        },
                         Shares = new Share[] 
                         {
+                            new Share{Amount=2040027873,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=2040027873,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=2040027873,Date=new DateTime(2014,1,31)},
                             new Share{Amount=2040027873,Date=new DateTime(2013,1,31)},
                             new Share{Amount=2040027873,Date=new DateTime(2012,1,31)},
                             new Share{Amount=2040027873,Date=new DateTime(2011,1,31)},
@@ -2139,11 +2172,25 @@ namespace StockCore.DomainEntity.Data
                         Quote = "aav",
                         Prices = new Price[] 
                         { 
+                            new Price {Close=6.15,Date=new DateTime(2017,1,1)},
+                            new Price {Close=5.7,Date=new DateTime(2016,1,1)},
+                            new Price {Close=5.45,Date=new DateTime(2015,1,1)},
                             new Price {Close=3.56,Date=new DateTime(2014,1,1)},
                             new Price {Close=6.1,Date=new DateTime(2013,1,1)}
                         },
+                        Statistics = new Statistic[]
+                        {
+                            new Statistic{NetProfit=1869.46,Year=2016},
+                            new Statistic{NetProfit=1078.48,Year=2015},
+                            new Statistic{NetProfit=183.18,Year=2014},
+                            new Statistic{NetProfit=1042.76,Year=2013},
+                            new Statistic{NetProfit=15648.57,Year=2012}
+                        },
                         Shares = new Share[] 
                         {
+                            new Share{Amount=4850000000,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=4850000000,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=4850000000,Date=new DateTime(2014,1,31)},
                             new Share{Amount=4850000000,Date=new DateTime(2013,1,31)},
                             new Share{Amount=4850000000,Date=new DateTime(2012,1,31)}
                         }
@@ -2153,10 +2200,23 @@ namespace StockCore.DomainEntity.Data
                         Quote = "nok",
                         Prices = new Price[] 
                         { 
+                            new Price {Close=4.78,Date=new DateTime(2017,1,1)},
+                            new Price {Close=4.88,Date=new DateTime(2016,1,1)},
+                            new Price {Close=10.41,Date=new DateTime(2015,1,1)},
                             new Price {Close=17.6,Date=new DateTime(2014,1,1)}
+                        },
+                        Statistics = new Statistic[]
+                        {
+                            new Statistic{NetProfit=-2795.09,Year=2016},
+                            new Statistic{NetProfit=-726.10,Year=2015},
+                            new Statistic{NetProfit=-471.66,Year=2014},
+                            new Statistic{NetProfit=1066.10,Year=2013}
                         },
                         Shares = new Share[] 
                         {
+                            new Share{Amount=625000000,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=625000000,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=625000000,Date=new DateTime(2014,1,31)},
                             new Share{Amount=625000000,Date=new DateTime(2013,1,31)}
                         }
                     },
@@ -2165,14 +2225,28 @@ namespace StockCore.DomainEntity.Data
                         Quote = "kbank",
                         Prices = new Price[] 
                         { 
+                            new Price {Close=188.5,Date=new DateTime(2017,1,1)},
+                            new Price {Close=169.5,Date=new DateTime(2016,1,1)},
+                            new Price {Close=222,Date=new DateTime(2015,1,1)},
                             new Price {Close=171,Date=new DateTime(2014,1,1)},
                             new Price {Close=197.5,Date=new DateTime(2013,1,1)},
                             new Price {Close=129,Date=new DateTime(2012,1,1)},
                             new Price {Close=118.5,Date=new DateTime(2011,1,1)},
                             new Price {Close=82.5,Date=new DateTime(2010,1,1)}
                         },
+                        Statistics = new Statistic[]
+                        {
+                            new Statistic{NetProfit=40174.10,Year=2016},
+                            new Statistic{NetProfit=39473.64,Year=2015},
+                            new Statistic{NetProfit=46153.41,Year=2014},
+                            new Statistic{NetProfit=41324.81,Year=2013},
+                            new Statistic{NetProfit=35259.80,Year=2012}
+                        },
                         Shares = new Share[] 
                         {
+                            new Share{Amount=2393260193,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=2393260193,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=2393260193,Date=new DateTime(2014,1,31)},
                             new Share{Amount=2393260193,Date=new DateTime(2013,1,31)},
                             new Share{Amount=2393260193,Date=new DateTime(2012,1,31)},
                             new Share{Amount=2393260193,Date=new DateTime(2011,1,31)},

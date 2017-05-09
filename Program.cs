@@ -64,7 +64,7 @@ namespace StockCore
                     .AddScoped<IFactory<string, IGetByKeyRepo<Share,string>>, DBShareRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Statistic,string>>, DBStatisticRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Price,string>>, DBPriceRepoFactory>()
-                    .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroup,string>>, DBQuoteGroupRepoFactory>()                                        
+                    .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroup,string>>, DBQuoteGroupRepoFactory>()                                   
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<Stock>>>, DBCacheRepoFactory<Stock>>()
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<QuoteGroup>>>>, DBCacheRepoFactory<IEnumerable<QuoteGroup>>>()
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<Stock>>>>, DBCacheRepoFactory<IEnumerable<Stock>>>()
@@ -88,16 +88,16 @@ namespace StockCore
                 var logger = loggerFactory.CreateLogger<Program>();
                 logger.LogDebug("Start application");
 
-                //syncBackupData(serviceProvider);
-                //seedGroup(serviceProvider);
-                //syncWeb(serviceProvider);                
+                syncBackupData(serviceProvider);
+                seedGroup(serviceProvider);
+                syncWeb(serviceProvider);                
 
                 var stockInfo = getStockInfo(serviceProvider,"ttw");
                 stockInfo = getStockInfo(serviceProvider,"grammy");
                 //stockInfo = getStockInfo(serviceProvider,"ptt");
-                //var groups = getAllQuoteGroup(serviceProvider);
-                //var groupName = "Check";
-                //var stocks = getStockByGroup(serviceProvider,groupName);
+                var groups = getAllQuoteGroup(serviceProvider);
+                var groupName = "All";
+                var stocks = getStockByGroup(serviceProvider,groupName);
 
                 //stockInfo = getStockInfo(serviceProvider,"ptt");
                 //groups = getAllQuoteGroup(serviceProvider);

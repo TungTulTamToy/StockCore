@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockCore.Business.Repo;
 using StockCore.DomainEntity;
+using StockCore.DomainEntity.Enum;
 
 namespace StockCore.Business.Builder
 {
@@ -36,14 +37,23 @@ namespace StockCore.Business.Builder
         private async Task<List<Stock>> getStocks(QuoteGroup group)
         {
             List<Stock> stocks = new List<Stock>();
-            foreach (var quote in group.Quotes)
-            {
-                var stock = await stockBuilder.BuildAsync(quote);
-                if (stock != null)
-                {
-                    stocks.Add(stock);
-                }
-            }
+            //if(group.Category==GroupType.Category.Dynamic)
+            //{
+            //    var allStocks = await BuildAsync(allGroupName);
+            //    stocks = group.FilterGroupByCriteria(allStocks).ToList();
+            //}
+            //else
+            //{
+                    foreach (var quote in group.Quotes)
+                    {
+                        var stock = await stockBuilder.BuildAsync(quote);
+                        if (stock != null)
+                        {
+                            stocks.Add(stock);
+                        }
+                    }
+            
+            //}
             return stocks;
         }
     }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using StockCore.Aop;
 using StockCore.Aop.Mon;
 using StockCore.DomainEntity;
+using StockCore.DomainEntity.Enum;
 using StockCore.Extension;
 
 namespace StockCore.Helper
