@@ -7,18 +7,18 @@ using System.Runtime.CompilerServices;
 using StockCore.Helper;
 using StockCore.Aop.Mon;
 
-namespace StockCore.Aop.Filter
+namespace StockCore.Aop.PostFilter
 {
-    public class BaseFilterDec:BaseDec
+    public class BasePostFilterDec<T>:BaseDec
     {
-        protected readonly FilterModule module;
+        protected readonly PostFilterModule module;
         private readonly int processErrorID;
         private readonly ILogger logger;
         private readonly int outerErrorID;
-        public BaseFilterDec(
+        public BasePostFilterDec(
             int processErrorID,
             int outerErrorID,
-            FilterModule module,
+            PostFilterModule module,
             ILogger logger
             )
         {
@@ -27,29 +27,37 @@ namespace StockCore.Aop.Filter
             this.outerErrorID = outerErrorID;            
             this.logger = logger;
         }
-        protected async Task baseFilterDecBuildAsync(
-            Func<bool> baseFilter,
-            Func<Task> innerProcessAsync,
+        protected async Task<T> basePostFilterDecBuildAsync(
+            Func<Task<T>> innerProcessAsync,            
+            Func<T,T> baseFilter,
             [CallerMemberName]string methodName="")
         {
+            var t = default(T);
             await baseDecOperateAsync(
-                validate:()=> baseFilter(),
-                processAsync: async() => await innerProcessAsync(),
+                processAsync: async() => {
+                    t = await innerProcessAsync();
+                    t = baseFilter(t);
+                    },
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
             );
+            return t;
         }
-        protected void baseFilterDecBuild(
-            Func<bool> baseFilter,
-            Action innerProcess,
+        protected T basePostFilterDecBuild(
+            Func<T,T> baseFilter,
+            Func<T> innerProcess,
             [CallerMemberName]string methodName="")
         {
+            var t = default(T);
             baseDecOperate(
-                validate:()=> baseFilter(),
-                process:() => innerProcess(),
+                process:() => {
+                    t = innerProcess();
+                    t = baseFilter(t);
+                    },
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
             );
+            return t;
         }
     }
 }

@@ -8,6 +8,7 @@ using StockCore.Business.Builder;
 using StockCore.Business.Repo.MongoDB;
 using StockCore.Aop.Cache;
 using System.Collections.Generic;
+using StockCore.Aop.PostFilter;
 
 namespace StockCore.Factory.Builder
 {
@@ -21,6 +22,8 @@ namespace StockCore.Factory.Builder
         private const int MONOUTERERRID = 1023104;
         private const int CACHEPROCESSERRID = 1023105;
         private const int CACHEOUTERERRID = 1023106;
+        private const int POSTFILTERPROCESSERRID = 1023108;
+        private const int POSTFILTEROUTERERRID = 1023109;
         private readonly IConfigReader configReader;
         private readonly IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory;
         private readonly IFactory<string, IBuilder<string, Stock>> stockBuilderFactory;
@@ -45,8 +48,23 @@ namespace StockCore.Factory.Builder
                 stockBuilderFactory.Build(tracer)
                 );
             var module = configReader.GetByKey(getAopKey());
+            inner = loadPostFilterDecorator(inner, module);
             inner = loadCachingDecorator(tracer, inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IBuilder<string, IEnumerable<Stock>> loadPostFilterDecorator(IBuilder<string, IEnumerable<Stock>> inner, Module module)
+        {
+            if (module.IsPostFilterActive())
+            {
+                inner = new PostFilterBuilderDec<Stock>(
+                    inner,
+                    QuoteGroupHelper.DetermineFilter(),
+                    POSTFILTERPROCESSERRID,
+                    POSTFILTEROUTERERRID,
+                    module.PostFilter,
+                    logger);
+            }
             return inner;
         }
         private IBuilder<string, IEnumerable<Stock>> loadCachingDecorator(Tracer tracer, IBuilder<string, IEnumerable<Stock>> inner, Module module)
@@ -64,7 +82,6 @@ namespace StockCore.Factory.Builder
             }
             return inner;
         }
-
         private IBuilder<string, IEnumerable<Stock>> loadMonitoringDecorator(Tracer tracer, IBuilder<string, IEnumerable<Stock>> inner, Module module)
         {
             if (module.IsMonitoringActive())

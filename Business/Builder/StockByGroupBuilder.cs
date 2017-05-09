@@ -44,7 +44,6 @@ namespace StockCore.Business.Builder
                     stocks.Add(stock);
                 }
             }
-            stocks = group.FilterStocks(stocks);
             return stocks;
         }
     }

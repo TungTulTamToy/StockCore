@@ -8,7 +8,8 @@ namespace StockCore.Extension
         public static bool IsMonitoringActive(this Module module)=>module!=null && module.IsActive && module.Monitoring!=null && module.Monitoring.IsActive;
         public static bool IsRetryActive(this Module module)=>module!=null && module.IsActive && module.Retry!=null && module.Retry.IsActive;
         public static bool IsCacheActive(this Module module)=>module!=null && module.IsActive && module.Cache!=null && module.Cache.IsActive;
-        public static bool IsFilterActive(this Module module)=>module!=null && module.IsActive && module.Filter!=null && module.Filter.IsActive;
+        public static bool IsPreFilterActive(this Module module)=>module!=null && module.IsActive && module.PreFilter!=null && module.PreFilter.IsActive;
+        public static bool IsPostFilterActive(this Module module)=>module!=null && module.IsActive && module.PostFilter!=null && module.PostFilter.IsActive;
         public static MonitoringModule OverrideConfigFromSubModuleIfAny(this MonitoringModule module,string methodName)
         {
             if(module != null && module.Actions != null)

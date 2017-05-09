@@ -9,7 +9,7 @@ using StockCore.Extension;
 using StockCore.Aop.Mon;
 using StockCore.Helper;
 using System;
-using StockCore.Aop.Filter;
+using StockCore.Aop.PreFilter;
 
 namespace StockCore.Factory.Html
 {
@@ -39,14 +39,14 @@ namespace StockCore.Factory.Html
         }
         private IGetByKey<IEnumerable<Share>, string> loadFilterDecorator(IGetByKey<IEnumerable<Share>, string> inner, Module module)
         {
-            if (module.IsFilterActive())
+            if (module.IsPreFilterActive())
             {
-                inner = new FilterGetByKeyDec<Share>(
+                inner = new PreFilterGetByKeyDec<Share>(
                     inner,
-                    FilterHelper.FilterNotActiveOnly(module.Filter.Criteria),//scb
+                    FilterHelper.FilterNotActiveOnly(module.PreFilter.Criteria),//scb
                     FILTERPROCESSERRID,
                     FILTEROUTERERRID,
-                    module.Filter,
+                    module.PreFilter,
                     logger);
             }
             return inner;

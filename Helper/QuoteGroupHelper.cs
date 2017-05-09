@@ -7,20 +7,23 @@ namespace StockCore.Helper
 {
     public static class QuoteGroupHelper
     {
-        public static List<Stock> FilterStocks(this QuoteGroup item, List<Stock> stocks)
+        public static Func<string,IEnumerable<Stock>,IEnumerable<Stock>> DetermineFilter()
         {
-            if(stocks !=null && stocks.Any() && item!=null)
-            {
-                var dict = new Dictionary<string,Func<Stock,bool>>(){
-                    ["Sell"]=(stock) => stock.MovingAverage.Hist < 0 && stock.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg < -5),
-                    ["Buy"]=(stock) => stock.MovingAverage.Hist > 0 && stock.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg > 5)
-                };
-                if(dict.ContainsKey(item.Name))
+            return (groupName,stocks)=>{
+                if(stocks !=null && stocks.Any())
                 {
-                    stocks = stocks.Where(s=>dict[item.Name](s)).ToList();
+                    switch(groupName)
+                    {
+                        case "Sell":
+                            return SellFilter(groupName,stocks);
+                        case "Buy":
+                            return BuyFilter(groupName,stocks);
+                    }
                 }
-            }
-            return stocks;
+                return stocks;
+            };
         }
+        public static IEnumerable<Stock> SellFilter(string groupName, IEnumerable<Stock> stocks)=>stocks.Where(s=>s.MovingAverage.Hist < 0 && s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg < -5)).ToList();
+        public static IEnumerable<Stock> BuyFilter(string groupName, IEnumerable<Stock> stocks)=>stocks.Where(s=>s.MovingAverage.Hist > 0 && s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg > 5)).ToList();
     }
 }
