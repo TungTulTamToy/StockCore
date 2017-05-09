@@ -23,7 +23,10 @@ namespace StockCore.Aop.PostFilter
             this.inner = inner;
             this.filter = filter;
         }
-
+        public IEnumerable<TOutput> Build(TInput t = null)
+        {
+            throw new NotImplementedException();
+        }
         public async Task<IEnumerable<TOutput>> BuildAsync(TInput item = default(TInput))
         {
             var returnItems = await basePostFilterDecBuildAsync(

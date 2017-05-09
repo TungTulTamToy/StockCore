@@ -22,6 +22,14 @@ namespace StockCore.Aop.Mon
             this.inner = inner;
             this.validateQuote = validateQuote;
         }
+        public TResult Build(TInput param)
+        {
+            var item = baseMonDecBuild(
+                input:param,
+                validate:(logger,tracer,moduleName,methodName)=>validateQuote(logger,tracer,moduleName,methodName,param),
+                innerProcess:()=> inner.Build(param));
+            return item;
+        }
         public async Task<TResult> BuildAsync(TInput param)
         {
             var item = await baseMonDecBuildAsync(

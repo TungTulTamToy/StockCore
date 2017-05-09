@@ -72,6 +72,7 @@ namespace StockCore
                     .AddScoped<IFactory<string, IBuilder<string, Stock>>, StockBuilderFactory>()
                     .AddScoped<IFactory<string, IBuilder<string, IEnumerable<QuoteGroup>>>, AllQuoteGroupBuilderFactory>()
                     .AddScoped<IFactory<string, IBuilder<string, IEnumerable<Stock>>>, StockByGroupBuilderFactory>()
+                    .AddScoped<IFactory<string, IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>>>, PriceCalBuilderFactory>()
 
                     .AddScoped<IMongoDatabaseWrapper,MongoDatabaseWrapper>()
                     .AddTransient<IDeleteOneModelBuilder,DeleteOneModelBuilder>()
@@ -92,17 +93,11 @@ namespace StockCore
                 seedGroup(serviceProvider);
                 syncWeb(serviceProvider);                
 
-                //var stockInfo = getStockInfo(serviceProvider,"ttw");
-                //stockInfo = getStockInfo(serviceProvider,"grammy");
-                //stockInfo = getStockInfo(serviceProvider,"ptt");
-                var groups = getAllQuoteGroup(serviceProvider);
+                /*var groups = getAllQuoteGroup(serviceProvider);
                 var groupName = "All";
                 var stocks = getStockByGroup(serviceProvider,groupName);
-
-                //stockInfo = getStockInfo(serviceProvider,"ptt");
-                //var groups = getAllQuoteGroup(serviceProvider);
                 groupName = "Sell";
-                stocks = getStockByGroup(serviceProvider,groupName);
+                stocks = getStockByGroup(serviceProvider,groupName);*/
             }        
             catch(Exception ex)
             {   

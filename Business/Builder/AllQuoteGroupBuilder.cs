@@ -20,6 +20,10 @@ namespace StockCore.Business.Builder
             this.logger = logger;
             this.allGroupProvider = allGroupProvider;
         }
+        public IEnumerable<QuoteGroup> Build(string t = null)
+        {
+            throw new NotImplementedException();
+        }
         public async Task<IEnumerable<QuoteGroup>> BuildAsync(string t="")
         {
             var items = await allGroupProvider.GetAllAsync();

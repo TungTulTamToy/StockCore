@@ -25,6 +25,11 @@ namespace StockCore.Aop.Cache
             this.getKey = getKey;   
         }
 
+        public TResult Build(TInput t = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<TResult> BuildAsync(TInput param)
         {
             var item = await baseCacheDecOperateAsync(

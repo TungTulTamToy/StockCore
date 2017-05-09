@@ -26,7 +26,10 @@ namespace StockCore.Aop.Retry
             this.inner = inner;              
             this.getKey = getKey;   
         }
-
+        public TResult Build(TInput t = null)
+        {
+            throw new NotImplementedException();
+        }
         public async Task<TResult> BuildAsync(TInput param)
         {
             TResult item = default(TResult);

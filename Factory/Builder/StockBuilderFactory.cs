@@ -8,6 +8,7 @@ using StockCore.Business.Builder;
 using StockCore.Business.Repo.MongoDB;
 using StockCore.Aop.Cache;
 using System;
+using System.Collections.Generic;
 
 namespace StockCore.Factory.Builder
 {
@@ -27,12 +28,14 @@ namespace StockCore.Factory.Builder
         private readonly IFactory<string, IGetByKeyRepo<Consensus,string>> consensusRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<Price,string>> priceRepoFactory;
         private readonly IFactory<string, IGetByFuncRepo<string,StockCoreCache<Stock>>> cacheRepoFactory;
+        private readonly IFactory<string, IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>>> priceCalBuilderFactory;
         public StockBuilderFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<Share,string>> shareRepoFactory,
             IFactory<string, IGetByKeyRepo<Statistic,string>> statisticRepoFactory,
             IFactory<string, IGetByKeyRepo<Consensus,string>> consensusRepoFactory,
             IFactory<string, IGetByKeyRepo<Price,string>> priceRepoFactory,
             IFactory<string, IGetByFuncRepo<string,StockCoreCache<Stock>>> cacheRepoFactory,
+            IFactory<string, IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>>> priceCalBuilderFactory,
             IConfigReader configReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
@@ -41,6 +44,7 @@ namespace StockCore.Factory.Builder
             this.consensusRepoFactory = consensusRepoFactory;
             this.priceRepoFactory = priceRepoFactory;
             this.cacheRepoFactory = cacheRepoFactory;
+            this.priceCalBuilderFactory = priceCalBuilderFactory;
             this.configReader = configReader;
         }
         protected override IBuilder<string, Stock> baseFactoryBuild(Tracer tracer,string t="")
@@ -51,6 +55,7 @@ namespace StockCore.Factory.Builder
                 statisticRepoFactory.Build(tracer),
                 consensusRepoFactory.Build(tracer),
                 priceRepoFactory.Build(tracer),
+                priceCalBuilderFactory.Build(tracer),
                 DateTime.Now);
             var module = configReader.GetByKey(getAopKey());
             inner = loadCachingDecorator(tracer, inner, module);

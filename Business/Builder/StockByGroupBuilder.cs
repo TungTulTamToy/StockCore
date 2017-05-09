@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,6 +22,10 @@ namespace StockCore.Business.Builder
             this.logger = logger;
             this.quoteGroupProvider = quoteGroupProvider;
             this.stockBuilder = stockBuilder;
+        }
+        public IEnumerable<Stock> Build(string t = null)
+        {
+            throw new NotImplementedException();
         }
         public async Task<IEnumerable<Stock>> BuildAsync(string quoteGroupName)
         {
