@@ -67,19 +67,22 @@ namespace StockCore.Business.Builder
             {
                 int limit = 7;
                 var focusPEs = pe.Where(p=>p.Value>0).Take(limit);
-                var minYear = focusPEs.Min(p => p.Year);
-                var weightedPE = focusPEs.WeightedAverage(p => p.Value, p => (p.Year-minYear)+1);
-                var medianPE = focusPEs.Select(p => p.Value).Median();
-                var minPE = (medianPE < weightedPE) ? medianPE : weightedPE;
+                if(focusPEs!=null && focusPEs.Any())
+                {
+                    var minYear = focusPEs.Min(p => p.Year);
+                    var weightedPE = focusPEs.WeightedAverage(p => p.Value, p => (p.Year-minYear)+1);
+                    var medianPE = focusPEs.Select(p => p.Value).Median();
+                    var minPE = (medianPE < weightedPE) ? medianPE : weightedPE;
 
-                ped = from p in pe
-                    where p.Value > 0
-                    orderby p.Year descending
-                    select new PeDiffPercent
-                    {
-                        Year = p.Year,
-                        Value = (minPE-p.Value)/minPE
-                    };
+                    ped = from p in pe
+                        where p.Value > 0
+                        orderby p.Year descending
+                        select new PeDiffPercent
+                        {
+                            Year = p.Year,
+                            Value = (minPE-p.Value)/minPE
+                        };
+                }
             }
             return ped;
         }

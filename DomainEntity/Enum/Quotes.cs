@@ -2,15 +2,7 @@ namespace StockCore.DomainEntity.Enum
 {
     public class Quotes
     {
-        public enum QuotesSample1
-        {
-            ptt,bec,work,smit,bbl,scb
-        }
-        public enum QuotesSample2
-        {
-            ptt,bec,work,bbl,scb
-        }
-        public enum QuotesSample3
+        public enum QuotesSampleV1
         {
             Earth, Banpu, Gunkul, Ivl, Ptl, Aj, Vnt, Bcp, Pttep, Pttgc,
             Ptt, Scc, Kce, Hana, Delta, Advanc, Dtac, Jas, Bland, Sc,

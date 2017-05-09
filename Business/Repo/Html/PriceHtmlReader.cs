@@ -12,7 +12,7 @@ namespace StockCore.Business.Repo.Html
             IHtmlDocumentWrapper doc) : base(
                 client, 
                 doc, 
-                "http://www.settrade.com/C04_02_stock_historical_p1.jsp?txtSymbol={0}&selectPage=null&max=50&offset=0") { }
+                "http://www.settrade.com/C04_02_stock_historical_p1.jsp?txtSymbol={0}&selectPage=null&max=200&offset=0") { }
         protected override IEnumerable<Price> extractValues(string keyword)
         {
             var selectedNodes = doc.DocumentNode.SelectNodes("//div[@class='table-responsive']//table//tbody//tr");
