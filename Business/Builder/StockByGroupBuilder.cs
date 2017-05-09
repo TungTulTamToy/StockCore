@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StockCore.Business.Repo;
 using StockCore.DomainEntity;
-using StockCore.DomainEntity.Enum;
+using StockCore.Helper;
 
 namespace StockCore.Business.Builder
 {
@@ -25,7 +24,7 @@ namespace StockCore.Business.Builder
         }
         public async Task<IEnumerable<Stock>> BuildAsync(string quoteGroupName)
         {
-            List<Stock> stocks = null;
+            IEnumerable<Stock> stocks = null;
             var groups = await quoteGroupProvider.GetByKeyAsync(quoteGroupName);
             if(groups != null && groups.Any())
             {
@@ -37,23 +36,15 @@ namespace StockCore.Business.Builder
         private async Task<List<Stock>> getStocks(QuoteGroup group)
         {
             List<Stock> stocks = new List<Stock>();
-            //if(group.Category==GroupType.Category.Dynamic)
-            //{
-            //    var allStocks = await BuildAsync(allGroupName);
-            //    stocks = group.FilterGroupByCriteria(allStocks).ToList();
-            //}
-            //else
-            //{
-                    foreach (var quote in group.Quotes)
-                    {
-                        var stock = await stockBuilder.BuildAsync(quote);
-                        if (stock != null)
-                        {
-                            stocks.Add(stock);
-                        }
-                    }
-            
-            //}
+            foreach (var quote in group.Quotes)
+            {
+                var stock = await stockBuilder.BuildAsync(quote);
+                if (stock != null)
+                {
+                    stocks.Add(stock);
+                }
+            }
+            stocks = group.FilterStocks(stocks);
             return stocks;
         }
     }

@@ -92,16 +92,17 @@ namespace StockCore
                 seedGroup(serviceProvider);
                 syncWeb(serviceProvider);                
 
-                var stockInfo = getStockInfo(serviceProvider,"ttw");
-                stockInfo = getStockInfo(serviceProvider,"grammy");
+                //var stockInfo = getStockInfo(serviceProvider,"ttw");
+                //stockInfo = getStockInfo(serviceProvider,"grammy");
                 //stockInfo = getStockInfo(serviceProvider,"ptt");
                 var groups = getAllQuoteGroup(serviceProvider);
                 var groupName = "All";
                 var stocks = getStockByGroup(serviceProvider,groupName);
 
                 //stockInfo = getStockInfo(serviceProvider,"ptt");
-                //groups = getAllQuoteGroup(serviceProvider);
-                //stocks = getStockByGroup(serviceProvider,groupName);
+                //var groups = getAllQuoteGroup(serviceProvider);
+                groupName = "Sell";
+                stocks = getStockByGroup(serviceProvider,groupName);
             }        
             catch(Exception ex)
             {   
