@@ -29,8 +29,9 @@ namespace StockCore.Aop.PreFilter
         {
             IEnumerable<T> returnItems = null;
             await basePreFilterDecBuildAsync(
-                ()=>filter(quote),
-                async ()=> returnItems = await inner.GetByKeyAsync(quote));
+                preFilter:()=>filter(quote),
+                innerProcessAsync:async ()=> returnItems = await inner.GetByKeyAsync(quote)
+            );
             return returnItems;
         }
     }

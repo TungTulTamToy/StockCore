@@ -25,9 +25,9 @@ namespace StockCore.Aop.Mon
         public async Task<TResult> BuildAsync(TInput param)
         {
             var item = await baseMonDecBuildAsync(
-                param,
-                (logger,tracer,moduleName,methodName)=>validateQuote(logger,tracer,moduleName,methodName,param),
-                async ()=> await inner.BuildAsync(param));
+                input:param,
+                validate:(logger,tracer,moduleName,methodName)=>validateQuote(logger,tracer,moduleName,methodName,param),
+                innerProcessAsync:async ()=> await inner.BuildAsync(param));
             return item;
         }
     }

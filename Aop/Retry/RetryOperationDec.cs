@@ -28,8 +28,8 @@ namespace StockCore.Aop.Retry
         public async Task OperateAsync(T param)
         {
             await baseRetryDecOperateAsync(
-                (moduleName,methodName)=>getKey(moduleName,methodName,param),
-                async()=>await inner.OperateAsync(param)
+                getKey:(moduleName,methodName)=>getKey(moduleName,methodName,param),
+                innerProcessAsync:async()=>await inner.OperateAsync(param)
             );
         }
     }

@@ -27,8 +27,9 @@ namespace StockCore.Aop.PostFilter
         public async Task<IEnumerable<TOutput>> BuildAsync(TInput item = default(TInput))
         {
             var returnItems = await basePostFilterDecBuildAsync(
-                async ()=> await inner.BuildAsync(item),             
-                (postItems)=>filter(item,postItems));
+                innerProcessAsync:async ()=> await inner.BuildAsync(item),             
+                postFilter:(postItems)=>filter(item,postItems)
+            );
             return returnItems;
         }
     }

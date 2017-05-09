@@ -25,9 +25,9 @@ namespace StockCore.Aop.Mon
         public async Task<IEnumerable<TResult>> GetByKeyAsync(TInput quote)
         {
             var returnItems = await baseMonDecBuildAsync(
-                quote,
-                (logger,tracer,moduleName,methodName)=>validateQuote(logger,tracer,moduleName,methodName,quote),
-                async ()=> await ((IGetByKeyRepo<TResult,TInput>)inner).GetByKeyAsync(quote));
+                input:quote,
+                validate:(logger,tracer,moduleName,methodName)=>validateQuote(logger,tracer,moduleName,methodName,quote),
+                innerProcessAsync:async ()=> await ((IGetByKeyRepo<TResult,TInput>)inner).GetByKeyAsync(quote));
             return returnItems;
         }
     }

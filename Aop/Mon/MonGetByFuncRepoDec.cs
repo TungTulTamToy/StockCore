@@ -28,9 +28,9 @@ namespace StockCore.Aop.Mon
         public async Task<IEnumerable<TResult>> GetByFuncAsync(Expression<Func<TResult, bool>> expression)
         {
             var returnItems = await baseMonDecBuildAsync(
-                expression,
-                (logger,tracer,moduleName,methodName)=>validateExpression(logger,tracer,moduleName,methodName,expression),
-                async ()=> await ((IGetByFuncRepo<TInput,TResult>)inner).GetByFuncAsync(expression));
+                input:expression,
+                validate:(logger,tracer,moduleName,methodName)=>validateExpression(logger,tracer,moduleName,methodName,expression),
+                innerProcessAsync:async ()=> await ((IGetByFuncRepo<TInput,TResult>)inner).GetByFuncAsync(expression));
             return returnItems;
         }
     }

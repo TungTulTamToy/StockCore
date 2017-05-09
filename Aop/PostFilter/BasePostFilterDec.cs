@@ -29,14 +29,14 @@ namespace StockCore.Aop.PostFilter
         }
         protected async Task<T> basePostFilterDecBuildAsync(
             Func<Task<T>> innerProcessAsync,            
-            Func<T,T> baseFilter,
+            Func<T,T> postFilter,
             [CallerMemberName]string methodName="")
         {
             var t = default(T);
             await baseDecOperateAsync(
                 processAsync: async() => {
                     t = await innerProcessAsync();
-                    t = baseFilter(t);
+                    t = postFilter(t);
                     },
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
@@ -44,7 +44,7 @@ namespace StockCore.Aop.PostFilter
             return t;
         }
         protected T basePostFilterDecBuild(
-            Func<T,T> baseFilter,
+            Func<T,T> postFilter,
             Func<T> innerProcess,
             [CallerMemberName]string methodName="")
         {
@@ -52,7 +52,7 @@ namespace StockCore.Aop.PostFilter
             baseDecOperate(
                 process:() => {
                     t = innerProcess();
-                    t = baseFilter(t);
+                    t = postFilter(t);
                     },
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)

@@ -31,8 +31,8 @@ namespace StockCore.Aop.Retry
         {
             TResult item = default(TResult);
             await baseRetryDecOperateAsync(
-                (moduleName,methodName)=>getKey(moduleName,methodName,param),
-                async()=>await inner.BuildAsync(param)
+                getKey:(moduleName,methodName)=>getKey(moduleName,methodName,param),
+                innerProcessAsync:async()=>await inner.BuildAsync(param)
             );
             return item;
         }

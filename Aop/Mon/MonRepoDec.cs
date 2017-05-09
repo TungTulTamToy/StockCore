@@ -25,17 +25,17 @@ namespace StockCore.Aop.Mon
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             var returnItems = await baseMonDecBuildAsync(
-                "",
-                (logger,tracer,moduleName,methodName)=>true,
-                async ()=> await inner.GetAllAsync());
+                input:"",
+                validate:(logger,tracer,moduleName,methodName)=>true,
+                innerProcessAsync:async ()=> await inner.GetAllAsync());
             return returnItems;
         }
         public async Task InsertAsync(T item)
         {
             await baseMonDecBuildAsync(
-                item,
-                (logger,tracer,moduleName,methodName)=>validateEntity(item),
-                async ()=> {
+                input:item,
+                validate:(logger,tracer,moduleName,methodName)=>validateEntity(item),
+                innerProcessAsync:async ()=> {
                     await inner.InsertAsync(item);
                     return true;
             });
@@ -44,9 +44,9 @@ namespace StockCore.Aop.Mon
         public async Task BatchInsertAsync(IEnumerable<T> items)
         {
             await baseMonDecBuildAsync(
-                items,
-                (logger,tracer,moduleName,methodName)=>validateEntities(items),
-                async ()=> {
+                input:items,
+                validate:(logger,tracer,moduleName,methodName)=>validateEntities(items),
+                innerProcessAsync:async ()=> {
                     await inner.BatchInsertAsync(items);
                     return true;
             });
@@ -55,9 +55,9 @@ namespace StockCore.Aop.Mon
         public async Task UpdateAsync(T item)
         {
             await baseMonDecBuildAsync(
-                item,
-                (logger,tracer,moduleName,methodName)=>validateEntity(item),
-                async ()=> {
+                input:item,
+                validate:(logger,tracer,moduleName,methodName)=>validateEntity(item),
+                innerProcessAsync:async ()=> {
                     await inner.UpdateAsync(item);
                     return true;
             });
@@ -66,9 +66,9 @@ namespace StockCore.Aop.Mon
         public async Task BatchUpdateAsync(IEnumerable<T> items)
         {
             await baseMonDecBuildAsync(
-                items,
-                (logger,tracer,moduleName,methodName)=>validateEntities(items),
-                async ()=>{
+                input:items,
+                validate:(logger,tracer,moduleName,methodName)=>validateEntities(items),
+                innerProcessAsync:async ()=>{
                     await inner.BatchUpdateAsync(items);
                     return true;});
         }
@@ -76,9 +76,9 @@ namespace StockCore.Aop.Mon
         public async Task DeleteAsync(T item)
         {
             await baseMonDecBuildAsync(
-                item,
-                (logger,tracer,moduleName,methodName)=> validateEntity(item),
-                async ()=>{
+                input:item,
+                validate:(logger,tracer,moduleName,methodName)=> validateEntity(item),
+                innerProcessAsync:async ()=>{
                     await inner.DeleteAsync(item);
                     return true;
             });
@@ -87,9 +87,9 @@ namespace StockCore.Aop.Mon
         public async Task BatchDeleteAsync(IEnumerable<T> items)
         {
             await baseMonDecBuildAsync(
-                items,
-                (logger,tracer,moduleName,methodName)=> validateEntities(items),
-                async ()=> {
+                input:items,
+                validate:(logger,tracer,moduleName,methodName)=> validateEntities(items),
+                innerProcessAsync:async ()=> {
                     await inner.BatchDeleteAsync(items);
                     return true;
             });

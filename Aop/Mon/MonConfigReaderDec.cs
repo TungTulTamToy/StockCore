@@ -25,9 +25,9 @@ namespace StockCore.Aop.Mon
         public Module GetByKey(string key)
         {
             var m = baseMonDecBuild(
-                key,
-                (logger,tracer,moduleName,methodName) => validateKey(logger,tracer,moduleName,methodName,key),
-                ()=> inner.GetByKey(key));
+                input:key,
+                validate:(logger,tracer,moduleName,methodName) => validateKey(logger,tracer,moduleName,methodName,key),
+                innerProcess:()=> inner.GetByKey(key));
             return m;
         }
     }

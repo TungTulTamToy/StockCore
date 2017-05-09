@@ -28,24 +28,24 @@ namespace StockCore.Aop.PreFilter
             this.logger = logger;
         }
         protected async Task basePreFilterDecBuildAsync(
-            Func<bool> baseFilter,
+            Func<bool> preFilter,
             Func<Task> innerProcessAsync,
             [CallerMemberName]string methodName="")
         {
             await baseDecOperateAsync(
-                validate:()=> baseFilter(),
+                validate:()=> preFilter(),
                 processAsync: async() => await innerProcessAsync(),
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
             );
         }
         protected void basePreFilterDecBuild(
-            Func<bool> baseFilter,
+            Func<bool> preFilter,
             Action innerProcess,
             [CallerMemberName]string methodName="")
         {
             baseDecOperate(
-                validate:()=> baseFilter(),
+                validate:()=> preFilter(),
                 process:() => innerProcess(),
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)

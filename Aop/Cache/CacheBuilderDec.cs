@@ -28,8 +28,8 @@ namespace StockCore.Aop.Cache
         public async Task<TResult> BuildAsync(TInput param)
         {
             var item = await baseCacheDecOperateAsync(
-                (moduleName,methodName)=>getKey(moduleName,methodName,param),
-                async()=>await inner.BuildAsync(param)
+                getKey:(moduleName,methodName)=>getKey(moduleName,methodName,param),
+                buildInnerAsync:async()=>await inner.BuildAsync(param)
             );
             return item;
         }
