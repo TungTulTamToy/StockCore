@@ -43,7 +43,7 @@ namespace StockCore.Factory.Html
             {
                 inner = new PreFilterGetByKeyDec<string,Share>(
                     inner,
-                    FilterHelper.FilterNotActiveOnly(module.PreFilter.Criteria),//scb
+                    FilterHelper.FilterNotActiveOnly(module.PreFilter.Criteria),
                     FILTERPROCESSERRID,
                     FILTEROUTERERRID,
                     module.PreFilter,

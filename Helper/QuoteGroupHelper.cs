@@ -15,15 +15,21 @@ namespace StockCore.Helper
                     switch(groupName)
                     {
                         case "Sell":
-                            return SellFilter(groupName,stocks);
+                            return SellFilter(stocks);
                         case "Buy":
-                            return BuyFilter(groupName,stocks);
+                            return BuyFilter(stocks);
+                        case "Over Sold":
+                            return OverSoldFilter(stocks);
+                        case "Over Buy":
+                            return OverBuyFilter(stocks);
                     }
                 }
                 return stocks;
             };
         }
-        public static IEnumerable<Stock> SellFilter(string groupName, IEnumerable<Stock> stocks)=>stocks.Where(s=>s.MovingAverage.Hist < 0 && s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg < -5)).ToList();
-        public static IEnumerable<Stock> BuyFilter(string groupName, IEnumerable<Stock> stocks)=>stocks.Where(s=>s.MovingAverage.Hist > 0 && s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg > 5)).ToList();
+        public static IEnumerable<Stock> SellFilter(IEnumerable<Stock> stocks)=>stocks.Where(s=>s.MovingAverage.Hist < 0 && s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg < -5)).ToList();
+        public static IEnumerable<Stock> BuyFilter(IEnumerable<Stock> stocks)=>stocks.Where(s=>s.MovingAverage.Hist > 0 && s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg > 5)).ToList();
+        public static IEnumerable<Stock> OverSoldFilter(IEnumerable<Stock> stocks)=>stocks.Where(s=>s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg > 8)).ToList();
+        public static IEnumerable<Stock> OverBuyFilter(IEnumerable<Stock> stocks)=>stocks.Where(s=>s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg < -8)).ToList();
     }
 }

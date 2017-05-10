@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 
 namespace StockCore.Helper
@@ -11,7 +12,12 @@ namespace StockCore.Helper
         }
         public static Func<string,bool> FilterNotActiveOnly(string notActivateOnly)
         {
-            return (value)=>(string.IsNullOrEmpty(notActivateOnly) || value!=notActivateOnly);
+            string[] items=null;
+            if(!string.IsNullOrEmpty(notActivateOnly))
+            {
+                items = notActivateOnly.Split(new []{","},StringSplitOptions.RemoveEmptyEntries);
+            }
+            return (value)=>(items==null || !items.Any() || !items.Any(value.Contains));
         }
     }
 }

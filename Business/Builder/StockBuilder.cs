@@ -220,32 +220,17 @@ namespace StockCore.Business.Builder
             }
             return shareByYear;
         }
-        private MovingAverage calculateMACD(IEnumerable<Price> prices,bool isLog=false)
+        private MovingAverage calculateMACD(IEnumerable<Price> prices)
         {
             MovingAverage item = null;
             if(prices != null && prices.Any())
             {
                 var sortedPrices = prices.Where(p => p.Close.HasValue && p .Date > asOfDate.AddMonths(-3)).OrderByDescending(p => p.Date).Take(60).OrderBy(p => p.Date).ToList();
                 var macd = new MovingAverageHelper(12, 26, 9);
-                var count = 0;
-                foreach (var price in sortedPrices)
-                {
-                    macd.ReceiveTick(price.Close.Value);
-                    if(isLog)
-                    {
-                        var check = macd.Value();
-                        if(check==null)
-                        {
-                            check = new MovingAverage()
-                            {
-                                MACD=0,
-                                Signal=0,
-                                Hist=0
-                            };
-                        }
-                        Console.WriteLine($"No:{++count}:Price:{price.Close.Value}:MACD:{check.MACD}:Signal:{check.Signal}:Hist:{check.Hist}");
-                    }
-                }
+                foreach (var price in sortedPrices) 
+                { 
+                    macd.ReceiveTick(price.Close.Value); 
+                } 
                 item = macd.Value();
             };
             return item;

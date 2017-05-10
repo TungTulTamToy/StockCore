@@ -16,7 +16,7 @@ namespace StockCore.DomainEntity.Data
                             "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
                             "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
                             "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
-                            "tvo","jubile","ait","m","hotpot","bdms","true","rs"},
+                            "tvo","jubile","ait","m","hotpot","bdms","true","rs","ba"},
                         Order = 1,
                         IsDefault = false
                         },
@@ -41,7 +41,9 @@ namespace StockCore.DomainEntity.Data
                             "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
                             "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
                             "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
-                            "makro","grammy","mcot","top","aav","nok","kbank"},
+                            "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
+                            "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai"},
                         Order = 1,
                         IsDefault = true
                     },
@@ -53,7 +55,9 @@ namespace StockCore.DomainEntity.Data
                             "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
                             "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
                             "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
-                            "makro","grammy","mcot","top","aav","nok","kbank"},
+                            "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
+                            "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai"},
                         Order = 2,
                         IsDefault = false
                         },
@@ -65,37 +69,55 @@ namespace StockCore.DomainEntity.Data
                             "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
                             "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
                             "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
-                            "makro","grammy","mcot","top","aav","nok","kbank"},
+                            "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
+                            "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai"},
                         Order = 3,
                         IsDefault = false
                         },
                     new QuoteGroup(){
-                        Name = "PTT",
-                        Quotes = new[]{"ptt","pttgc","pttep"},
+                        Name = "Over Sold",
+                        Quotes = new[]{
+                            "work","ptt","earth","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
+                            "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
+                            "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
+                            "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
+                            "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
+                            "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
+                            "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai"},
                         Order = 4,
                         IsDefault = false
                         },
                     new QuoteGroup(){
-                        Name = "CP",
-                        Quotes = new[]{"cpf","makro","cpall"},
+                        Name = "Over Buy",
+                        Quotes = new[]{
+                            "work","ptt","earth","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
+                            "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
+                            "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
+                            "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
+                            "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
+                            "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
+                            "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai"},
                         Order = 5,
                         IsDefault = false
                         },
                     new QuoteGroup(){
-                        Name = "Cons",
-                        Quotes = new[]{"sc","lh","siri","prin","bland","hmpro"},
+                        Name = "Home",
+                        Quotes = new[]{"sc","lh","siri","prin","bland","hmpro","lpn","spali"},
                         Order = 6,
                         IsDefault = false
                         },
                     new QuoteGroup(){
                         Name = "Industry",
-                        Quotes = new[]{"smit","mcs","snc","bjchi","bwg","ttw","singer","jubile"},
+                        Quotes = new[]{"smit","mcs","snc","bjchi","bwg","ttw","singer","jubile","stpi"},
                         Order = 7,
                         IsDefault = false
                         },
                     new QuoteGroup(){
                         Name = "Finance",
-                        Quotes = new[]{"bbl","scb","kbank","ifs","bla","kbank"},
+                        Quotes = new[]{"bbl","scb","kbank","ifs","bla","kbank","bay","ktc","aeonts","kcar"},
                         Order = 8,
                         IsDefault = false
                         },
@@ -124,8 +146,8 @@ namespace StockCore.DomainEntity.Data
                         IsDefault = false
                         },
                     new QuoteGroup(){
-                        Name = "Department",
-                        Quotes = new[]{"cpn"},
+                        Name = "Convenience Store",
+                        Quotes = new[]{"cpn","robins"},
                         Order = 13,
                         IsDefault = false
                         },
@@ -137,7 +159,7 @@ namespace StockCore.DomainEntity.Data
                         },
                     new QuoteGroup(){
                         Name = "Food",
-                        Quotes = new[]{"m","hotpot"},
+                        Quotes = new[]{"m","hotpot","tkn","oishi"},
                         Order = 15,
                         IsDefault = false
                         },
@@ -149,19 +171,19 @@ namespace StockCore.DomainEntity.Data
                         },
                     new QuoteGroup(){
                         Name = "Hospital",
-                        Quotes = new[]{"bdms"},
+                        Quotes = new[]{"bdms","bh","ntv"},
                         Order = 17,
                         IsDefault = false
                         },
                     new QuoteGroup(){
                         Name = "Commu",
-                        Quotes = new[]{"advanc","dtac","true","jas","intuch"},
+                        Quotes = new[]{"advanc","dtac","true","jas","intuch","samart","thcom"},
                         Order = 18,
                         IsDefault = false
                         },
                     new QuoteGroup(){
                         Name = "AirLine",
-                        Quotes = new[]{"aav","nok"},
+                        Quotes = new[]{"aav","nok","ba","thai"},
                         Order = 18,
                         IsDefault = false
                     },
@@ -172,9 +194,33 @@ namespace StockCore.DomainEntity.Data
                         IsDefault = false
                         },
                     new QuoteGroup(){
-                        Name = "Elec",
+                        Name = "Electronic",
                         Quotes = new[]{"delta","hana","kce"},
                         Order = 20,
+                        IsDefault = false
+                        },
+                    new QuoteGroup(){
+                        Name = "Feed Farm Food",
+                        Quotes = new[]{"cpf","gfpt"},
+                        Order = 21,
+                        IsDefault = false
+                        },
+                    new QuoteGroup(){
+                        Name = "Electricity",
+                        Quotes = new[]{"egco","glow","ratch","gpsc"},
+                        Order = 22,
+                        IsDefault = false
+                        },
+                    new QuoteGroup(){
+                        Name = "PTT",
+                        Quotes = new[]{"ptt","pttgc","pttep"},
+                        Order = 23,
+                        IsDefault = false
+                        },
+                    new QuoteGroup(){
+                        Name = "CP",
+                        Quotes = new[]{"cpf","makro","cpall"},
+                        Order = 24,
                         IsDefault = false
                         }
                 };
