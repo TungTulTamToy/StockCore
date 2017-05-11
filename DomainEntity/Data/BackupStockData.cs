@@ -2916,6 +2916,60 @@ namespace StockCore.DomainEntity.Data
                             new Share{Amount=2182771917,Date=new DateTime(2013,1,31)},
                             new Share{Amount=2182771917,Date=new DateTime(2012,1,31)}
                         }
+                    },
+                    new BackupStockDE()
+                    {
+                        Quote = "centel",
+                        Prices = new Price[] 
+                        { 
+                            new Price {Close=37.25,Date=new DateTime(2017,1,1)},
+                            new Price {Close=39.5,Date=new DateTime(2016,1,1)},
+                            new Price {Close=34,Date=new DateTime(2015,1,1)},
+                            new Price {Close=27.25,Date=new DateTime(2014,1,1)},
+                            new Price {Close=32,Date=new DateTime(2013,1,1)}
+                        },
+                        Statistics = new Statistic[]
+                        {
+                            new Statistic{NetProfit=1849.55,Year=2016},
+                            new Statistic{NetProfit=1675.68,Year=2015},
+                            new Statistic{NetProfit=1188.49,Year=2014},
+                            new Statistic{NetProfit=1321.92,Year=2013},
+                            new Statistic{NetProfit=1580.77,Year=2012}
+                        },
+                        Shares = new Share[] 
+                        {
+                            new Share{Amount=1350000000,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=1350000000,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=1350000000,Date=new DateTime(2014,1,31)},
+                            new Share{Amount=1350000000,Date=new DateTime(2013,1,31)},
+                            new Share{Amount=1350000000,Date=new DateTime(2012,1,31)}
+                        }
+                    },
+                    new BackupStockDE()
+                    {
+                        Quote = "aot",
+                        Prices = new Price[] 
+                        { 
+                            new Price {Close=41.4,Date=new DateTime(2017,1,1)},
+                            new Price {Close=37.8,Date=new DateTime(2016,1,1)},
+                            new Price {Close=32.4,Date=new DateTime(2015,1,1)},
+                            new Price {Close=17.15,Date=new DateTime(2014,1,1)},
+                            new Price {Close=10.6,Date=new DateTime(2013,1,1)}
+                        },
+                        Statistics = new Statistic[]
+                        {
+                            new Statistic{NetProfit=19571.46,Year=2016},
+                            new Statistic{NetProfit=18728.65,Year=2015},
+                            new Statistic{NetProfit=12220.37,Year=2014},
+                            new Statistic{NetProfit=16347.35,Year=2013}
+                        },
+                        Shares = new Share[] 
+                        {
+                            new Share{Amount=14285700000,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=14285700000,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=14285700000,Date=new DateTime(2014,1,31)},
+                            new Share{Amount=14285700000,Date=new DateTime(2013,1,31)}
+                        }
                     }
                 };
             }

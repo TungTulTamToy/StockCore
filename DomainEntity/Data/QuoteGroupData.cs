@@ -43,7 +43,7 @@ namespace StockCore.DomainEntity.Data
                             "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
                             "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
                             "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
-                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai"},
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel","aot"},
                         Order = 1,
                         IsDefault = true
                     },
@@ -57,7 +57,7 @@ namespace StockCore.DomainEntity.Data
                             "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
                             "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
                             "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
-                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai"},
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel","aot"},
                         Order = 2,
                         IsDefault = false
                         },
@@ -71,7 +71,7 @@ namespace StockCore.DomainEntity.Data
                             "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
                             "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
                             "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
-                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai"},
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel","aot"},
                         Order = 3,
                         IsDefault = false
                         },
@@ -85,7 +85,7 @@ namespace StockCore.DomainEntity.Data
                             "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
                             "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
                             "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
-                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai"},
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel","aot"},
                         Order = 4,
                         IsDefault = false
                         },
@@ -99,7 +99,7 @@ namespace StockCore.DomainEntity.Data
                             "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
                             "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
                             "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
-                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai"},
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel","aot"},
                         Order = 5,
                         IsDefault = false
                         },
@@ -111,13 +111,13 @@ namespace StockCore.DomainEntity.Data
                         },
                     new QuoteGroup(){
                         Name = "Industry",
-                        Quotes = new[]{"smit","mcs","snc","bjchi","bwg","ttw","singer","jubile","stpi"},
+                        Quotes = new[]{"smit","mcs","snc","bjchi","bwg","ttw","singer","stpi"},
                         Order = 7,
                         IsDefault = false
                         },
                     new QuoteGroup(){
                         Name = "Finance",
-                        Quotes = new[]{"bbl","scb","kbank","ifs","bla","kbank","bay","ktc","aeonts","kcar"},
+                        Quotes = new[]{"bbl","scb","kbank","ifs","bla","bay","ktc","aeonts","kcar"},
                         Order = 8,
                         IsDefault = false
                         },
@@ -152,7 +152,7 @@ namespace StockCore.DomainEntity.Data
                         IsDefault = false
                         },
                     new QuoteGroup(){
-                        Name = "Commo",
+                        Name = "Commodity",
                         Quotes = new[]{"sta","tvo"},
                         Order = 14,
                         IsDefault = false
@@ -177,7 +177,7 @@ namespace StockCore.DomainEntity.Data
                         },
                     new QuoteGroup(){
                         Name = "Commu",
-                        Quotes = new[]{"advanc","dtac","true","jas","intuch","samart","thcom"},
+                        Quotes = new[]{"advanc","dtac","true","jas","intuch","samart"},
                         Order = 18,
                         IsDefault = false
                         },
@@ -222,6 +222,18 @@ namespace StockCore.DomainEntity.Data
                         Quotes = new[]{"cpf","makro","cpall"},
                         Order = 24,
                         IsDefault = false
+                        },
+                    new QuoteGroup(){
+                        Name = "Hotel",
+                        Quotes = new[]{"centel"},
+                        Order = 25,
+                        IsDefault = false
+                        },
+                    new QuoteGroup(){
+                        Name = "Other",
+                        Quotes = new[]{"aot","jubile"},
+                        Order = 26,
+                        IsDefault = false
                         }
                 };
             }
@@ -238,7 +250,7 @@ namespace StockCore.DomainEntity.Data
                         },
                     new QuoteGroup(){
                         Name = "Test02",
-                        Quotes = new[]{"work","bbl","scb"},
+                        Quotes = new[]{"work","bbl","scb","thcom"},
                         Order = 2,
                         IsDefault = false
                         }
