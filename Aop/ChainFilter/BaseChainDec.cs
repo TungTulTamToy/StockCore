@@ -27,24 +27,24 @@ namespace StockCore.Aop.PostFilter
             this.outerErrorID = outerErrorID;            
             this.logger = logger;
         }
-        protected async Task<T> basePostFilterDecBuildAsync(
+        protected async Task<T> baseChainDecBuildAsync(
             Func<Task<T>> innerProcessAsync,            
-            Func<T,T> postFilter,
+            Func<T,T> chain,
             [CallerMemberName]string methodName="")
         {
             var t = default(T);
             await baseDecOperateAsync(
                 processAsync: async() => {
                     t = await innerProcessAsync();
-                    t = postFilter(t);
+                    t = chain(t);
                     },
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
             );
             return t;
         }
-        protected T basePostFilterDecBuild(
-            Func<T,T> postFilter,
+        protected T baseChainDecBuild(
+            Func<T,T> chain,
             Func<T> innerProcess,
             [CallerMemberName]string methodName="")
         {
@@ -52,7 +52,7 @@ namespace StockCore.Aop.PostFilter
             baseDecOperate(
                 process:() => {
                     t = innerProcess();
-                    t = postFilter(t);
+                    t = chain(t);
                     },
                 processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)

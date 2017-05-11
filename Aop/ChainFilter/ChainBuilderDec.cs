@@ -10,10 +10,10 @@ namespace StockCore.Aop.PostFilter
     public class ChainBuilderDec<TInput,TOutput> : BaseChainDec<IEnumerable<TOutput>>,IBuilder<TInput,IEnumerable<TOutput>> where TInput:class
     {
         private readonly IBuilder<TInput,IEnumerable<TOutput>> inner; 
-        private readonly Func<TInput,IEnumerable<TOutput>,IEnumerable<TOutput>> filter;
+        private readonly Func<TInput,IEnumerable<TOutput>,IEnumerable<TOutput>> chain;
         public ChainBuilderDec(
             IBuilder<TInput,IEnumerable<TOutput>> inner,
-            Func<TInput,IEnumerable<TOutput>,IEnumerable<TOutput>> filter,
+            Func<TInput,IEnumerable<TOutput>,IEnumerable<TOutput>> chain,
             int processErrorID,
             int outerErrorID,
             PostFilterModule module,
@@ -21,7 +21,7 @@ namespace StockCore.Aop.PostFilter
             ):base(processErrorID,outerErrorID,module,logger)
         {
             this.inner = inner;
-            this.filter = filter;
+            this.chain = chain;
         }
         public IEnumerable<TOutput> Build(TInput t = null)
         {
@@ -29,9 +29,9 @@ namespace StockCore.Aop.PostFilter
         }
         public async Task<IEnumerable<TOutput>> BuildAsync(TInput item = default(TInput))
         {
-            var returnItems = await basePostFilterDecBuildAsync(
+            var returnItems = await baseChainDecBuildAsync(
                 innerProcessAsync:async ()=> await inner.BuildAsync(item),             
-                postFilter:(postItems)=>filter(item,postItems)
+                chain:(postItems)=>chain(item,postItems)
             );
             return returnItems;
         }
