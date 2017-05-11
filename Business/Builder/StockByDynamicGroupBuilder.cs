@@ -11,7 +11,7 @@ using StockCore.Helper;
 
 namespace StockCore.Business.Builder
 {
-    public class StockByDynamicGroupBuilder : IBuilder<string, IEnumerable<Stock>>
+    public class StockByDynamicGroupBuilder : StockByStaticGroupBuilder,IBuilder<string, IEnumerable<Stock>>
     {
         private readonly ILogger logger;
         private readonly IGetByKey<IEnumerable<QuoteGroup>,string> quoteGroupProvider;
@@ -21,27 +21,17 @@ namespace StockCore.Business.Builder
             ILogger logger,
             IConfigReader<IDynamicGroup> dynamicGroupReader,
             IGetByKey<IEnumerable<QuoteGroup>,string> quoteGroupProvider,
-            IBuilder<string,Stock> stockBuilder)
+            IBuilder<string,Stock> stockBuilder):base(logger,quoteGroupProvider,stockBuilder)
         {
             this.logger = logger;
             this.quoteGroupProvider = quoteGroupProvider;
             this.dynamicGroupReader = dynamicGroupReader;
             this.stockBuilder = stockBuilder;
         }
-        public IEnumerable<Stock> Build(string quoteGroupName)
+        public override async Task<IEnumerable<Stock>> BuildAsync(string quoteGroupName)
         {
-            throw new NotImplementedException();
-        }
-        public async Task<IEnumerable<Stock>> BuildAsync(string quoteGroupName)
-        {
-            IEnumerable<Stock> stocks = null;
             var dynamicGroup = dynamicGroupReader.GetByKey(quoteGroupName);
-            var groups = await quoteGroupProvider.GetByKeyAsync(dynamicGroup.ReferenceGroup);
-            if (groups != null && groups.Any())
-            {
-                var group = groups.First();
-                stocks = await getStocksFromReferenceGroup(group);
-            }
+            var stocks = await base.BuildAsync(dynamicGroup.ReferenceGroup);
             stocks = getStockByCriteria(stocks, dynamicGroup);
             return stocks;
         }
@@ -51,19 +41,6 @@ namespace StockCore.Business.Builder
             {
                 var e = DynamicExpressionParser.ParseLambda(typeof(Stock), typeof(bool), dynamicGroup.Criteria);
                 stocks = stocks.Where(s => (bool)e.Compile().DynamicInvoke(s));
-            }
-            return stocks;
-        }
-        private async Task<List<Stock>> getStocksFromReferenceGroup(QuoteGroup group)
-        {
-            List<Stock> stocks = new List<Stock>();
-            foreach (var quote in group.Quotes)
-            {
-                var stock = await stockBuilder.BuildAsync(quote);
-                if (stock != null)
-                {
-                    stocks.Add(stock);
-                }
             }
             return stocks;
         }

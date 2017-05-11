@@ -27,7 +27,7 @@ namespace StockCore.Business.Builder
         {
             throw new NotImplementedException();
         }
-        public async Task<IEnumerable<Stock>> BuildAsync(string quoteGroupName)
+        public virtual async Task<IEnumerable<Stock>> BuildAsync(string quoteGroupName)
         {
             IEnumerable<Stock> stocks = null;
             var groups = await quoteGroupProvider.GetByKeyAsync(quoteGroupName);
