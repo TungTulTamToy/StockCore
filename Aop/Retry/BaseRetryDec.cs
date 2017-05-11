@@ -15,7 +15,7 @@ namespace StockCore.Aop.Retry
     public class BaseRetryDec : BaseDec
     {
         private readonly IGetByKeyRepo<OperationState,string> operationStateRepo;
-        private readonly StockCore.DomainEntity.RetryModule module;
+        private readonly IKeyModule module;
         private readonly int processErrorID;
         private readonly ILogger logger;
         private readonly int outerErrorID;
@@ -23,7 +23,7 @@ namespace StockCore.Aop.Retry
         public BaseRetryDec(
             OperationName operationName,
             IGetByKeyRepo<OperationState,string> operationStateRepo,            
-            StockCore.DomainEntity.RetryModule module,
+            IKeyModule module,
             int outerErrorID,
             int processErrorID,            
             ILogger logger

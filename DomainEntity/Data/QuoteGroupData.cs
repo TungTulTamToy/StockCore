@@ -48,62 +48,6 @@ namespace StockCore.DomainEntity.Data
                         IsDefault = true
                     },
                     new QuoteGroup(){
-                        Name = "Buy",
-                        Quotes = new[]{
-                            "work","ptt","earth","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
-                            "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
-                            "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
-                            "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
-                            "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
-                            "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
-                            "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
-                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel","aot"},
-                        Order = 2,
-                        IsDefault = false
-                        },
-                    new QuoteGroup(){
-                        Name = "Sell",
-                        Quotes = new[]{
-                            "work","ptt","earth","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
-                            "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
-                            "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
-                            "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
-                            "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
-                            "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
-                            "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
-                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel","aot"},
-                        Order = 3,
-                        IsDefault = false
-                        },
-                    new QuoteGroup(){
-                        Name = "Over Sold",
-                        Quotes = new[]{
-                            "work","ptt","earth","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
-                            "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
-                            "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
-                            "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
-                            "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
-                            "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
-                            "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
-                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel","aot"},
-                        Order = 4,
-                        IsDefault = false
-                        },
-                    new QuoteGroup(){
-                        Name = "Over Buy",
-                        Quotes = new[]{
-                            "work","ptt","earth","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
-                            "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
-                            "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
-                            "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
-                            "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
-                            "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
-                            "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
-                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel","aot"},
-                        Order = 5,
-                        IsDefault = false
-                        },
-                    new QuoteGroup(){
                         Name = "Home",
                         Quotes = new[]{"sc","lh","siri","prin","bland","hmpro","lpn","spali"},
                         Order = 6,

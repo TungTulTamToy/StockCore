@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
@@ -14,17 +15,23 @@ namespace StockCore.Business.Repo.AppSetting
         {
             this.configRoot = configRoot;
         }
+        public bool ContainsKey(string key)=>getDynamicGroup().ContainsKey(key);
+        public IEnumerable<string> GetAllKeys()=>getDynamicGroup().Keys.ToList();
         public IDynamicGroup GetByKey(string key)
         {
-            lock(padlock)//Cause this factory is Singleton!!!   
+            return getDynamicGroup()[key];
+        }
+        private Dictionary<string,IDynamicGroup> getDynamicGroup()
+        {
+            if(dynamicGroup == null)
             {
-                if(dynamicGroup == null)
+                lock(padlock)//Cause this factory is Singleton!!!   
                 {
                     var configs = configRoot.GetSection("DynamicGroups").Get<List<DynamicGroup>>();
                     dynamicGroup = configs.ToDictionary(c=>$"{c.Name}",c=>(IDynamicGroup)c);   
-                }       
-            }  
-            return dynamicGroup[key];
+                }  
+            }
+            return dynamicGroup;
         }
     }
 }

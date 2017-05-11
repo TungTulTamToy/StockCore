@@ -506,6 +506,10 @@
       "Key":"Cache.AllQuoteGroupBuilder",
       "IsActive":true,
       "MinuteToExpire":1440
+    },
+    "Chain":{
+      "Key":"Chain.AllQuoteGroupBuilder",
+      "IsActive":true
     }
   },
   {
@@ -525,8 +529,12 @@
       "IsActive":true,
       "MinuteToExpire":1440
     },
-    "PostFilter":{
-      "Key":"PostFilter.StockByGroupBuilder",
+    "Chain":{
+      "Key":"Chain.StockByGroupBuilder",
+      "IsActive":false
+    },
+    "Switch":{
+      "Key":"Switch.StockByGroupBuilder",
       "IsActive":true
     }
   },

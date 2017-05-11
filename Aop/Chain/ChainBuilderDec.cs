@@ -14,9 +14,9 @@ namespace StockCore.Aop.Chain
         public ChainBuilderDec(
             IBuilder<TInput,IEnumerable<TOutput>> inner,
             Func<TInput,IEnumerable<TOutput>,IEnumerable<TOutput>> chain,
+            IKeyModule module,            
             int processErrorID,
             int outerErrorID,
-            PostFilterModule module,
             ILogger logger
             ):base(processErrorID,outerErrorID,module,logger)
         {

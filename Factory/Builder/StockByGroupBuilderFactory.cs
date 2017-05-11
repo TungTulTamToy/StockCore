@@ -9,6 +9,7 @@ using StockCore.Business.Repo.MongoDB;
 using StockCore.Aop.Cache;
 using System.Collections.Generic;
 using StockCore.Aop.Chain;
+using StockCore.Aop.Switch;
 
 namespace StockCore.Factory.Builder
 {
@@ -22,9 +23,10 @@ namespace StockCore.Factory.Builder
         private const int MONOUTERERRID = 1023104;
         private const int CACHEPROCESSERRID = 1023105;
         private const int CACHEOUTERERRID = 1023106;
-        private const int POSTFILTERPROCESSERRID = 1023108;
-        private const int POSTFILTEROUTERERRID = 1023109;
+        private const int SWITCHPROCESSERRID = 1023108;
+        private const int SWITCHOUTERERRID = 10231109;
         private readonly IConfigReader<IModule> moduleReader;
+        private readonly IConfigReader<IDynamicGroup> dynamicGroupReader;
         private readonly IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory;
         private readonly IFactory<string, IBuilder<string, Stock>> stockBuilderFactory;
         private readonly IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<Stock>>>> cacheRepoFactory;
@@ -32,37 +34,52 @@ namespace StockCore.Factory.Builder
             IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory,
             IFactory<string, IBuilder<string, Stock>> stockBuilderFactory,
             IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<Stock>>>> cacheRepoFactory,
-            IConfigReader<IModule> moduleReader
+            IConfigReader<IModule> moduleReader,
+            IConfigReader<IDynamicGroup> dynamicGroupReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.quoteGroupRepoFactory = quoteGroupRepoFactory;
             this.stockBuilderFactory = stockBuilderFactory;
             this.cacheRepoFactory = cacheRepoFactory;
             this.moduleReader = moduleReader;
+            this.dynamicGroupReader = dynamicGroupReader;
         }
         protected override IBuilder<string, IEnumerable<Stock>> baseFactoryBuild(Tracer tracer,string t="")
         {
-            IBuilder<string, IEnumerable<Stock>> inner = new StockByGroupBuilder(
+            var quoteGroupProvider = quoteGroupRepoFactory.Build(tracer);
+            var stockBuilder = stockBuilderFactory.Build(tracer);
+            IBuilder<string, IEnumerable<Stock>> inner = new StockByStaticGroupBuilder(
                 logger,
-                quoteGroupRepoFactory.Build(tracer),
-                stockBuilderFactory.Build(tracer)
+                quoteGroupProvider,
+                stockBuilder
                 );
             var module = moduleReader.GetByKey(getAopKey());
-            inner = loadPostFilterDecorator(inner, module);
+            inner = loadSwitchDecorator(inner, module, quoteGroupProvider, stockBuilder);
             inner = loadCachingDecorator(tracer, inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
             return inner;
         }
-        private IBuilder<string, IEnumerable<Stock>> loadPostFilterDecorator(IBuilder<string, IEnumerable<Stock>> inner, IModule module)
+        private IBuilder<string, IEnumerable<Stock>> loadSwitchDecorator(
+            IBuilder<string, IEnumerable<Stock>> inner, 
+            IModule module, 
+            IGetByKeyRepo<QuoteGroup,string> quoteGroupProvider,
+            IBuilder<string, Stock> stockBuilder)
         {
-            if (module.IsPostFilterActive())
+            if (module.IsSwitchActive())
             {
-                inner = new ChainBuilderDec<string,Stock>(
+                var switchInner = new StockByDynamicGroupBuilder(
+                    logger,
+                    dynamicGroupReader,
+                    quoteGroupProvider,
+                    stockBuilder
+                );
+                inner = new SwitchBuilderDec<string,IEnumerable<Stock>>(
+                    QuoteGroupHelper.IsDynamicGroup(dynamicGroupReader),
                     inner,
-                    QuoteGroupHelper.DetermineFilter(),
-                    POSTFILTERPROCESSERRID,
-                    POSTFILTEROUTERERRID,
-                    module.PostFilter,
+                    switchInner,
+                    module.Switch,
+                    SWITCHOUTERERRID,
+                    SWITCHPROCESSERRID,
                     logger);
             }
             return inner;

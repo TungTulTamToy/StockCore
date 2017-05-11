@@ -8,6 +8,7 @@ using StockCore.Business.Builder;
 using StockCore.Business.Repo.MongoDB;
 using System.Collections.Generic;
 using StockCore.Aop.Cache;
+using StockCore.Aop.Chain;
 
 namespace StockCore.Factory.Builder
 {
@@ -21,18 +22,23 @@ namespace StockCore.Factory.Builder
         private const int MONOUTERERRID = 1022104;
         private const int CACHEPROCESSERRID = 1022105;
         private const int CACHEOUTERERRID = 1022106;
+        private const int CHAINPROCESSERRID = 1022107;
+        private const int CHAINOUTERERRID = 1022108;
         private readonly IConfigReader<IModule> moduleReader;
+        private readonly IConfigReader<IDynamicGroup> dynamicGroup;
         private readonly IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory;
         private readonly IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<QuoteGroup>>>> cacheRepoFactory;
         public AllQuoteGroupBuilderFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory,
             IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<QuoteGroup>>>> cacheRepoFactory,
-            IConfigReader<IModule> moduleReader
+            IConfigReader<IModule> moduleReader,
+            IConfigReader<IDynamicGroup> dynamicGroup
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.quoteGroupRepoFactory = quoteGroupRepoFactory;
             this.cacheRepoFactory = cacheRepoFactory;
             this.moduleReader = moduleReader;
+            this.dynamicGroup = dynamicGroup;
         }
         protected override IBuilder<string, IEnumerable<QuoteGroup>> baseFactoryBuild(Tracer tracer,string t="")
         {
@@ -41,8 +47,23 @@ namespace StockCore.Factory.Builder
                 quoteGroupRepoFactory.Build(tracer)
                 );
             var module = moduleReader.GetByKey(getAopKey());
+            inner = loadChainDecorator(tracer, inner, module);
             inner = loadCachingDecorator(tracer, inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
+            return inner;
+        }
+        private IBuilder<string, IEnumerable<QuoteGroup>> loadChainDecorator(Tracer tracer, IBuilder<string, IEnumerable<QuoteGroup>> inner, IModule module)
+        {
+            if (module.IsChainActive())
+            {
+                inner = new ChainBuilderDec<string, QuoteGroup>(
+                    inner,
+                    QuoteGroupHelper.CombineGroup(dynamicGroup),
+                    module.Chain,
+                    CHAINPROCESSERRID,
+                    CHAINOUTERERRID,
+                    logger);
+            }
             return inner;
         }
         private IBuilder<string, IEnumerable<QuoteGroup>> loadCachingDecorator(Tracer tracer, IBuilder<string, IEnumerable<QuoteGroup>> inner, IModule module)

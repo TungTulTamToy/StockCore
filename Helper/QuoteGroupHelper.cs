@@ -2,42 +2,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using StockCore.DomainEntity;
-using System.Linq.Dynamic.Core;
-using System.Linq.Expressions;
+using StockCore.Business.Repo.AppSetting;
 
 namespace StockCore.Helper
 {
     public static class QuoteGroupHelper
     {
-        public static Func<string,IEnumerable<Stock>,IEnumerable<Stock>> DetermineFilter()
+        public static Func<string,bool> IsDynamicGroup(IConfigReader<IDynamicGroup> dynamicGroup)=>(groupName)=>!dynamicGroup.ContainsKey(groupName);
+        public static Func<string,IEnumerable<QuoteGroup>,IEnumerable<QuoteGroup>> CombineGroup(IConfigReader<IDynamicGroup> dynamicGroup)
         {
-            return (groupName,stocks)=>{
-                if(stocks !=null && stocks.Any())
-                {
-                    switch(groupName)
-                    {
-                        //case "Sell":
-                            //return SellFilter(stocks);
-                        case "Buy":
-                            return BuyFilter(stocks);
-                        case "Over Sold":
-                            return OverSoldFilter(stocks);
-                        case "Over Buy":
-                            return OverBuyFilter(stocks);
-                    }
-                    if(groupName == "Sell")
-                    {
-                        var exp = @"MovingAverage.Hist < 0 && PriceCal.Any(p=>p.Name==""6M"" && p.DiffAvg < -5)";
-                        var e = DynamicExpressionParser.ParseLambda(typeof(Stock), typeof(bool), exp);
-                        stocks = stocks.Where(s=>(bool)e.Compile().DynamicInvoke(s));
-                    }
-                }
-                return stocks;
+            return (input, staticGroups)=>
+            {
+                var dynamicGroups = getDynamicGroups(dynamicGroup);
+                var allGroups = combineGroups(staticGroups, dynamicGroups);
+                return allGroups;
             };
         }
-        public static IEnumerable<Stock> SellFilter(IEnumerable<Stock> stocks)=>stocks.Where(s=>s.MovingAverage.Hist < 0 && s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg < -5)).ToList();
-        public static IEnumerable<Stock> BuyFilter(IEnumerable<Stock> stocks)=>stocks.Where(s=>s.MovingAverage.Hist > 0 && s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg > 5)).ToList();
-        public static IEnumerable<Stock> OverSoldFilter(IEnumerable<Stock> stocks)=>stocks.Where(s=>s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg > 8)).ToList();
-        public static IEnumerable<Stock> OverBuyFilter(IEnumerable<Stock> stocks)=>stocks.Where(s=>s.PriceCal.Any(p=>p.Name=="6M" && p.DiffAvg < -8)).ToList();
+        private static List<QuoteGroup> combineGroups(IEnumerable<QuoteGroup> staticGroups, List<QuoteGroup> dynamicGroups)
+        {
+            var allGroups = new List<QuoteGroup>();
+            if (staticGroups != null && staticGroups.Any())
+            {
+                var count = 0;
+                foreach (var staticGroup in staticGroups)
+                {
+                    allGroups.Add(staticGroup);
+                    if (count == 0)
+                    {
+                        allGroups.AddRange(dynamicGroups);
+                    }
+                    count++;
+                }
+            }
+            else
+            {
+                allGroups = dynamicGroups;
+            }
+            return allGroups;
+        }
+        private static List<QuoteGroup> getDynamicGroups(IConfigReader<IDynamicGroup> dynamicGroup)
+        {
+            List<QuoteGroup> dynamicGroups = new List<QuoteGroup>();
+            var dynamicGroupNames = dynamicGroup.GetAllKeys();
+            foreach (var dynamicGroupName in dynamicGroupNames)
+            {
+                dynamicGroups.Add(new QuoteGroup()
+                {
+                    Name = dynamicGroupName
+                });
+            }
+            return dynamicGroups;
+        }
     }
 }

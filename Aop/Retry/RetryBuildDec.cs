@@ -18,7 +18,7 @@ namespace StockCore.Aop.Retry
             Func<string,string,TInput,string> getKey,
             OperationName operationName,
             IGetByKeyRepo<OperationState,string> operationStateRepo,            
-            StockCore.DomainEntity.RetryModule module,
+            IKeyModule module,
             int outerErrorID,
             int processErrorID,            
             ILogger logger):base(operationName,operationStateRepo,module,outerErrorID,processErrorID,logger)
