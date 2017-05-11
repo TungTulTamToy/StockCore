@@ -8,7 +8,7 @@ using StockCore.Business.Builder;
 using StockCore.Business.Repo.MongoDB;
 using StockCore.Aop.Cache;
 using System.Collections.Generic;
-using StockCore.Aop.PostFilter;
+using StockCore.Aop.Chain;
 
 namespace StockCore.Factory.Builder
 {

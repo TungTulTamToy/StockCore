@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using StockCore.Helper;
 using StockCore.Aop.Mon;
 
-namespace StockCore.Aop.PostFilter
+namespace StockCore.Aop.Chain
 {
     public class BaseChainDec<T>:BaseDec
     {

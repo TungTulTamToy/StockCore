@@ -5,7 +5,7 @@ using StockCore.DomainEntity;
 using System;
 using StockCore.Business.Builder;
 
-namespace StockCore.Aop.PostFilter
+namespace StockCore.Aop.Chain
 {
     public class ChainBuilderDec<TInput,TOutput> : BaseChainDec<IEnumerable<TOutput>>,IBuilder<TInput,IEnumerable<TOutput>> where TInput:class
     {
