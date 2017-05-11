@@ -37,7 +37,7 @@ namespace StockCore.Factory.Builder
             IFactory<string, IGetByFuncRepo<string,StockCoreCache<Stock>>> cacheRepoFactory,
             IFactory<string, IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>>> priceCalBuilderFactory,
             IConfigReader<IModule> moduleReader
-            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
+            ):base(processErrID:PROCESSERRID,outerErrID:OUTERERRID,ID:ID,keyName:KEY,logger:logger)
         {
             this.shareRepoFactory = shareRepoFactory;
             this.statisticRepoFactory = statisticRepoFactory;

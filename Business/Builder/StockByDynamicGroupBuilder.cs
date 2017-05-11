@@ -15,7 +15,7 @@ namespace StockCore.Business.Builder
     {
         private readonly ILogger logger;
         private readonly IGetByKey<IEnumerable<QuoteGroup>,string> quoteGroupProvider;
-        private readonly  IBuilder<string,Stock> stockBuilder;
+        private readonly IBuilder<string,Stock> stockBuilder;
         private readonly IConfigReader<IDynamicGroup> dynamicGroupReader;
         public StockByDynamicGroupBuilder(
             ILogger logger,

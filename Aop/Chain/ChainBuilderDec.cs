@@ -18,14 +18,18 @@ namespace StockCore.Aop.Chain
             int processErrorID,
             int outerErrorID,
             ILogger logger
-            ):base(processErrorID,outerErrorID,module,logger)
+            ):base(processErrorID:processErrorID,outerErrorID:outerErrorID,module:module,logger:logger)
         {
             this.inner = inner;
             this.chain = chain;
         }
-        public IEnumerable<TOutput> Build(TInput t = null)
+        public IEnumerable<TOutput> Build(TInput item = default(TInput))
         {
-            throw new NotImplementedException();
+            var returnItems = baseChainDecBuild(
+                innerProcess:()=> inner.Build(item),             
+                chain:(postItems)=>chain(item,postItems)
+            );
+            return returnItems;
         }
         public async Task<IEnumerable<TOutput>> BuildAsync(TInput item = default(TInput))
         {

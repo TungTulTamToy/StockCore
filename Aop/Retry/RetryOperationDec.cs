@@ -20,7 +20,7 @@ namespace StockCore.Aop.Retry
             IKeyModule module,
             int outerErrorID,
             int processErrorID,            
-            ILogger logger):base(operationName,operationStateRepo,module,outerErrorID,processErrorID,logger)
+            ILogger logger):base(operationName:operationName,operationStateRepo:operationStateRepo,module:module,outerErrorID:outerErrorID,processErrorID:processErrorID,logger:logger)
         {
             this.inner = inner;              
             this.getKey = getKey;   

@@ -33,7 +33,7 @@ namespace StockCore.Factory.Builder
             IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<QuoteGroup>>>> cacheRepoFactory,
             IConfigReader<IModule> moduleReader,
             IConfigReader<IDynamicGroup> dynamicGroup
-            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
+            ):base(processErrID:PROCESSERRID,outerErrID:OUTERERRID,ID:ID,keyName:KEY,logger:logger)
         {
             this.quoteGroupRepoFactory = quoteGroupRepoFactory;
             this.cacheRepoFactory = cacheRepoFactory;

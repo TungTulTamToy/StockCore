@@ -19,7 +19,7 @@ namespace StockCore.Aop.Switch
             int outerErrorID,
             int processErrorID,            
             ILogger logger
-            ):base(module,outerErrorID,processErrorID,logger)
+            ):base(module:module,outerErrorID:outerErrorID,processErrorID:processErrorID,logger:logger)
         {
             this.determineSwitch = determineSwitch;
             this.regularInner = regularInner;

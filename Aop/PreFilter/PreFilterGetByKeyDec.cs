@@ -20,7 +20,7 @@ namespace StockCore.Aop.PreFilter
             int outerErrorID,
             PreFilterModule module,
             ILogger logger
-            ):base(processErrorID,outerErrorID,module,logger)
+            ):base(processErrorID:processErrorID,outerErrorID:outerErrorID,module:module,logger:logger)
         {
             this.inner = inner;
             this.filter = filter;

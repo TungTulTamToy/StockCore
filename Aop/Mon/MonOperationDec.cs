@@ -18,7 +18,7 @@ namespace StockCore.Aop.Mon
             MonitoringModule module,    
             ILogger logger,
             Tracer tracer
-            ):base(processErrorID,outerErrorID,module,logger,tracer)
+            ):base(processErrorID:processErrorID,outerErrorID:outerErrorID,module:module,logger:logger,tracer:tracer)
         {
             this.inner = inner;
             this.validate = validate;

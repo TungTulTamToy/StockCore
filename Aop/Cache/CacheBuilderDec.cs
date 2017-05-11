@@ -19,7 +19,7 @@ namespace StockCore.Aop.Cache
             int processErrorID,            
             int outerErrorID,
             ILogger logger
-            ):base(cacheRepo,module,processErrorID,outerErrorID,logger)
+            ):base(cacheRepo:cacheRepo,module:module,processErrorID:processErrorID,outerErrorID:outerErrorID,logger:logger)
         {
             this.inner = inner;  
             this.getKey = getKey;   

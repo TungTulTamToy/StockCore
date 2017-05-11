@@ -23,7 +23,7 @@ namespace StockCore.Factory.Builder
         private readonly IConfigReader<IModule> moduleReader;
         public PriceCalBuilderFactory(ILogger logger,
             IConfigReader<IModule> moduleReader
-            ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
+            ):base(processErrID:PROCESSERRID,outerErrID:OUTERERRID,ID:ID,keyName:KEY,logger:logger)
         {
             this.moduleReader = moduleReader;
         }

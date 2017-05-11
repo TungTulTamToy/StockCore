@@ -44,8 +44,8 @@ namespace StockCore.Aop.Chain
             return t;
         }
         protected T baseChainDecBuild(
-            Func<T,T> chain,
             Func<T> innerProcess,
+            Func<T,T> chain,            
             [CallerMemberName]string methodName="")
         {
             var t = default(T);
