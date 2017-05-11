@@ -7,11 +7,11 @@ using StockCore.Business.Builder;
 
 namespace StockCore.Aop.PostFilter
 {
-    public class PostFilterBuilderDec<TInput,TOutput> : BasePostFilterDec<IEnumerable<TOutput>>,IBuilder<TInput,IEnumerable<TOutput>> where TInput:class
+    public class ChainBuilderDec<TInput,TOutput> : BaseChainDec<IEnumerable<TOutput>>,IBuilder<TInput,IEnumerable<TOutput>> where TInput:class
     {
         private readonly IBuilder<TInput,IEnumerable<TOutput>> inner; 
         private readonly Func<TInput,IEnumerable<TOutput>,IEnumerable<TOutput>> filter;
-        public PostFilterBuilderDec(
+        public ChainBuilderDec(
             IBuilder<TInput,IEnumerable<TOutput>> inner,
             Func<TInput,IEnumerable<TOutput>,IEnumerable<TOutput>> filter,
             int processErrorID,

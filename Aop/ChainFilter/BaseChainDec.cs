@@ -9,13 +9,13 @@ using StockCore.Aop.Mon;
 
 namespace StockCore.Aop.PostFilter
 {
-    public class BasePostFilterDec<T>:BaseDec
+    public class BaseChainDec<T>:BaseDec
     {
         protected readonly PostFilterModule module;
         private readonly int processErrorID;
         private readonly ILogger logger;
         private readonly int outerErrorID;
-        public BasePostFilterDec(
+        public BaseChainDec(
             int processErrorID,
             int outerErrorID,
             PostFilterModule module,
