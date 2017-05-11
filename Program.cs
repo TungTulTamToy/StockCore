@@ -40,7 +40,7 @@ namespace StockCore
 
                 services.AddLogging()
                     .AddSingleton<ILoggerFactory>(ctx=>new LoggerFactory().AddConsole(ctx.GetService<IConfigurationRoot>().GetSection("Logging")).AddDebug())
-                    .AddSingleton<IConfigurationRoot>(_=>new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build())
+                    .AddSingleton<IConfigurationRoot>(_=>new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").AddJsonFile("module.json").Build())
                     .AddSingleton<ILogger>(ctx=>ctx.GetService<ILogger<Program>>())
                     .AddSingleton<IConfigProvider,StockCore.Provider.ConfigurationProvider>()
                     .AddSingleton<IConfigReader,ModuleConfigReader>()
