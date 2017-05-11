@@ -21,20 +21,20 @@ namespace StockCore.Factory.Sync
         private const int MONPROCESSERRID = 1018103;
         private const int MONOUTERERRID = 1018104;
         private readonly IFactory<string, IGetByKeyRepo<Share,string>> dbShareDEFactory;
-        private readonly IConfigReader configReader;
+        private readonly IConfigReader<IModule> moduleReader;
         public SyncShareFactory(
             ILogger logger,
             IFactory<string, IGetByKeyRepo<Share,string>> dbShareDEFactory,
-            IConfigReader configReader
+            IConfigReader<IModule> moduleReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbShareDEFactory = dbShareDEFactory;
-            this.configReader = configReader;
+            this.moduleReader = moduleReader;
         }
         protected override IOperation<IEnumerable<Share>> baseFactoryBuild(Tracer tracer,string t="")
         {
             IOperation<IEnumerable<Share>> inner = new SyncDataByKey<string,Share>(dbShareDEFactory.Build(tracer));
-            var module = configReader.GetByKey(getAopKey());
+            var module = moduleReader.GetByKey(getAopKey());
             if(module.IsMonitoringActive())
             {
                 inner = new MonOperationDec<IEnumerable<Share>>(

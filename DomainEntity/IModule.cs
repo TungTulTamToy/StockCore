@@ -2,7 +2,16 @@ using System.Collections.Generic;
 
 namespace StockCore.DomainEntity
 {
-    public class Module:IKeyField<string>
+    public interface IModule:IKeyField<string>
+    {
+        bool IsActive {get;set;}
+        MonitoringModule Monitoring {get;set;}
+        RetryModule Retry {get;set;}
+        CacheModule Cache{get;set;}
+        PreFilterModule PreFilter{get;set;}
+        PostFilterModule PostFilter{get;set;}
+    }
+    public class Module:IModule
     {
         public string Key{get;set;}
         public bool IsActive {get;set;}

@@ -24,14 +24,14 @@ namespace StockCore.Factory.DB
         private readonly IFilterDefinitionBuilderWrapper filterBuilder;
         private readonly IReplaceOneModelBuilder replaceOneModelBuilder;
         private readonly IDeleteOneModelBuilder deleteOneModelBuilder;
-        private readonly IConfigReader configReader;
+        private readonly IConfigReader<IModule> moduleReader;
         public DBQuoteGroupRepoFactory(IConfigProvider config, 
             ILogger logger,
             IMongoDatabaseWrapper db, 
             IFilterDefinitionBuilderWrapper filterBuilder,
             IReplaceOneModelBuilder replaceOneModelBuilder,
             IDeleteOneModelBuilder deleteOneModelBuilder,
-            IConfigReader configReader
+            IConfigReader<IModule> moduleReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.config = config;
@@ -39,16 +39,16 @@ namespace StockCore.Factory.DB
             this.filterBuilder = filterBuilder;
             this.replaceOneModelBuilder = replaceOneModelBuilder;
             this.deleteOneModelBuilder = deleteOneModelBuilder;
-            this.configReader = configReader;
+            this.moduleReader = moduleReader;
         }
         protected override IGetByKeyRepo<QuoteGroup,string> baseFactoryBuild(Tracer tracer,string t="")
         {
             IGetByKeyRepo<QuoteGroup, string> inner = new BaseKeyDBRepo<QuoteGroup>(config, db, filterBuilder, replaceOneModelBuilder, deleteOneModelBuilder, COLLECTIONNAME);
-            var module = configReader.GetByKey(getAopKey());
+            var module = moduleReader.GetByKey(getAopKey());
             inner = loadMonitoringDecorator(tracer, inner, module);
             return inner;
         }
-        private IGetByKeyRepo<QuoteGroup, string> loadMonitoringDecorator(Tracer tracer, IGetByKeyRepo<QuoteGroup, string> inner, Module module)
+        private IGetByKeyRepo<QuoteGroup, string> loadMonitoringDecorator(Tracer tracer, IGetByKeyRepo<QuoteGroup, string> inner, IModule module)
         {
             if (module.IsMonitoringActive())
             {

@@ -22,7 +22,7 @@ namespace StockCore.Factory.Builder
         private const int MONOUTERERRID = 1020104;
         private const int CACHEPROCESSERRID = 1020105;
         private const int CACHEOUTERERRID = 1020106;
-        private readonly IConfigReader configReader;
+        private readonly IConfigReader<IModule> moduleReader;
         private readonly IFactory<string, IGetByKeyRepo<Share,string>> shareRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<Statistic,string>> statisticRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<Consensus,string>> consensusRepoFactory;
@@ -36,7 +36,7 @@ namespace StockCore.Factory.Builder
             IFactory<string, IGetByKeyRepo<Price,string>> priceRepoFactory,
             IFactory<string, IGetByFuncRepo<string,StockCoreCache<Stock>>> cacheRepoFactory,
             IFactory<string, IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>>> priceCalBuilderFactory,
-            IConfigReader configReader
+            IConfigReader<IModule> moduleReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.shareRepoFactory = shareRepoFactory;
@@ -45,7 +45,7 @@ namespace StockCore.Factory.Builder
             this.priceRepoFactory = priceRepoFactory;
             this.cacheRepoFactory = cacheRepoFactory;
             this.priceCalBuilderFactory = priceCalBuilderFactory;
-            this.configReader = configReader;
+            this.moduleReader = moduleReader;
         }
         protected override IBuilder<string, Stock> baseFactoryBuild(Tracer tracer,string t="")
         {
@@ -57,12 +57,12 @@ namespace StockCore.Factory.Builder
                 priceRepoFactory.Build(tracer),
                 priceCalBuilderFactory.Build(tracer),
                 DateTime.Now);
-            var module = configReader.GetByKey(getAopKey());
+            var module = moduleReader.GetByKey(getAopKey());
             inner = loadCachingDecorator(tracer, inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
             return inner;
         }
-        private IBuilder<string, Stock> loadCachingDecorator(Tracer tracer, IBuilder<string, Stock> inner, Module module)
+        private IBuilder<string, Stock> loadCachingDecorator(Tracer tracer, IBuilder<string, Stock> inner, IModule module)
         {
             if (module.IsCacheActive())
             {
@@ -77,7 +77,7 @@ namespace StockCore.Factory.Builder
             }
             return inner;
         }
-        private IBuilder<string, Stock> loadMonitoringDecorator(Tracer tracer, IBuilder<string, Stock> inner, Module module)
+        private IBuilder<string, Stock> loadMonitoringDecorator(Tracer tracer, IBuilder<string, Stock> inner, IModule module)
         {
             if (module.IsMonitoringActive())
             {

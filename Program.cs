@@ -40,10 +40,16 @@ namespace StockCore
 
                 services.AddLogging()
                     .AddSingleton<ILoggerFactory>(ctx=>new LoggerFactory().AddConsole(ctx.GetService<IConfigurationRoot>().GetSection("Logging")).AddDebug())
-                    .AddSingleton<IConfigurationRoot>(_=>new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").AddJsonFile("module.json").Build())
+                    .AddSingleton<IConfigurationRoot>(
+                        _=>new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json")
+                        .AddJsonFile("module.json")
+                        .AddJsonFile("dynamicgroup.json")
+                        .Build())
                     .AddSingleton<ILogger>(ctx=>ctx.GetService<ILogger<Program>>())
                     .AddSingleton<IConfigProvider,StockCore.Provider.ConfigurationProvider>()
-                    .AddSingleton<IConfigReader,ModuleConfigReader>()
+                    .AddSingleton<IConfigReader<IModule>,ModuleConfigReader>()
+                    .AddSingleton<IConfigReader<IDynamicGroup>,DynamicGroupReader>()
                     .AddSingleton<IMongoClient>(ctx => new MongoClient(ctx.GetService<IConfigurationRoot>().GetSection("MongoConnection:ConnectionString").Value))                       
 
                     .AddScoped<IFactory<SyncAllFactoryCondition, IOperation<IEnumerable<string>>>, SyncAllFactory>()
@@ -93,11 +99,11 @@ namespace StockCore
                 seedGroup(serviceProvider);
                 syncWeb(serviceProvider);                
 
-                /*var groups = getAllQuoteGroup(serviceProvider);
-                var groupName = "All";
-                var stocks = getStockByGroup(serviceProvider,groupName);
-                groupName = "Sell";
-                stocks = getStockByGroup(serviceProvider,groupName);*/
+                //var groups = getAllQuoteGroup(serviceProvider);
+                //var groupName = "All";
+                //var stocks = getStockByGroup(serviceProvider,groupName);
+                //var groupName = "Sell";
+                //var stocks = getStockByGroup(serviceProvider,groupName);
             }        
             catch(Exception ex)
             {   

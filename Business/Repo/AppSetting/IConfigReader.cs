@@ -2,8 +2,8 @@ using StockCore.DomainEntity;
 
 namespace StockCore.Business.Repo.AppSetting
 {
-    public interface IConfigReader
+    public interface IConfigReader<T>
     {
-        Module GetByKey(string key);
+        T GetByKey(string key);
     }
 }

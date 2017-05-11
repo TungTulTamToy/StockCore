@@ -20,18 +20,18 @@ namespace StockCore.Factory.Sync
         private const int OUTERERRID = 1013102;
         private const int MONPROCESSERRID = 1013103;
         private const int MONOUTERERRID = 1013104;
-        private readonly IConfigReader configReader;
+        private readonly IConfigReader<IModule> moduleReader;
         private readonly IServiceProvider serviceProvider;
         private readonly IFactory<SyncQuoteFactoryCondition,IOperation<string>> syncQuoteFactory;
         public SyncAllFactory(
             IFactory<SyncQuoteFactoryCondition,IOperation<string>> syncQuoteFactory,
             ILogger logger,
-            IConfigReader configReader,
+            IConfigReader<IModule> moduleReader,
             IServiceProvider serviceProvider
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.syncQuoteFactory = syncQuoteFactory;
-            this.configReader = configReader;
+            this.moduleReader = moduleReader;
             this.serviceProvider = serviceProvider;
         }
         protected override IOperation<IEnumerable<string>> baseFactoryBuild(Tracer tracer,SyncAllFactoryCondition condition=null)
@@ -49,11 +49,11 @@ namespace StockCore.Factory.Sync
                 };
                 inner = new SyncAll(syncQuoteFactory.Build(tracer, cond));
             }
-            var module = configReader.GetByKey(getAopKey());            
+            var module = moduleReader.GetByKey(getAopKey());            
             inner = loadMonitoringDecorator(tracer, module, inner);
             return inner;
         }
-        private IOperation<IEnumerable<string>> loadMonitoringDecorator(Tracer tracer, Module module, IOperation<IEnumerable<string>> inner)
+        private IOperation<IEnumerable<string>> loadMonitoringDecorator(Tracer tracer, IModule module, IOperation<IEnumerable<string>> inner)
         {
             if (module.IsMonitoringActive())
             {

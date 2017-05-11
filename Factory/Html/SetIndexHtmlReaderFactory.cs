@@ -27,17 +27,17 @@ namespace StockCore.Factory.Html
             ILogger logger,
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
-            IConfigReader configReader
-            ):base(client,doc,configReader,PROCESSERRID,OUTERERRID,ID,KEY,logger){}
+            IConfigReader<IModule> moduleReader
+            ):base(client,doc,moduleReader,PROCESSERRID,OUTERERRID,ID,KEY,logger){}
         protected override IGetByKey<IEnumerable<SetIndex>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
             IGetByKey<IEnumerable<SetIndex>, string> inner = new SetIndexHtmlReader(client, doc);
-            var module = configReader.GetByKey(getAopKey());
+            var module = moduleReader.GetByKey(getAopKey());
             inner = loadFilterDecorator(inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
             return inner;
         }
-        private IGetByKey<IEnumerable<SetIndex>, string> loadFilterDecorator(IGetByKey<IEnumerable<SetIndex>, string> inner, Module module)
+        private IGetByKey<IEnumerable<SetIndex>, string> loadFilterDecorator(IGetByKey<IEnumerable<SetIndex>, string> inner, IModule module)
         {
             if (module.IsPreFilterActive())
             {
@@ -51,7 +51,7 @@ namespace StockCore.Factory.Html
             }
             return inner;
         }
-        private IGetByKey<IEnumerable<SetIndex>, string> loadMonitoringDecorator(Tracer tracer, IGetByKey<IEnumerable<SetIndex>, string> inner, Module module)
+        private IGetByKey<IEnumerable<SetIndex>, string> loadMonitoringDecorator(Tracer tracer, IGetByKey<IEnumerable<SetIndex>, string> inner, IModule module)
         {
             if (module.IsMonitoringActive())
             {

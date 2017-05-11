@@ -20,23 +20,23 @@ namespace StockCore.Factory.Builder
         private const int OUTERERRID = 1025102;
         private const int MONPROCESSERRID = 1025103;
         private const int MONOUTERERRID = 1025104;
-        private readonly IConfigReader configReader;
+        private readonly IConfigReader<IModule> moduleReader;
         public PriceCalBuilderFactory(ILogger logger,
-            IConfigReader configReader
+            IConfigReader<IModule> moduleReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
-            this.configReader = configReader;
+            this.moduleReader = moduleReader;
         }
         protected override IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>> baseFactoryBuild(Tracer tracer,string t="")
         {
             IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>> inner = new PriceCalBuilder(
                 logger,
                 DateTime.Now);
-            var module = configReader.GetByKey(getAopKey());
+            var module = moduleReader.GetByKey(getAopKey());
             inner = loadMonitoringDecorator(tracer, inner, module);
             return inner;
         }
-        private IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>> loadMonitoringDecorator(Tracer tracer, IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>> inner, Module module)
+        private IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>> loadMonitoringDecorator(Tracer tracer, IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>> inner, IModule module)
         {
             if (module.IsMonitoringActive())
             {

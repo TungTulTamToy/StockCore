@@ -26,17 +26,17 @@ namespace StockCore.Factory.Html
         public StatisticHtmlReaderFactory(ILogger logger,
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
-            IConfigReader configReader
-            ):base(client,doc,configReader,PROCESSERRID,OUTERERRID,ID,KEY,logger){}
+            IConfigReader<IModule> moduleReader
+            ):base(client,doc,moduleReader,PROCESSERRID,OUTERERRID,ID,KEY,logger){}
         protected override IGetByKey<IEnumerable<Statistic>,string> baseFactoryBuild(Tracer tracer,string t="")
         {
             IGetByKey<IEnumerable<Statistic>, string> inner = new StatisticHtmlReader(client, doc);
-            var module = configReader.GetByKey(getAopKey());
+            var module = moduleReader.GetByKey(getAopKey());
             inner = loadFilterDecorator(inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
             return inner;
         }
-        private IGetByKey<IEnumerable<Statistic>, string> loadFilterDecorator(IGetByKey<IEnumerable<Statistic>, string> inner, Module module)
+        private IGetByKey<IEnumerable<Statistic>, string> loadFilterDecorator(IGetByKey<IEnumerable<Statistic>, string> inner, IModule module)
         {
             if (module.IsPreFilterActive())
             {
@@ -50,7 +50,7 @@ namespace StockCore.Factory.Html
             }
             return inner;
         }
-        private IGetByKey<IEnumerable<Statistic>, string> loadMonitoringDecorator(Tracer tracer, IGetByKey<IEnumerable<Statistic>, string> inner, Module module)
+        private IGetByKey<IEnumerable<Statistic>, string> loadMonitoringDecorator(Tracer tracer, IGetByKey<IEnumerable<Statistic>, string> inner, IModule module)
         {
             if (module.IsMonitoringActive())
             {

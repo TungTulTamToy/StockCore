@@ -16,11 +16,11 @@ namespace StockCore.Factory.Html
     {
         protected readonly IHttpClientWrapper client;
         protected readonly IHtmlDocumentWrapper doc;
-        protected readonly IConfigReader configReader;
+        protected readonly IConfigReader<IModule> moduleReader;
         public BaseHtmlReaderFactory(
             IHttpClientWrapper client,
             IHtmlDocumentWrapper doc,
-            IConfigReader configReader,
+            IConfigReader<IModule> moduleReader,
             int processErrId,
             int outerErrId,
             int id,
@@ -30,7 +30,7 @@ namespace StockCore.Factory.Html
         {
             this.client = client;
             this.doc = doc;
-            this.configReader = configReader;
+            this.moduleReader = moduleReader;
         }
         private bool disposed = false;
         public new void Dispose()

@@ -32,7 +32,7 @@ namespace StockCore.Factory.Sync
         private readonly IFactory<string, IGetByKeyRepo<Share,string>> dbShareRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<Statistic,string>> dbStatisticRepoFactory;
         private readonly IFactory<string, IGetByKeyRepo<OperationState,string>> operationStateRepoFactory;
-        private readonly IConfigReader configReader;
+        private readonly IConfigReader<IModule> moduleReader;
         private readonly IFactory<string, IGetByKey<IEnumerable<Consensus>,string>> consensusHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<Price>,string>> priceHtmlReaderFactory;
         private readonly IFactory<string, IGetByKey<IEnumerable<SetIndex>,string>> setIndexHtmlReaderFactory;
@@ -50,7 +50,7 @@ namespace StockCore.Factory.Sync
             IFactory<string, IGetByKeyRepo<Share,string>> dbShareRepoFactory,
             IFactory<string, IGetByKeyRepo<Statistic,string>> dbStatisticRepoFactory,
             IFactory<string, IGetByKeyRepo<OperationState,string>> operationStateRepoFactory,
-            IConfigReader configReader,
+            IConfigReader<IModule> moduleReader,
             IFactory<string, IGetByKey<IEnumerable<Consensus>,string>> consensusHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<Price>,string>> priceHtmlReaderFactory,
             IFactory<string, IGetByKey<IEnumerable<SetIndex>,string>> setIndexHtmlReaderFactory,
@@ -69,7 +69,7 @@ namespace StockCore.Factory.Sync
             this.dbShareRepoFactory = dbShareRepoFactory;
             this.dbStatisticRepoFactory = dbStatisticRepoFactory;
             this.operationStateRepoFactory = operationStateRepoFactory;
-            this.configReader = configReader;
+            this.moduleReader = moduleReader;
             this.consensusHtmlReaderFactory = consensusHtmlReaderFactory;
             this.priceHtmlReaderFactory = priceHtmlReaderFactory;
             this.setIndexHtmlReaderFactory = setIndexHtmlReaderFactory;
@@ -112,12 +112,12 @@ namespace StockCore.Factory.Sync
                     shareHtmlReaderFactory.Build(tracer),
                     statisticHtmlReaderFactory.Build(tracer));
             }
-            var module = configReader.GetByKey(getAopKey());
+            var module = moduleReader.GetByKey(getAopKey());
             inner = loadRetryDecorator(tracer, inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
             return inner;
         }
-        private IOperation<string> loadRetryDecorator(Tracer tracer, IOperation<string> inner, Module module)
+        private IOperation<string> loadRetryDecorator(Tracer tracer, IOperation<string> inner, IModule module)
         {
             if (module.IsRetryActive())
             {
@@ -133,7 +133,7 @@ namespace StockCore.Factory.Sync
             }
             return inner;
         }
-        private IOperation<string> loadMonitoringDecorator(Tracer tracer, IOperation<string> inner, Module module)
+        private IOperation<string> loadMonitoringDecorator(Tracer tracer, IOperation<string> inner, IModule module)
         {
             if (module.IsMonitoringActive())
             {

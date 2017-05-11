@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using StockCore.DomainEntity;
+using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 
 namespace StockCore.Helper
 {
@@ -14,14 +16,20 @@ namespace StockCore.Helper
                 {
                     switch(groupName)
                     {
-                        case "Sell":
-                            return SellFilter(stocks);
+                        //case "Sell":
+                            //return SellFilter(stocks);
                         case "Buy":
                             return BuyFilter(stocks);
                         case "Over Sold":
                             return OverSoldFilter(stocks);
                         case "Over Buy":
                             return OverBuyFilter(stocks);
+                    }
+                    if(groupName == "Sell")
+                    {
+                        var exp = @"MovingAverage.Hist < 0 && PriceCal.Any(p=>p.Name==""6M"" && p.DiffAvg < -5)";
+                        var e = DynamicExpressionParser.ParseLambda(typeof(Stock), typeof(bool), exp);
+                        stocks = stocks.Where(s=>(bool)e.Compile().DynamicInvoke(s));
                     }
                 }
                 return stocks;

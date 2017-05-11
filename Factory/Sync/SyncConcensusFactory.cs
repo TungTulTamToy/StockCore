@@ -21,24 +21,24 @@ namespace StockCore.Factory.Sync
         private const int MONPROCESSERRID = 1014103;
         private const int MONOUTERERRID = 1014104;
         private readonly IFactory<string, IGetByKeyRepo<Consensus,string>> dbConsensusFactory;
-        private readonly IConfigReader configReader;
+        private readonly IConfigReader<IModule> moduleReader;
         public SyncConsensusFactory(
             ILogger logger,
             IFactory<string, IGetByKeyRepo<Consensus,string>> dbConsensusFactory,
-            IConfigReader configReader
+            IConfigReader<IModule> moduleReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.dbConsensusFactory = dbConsensusFactory;
-            this.configReader = configReader;
+            this.moduleReader = moduleReader;
         }
         protected override IOperation<IEnumerable<Consensus>> baseFactoryBuild(Tracer tracer,string t="")
         {
             IOperation<IEnumerable<Consensus>> inner = new SyncDataByKey<string, Consensus>(dbConsensusFactory.Build(tracer));
-            var module = configReader.GetByKey(getAopKey());
+            var module = moduleReader.GetByKey(getAopKey());
             inner = loadMonitoringDecorator(tracer, inner, module);
             return inner;
         }
-        private IOperation<IEnumerable<Consensus>> loadMonitoringDecorator(Tracer tracer, IOperation<IEnumerable<Consensus>> inner, Module module)
+        private IOperation<IEnumerable<Consensus>> loadMonitoringDecorator(Tracer tracer, IOperation<IEnumerable<Consensus>> inner, IModule module)
         {
             if (module.IsMonitoringActive())
             {

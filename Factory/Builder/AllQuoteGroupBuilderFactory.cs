@@ -21,18 +21,18 @@ namespace StockCore.Factory.Builder
         private const int MONOUTERERRID = 1022104;
         private const int CACHEPROCESSERRID = 1022105;
         private const int CACHEOUTERERRID = 1022106;
-        private readonly IConfigReader configReader;
+        private readonly IConfigReader<IModule> moduleReader;
         private readonly IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory;
         private readonly IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<QuoteGroup>>>> cacheRepoFactory;
         public AllQuoteGroupBuilderFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<QuoteGroup,string>> quoteGroupRepoFactory,
             IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<QuoteGroup>>>> cacheRepoFactory,
-            IConfigReader configReader
+            IConfigReader<IModule> moduleReader
             ):base(PROCESSERRID,OUTERERRID,ID,KEY,logger)
         {
             this.quoteGroupRepoFactory = quoteGroupRepoFactory;
             this.cacheRepoFactory = cacheRepoFactory;
-            this.configReader = configReader;
+            this.moduleReader = moduleReader;
         }
         protected override IBuilder<string, IEnumerable<QuoteGroup>> baseFactoryBuild(Tracer tracer,string t="")
         {
@@ -40,12 +40,12 @@ namespace StockCore.Factory.Builder
                 logger,
                 quoteGroupRepoFactory.Build(tracer)
                 );
-            var module = configReader.GetByKey(getAopKey());
+            var module = moduleReader.GetByKey(getAopKey());
             inner = loadCachingDecorator(tracer, inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);
             return inner;
         }
-        private IBuilder<string, IEnumerable<QuoteGroup>> loadCachingDecorator(Tracer tracer, IBuilder<string, IEnumerable<QuoteGroup>> inner, Module module)
+        private IBuilder<string, IEnumerable<QuoteGroup>> loadCachingDecorator(Tracer tracer, IBuilder<string, IEnumerable<QuoteGroup>> inner, IModule module)
         {
             if (module.IsCacheActive())
             {
@@ -60,7 +60,7 @@ namespace StockCore.Factory.Builder
             }
             return inner;
         }
-        private IBuilder<string, IEnumerable<QuoteGroup>> loadMonitoringDecorator(Tracer tracer, IBuilder<string, IEnumerable<QuoteGroup>> inner, Module module)
+        private IBuilder<string, IEnumerable<QuoteGroup>> loadMonitoringDecorator(Tracer tracer, IBuilder<string, IEnumerable<QuoteGroup>> inner, IModule module)
         {
             if (module.IsMonitoringActive())
             {
