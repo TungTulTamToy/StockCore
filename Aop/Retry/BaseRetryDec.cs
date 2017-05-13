@@ -47,7 +47,7 @@ namespace StockCore.Aop.Retry
                 validateAsync:async()=>{
                     key = getKey(module.Key,methodName);
                     items = await operationStateRepo.GetByKeyAsync(key);
-                    return shouldRetryAsync(items,key,operationName);
+                    return shouldRetryAsync(items,operationName);
                 },
                 processAsync:async()=>{
                     await innerProcessAsync();
@@ -61,12 +61,12 @@ namespace StockCore.Aop.Retry
                 finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,info:$"Key:[{key}]")
             );
         }
-        private bool shouldRetryAsync(IEnumerable<OperationState> items,string key,OperationName operationName)
+        private bool shouldRetryAsync(IEnumerable<OperationState> items,OperationName operationName)
         {
             var selectedItems = from i in items where 
                 i.OperationName==operationName && 
                 i.Activated==true &&
-                i.Date == DateTime.Now.Date
+                i.ExpiredDate > DateTime.Now
                 select i;
             return !selectedItems.Any();
         }
@@ -74,16 +74,16 @@ namespace StockCore.Aop.Retry
         private async Task saveStateAsync(IEnumerable<OperationState> items,string key,bool state,OperationName operationName)
         {
             await deleteIfAny(items, operationName);
-            await add(key, state);
+            await add(key, state, operationName);
         }
-        private async Task add(string key, bool state)
+        private async Task add(string key, bool state, OperationName operationName)
         {
             var newItem = new OperationState()
             {
                 Quote = key,
-                Date = DateTime.Now.Date,
+                ExpiredDate = DateTime.Now.AddMinutes(60),
                 Activated = state,
-                OperationName = OperationName.RetrySyncQuoteDec
+                OperationName = operationName
             };
             await operationStateRepo.InsertAsync(newItem);
         }

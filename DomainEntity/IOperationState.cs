@@ -8,7 +8,7 @@ namespace StockCore.DomainEntity
     public interface IOperationState:IKeyField<string>
     {
         string Quote { get; set; }
-        DateTime Date { get; set; }
+        DateTime ExpiredDate { get; set; }
         bool Activated{get;set;}
         OperationName OperationName{get;set;}
     }
@@ -22,7 +22,7 @@ namespace StockCore.DomainEntity
         }
         public string Quote { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime Date { get; set; }
+        public DateTime ExpiredDate { get; set; }
         public bool Activated{get;set;}
         [BsonRepresentation(BsonType.String)]
         public OperationName OperationName{get;set;}

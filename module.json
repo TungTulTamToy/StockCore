@@ -487,7 +487,7 @@
     "Cache":{
       "Key":"Cache.StockBuilder",
       "IsActive":true,
-      "MinuteToExpire":1440
+      "MinuteToExpire":60
     }
   },
   {
@@ -505,7 +505,7 @@
     "Cache":{
       "Key":"Cache.AllQuoteGroupBuilder",
       "IsActive":true,
-      "MinuteToExpire":1440
+      "MinuteToExpire":60
     },
     "Chain":{
       "Key":"Chain.AllQuoteGroupBuilder",
@@ -527,7 +527,7 @@
     "Cache":{
       "Key":"Cache.StockByGroupBuilder",
       "IsActive":true,
-      "MinuteToExpire":1440
+      "MinuteToExpire":60
     },
     "Chain":{
       "Key":"Chain.StockByGroupBuilder",

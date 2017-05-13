@@ -95,8 +95,8 @@ namespace StockCore
                 var logger = loggerFactory.CreateLogger<Program>();
                 logger.LogDebug("Start application");
 
-                syncBackupData(serviceProvider);
-                seedGroup(serviceProvider);
+                //syncBackupData(serviceProvider);
+                //seedGroup(serviceProvider);
                 syncWeb(serviceProvider);                
 
                 //var groups = getAllQuoteGroup(serviceProvider);
