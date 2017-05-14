@@ -18,5 +18,6 @@ namespace StockCore.DomainEntity
         public IEnumerable<Peg> Peg{get;set;}
         public IEnumerable<PeDiffPercent> PeDiffPercent{get;set;}
         public MovingAverage MovingAverage{get;set;}
+        public PortCal PortCal{get;set;}
     }
 }

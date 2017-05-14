@@ -60,6 +60,7 @@ namespace StockCore
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Share>>>, SyncShareFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<Statistic>>>, SyncStatisticFactory>()
                     .AddScoped<IFactory<string, IOperation<IEnumerable<SetIndex>>>, SyncSetIndexFactory>()
+                    .AddScoped<IFactory<string, IOperation<IEnumerable<QuoteMovement>>>, SyncQuoteMovementFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Consensus>,string>>, ConsensusHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<Price>,string>>, PriceHtmlReaderFactory>()
                     .AddScoped<IFactory<string, IGetByKey<IEnumerable<SetIndex>,string>>, SetIndexHtmlReaderFactory>()
@@ -70,7 +71,8 @@ namespace StockCore
                     .AddScoped<IFactory<string, IGetByKeyRepo<Share,string>>, DBShareRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Statistic,string>>, DBStatisticRepoFactory>()
                     .AddScoped<IFactory<string, IGetByKeyRepo<Price,string>>, DBPriceRepoFactory>()
-                    .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroup,string>>, DBQuoteGroupRepoFactory>()                                   
+                    .AddScoped<IFactory<string, IGetByKeyRepo<QuoteGroup,string>>, DBQuoteGroupRepoFactory>()
+                    .AddScoped<IFactory<string, IGetByKeyRepo<QuoteMovement,string>>, DBQuoteMovementRepoFactory>()            
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<Stock>>>, DBCacheRepoFactory<Stock>>()
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<QuoteGroup>>>>, DBCacheRepoFactory<IEnumerable<QuoteGroup>>>()
                     .AddScoped<IFactory<string, IGetByFuncRepo<string,StockCoreCache<IEnumerable<Stock>>>>, DBCacheRepoFactory<IEnumerable<Stock>>>()
@@ -87,7 +89,6 @@ namespace StockCore
                     .AddTransient<IHtmlDocumentWrapper,HtmlDocumentWrapper>()
                     .AddTransient<IHttpClientWrapper>(_=> new HttpClientWrapper(new HttpClient()));
                 
-                //var serviceProvider = configureAutoFac(services);
                 var serviceProvider = services.BuildServiceProvider();
 
                 /*Test logger by default DI */
@@ -97,13 +98,14 @@ namespace StockCore
 
                 //syncBackupData(serviceProvider);
                 //seedGroup(serviceProvider);
-                syncWeb(serviceProvider);                
+                syncWeb(serviceProvider);         
+                //syncQuoteMovement(serviceProvider);       
 
                 //var groups = getAllQuoteGroup(serviceProvider);
                 //var groupName = "All";
                 //var stocks = getStockByGroup(serviceProvider,groupName);
-                //var groupName = "Sell";
-                //var stocks = getStockByGroup(serviceProvider,groupName);
+                //var quote = "work";
+                //var stock = getStockInfo(serviceProvider,quote);
             }        
             catch(Exception ex)
             {   
@@ -160,8 +162,7 @@ namespace StockCore
         }
         private static void syncBackupData(IServiceProvider serviceProvider)
         {
-            var sampleData = BackupStockData.Sample1;
-            //var sampleData = BackupStockData.Sample1.Where(b=>b.Key=="ait");
+            var sampleData = BackupStockData.DataV2;
 
             var backupPrice = from backup in sampleData
                 where backup.Prices != null
@@ -207,6 +208,23 @@ namespace StockCore
                 await seedStatisticTask;
             }).GetAwaiter().GetResult();
         }
+        private static void syncQuoteMovement(IServiceProvider serviceProvider)
+        {
+            try
+            {
+                using(var syncQuoteMovement = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<QuoteMovement>>>>())
+                {
+                    var tracer=new Tracer().Load(0,null,"Start Quote Movement",TraceSourceName.TestConsole);                    
+                    var operation = syncQuoteMovement.Build(tracer);
+                    var data = QuoteMovementData.DataV2;
+                    Task.Run(async()=>await operation.OperateAsync(data)).GetAwaiter().GetResult();
+                }
+            }        
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
         private static void syncWeb(IServiceProvider serviceProvider)
         {
             try
@@ -220,7 +238,6 @@ namespace StockCore
                     };
                     var operation = syncAllFactory.Build(tracer);
                     var quotes = QuoteGroupData.DataV2.SelectMany(g=>g.Quotes);
-                    //var quotes = QuoteGroupData.PrepareData.SelectMany(g=>g.Quotes);//.Where(g=>g.Name=="Check").SelectMany(g=>g.Quotes);
                     Task.Run(async()=>await operation.OperateAsync(quotes)).GetAwaiter().GetResult();
                 }
             }        
@@ -236,7 +253,6 @@ namespace StockCore
                 var tracer=new Tracer().Load(0,null,"Start Seed Group",TraceSourceName.TestConsole);
                 var operation = serviceProvider.GetService<IFactory<string,IOperation<IEnumerable<QuoteGroup>>>>().Build(tracer);
                 var seedGroup = QuoteGroupData.DataV2;
-                //var seedGroup = QuoteGroupData.PrepareData;//.Where(g=>g.Name=="Check");
                 Task.Run(async()=> await operation.OperateAsync(seedGroup)).GetAwaiter().GetResult();
             }        
             catch(Exception ex)

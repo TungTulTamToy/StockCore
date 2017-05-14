@@ -29,6 +29,7 @@ namespace StockCore.Factory.Builder
         private readonly IFactory<string, IGetByKeyRepo<Price,string>> priceRepoFactory;
         private readonly IFactory<string, IGetByFuncRepo<string,StockCoreCache<Stock>>> cacheRepoFactory;
         private readonly IFactory<string, IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>>> priceCalBuilderFactory;
+        private readonly IFactory<string, IGetByKeyRepo<QuoteMovement,string>> quoteMovementRepoFactory;
         public StockBuilderFactory(ILogger logger,
             IFactory<string, IGetByKeyRepo<Share,string>> shareRepoFactory,
             IFactory<string, IGetByKeyRepo<Statistic,string>> statisticRepoFactory,
@@ -36,6 +37,7 @@ namespace StockCore.Factory.Builder
             IFactory<string, IGetByKeyRepo<Price,string>> priceRepoFactory,
             IFactory<string, IGetByFuncRepo<string,StockCoreCache<Stock>>> cacheRepoFactory,
             IFactory<string, IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>>> priceCalBuilderFactory,
+            IFactory<string, IGetByKeyRepo<QuoteMovement,string>> quoteMovementRepoFactory,
             IConfigReader<IModule> moduleReader
             ):base(processErrID:PROCESSERRID,outerErrID:OUTERERRID,ID:ID,keyName:KEY,logger:logger)
         {
@@ -45,18 +47,20 @@ namespace StockCore.Factory.Builder
             this.priceRepoFactory = priceRepoFactory;
             this.cacheRepoFactory = cacheRepoFactory;
             this.priceCalBuilderFactory = priceCalBuilderFactory;
+            this.quoteMovementRepoFactory = quoteMovementRepoFactory;
             this.moduleReader = moduleReader;
         }
         protected override IBuilder<string, Stock> baseFactoryBuild(Tracer tracer,string t="")
         {
             IBuilder<string, Stock> inner = new StockBuilder(
-                logger,
-                shareRepoFactory.Build(tracer),
-                statisticRepoFactory.Build(tracer),
-                consensusRepoFactory.Build(tracer),
-                priceRepoFactory.Build(tracer),
-                priceCalBuilderFactory.Build(tracer),
-                DateTime.Now);
+                logger:logger,
+                shareRepo:shareRepoFactory.Build(tracer),
+                statisticRepo:statisticRepoFactory.Build(tracer),
+                consensusRepo:consensusRepoFactory.Build(tracer),
+                priceRepo:priceRepoFactory.Build(tracer),
+                priceCalBuilder:priceCalBuilderFactory.Build(tracer),
+                quoteMovementRepo:quoteMovementRepoFactory.Build(tracer),
+                asOfDate:DateTime.Now);
             var module = moduleReader.GetByKey(getAopKey());
             inner = loadCachingDecorator(tracer, inner, module);
             inner = loadMonitoringDecorator(tracer, inner, module);

@@ -5,7 +5,7 @@ namespace StockCore.DomainEntity.Data
 {
     public class BackupStockData
     {
-        public static IEnumerable<BackupStockDE> Sample1
+        public static IEnumerable<BackupStockDE> DataV2
         {
             get
             {

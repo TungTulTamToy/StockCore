@@ -18,6 +18,7 @@ namespace StockCore.Business.Builder
         private readonly IGetByKey<IEnumerable<Consensus>,string> consensusRepo;
         private readonly IGetByKey<IEnumerable<Price>,string> priceRepo;
         private readonly IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>> priceCalBuilder;
+        private readonly IGetByKey<IEnumerable<QuoteMovement>,string> quoteMovementRepo;
         private readonly DateTime asOfDate;
         public StockBuilder(
             ILogger logger,
@@ -26,6 +27,7 @@ namespace StockCore.Business.Builder
             IGetByKey<IEnumerable<Consensus>,string> consensusRepo,
             IGetByKey<IEnumerable<Price>,string> priceRepo,
             IBuilder<IEnumerable<Price>, IEnumerable<PriceCal>> priceCalBuilder,
+            IGetByKey<IEnumerable<QuoteMovement>,string> quoteMovementRepo,
             DateTime asOfDate)
         {
             this.logger = logger;
@@ -34,6 +36,7 @@ namespace StockCore.Business.Builder
             this.consensusRepo = consensusRepo;
             this.priceRepo = priceRepo;
             this.priceCalBuilder = priceCalBuilder;
+            this.quoteMovementRepo = quoteMovementRepo;
             this.asOfDate = asOfDate;
         }
         public async Task<Stock> BuildAsync(string quote)
@@ -42,11 +45,13 @@ namespace StockCore.Business.Builder
             var statisticTask = statisticRepo.GetByKeyAsync(quote);
             var consensusTask = consensusRepo.GetByKeyAsync(quote);
             var priceTask = priceRepo.GetByKeyAsync(quote);
+            var quoteMovementTask = quoteMovementRepo.GetByKeyAsync(quote);
 
             var share = await shareTask;
             var statistic = await statisticTask;
             var consensus = await consensusTask;
             var price = await priceTask;
+            var quoteMovement = await quoteMovementTask;
 
             var priceCal = priceCalBuilder.Build(price);
             var movingAverage = calculateMACD(price);     
@@ -59,10 +64,36 @@ namespace StockCore.Business.Builder
             var pe = calculatePe(price,statistic,shareByYear,consensus);
             var peg = calculatePeg(pe,growth);
             var ped = calculatePeDiffPercent(pe);
+            
+            var portCal = calculateMinPriceDiffPercent(price,quoteMovement);
 
-            var stock = new Stock().Load(quote,netProfit,growth,priceCal,pe,peg,ped,movingAverage);         
+            var stock = new Stock().Load(quote,netProfit,growth,priceCal,pe,peg,ped,movingAverage,portCal);         
 
             return stock;
+        }
+        private PortCal calculateMinPriceDiffPercent(IEnumerable<Price> price, IEnumerable<QuoteMovement> quoteMovement)
+        {
+            PortCal portCal = null;
+            if(price!=null && price.Any() && quoteMovement!=null && quoteMovement.Any())
+            {
+                var lastPrice = price.OrderByDescending(p=>p.Date).FirstOrDefault().Close;
+                var buyPrice = quoteMovement
+                    .Where(q=>q.Transaction!=null&&q.Transaction.Any())
+                    .SelectMany(q=>q.Transaction)
+                    .Where(t=>t.BuyOrder!=null && t.SellOrder==null)
+                    .Select(t=>t.BuyOrder.Price);
+                if(buyPrice!=null && buyPrice.Any())
+                {
+                    var minPrice = buyPrice.OrderBy(p=>p).FirstOrDefault();
+                    var maxPrice = buyPrice.OrderByDescending(p=>p).FirstOrDefault();
+                    portCal = new PortCal()
+                    {
+                        MinPriceDiffPercent = ((lastPrice-minPrice)/minPrice)*100,
+                        MaxPriceDiffPercent = ((lastPrice-maxPrice)/maxPrice)*100
+                    };
+                }
+            }
+            return portCal;
         }
         private IEnumerable<PeDiffPercent> calculatePeDiffPercent(IEnumerable<Pe> pe)
         {

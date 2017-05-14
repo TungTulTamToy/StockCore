@@ -14,7 +14,8 @@ namespace StockCore.DomainEntity
             IEnumerable<Pe> pe,
             IEnumerable<Peg> peg,
             IEnumerable<PeDiffPercent> pediffpercent,
-            MovingAverage movingAverage)
+            MovingAverage movingAverage,
+            PortCal portCal)
         {
             item.Quote = quote;
             item.NetProfit = netprofit;
@@ -24,6 +25,7 @@ namespace StockCore.DomainEntity
             item.Peg = peg;
             item.PeDiffPercent = pediffpercent;
             item.MovingAverage = movingAverage;
+            item.PortCal = portCal;
             return item;
         }
     }
