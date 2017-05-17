@@ -30,9 +30,9 @@ namespace StockCore.Factory
             TResult t = default(TResult);
             var tracer = getTracer(caller);
             baseDecOperate(
-                process:()=>t=baseFactoryBuild(tracer,intput),
-                processFail:(ex)=>processFail(ex,processErrID,tracer,"Build"),    
-                finalProcessFail:(e)=>processFail(e,outerErrID,tracer,"Build"));
+                processMainPath:()=>t=baseFactoryBuild(tracer,intput),
+                catchBlockProcess:(ex)=>processFail(ex,processErrID,tracer,"Build"),    
+                unexpectedCatchBlockProcess:(e)=>processFail(e,outerErrID,tracer,"Build"));
             return t;
         }
         protected string getAopKey()=>$"Aop.{keyName}";

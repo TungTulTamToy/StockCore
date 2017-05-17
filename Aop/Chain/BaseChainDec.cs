@@ -32,32 +32,32 @@ namespace StockCore.Aop.Chain
             Func<T,T> chain,
             [CallerMemberName]string methodName="")
         {
-            var t = default(T);
+            var item = default(T);
             await baseDecOperateAsync(
-                processAsync: async() => {
-                    t = await innerProcessAsync();
-                    t = chain(t);
+                processMainPathAsync: async() => {
+                    item = await innerProcessAsync();
+                    item = chain(item);
                     },
-                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
-                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
+                catchBlockProcess:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
+                unexpectedCatchBlockProcess:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
             );
-            return t;
+            return item;
         }
         protected T baseChainDecBuild(
             Func<T> innerProcess,
             Func<T,T> chain,            
             [CallerMemberName]string methodName="")
         {
-            var t = default(T);
+            var item = default(T);
             baseDecOperate(
-                process:() => {
-                    t = innerProcess();
-                    t = chain(t);
+                processMainPath:() => {
+                    item = innerProcess();
+                    item = chain(item);
                     },
-                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
-                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
+                catchBlockProcess:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
+                unexpectedCatchBlockProcess:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
             );
-            return t;
+            return item;
         }
     }
 }

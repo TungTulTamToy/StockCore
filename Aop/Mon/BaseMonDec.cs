@@ -43,11 +43,11 @@ namespace StockCore.Aop.Mon
             var subModule = module.OverrideConfigFromSubModuleIfAny(methodName);
             await baseDecOperateAsync(
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
-                validate:()=> validate(logger,tracer,module.Key,methodName),
-                processAsync: async() => result = await innerProcessAsync(),
-                processFail:(ex)=>composeAndThrowException(ex,processErrorID,methodName,input),
-                postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>composeAndThrowException(e,outerErrorID,methodName,input)
+                determinePath:()=> validate(logger,tracer,module.Key,methodName),
+                processMainPathAsync: async() => result = await innerProcessAsync(),
+                catchBlockProcess:(ex)=>composeAndThrowException(ex,processErrorID,methodName,input),
+                finallyBlockProcess:()=>postProcess(input,result,sw,methodName,subModule),
+                unexpectedCatchBlockProcess:(e)=>composeAndThrowException(e,outerErrorID,methodName,input)
             );
             sw = null;
             return result;
@@ -63,11 +63,11 @@ namespace StockCore.Aop.Mon
             var subModule = module.OverrideConfigFromSubModuleIfAny(methodName);
             baseDecOperate(
                 preProcess:()=>sw = preProcess(input,sw,methodName,subModule),
-                validate:()=> validate(logger,tracer,module.Key,methodName),
-                process:() => result = innerProcess(),
-                processFail:(ex)=>composeAndThrowException(ex,processErrorID,methodName,input),
-                postProcess:()=>postProcess(input,result,sw,methodName,subModule),
-                finalProcessFail:(e)=>composeAndThrowException(e,outerErrorID,methodName,input)
+                determinePath:()=> validate(logger,tracer,module.Key,methodName),
+                processMainPath:() => result = innerProcess(),
+                catchBlockProcess:(ex)=>composeAndThrowException(ex,processErrorID,methodName,input),
+                finallyBlockProcess:()=>postProcess(input,result,sw,methodName,subModule),
+                unexpectedCatchBlockProcess:(e)=>composeAndThrowException(e,outerErrorID,methodName,input)
             );
             sw = null;
             return result;

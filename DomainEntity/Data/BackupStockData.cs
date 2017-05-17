@@ -2970,6 +2970,48 @@ namespace StockCore.DomainEntity.Data
                             new Share{Amount=14285700000,Date=new DateTime(2014,1,31)},
                             new Share{Amount=14285700000,Date=new DateTime(2013,1,31)}
                         }
+                    },
+                    new BackupStockDE()
+                    {
+                        Quote = "bpp",
+                        Prices = new Price[] 
+                        { 
+                            new Price {Close=24.8,Date=new DateTime(2017,1,1)}
+                        },
+                        Statistics = new Statistic[]
+                        {
+                            new Statistic{NetProfit=4138.13,Year=2016}
+                        },
+                        Shares = new Share[] 
+                        {
+                            new Share{Amount=3045692000,Date=new DateTime(2016,1,31)}
+                        }
+                    },
+                    new BackupStockDE()
+                    {
+                        Quote = "tasco",
+                        Prices = new Price[] 
+                        { 
+                            new Price {Close=19,Date=new DateTime(2017,1,1)},
+                            new Price {Close=33.25,Date=new DateTime(2016,1,1)},
+                            new Price {Close=8.18,Date=new DateTime(2015,1,1)},
+                            new Price {Close=4.6,Date=new DateTime(2014,1,1)},
+                            new Price {Close=4.7,Date=new DateTime(2013,1,1)}
+                        },
+                        Statistics = new Statistic[]
+                        {
+                            new Statistic{NetProfit=3110.13,Year=2016},
+                            new Statistic{NetProfit=5078.76,Year=2015},
+                            new Statistic{NetProfit=1200.43,Year=2014},
+                            new Statistic{NetProfit=831.45,Year=2013}
+                        },
+                        Shares = new Share[] 
+                        {
+                            new Share{Amount=1554329570,Date=new DateTime(2016,1,31)},
+                            new Share{Amount=1554329570,Date=new DateTime(2015,1,31)},
+                            new Share{Amount=1554329570,Date=new DateTime(2014,1,31)},
+                            new Share{Amount=1554329570,Date=new DateTime(2013,1,31)}
+                        }
                     }
                 };
             }

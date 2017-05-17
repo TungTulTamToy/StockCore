@@ -40,15 +40,15 @@ namespace StockCore.Aop.Cache
             T item = default(T);
             string key = "";
             await baseDecOperateAsync(
-                validateAsync:async()=> {
+                determinePathAsync:async()=> {
                     key = getKey(module.Key,methodName);
                     item = await getItemFromCacheAsync(key);
                     return item != null;},
-                invalidProcessAsync: async()=> {
+                processAlternativePathAsync: async()=> {
                     item = await buildInnerAsync();
                     await createCacheAsync(key,item);},
-                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,info:$"Key:[{key}]"),
-                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,info:$"Key:[{key}]")
+                catchBlockProcess:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,info:$"Key:[{key}]"),
+                unexpectedCatchBlockProcess:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,info:$"Key:[{key}]")
             );
             return item;
         }

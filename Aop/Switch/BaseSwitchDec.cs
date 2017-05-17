@@ -32,11 +32,11 @@ namespace StockCore.Aop.Switch
             [CallerMemberName]string methodName="")
         {
             baseDecOperate(
-                validate:()=>determineSwitch(),
-                process:()=>regularInner(),
-                invalidProcess:()=>switchInner(),
-                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
-                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
+                determinePath:()=>determineSwitch(),
+                processMainPath:()=>regularInner(),
+                processAlternativePath:()=>switchInner(),
+                catchBlockProcess:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
+                unexpectedCatchBlockProcess:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
             );
         }
         protected async Task baseSwitchDecOperateAsync(
@@ -46,11 +46,11 @@ namespace StockCore.Aop.Switch
             [CallerMemberName]string methodName="")
         {
             await baseDecOperateAsync(
-                validate:()=>determineSwitch(),
-                processAsync:async()=>await regularInnerAsync(),
-                invalidProcessAsync:async()=>await switchInnerAsync(),
-                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
-                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
+                determinePath:()=>determineSwitch(),
+                processMainPathAsync:async()=>await regularInnerAsync(),
+                processAlternativePathAsync:async()=>await switchInnerAsync(),
+                catchBlockProcess:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
+                unexpectedCatchBlockProcess:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
             );
         }
     }

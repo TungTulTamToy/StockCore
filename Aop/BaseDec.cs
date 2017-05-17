@@ -11,18 +11,18 @@ namespace StockCore.Aop
         protected async Task baseDecOperateAsync(
             Action preProcess=null,   
             Func<Task> preProcessAsync=null,         
-            Func<bool> validate=null,
-            Func<Task<bool>> validateAsync=null,
-            Action process=null,
-            Func<Task> processAsync=null,
-            Action invalidProcess=null,
-            Func<Task> invalidProcessAsync=null,
-            Action<Exception> processFail=null,
-            Func<Exception,Task> processFailAsync=null,
-            Action postProcess=null,
-            Func<Task> postProcessAsync=null,
-            Action<Exception> finalProcessFail=null,
-            Func<Exception,Task> finalProcessFailAsync=null
+            Func<bool> determinePath=null,
+            Func<Task<bool>> determinePathAsync=null,
+            Action processMainPath=null,
+            Func<Task> processMainPathAsync=null,
+            Action processAlternativePath=null,
+            Func<Task> processAlternativePathAsync=null,
+            Action<Exception> catchBlockProcess=null,
+            Func<Exception,Task> catchBlockProcessAsync=null,
+            Action finallyBlockProcess=null,
+            Func<Task> finallyBlockProcessAsync=null,
+            Action<Exception> unexpectedCatchBlockProcess=null,
+            Func<Exception,Task> unexpectedCatchBlockProcessAsync=null
             )
         {
             try
@@ -30,37 +30,37 @@ namespace StockCore.Aop
                 try
                 {
                     await operateAsync(preProcess,preProcessAsync);
-                    if(await buildAsync(validate,validateAsync,true))
+                    if(await buildAsync(determinePath,determinePathAsync,true))
                     {
-                        await operateAsync(process,processAsync);
+                        await operateAsync(processMainPath,processMainPathAsync);
                     }
                     else
                     {
-                        await operateAsync(invalidProcess,invalidProcessAsync);
+                        await operateAsync(processAlternativePath,processAlternativePathAsync);
                     }
                 }
                 catch(Exception ex)
                 {
-                    await operateFailAsync(ex,processFail,processFailAsync);    
+                    await operateFailAsync(ex,catchBlockProcess,catchBlockProcessAsync);    
                 }
                 finally
                 {
-                    await operateAsync(postProcess,postProcessAsync);    
+                    await operateAsync(finallyBlockProcess,finallyBlockProcessAsync);    
                 }
             }
             catch(Exception e)
             {
-                await operateFailAsync(e,finalProcessFail,finalProcessFailAsync);    
+                await operateFailAsync(e,unexpectedCatchBlockProcess,unexpectedCatchBlockProcessAsync);    
             }
         }
         protected void baseDecOperate(
             Action preProcess=null,   
-            Func<bool> validate=null,
-            Action process=null,
-            Action invalidProcess=null,
-            Action<Exception> processFail=null,
-            Action postProcess=null,
-            Action<Exception> finalProcessFail=null
+            Func<bool> determinePath=null,
+            Action processMainPath=null,
+            Action processAlternativePath=null,
+            Action<Exception> catchBlockProcess=null,
+            Action finallyBlockProcess=null,
+            Action<Exception> unexpectedCatchBlockProcess=null
             )
         {
             try
@@ -68,35 +68,35 @@ namespace StockCore.Aop
                 try
                 {
                     operate(preProcess);
-                    var validateResult = true;
-                    if(validate!=null)
+                    var isMainPath = true;
+                    if(determinePath!=null)
                     {
-                        validateResult = validate();
+                        isMainPath = determinePath();
                     }
-                    if(validateResult)
+                    if(isMainPath)
                     {
-                        operate(process);
+                        operate(processMainPath);
                     }
                     else
                     {
-                        operate(invalidProcess);
+                        operate(processAlternativePath);
                     }
                 }
                 catch(Exception ex)
                 {
-                    if(processFail!=null)
+                    if(catchBlockProcess!=null)
                     {
-                        processFail(ex);
+                        catchBlockProcess(ex);
                     }
                 }
                 finally
                 {
-                    operate(postProcess);    
+                    operate(finallyBlockProcess);    
                 }
             }
             catch(Exception e)
             {
-                finalProcessFail(e);
+                unexpectedCatchBlockProcess(e);
             }
         }
         private void operate(Action process)

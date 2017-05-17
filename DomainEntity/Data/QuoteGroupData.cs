@@ -19,7 +19,8 @@ namespace StockCore.DomainEntity.Data
                             "tvo","ait","jubile","m","hotpot","bdms","true","rs","intuch","cpall",
                             "makro","grammy","mcot","top","aav","nok","kbank","bay","samart","thcom",
                             "gfpt","lpn","spali","robins","egco","glow","ratch","ktc","mfec","aeonts",
-                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel","aot"},
+                            "tkn","oishi","bh","ntv","kcar","stpi","gpsc","ba","thai","centel",
+                            "aot","bpp","tasco"},
                         Order = 1,
                         IsDefault = true
                     },
@@ -31,7 +32,7 @@ namespace StockCore.DomainEntity.Data
                         },
                     new QuoteGroup(){
                         Name = "Industry",
-                        Quotes = new[]{"smit","mcs","snc","bjchi","bwg","ttw","singer","stpi"},
+                        Quotes = new[]{"smit","mcs","snc","bjchi","bwg","ttw","singer","stpi","tasco"},
                         Order = 7,
                         IsDefault = false
                         },
@@ -127,7 +128,7 @@ namespace StockCore.DomainEntity.Data
                         },
                     new QuoteGroup(){
                         Name = "Electricity",
-                        Quotes = new[]{"egco","glow","ratch","gpsc"},
+                        Quotes = new[]{"egco","glow","ratch","gpsc","bpp"},
                         Order = 22,
                         IsDefault = false
                         },

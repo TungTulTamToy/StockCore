@@ -33,10 +33,10 @@ namespace StockCore.Aop.PreFilter
             [CallerMemberName]string methodName="")
         {
             await baseDecOperateAsync(
-                validate:()=> preFilter(),
-                processAsync: async() => await innerProcessAsync(),
-                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
-                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
+                determinePath:()=> preFilter(),
+                processMainPathAsync: async() => await innerProcessAsync(),
+                catchBlockProcess:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
+                unexpectedCatchBlockProcess:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
             );
         }
         protected void basePreFilterDecBuild(
@@ -45,10 +45,10 @@ namespace StockCore.Aop.PreFilter
             [CallerMemberName]string methodName="")
         {
             baseDecOperate(
-                validate:()=> preFilter(),
-                process:() => innerProcess(),
-                processFail:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
-                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
+                determinePath:()=> preFilter(),
+                processMainPath:() => innerProcess(),
+                catchBlockProcess:(ex)=>ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName),
+                unexpectedCatchBlockProcess:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName)
             );
         }
     }

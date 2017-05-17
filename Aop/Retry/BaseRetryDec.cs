@@ -44,21 +44,21 @@ namespace StockCore.Aop.Retry
             IEnumerable<OperationState> items = null;
             string key = "";
             await baseDecOperateAsync(
-                validateAsync:async()=>{
+                determinePathAsync:async()=>{
                     key = getKey(module.Key,methodName);
                     items = await operationStateRepo.GetByKeyAsync(key);
                     return shouldRetryAsync(items,operationName);
                 },
-                processAsync:async()=>{
+                processMainPathAsync:async()=>{
                     await innerProcessAsync();
                     await saveStateAsync(items,key,true,operationName);
                 },
-                invalidProcess:()=>logger.TraceMessage(module.Key,$"[{key}] No retry."),
-                processFailAsync:async(ex)=> {
+                processAlternativePath:()=>logger.TraceMessage(module.Key,$"[{key}] No retry."),
+                catchBlockProcessAsync:async(ex)=> {
                     await saveStateAsync(items,key,false,operationName);
                     ProcessFailHelper.ComposeAndThrowException(logger,ex,processErrorID,module.Key,methodName,info:$"Key:[{key}]");
                 },
-                finalProcessFail:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,info:$"Key:[{key}]")
+                unexpectedCatchBlockProcess:(e)=>ProcessFailHelper.ComposeAndThrowException(logger,e,outerErrorID,module.Key,methodName,info:$"Key:[{key}]")
             );
         }
         private bool shouldRetryAsync(IEnumerable<OperationState> items,OperationName operationName)
