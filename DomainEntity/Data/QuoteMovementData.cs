@@ -528,6 +528,97 @@ namespace StockCore.DomainEntity.Data
                                 SellOrder = new Order(){Date = new DateTime(2016,03,07),Price = 182.5,Volumn = 400,Amount = 72877}
                             }
                         }
+                    },
+                    new QuoteMovement()
+                    {
+                        Quote = "mcs",
+                        Transaction = new List<Transaction>()
+                        {
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2012,10,11),Price = 6.4,Volumn = 8000,Amount = 51286}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2013,04,09),Price = 5.15,Volumn = 10000,Amount = 51587},
+                                SellOrder = new Order(){Date = new DateTime(2016,11,10),Price = 17.2,Volumn = 10000,Amount = 171710}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2014,01,13),Price = 3.98,Volumn = 12000,Amount = 47841},
+                                SellOrder = new Order(){Date = new DateTime(2014,02,25),Price = 4.68,Volumn = 12000,Amount = 56065}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2017,05,19),Price = 15.1,Volumn = 4600,Amount = 69577}
+                            }
+                        }
+                    },
+                    new QuoteMovement()
+                    {
+                        Quote = "delta",
+                        Transaction = new List<Transaction>()
+                        {
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2013,06,04),Price = 36.25,Volumn = 1400,Amount = 50836}
+                            }
+                        }
+                    },
+                    new QuoteMovement()
+                    {
+                        Quote = "pttgc",
+                        Transaction = new List<Transaction>()
+                        {
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2007,12,28),Price = 90.77,Volumn = 1155,Amount = 105008}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2012,11,07),Price = 62.5,Volumn = 1000,Amount = 62606},
+                                SellOrder = new Order(){Date = new DateTime(2013,05,10),Price = 76.5,Volumn = 1000,Amount = 76370}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2014,06,16),Price = 67.5,Volumn = 1000,Amount = 67614},
+                                SellOrder = new Order(){Date = new DateTime(2017,04,05),Price = 72.5,Volumn = 1000,Amount = 72378}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2014,10,16),Price = 58,Volumn = 1200,Amount = 69718},
+                                SellOrder = new Order(){Date = new DateTime(2015,06,19),Price = 69,Volumn = 1200,Amount = 82660}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2015,08,24),Price = 49.25,Volumn = 1400,Amount = 69066},
+                                SellOrder = new Order(){Date = new DateTime(2016,03,06),Price = 58.75,Volumn = 1400,Amount = 82111}
+                            }
+                        }
+                    },
+                    new QuoteMovement()
+                    {
+                        Quote = "snc",
+                        Transaction = new List<Transaction>()
+                        {
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2013,02,04),Price = 25.25,Volumn = 2700,Amount = 68290}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2013,03,25),Price = 22.5,Volumn = 3000,Amount = 67614}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2013,10,14),Price = 19.8,Volumn = 2500,Amount = 49584}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2014,10,17),Price = 15.1,Volumn = 4600,Amount = 69577},
+                                SellOrder = new Order(){Date = new DateTime(2014,03,29),Price = 16.8,Volumn = 4600,Amount = 77150}
+                            }
+                        }
                     }
                 };
             }
