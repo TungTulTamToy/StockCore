@@ -1218,6 +1218,7 @@ namespace StockCore.DomainEntity.Data
                         },
                         Shares = new Share[] 
                         {
+                            new Share{Amount=1599599999,Date=new DateTime(2016,5,18)},                            
                             new Share{Amount=1599599999,Date=new DateTime(2016,1,31)},
                             new Share{Amount=1599599999,Date=new DateTime(2015,1,31)},
                             new Share{Amount=1599599999,Date=new DateTime(2014,1,31)},

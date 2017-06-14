@@ -201,7 +201,7 @@
     "PreFilter":{
       "Key":"PreFilter.HtmlShareGetByKey",
       "IsActive":true,
-      "Criteria":"scb,bh"
+      "Criteria":"scb,bh,bjchi"
     }
   },
   {
