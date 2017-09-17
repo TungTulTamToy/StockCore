@@ -486,6 +486,10 @@ namespace StockCore.DomainEntity.Data
                             {
                                 BuyOrder = new Order(){Date = new DateTime(2017,03,01),Price = 97,Volumn = 800,Amount = 77730},
                                 SellOrder = new Order(){Date = new DateTime(2017,04,04),Price = 103.5,Volumn = 800,Amount = 82661}
+                            },
+                            new Transaction()
+                            {
+                                BuyOrder = new Order(){Date = new DateTime(2017,09,01),Price = 87.75,Volumn = 800,Amount = 70318}
                             }
                         }
                     },
@@ -534,7 +538,8 @@ namespace StockCore.DomainEntity.Data
                             },
                             new Transaction()
                             {
-                                BuyOrder = new Order(){Date = new DateTime(2015,07,09),Price = 182,Volumn = 400,Amount = 72923}
+                                BuyOrder = new Order(){Date = new DateTime(2015,07,09),Price = 182,Volumn = 400,Amount = 72923},
+                                SellOrder = new Order(){Date = new DateTime(2017,09,01),Price = 202,Volumn = 400,Amount = 80664}
                             },
                             new Transaction()
                             {
@@ -668,7 +673,8 @@ namespace StockCore.DomainEntity.Data
                         {
                             new Transaction()
                             {
-                                BuyOrder = new Order(){Date = new DateTime(2017,06,06),Price = 18.80,Volumn = 3700,Amount = 69676.85}
+                                BuyOrder = new Order(){Date = new DateTime(2017,06,06),Price = 18.80,Volumn = 3700,Amount = 69676.85},
+                                SellOrder = new Order(){Date = new DateTime(2017,09,01),Price = 20.9,Volumn = 3700,Amount = 77200}
                             }
                         }
                     }

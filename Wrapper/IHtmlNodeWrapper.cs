@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using HtmlAgilityPack;
@@ -23,7 +24,6 @@ namespace StockCore.Wrapper
         public IHtmlNodeCollectionWrapper ChildNodes => new HtmlNodeCollectionWrapper(node.ChildNodes);
         public IHtmlNodeWrapper NextSibling => new HtmlNodeWrapper(node.NextSibling);
         public IHtmlNodeWrapper ParentNode => new HtmlNodeWrapper(node.ParentNode);
-
         public IHtmlNodeCollectionWrapper SelectNodes(string xpath)
         {
             HtmlNodeCollectionWrapper wrapper = null;

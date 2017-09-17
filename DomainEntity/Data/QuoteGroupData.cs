@@ -12,7 +12,7 @@ namespace StockCore.DomainEntity.Data
                     new QuoteGroup(){
                         Name = "All",
                         Quotes = new[]{
-                            "work","ptt","earth","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
+                            "work","ptt","banpu","gunkul","ivl","ptl","aj","vnt","bcp",
                             "pttep","pttgc","scc","kce","hana","delta","advanc","dtac","jas","bland",
                             "sc","lh","siri","prin","cpn","smit","mcs","snc","bjchi","bwg",
                             "bec","cpf","bla","scb","bbl","ifs","ttw","singer","hmpro","sta",
@@ -44,7 +44,7 @@ namespace StockCore.DomainEntity.Data
                         },
                     new QuoteGroup(){
                         Name = "Mine",
-                        Quotes = new[]{"banpu","earth"},
+                        Quotes = new[]{"banpu"},
                         Order = 9,
                         IsDefault = false
                         },

@@ -102,9 +102,9 @@ namespace StockCore
                 //syncQuoteMovement(serviceProvider);       
 
                 //var groups = getAllQuoteGroup(serviceProvider);
-                //var groupName = "All";
-                //var stocks = getStockByGroup(serviceProvider,groupName);
-                //var quote = "work";
+                var groupName = "All";
+                var stocks = getStockByGroup(serviceProvider,groupName);
+                //var quote = "bjchi";
                 //var stock = getStockInfo(serviceProvider,quote);
             }        
             catch(Exception ex)
@@ -238,6 +238,7 @@ namespace StockCore
                     };
                     var operation = syncAllFactory.Build(tracer);
                     var quotes = QuoteGroupData.DataV2.SelectMany(g=>g.Quotes);
+                    //var quotes = new []{"ptt"};
                     Task.Run(async()=>await operation.OperateAsync(quotes)).GetAwaiter().GetResult();
                 }
             }        

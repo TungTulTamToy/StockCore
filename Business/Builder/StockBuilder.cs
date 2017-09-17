@@ -59,9 +59,11 @@ namespace StockCore.Business.Builder
             var shareByYear = calculateShareByYear(share);   
 
             var netProfit = calculateNetProfit(statistic,consensus,shareByYear);  
+
             var growth = calculateGrowth(netProfit);
 
             var pe = calculatePe(price,statistic,shareByYear,consensus);
+            
             var peg = calculatePeg(pe,growth);
             var ped = calculatePeDiffPercent(pe);
             
@@ -76,7 +78,7 @@ namespace StockCore.Business.Builder
             PortCal portCal = null;
             if(price!=null && price.Any() && quoteMovement!=null && quoteMovement.Any())
             {
-                var lastPrice = price.OrderByDescending(p=>p.Date).FirstOrDefault().Close;
+                var lastPrice = price.Where(p=>p.Close!=null).OrderByDescending(p=>p.Date).FirstOrDefault().Close;
                 var buyPrice = quoteMovement
                     .Where(q=>q.Transaction!=null&&q.Transaction.Any())
                     .SelectMany(q=>q.Transaction)
@@ -167,7 +169,7 @@ namespace StockCore.Business.Builder
                         IsActual = true
                     };
 
-                var lastPrice = price.OrderByDescending(p=>p.Date).FirstOrDefault();
+                var lastPrice = price.Where(p=>p.Close!=null).OrderByDescending(p=>p.Date).FirstOrDefault();
 
                 //Forward PE
                 pe = pe.Union(from c in consensus
